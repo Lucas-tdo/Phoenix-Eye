@@ -1,0 +1,36 @@
+
+#include "DHT.h" //Inclui uma biblioteca externa própria do sensor
+
+#define TIPO_SENSOR DHT11 //Define o sensor que está sendo utilizado
+const int PORTA_DHT11= A0; //Define em qual porta analógica está conectado
+
+DHT sensorDHT(PORTA_DHT11, TIPO_SENSOR); //Define que as informações coletadas se referem ao sensor informado
+
+void setup() {
+  Serial.begin(9600); //Define a taxa de transferência em bits p/segundo para transmissão serial(baud rate)
+sensorDHT.begin(); //Iniciar a função atrelada ao sensorDHT
+}
+
+void loop() { //Define um processo que será feito em repetição
+
+  float umidade = sensorDHT.readHumidity(); // Cria a variável e define o valor captado pela leitura
+  float temperatura = sensorDHT.readTemperature(); // Cria a variável e define o valor captado pela leitura
+  int MaxTemp = 50; // Criação da variável que carrega a temperatura máxima para que não detecte risco e dispare o alerta
+  int MinUmi = 40; // limite minimo da umidade para que não seja detectado risco e emita um alerta
+
+  Serial.print("UmidMin:"); // Apresenta na plotter serial desta forma a checkbox de limite minimo de umidade
+    Serial.print(MinUmi); //Apresenta no grafico o valor que a variavel carrega de uma forma fixa
+     Serial.print(","); // permite que se mostre os valores armazenados em outra variavel 
+      Serial.print("Umid:");(nome que ficara no checkbox do plotter serial) Mostra no checkbox o valor relacionado a variavel que sera mostrada no grafico 
+    Serial.print(umidade); //Preenche a string com o valor da variavel "umidade"
+     Serial.print(",");// permite que se mostre os valores armazenados em outra variavel
+     Serial.print("Temp:");// mostra na checkbox a palavra temperatura relacionada com o valor que a variavel temperatura recebe
+    Serial.print(temperatura);//Preenche a string com o valor da variavel "temperatura"
+    Serial.print(",");// permite que se mostre os valores armazenados em outra variavel
+    Serial.print("TempMax:");//mostra no checkbox de temperatura o nome relacionado ao dado da variavel que fica relacionado a temperatura maxima    
+    Serial.println(MaxTemp); // mostra no grafico o limite de temperatura que sera fixo 
+
+  
+
+  delay (1000); //Define o tempo para refazer a ação do loop em ms
+}
