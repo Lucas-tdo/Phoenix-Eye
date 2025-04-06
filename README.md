@@ -1,0 +1,1 @@
+Projeto de Pesquisa e Inovação da faculdade SPTech school, no qual implementamos um sensor de temperatura e umidade junto ao Arduino para a medição em áreas de proteção ambiental (APA), enviando esses dados para nosso website que disponibilizará a visualização por meio de gráficos para os usuários, que consequentemente podem tomar decisões com esses dados.
