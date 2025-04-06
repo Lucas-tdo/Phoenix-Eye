@@ -30,15 +30,14 @@ nav{
 
 .foto{
     width: 100%;
-    height: 650px;     
+    height: 625px;     
     background-image: url("https://wallpapers.com/images/featured/4k-floresta-bsj6viu69x5leztf.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;  
     flex-direction: column;
-    
-
 }
+
  #foto_centro{
    width: 50;
 }
@@ -48,9 +47,6 @@ nav{
     justify-content: space-between;
     align-items: center;
     height: 100%;
-
-
-
 }
 figure{
     display: flex;
