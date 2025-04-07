@@ -1,0 +1,12 @@
+Modificações sugeridas:
+-Número serial??? Acho que não tem necessidade pois já existe o idSensor,
+-Quero entender o nível de risco na tabela "Histórico".
+
+
+Modificações necessárias: 
+
+-Redundância na tabela de dados (NomeSensor aparecendo ao em vez de uma FK),
+-Status VARCHAR(50) => Status VARCHAR(20), pois tem uma constraint e o valor máximo da mesma é 20 caracteres,
+-Mudar nome da tabela "Histórico de risco" para apenas "Histórico",
+-Temperatura na tabela "Dados" está como tipo float, já na tabela "Histórico" está como tipo decimal,
+-Adicionar ao histórico de risco a FK do sensor que deu problema.
