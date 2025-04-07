@@ -3,56 +3,28 @@
     margin: 0;
     border: 0;
 }
-/* .container{
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbPYn9OnpszvLIT_0NnDal8FzVuIsNfdTKzA&s");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: aqua;
-} */
 
 
-nav{
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(3, 32, 3, 0.651);
-    height: 60px;
-   
-}
-
-.logo{
-    width: 20px;
-    height: 20px;
-}
-.logo img{
-    width: 55px;
-    height: 55px;
-}
-
-.foto{
+.container{
     width: 100%;
-    height: 625px;     
-    background-image: url("https://wallpapers.com/images/featured/4k-floresta-bsj6viu69x5leztf.jpg");
+    height: 700px;
+}
+
+.home{
+    width: 100%;
+    height:100%;     
+    background-image: url("../assets/imgs/Imagem\ Floresta.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;  
     flex-direction: column;
 }
 
- #foto_centro{
-   width: 50;
-}
-
-.foto_div{
+nav{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: 100%;
-}
-figure{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    background-color: rgba(3, 32, 3, 0.651);
+    height: 60px;
 }
 
 .button{
@@ -68,12 +40,29 @@ figure{
     border: none;
     font-family: Arial, Helvetica, sans-serif;
 }
-figcaption {
-color: #fff;
-font: italic smaller sans-serif;
-font-size: 40px;
-padding: 3px;
-text-align: center;
+
+.logo img{
+    width: 70px;
+    height: 55px;
+}
+
+.meio_home{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+figure{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    font: italic smaller sans-serif;
+    font-size: 40px;
+    padding: 3px;
+    text-align: center;
 }
 
 .contato{
@@ -81,7 +70,6 @@ text-align: center;
     width: 50px;
     height: 200px;
     flex-direction: column;
-    
 }
 
 .contato img{
@@ -89,4 +77,61 @@ text-align: center;
     height: 40px;
     width: 40px;
     padding: 4px;
+}
+
+/* Sobre */
+
+.sobre {
+    background-image: url(../assets/imgs/Imagem\ Floresta.png);
+    height: 700px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.sobre .fundo-verde {
+    background-color: rgba(0, 128, 0, 0.441); 
+    height: 100%;
+    width: 100%;
+}
+
+.fundo-verde {
+    display: flex;
+}
+
+.fundo-verde .conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.fundo-verde .conteudo p {
+    width: 500px;
+    font-size: 25px;
+    text-align: justify;
+    color: white;
+}
+
+#titulo-sobre {
+    font-weight: 1000;
+    text-align: center;
+    font-size: 60px;
+    color: white;
+}
+.linha{
+    background-color: white;
+    width: 500px;
+    height: 3px;
+    border-radius: 15%;
+    margin: 20px;
+}
+
+
+/* footer */
+footer{
+    width: 100%;
+    height: 200px;
+    background-color:rgb(1, 38, 1) ;
 }
