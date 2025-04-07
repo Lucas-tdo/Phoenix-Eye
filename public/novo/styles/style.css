@@ -53,7 +53,7 @@ nav{
     height: 100%;
 }
 
-figure{
+.home figure{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,6 +132,62 @@ figure{
 /* footer */
 footer{
     width: 100%;
-    height: 200px;
+    height: 280px;
     background-color:rgb(1, 38, 1) ;
+    color: white;
+}
+footer .final{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+footer .fcontato{
+    display: flex;
+    flex-direction: column;
+    height: 65%;
+    width: 500px;
+    margin-left: 30px;
+    background-color: aqua;
+}
+footer .fcontato h1{
+    padding-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 0;
+}
+footer .linha{
+        margin-top: 0;
+        background-color: white;
+        width: 400px;
+        height: 3px;
+        border-radius: 15%;
+}
+
+
+.fcontato img{
+    width: 50px;
+    height: 50px;
+    border-radius: 80%;
+    padding: 8px;
+}
+
+footer figure{
+    display: flex;
+    
+}
+
+footer figcaption{
+    color: #fff;
+    font: italic smaller sans-serif;
+    font-size: 25px;
+    padding-top: 15px;
+}
+
+footer .local{
+    width: 700px;
+    background-color: aqua;
+}
+
+footer .logo{
+    width: 300px;
+    background-color: aqua;
 }
