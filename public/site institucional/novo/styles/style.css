@@ -130,64 +130,78 @@ nav{
 
 
 /* footer */
-footer{
+
+.footer{
+    font-family:  Arial, Helvetica, sans-serif;
     width: 100%;
-    height: 280px;
-    background-color:rgb(1, 38, 1) ;
-    color: white;
+    height: 240px;
+    background-color: #001C07;
 }
-footer .final{
+
+.elementos_footer{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  
+    width: 100%;
+    height: 100%;
+    
+  
 }
-footer .fcontato{
+.elemento_filho_footer{
+    display: flex;
+    justify-content: space-between;
+  
+    width: 100%;
+
+    padding: 0 30px;
+    align-items: center;
+}
+
+.contatos{
     display: flex;
     flex-direction: column;
-    height: 65%;
-    width: 500px;
-    margin-left: 30px;
-    background-color: aqua;
+    height: 70%;
+    justify-content: space-around;
 }
-footer .fcontato h1{
-    padding-top: 20px;
-    margin-left: 30px;
-    margin-bottom: 0;
-}
-footer .linha{
-        margin-top: 0;
-        background-color: white;
-        width: 400px;
-        height: 3px;
-        border-radius: 15%;
-}
-
-
-.fcontato img{
-    width: 50px;
-    height: 50px;
-    border-radius: 80%;
-    padding: 8px;
-}
-
-footer figure{
+.contatos div{
     display: flex;
-    
+    align-items: center;
+    gap: 10px;
+    color: white;
 }
 
-footer figcaption{
-    color: #fff;
-    font: italic smaller sans-serif;
-    font-size: 25px;
-    padding-top: 15px;
+.contatos img{
+    height: 40px;
+}
+.contatos span{
+    text-decoration: underline;
 }
 
-footer .local{
-    width: 700px;
-    background-color: aqua;
+.contatos p{
+    font-size: 20px;
 }
 
-footer .logo{
-    width: 300px;
-    background-color: aqua;
+.localizacao img{
+    height: 50px;
+}
+
+.localizacao {
+    display: flex;
+    color: white;
+    align-items: center;
+    font-size: 20px;
+    text-align: center;
+}
+
+.logo_nova{
+    height: 160px;
+}
+.copy{
+    background-color: #001C07;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+    padding: 0 0 30px 0;
+    font-weight: 700;
 }
