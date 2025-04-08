@@ -4,60 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix Eye - Calculadora financeira</title>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    
+   
+    <div class="container">
+        <nav>
+            <div class="imagem">
+                <img src="img/logo_branca.png" alt="">
+            </div>
+            <div class="titulo">
+                <h2>Phoenix Eye - Calculadora Financeira</h2>
+            </div>
+            <div>
 
-    <h2>Phoenix Eye - Calculadora Financeira</h2>
-    <h3><b>Definições</b></h3>
-    
-    <p>Qual a metragem da área protegida? (em m²)</p>
-    <input type="number" id="input_metragem">
-    <p>Tempo de início ao combate no modelo atual (em minutos)</p>
-    <input type="number" id="input_tempoReacaoAtual">
-    <p>Tempo de início ao combate com a solução (em minutos)</p>
-    <input type="number" id="input_tempoReacaoSolucao">
-    <p>Tempo médio para extinção de um incêndio dessa proporção (em minutos)</p>
-    <input type="number" id="input_tempoExtincaoIncendio"> <br><br>
-
-    <h3><b>Premissas</b> - altere se necessário</h3> 
-    
-
-    <p>Velocidade de expansão do fogo (em m/s)</p>
-    <input type="number" id="input_velocidadeFogo" value="1.25">
-    <p>Litros d'água por m² de incêndio</p>
-    <input type="number" id="input_litrosAguaPorM2" value="3.43">
-    <p>Preço do litro de água</p>
-    <input type="number" id="input_precoLitroAgua" value="0.00484">
-    <p>Quantidade de bombeiros</p>
-    <input type="number" id="input_qtdBombeiros" value="" placeholder="10 bombeiros/10000m²">
-    <p>Salário médio dos bombeiros (por hora)</p>
-    <input type="number" id="input_salarioBombeiroHora" value="16.75">
-    <p>Avião no combate ao incêndio?</p>
-    <select id="select_aviao">
-        <option>Sim</option>
-        <option>Não</option> </select>
-    <p>Equipamentos adicionais* (R$/h)</p>
-    <input type="number" id="input_equipsAdicionais" value="" placeholder="Equipamentos">
-
-    <h3><b>Sensores</b></h3>
-    <p>Distância entre sensores (em metros)</p>
-    <input type="number" id="input_sensores" value="50">
-    <p>Preço do sensor (em R$)</p>
-    <input type="number" id="input_precoSensor" value="10">
-
-    <br><br>
-
-    <button onclick="calc()">Simulação</button>
-
-    <h3 id="h3_resultado"></h3>
-    <p id="p_resultado"></p>
-    <p id="p_resultado2"></p>
-
-
+            </div>
+        </nav>
+        <div class="conteudo">
+            <div class="Main">
+                
+            <h3><b>Definições</b></h3>
+            
+            <p>Qual a metragem da área protegida? (em m²)</p>
+            <input type="number" id="input_metragem">
+            <p>Tempo de início:ao combate no modelo atual (em minutos)</p>
+            <input type="number" id="input_tempoReacaoAtual">
+            <p>Tempo de início ao combate com a solução (em minutos)</p>
+            <input type="number" id="input_tempoReacaoSolucao">
+            <p>Tempo médio para extinção de um incêndio dessa proporção (em minutos)</p>
+            <input type="number" id="input_tempoExtincaoIncendio"> <br><br>
+            <button onclick="calc()">Simulação</button>
+            <button onclick="config()">Configuração</button>
+            
+            </div>
+            
+            <div class="logo" id="logo">
+                <img src="img/logo_branca.png" alt="">
+            </div>
+            <div class="nulo" id="premissa1" >
+                <h3>Premissas</h3> 
+                <p>Velocidade de expansão do fogo (em m/s)</p>
+                <input type="number" id="input_velocidadeFogo" value="1.25">
+                <p>Litros d'água por m² de incêndio</p>
+                <input type="number" id="input_litrosAguaPorM2" value="3.43">
+                <p>Preço do litro de água</p>
+                <input type="number" id="input_precoLitroAgua" value="0.00484">
+                <p>Quantidade de bombeiros</p>
+                <input type="number" id="input_qtdBombeiros" value="" placeholder="10 bombeiros/10000m²">
+                <p>Salário médio dos bombeiros (por hora)</p>
+                <input type="number" id="input_salarioBombeiroHora" value="16.75">
+                <p>Avião no combate ao incêndio?</p>
+                <select id="select_aviao">
+                    <option>Sim</option>
+                    <option>Não</option> </select>
+                <p>Equipamentos adicionais* (R$/h)</p>
+                <input type="number" id="input_equipsAdicionais" value="" placeholder="Equipamentos">       
+            </div>
+            <div class="nulo" id="premissa2">
+                <h3><b>Sensores</b></h3>
+                <p>Distância entre sensores (em metros)</p>
+                <input type="number" id="input_sensores" value="50">
+                <p>Preço do sensor (em R$)</p>
+                <input type="number" id="input_precoSensor" value="10"><br>
+                <button onclick="padrao()">Voltar</button>
+            </div>
+            
+        </div>
+        <div id="resposta">
+            <h3 id="h3_resultado"></h3>
+            <p id="p_resultado"></p>
+            <p id="p_resultado2"></p>
+        </div>
+    </div>
+        <br><br>
+    </div>
 </body>
 </html>
 <script>
+    function config(){
+        premissa1.className="config"
+        premissa2.className="Sensor"
+        logo.className="nulo"
+    }
+    function padrao(){
+        premissa1.className="nulo"
+        premissa2.className="nulo"
+        logo.className=" "
+    }
     function calc() {
 
         //Inputs do cliente
