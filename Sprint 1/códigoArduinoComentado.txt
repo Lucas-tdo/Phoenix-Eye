@@ -32,5 +32,5 @@ void loop() { //Define um processo que será feito em repetição
 
   
 
-  delay (1000); //Define o tempo para refazer a ação do loop em ms
+  delay (10000); //Define o tempo para refazer a ação do loop em ms
 }
