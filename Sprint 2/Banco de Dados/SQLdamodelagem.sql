@@ -1,4 +1,5 @@
 use sprint2;
+
 create table orgao(
 idOrgao int primary key auto_increment,
 CNPJ char(15),
@@ -24,5 +25,26 @@ Grid char(1),
 local int,
 fkOrgao int,
 constraint fkOrgao foreign key (fkOrgao) references orgao(idOrgao)
+);
+
+CREATE TABLE sensor (
+idSensor INT PRIMARY KEY AUTO_INCREMENT,
+nomeSensor VARCHAR(30),
+statusSensor VARCHAR(20),
+dtInstalacao DATETIME,
+dtManutencao DATETIME,
+descManutencao VARCHAR(500),
+fkArea INT,
+CONSTRAINT fkArea FOREIGN KEY (fkArea) REFERENCES Area(idArea)
+);
+
+CREATE TABLE dados (
+idDados INT PRIMARY KEY AUTO_INCREMENT,
+temperatura DECIMAL(4,2),
+umidade INT,
+dtMedicao DATETIME,
+nivelRisco INT,
+fkSensor  INT,
+CONSTRAINT fkSensor FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
 );
 
