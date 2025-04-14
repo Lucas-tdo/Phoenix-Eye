@@ -6,7 +6,8 @@
 
 .container{
     width: 100%;
-    height: 617px;
+    height: 700px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .home{
@@ -22,7 +23,7 @@
 nav{
     display: flex;
     justify-content: space-between;
-    background-color: #032003af;
+    background-color: #001c07d2;
     height: 70px;
 }
 
@@ -39,7 +40,6 @@ nav{
     font-size: 18px;
     text-decoration: none;
     border: none;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
 }
 
@@ -64,8 +64,7 @@ nav{
     justify-content: center;
     flex-direction: column;
     color: #fff;
-    background-color: #01270a85;
-    font: italic smaller sans-serif;
+    background-color: #001c0788;
     font-size: 50px;
     font-weight: 700;
     text-align: center;
@@ -93,52 +92,66 @@ nav{
 }
 
 /* Sobre */
-
-.sobre {
-    background-image: url(../assets/imgs/Imagem\ Floresta.png);
-    height: 700px;
-    background-size: cover;
+.container .sobre {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/imgs/Imagem\ Floresta\ \(Sobre\).jpg);
     background-repeat: no-repeat;
-
+    background-size: cover;
 }
 
-.sobre .fundo-verde {
-    background-color: rgba(0, 128, 0, 0.441); 
+.sobre .fundo_verde_sobre{
+    background-color: #001c07d1;
     height: 100%;
     width: 100%;
 }
 
-.fundo-verde {
+.sobre .conteudo {
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
 }
 
-.fundo-verde .conteudo {
+.sobre .conteudo_sobre{
+    width: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    color: white;
+}
+
+.sobre .conteudo_sobre #sobre_nos{
+    text-decoration: overline;
+    font-size: 80px;
+    width: 500px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-left: 25px;
+}
+
+.sobre .conteudo_sobre #texto_sobre{
+    background-color: #001c07c6;
+    font-size: 18px;
+    padding: 25px;
+    height: 280px;
+    line-height: 2.3;
+}
+
+.sobre .conteudo_imagem {
+    display: flex;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    border: 0.5px solid white;
+    border-radius: 80px 2px;
+    width: 490px;
+    height: 450px;
+    background-color: #001c0788;
 }
 
-.fundo-verde .conteudo p {
-    width: 500px;
-    font-size: 25px;
-    text-align: justify;
-    color: white;
-}
-
-#titulo-sobre {
-    font-weight: 1000;
-    text-align: center;
-    font-size: 60px;
-    color: white;
-}
-.linha{
-    background-color: white;
-    width: 500px;
-    height: 3px;
-    border-radius: 15%;
-    margin: 20px;
+.sobre .conteudo_imagem img {
+    width: 400px;
+    height: 350px;
 }
 
 
