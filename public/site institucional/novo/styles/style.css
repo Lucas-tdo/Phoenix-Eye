@@ -4,30 +4,30 @@
     border: 0;
 }
 
-.container{
+.container {
     width: 100%;
     height: 700px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.home{
+.home {
     width: 100%;
-    height:100%;     
+    height: 100%;
     background-image: url("../assets/imgs/Imagem\ Floresta.png");
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;  
+    display: flex;
     flex-direction: column;
 }
 
-nav{
+nav {
     display: flex;
     justify-content: space-between;
     background-color: #001c07d2;
     height: 70px;
 }
 
-.button{
+.button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -35,7 +35,8 @@ nav{
     margin-right: 40px;
     width: auto;
 }
-.button a{
+
+.button a {
     color: white;
     font-size: 18px;
     text-decoration: none;
@@ -44,21 +45,21 @@ nav{
 }
 
 .home .button #img_perfil img {
-    width: 35px; 
+    width: 35px;
 }
 
-.logo img{
+.logo img {
     width: 70px;
 }
 
-.meio_home{
+.meio_home {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-.home figure{
+.home figure {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,21 +71,21 @@ nav{
     text-align: center;
     width: 500px;
     height: 300px;
-    
+
 }
 
 .home figure img {
     width: 200px;
 }
 
-.contato{
+.contato {
     display: flex;
     width: 50px;
     height: 200px;
     flex-direction: column;
 }
 
-.contato img{
+.contato img {
     border-radius: 90%;
     height: 40px;
     width: 40px;
@@ -100,7 +101,7 @@ nav{
     background-size: cover;
 }
 
-.sobre .fundo_verde_sobre{
+.sobre .fundo_verde_sobre {
     background-color: #001c07d1;
     height: 100%;
     width: 100%;
@@ -114,14 +115,14 @@ nav{
     height: 100%;
 }
 
-.sobre .conteudo_sobre{
+.sobre .conteudo_sobre {
     width: 800px;
     display: flex;
     flex-direction: column;
     color: white;
 }
 
-.sobre .conteudo_sobre #sobre_nos{
+.sobre .conteudo_sobre #sobre_nos {
     text-decoration: overline;
     font-size: 80px;
     width: 500px;
@@ -130,7 +131,7 @@ nav{
     margin-left: 25px;
 }
 
-.sobre .conteudo_sobre #texto_sobre{
+.sobre .conteudo_sobre #texto_sobre {
     background-color: #001c07c6;
     font-size: 18px;
     padding: 25px;
@@ -157,56 +158,59 @@ nav{
 
 /* footer */
 
-.footer{
-    font-family:  Arial, Helvetica, sans-serif;
+.footer {
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     height: 240px;
     background-color: #001C07;
 }
 
-.elementos_footer{
+.elementos_footer {
     display: flex;
-  
+
     width: 100%;
     height: 100%;
-    
-  
+
+
 }
-.elemento_filho_footer{
+
+.elemento_filho_footer {
     display: flex;
     justify-content: space-between;
-  
+
     width: 100%;
 
     padding: 0 30px;
     align-items: center;
 }
 
-.contatos{
+.contatos {
     display: flex;
     flex-direction: column;
     height: 70%;
     justify-content: space-around;
 }
-.contatos div{
+
+.contatos div {
     display: flex;
     align-items: center;
     gap: 10px;
     color: white;
 }
 
-.contatos img{
+.contatos img {
     height: 40px;
 }
-.contatos span{
+
+.contatos span {
     text-decoration: underline;
 }
 
-.contatos p{
+.contatos p {
     font-size: 20px;
 }
 
-.localizacao img{
+.localizacao img {
     height: 50px;
 }
 
@@ -218,10 +222,11 @@ nav{
     text-align: center;
 }
 
-.logo_nova{
+.logo_nova {
     height: 160px;
 }
-.copy{
+
+.copy {
     background-color: #001C07;
     color: white;
     display: flex;
@@ -230,4 +235,79 @@ nav{
     font-size: 9px;
     padding: 0 0 30px 0;
     font-weight: 700;
+}
+
+/* LOGIN */
+
+.container #login {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/imgs/Fundo_login.jpg);
+}
+
+#login .login_fundo_verde {
+    background-color: #001c0795;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_fundo_verde .card_login {
+    display: flex;
+    width: 600px;
+    height: 400px;
+    background-color: #001C0795;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.login_fundo_verde .card_login input {
+    width: 100%;
+    height: 30px;
+    align-self: center;
+    background-color: transparent;
+    outline: none;
+    color: white;
+}
+
+.login_fundo_verde .card_login input::placeholder{
+    color: #ffffff91;
+    font-size: 18px;
+}
+
+.titulo_login {
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    font-weight: 700;
+}
+
+.campo_login {
+    display: flex;
+    width: 300px;
+    height: 40px;
+    border-color: white;
+    align-self: center;
+    border-radius: 20px;
+    border: solid white 2px;
+    justify-content: space-between;
+    padding-inline: 10px;
+}
+
+.campo_login img{ 
+    width: 20px;
+    height: 20px;
+    align-self: center;
+}
+
+.button_entrar {
+    width: 200px;
+    height: 40px;
+    align-self: center;
+    border-radius: 30px;
+    color: #001C07;
+    font-weight: 600;
+    font-size: 20px;
 }
