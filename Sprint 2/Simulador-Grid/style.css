@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.areaGrid{
+    display: flex;
+    background-image: url('ChatGPT Image 13 de abr. de 2025, 22_02_17.png');
+    background-size: cover;
+    width: 540px;
+    flex-direction: column;
+}
+
+.areaGrid div{
+    display: flex;
+    flex-direction: row;
+}
+.areaGrid div div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    border: solid 1px white;
+
+}
+
+.areaGrid div div img{
+    height: 30px;
+}
