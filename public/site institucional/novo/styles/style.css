@@ -155,6 +155,9 @@ nav {
     height: 350px;
 }
 
+
+
+
 /* Entre em contato */
 
 .contato_page {
@@ -182,9 +185,8 @@ nav {
     background-color: #02400200;
     width: 700px;
     height: 200px;
-    margin-left: 100px;
-    margin-top: 300px;
-    position: absolute;
+
+ 
 }
 
 #texto_contato {
@@ -200,7 +202,16 @@ nav {
     justify-content: space-around;
     font-size: 25px;
     color: #fff;
-    margin-top: 140px;
+    
+}
+
+.centro_contato{
+    display: flex;
+    width: 100%;
+   
+    height: 550px;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .contatos_contato img {
@@ -220,11 +231,12 @@ nav {
     display: flex;
     flex-direction: column;
     background-color: #001c0795;
-    margin-left: 850px;
-    margin-top: 80px;
     padding-top: 30px;
     height: 340px;
     width: 550px;
+    padding: 0 0 10px 0;
+    justify-content: space-around;
+    align-items: center;
     border-radius: 10px;
 }
 
@@ -235,7 +247,7 @@ nav {
     width: 500px;
     height: 35px;
     text-align: center;
-    margin-left: 20px;
+    
     color: #fff;
 }
 
@@ -246,7 +258,7 @@ nav {
     width: 500px;
     height: 35px;
     text-align: center;
-    margin-left: 20px;
+
     color: #fff;
 }
 
@@ -257,7 +269,7 @@ nav {
     width: 500px;
     height: 150px;
     text-align: center;
-    margin-left: 20px;
+
     color: #fff;
 }
 
@@ -268,16 +280,24 @@ nav {
     width: 250px;
     height: 35px;
     text-align: center;
-    margin-left: 20px;
+    background-color: white;
     font-size: 17px;
+    align-items: flex-start;
     font-weight: 700;
-    color: #fff;
+    color: #001C07;
 }
 
 .input_contato button:hover {
     background-color: #001C07;
     cursor: pointer;
 }
+
+
+
+
+
+
+
 
 /* footer */
 
@@ -307,6 +327,8 @@ nav {
     align-items: center;
 }
 
+
+
 .contatos {
     display: flex;
     flex-direction: column;
@@ -317,7 +339,7 @@ nav {
 .contatos div {
     display: flex;
     align-items: center;
-    gap: 10px;
+    
     color: white;
 }
 
