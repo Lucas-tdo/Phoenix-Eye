@@ -291,7 +291,6 @@ nav {
 
 .elementos_footer {
     display: flex;
-
     width: 100%;
     height: 100%;
 
@@ -361,112 +360,5 @@ nav {
     font-weight: 700;
 }
 
-/* LOGIN */
-
-#login {
-    width: 100%;
-    height: 100%;
-    background-image: url(../assets/imgs/Fundo_login.jpg);
-}
-
-.login_fundo_verde {
-    background-color: #001c0795;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.card_login {
-    display: flex;
-    width: 600px;
-    height: 400px;
-    background-color: #001c07af;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.card_login input {
-    width: 100%;
-    height: 30px;
-    align-self: center;
-    background-color: transparent;
-    outline: none;
-    color: white;
-}
-
-.card_login input::placeholder{
-    color: #ffffff91;
-    font-size: 18px;
-}
-
-.titulo_login {
-    text-align: center;
-    font-size: 80px;
-    color: white;
-    font-weight: 700;
-}
-
-.campo_login {
-    display: flex;
-    width: 300px;
-    height: 40px;
-    border-color: white;
-    align-self: center;
-    border-radius: 20px;
-    border: solid white 2px;
-    justify-content: space-between;
-    padding-inline: 10px;
-}
-
-.campo_login img{ 
-    width: 20px;
-    height: 20px;
-    align-self: center;
-}
-
-#button_entrar {
-    width: 200px;
-    height: 40px;
-    align-self: center;
-    border-radius: 30px;
-    color: #001C07;
-    font-weight: 600;
-    font-size: 20px;
-}
-#button_entrar:hover{
-    border: solid black 1px;
-}
-
-.button_voltar{
-    border: none;
-    background-color: transparent;
-    color: white;
-    text-decoration: underline;
-    font-weight: 500;
-    font-size: 20px;
-    margin-top: 40px;
-    
-}
 
 
-.card_login_block {
-    display: flex;
-    width: 600px;
-    height: 400px;
-    background-color: #5e0101af;
-    border: black solid 8px;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-.card_login_block img{
-    width: 200px;
-    height: 200px;
-}
-
-.vazio{
-    display: none;
-}

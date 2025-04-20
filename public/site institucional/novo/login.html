@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix-Eye</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/stylelogin.css">
     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
@@ -13,103 +13,247 @@
 
     <!-- HOME -->
     <div class="container">
-        <div id="login">
-            <div class="login_fundo_verde">
-                <div class="vazio">
-                    <h1>Página bloqueada!</h1>
-                    <img src="assets/icon/block.png" alt="">
-                </div>
-                <div class="card_login">
-                    <p class="titulo_login">Login</p>
+        <div id="pagina">
+            <div class="pagina_fundo_verde">
 
+
+                <div id="card_login" class="card_login">
+                    <p class="titulo_login">Login</p>
                     <div class="campo_login">
 
                         <input type="text" id="input_email_login" placeholder="Email:">
                         <img src="assets/icon/perfil.png">
                     </div>
-
                     <div class="campo_login">
 
                         <input type="text" id="input_email_senha" placeholder="Senha:">
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
-
-                    <button onclick="Entrar()" id="button_entrar">Entrar</button>
-
+                    <button onclick="ValidarLogin()" id="button_entrar">Entrar</button>
+                    <button  id="button_cadastro">Não tem uma conta? <u onclick="cadastro()">Cadastre-se</u> </button>
                 </div>
-                <a href="index.html"><button class="button_voltar">Voltar ao home</button></a>
 
+
+                <div id="card_cadastro" class="vazio">
+                    <p class="titulo_cadastro">Cadastro</p>
+
+                    <div class="campo_cadastro">
+                        <input type="text" id="input_nome_cadastro" placeholder="Nome:">
+                        <img src="assets/icon/perfil.png">
+                    </div>
+
+                    <div class="campo_cadastro">
+                        <input type="text" id="input_telefone_cadastro" placeholder="Telefone:">
+                        <img src="assets/icon/telefone.png">
+                    </div>
+
+                    <div class="campo_cadastro">
+                        <input type="text" id="input_email_cadastro" placeholder="Email:">
+                        <img src="assets/icon/email.png">
+                    </div>
+                    <div class="campo_cadastro">
+                        <input type="text" id="input_senha_cadastro" placeholder="Senha:">
+                        <img src="assets/icon/cadeado-seguro.png">
+                    </div>
+                    <button onclick="ValidarCadastro()" id="button_entrar">Cadastra-se</button>
+                    <button id="button_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></button>
+                </div>
+                    
+                <div id="card_login_block" class="vazio">
+                    <h1>Página bloqueada!</h1>
+                    <img src="assets/icon/block.png" alt="">
+                </div>
+
+                <a href="index.html"><button class="button_voltar">Voltar ao home</button></a>
             </div>
+                
         </div>
+        
+        
     </div>
 </body>
 
 </html>
 <script>
     var erros=0
-    function Entrar(){
-        var email = input_email_login.value.replaceAll(" ", "");
-        var senha = input_email_senha.value.replaceAll(" ", "");
+    var nome = ""
+    var telefone = ""
+    var email = ""
+    var senha = ""
+    function Login(){
+        card_cadastro.className ='vazio'
+        card_login.className = 'card_login'
+    }
+    function cadastro(){
+        card_login.className ='vazio'
+        card_cadastro.className = 'card_cadastro'
+    }
+
+    function ValidarCadastro(){
+        var nome_tentativa = input_nome_cadastro.value
+        var telefone_tentativa = input_telefone_cadastro.value.replaceAll(" ","").replaceAll("-","")
+        var email_tentativa = input_email_cadastro.value.replaceAll(" ", "");
+        var senha_tentativa = input_senha_cadastro.value.replaceAll(" ", "");
 
         var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         var minuscula = "abcdefghijklmnopqrstuvwxyz"
         var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
         var numeros= "0123456789"
+
         var temMaisculasenha = false
         var temMinusculasenha = false
         var temCaractere = false
         var temnumero = false
-        var problema=" "
 
-        if(senha.length<8){
-            alert(`O tamanho da senha tem que ser maior que 8\nvocê só tem mais ${3-erros} tentativas`)
-            erros++
-        }   
+        var problemaemail=""
+        var problemasenha=""
+        var problematelefone=""
 
-        else{
+
+            if(!email_tentativa.includes('@') || !email_tentativa.includes('.')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
+            }
+           
+            if(telefone_tentativa.length!=11){
+                problematelefone+='Problemas no telefone:Tamanho do número inválido'
+            }
+                   
             for(i=0;i<maiscula.length;i++){
-                if(senha.includes(maiscula[i])){
+                if(senha_tentativa.includes(maiscula[i])){
                     temMaisculasenha=true
                 }
             }
             if(!temMaisculasenha){
-                problema+='A senha deve conter pelo menos 1 letra Maiúscula\n'
+                problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula\n'
             }
             for(i=0;i<minuscula.length;i++){
-                if(senha.includes(minuscula[i])){
+                if(senha_tentativa.includes(minuscula[i])){
                     temMinusculasenha=true
                 }
             }
+
             if(!temMinusculasenha){
-                problema+='A senha deve conter pelo menos 1 letra Minúscula\n'
+                problemasenha+='A senha deve conter pelo menos 1 letra Minúscula\n'
             }
 
             for(i=0;i<caracteres.length;i++){
-                if(senha.includes(caracteres[i])){
+                if(senha_tentativa.includes(caracteres[i])){
                     temCaractere=true
                 }
             }
             if(!temCaractere){
-                problema+='A senha deve conter pelo menos 1 caractere especial\n'
+                problemasenha+='A senha deve conter pelo menos 1 caractere especial\n'
             }
 
             for(i=0;i<numeros.length;i++){
-                if(senha.includes(numeros[i])){
+                if(senha_tentativa.includes(numeros[i])){
                     temnumero=true
                 }
             }
             if(!temnumero){
-                problema+='A senha deve conter pelo menos 1 número\n'
+                problemasenha+='A senha deve conter pelo menos 1 número\n'
+            }
+
+            if(problemasenha.length>0||problematelefone.length>0||problemaemail.length>0){
+                alert(`${problemaemail}\n${problematelefone}\nProblemas da senha:\n${problemasenha}`)
+            }
+            else{
+                alert('Cadastro concluido')
+                nome=nome_tentativa
+                telefone=telefone_tentativa
+                email=email_tentativa
+                senha=senha_tentativa
+            }
+            
+        }
+            
+
+
+
+
+    function ValidarLogin(){
+        var email_tentativa = input_email_login.value.replaceAll(" ", "");
+        var senha_tentativa = input_email_senha.value.replaceAll(" ", "");
+
+
+        var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var minuscula = "abcdefghijklmnopqrstuvwxyz"
+        var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
+        var numeros= "0123456789"
+
+        var temMaisculasenha = false
+        var temMinusculasenha = false
+        var temCaractere = false
+        var temnumero = false
+
+        var problemaemail=""
+        var problemasenha=""
+
+        if(erros>2){
+            card_login_block.className="card_login_block"
+            card_login.className="vazio"
+        }
+        else{
+            if(!email_tentativa.includes('@') || !email_tentativa.includes('.')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
+            }
+            
+            if(senha_tentativa.length<8){
+                problemasenha+=`O tamanho da senha tem que ser maior que 8`
+            } 
+
+            for(i=0;i<maiscula.length;i++){
+                if(senha_tentativa.includes(maiscula[i])){
+                    temMaisculasenha=true
+                }
+            }
+            if(!temMaisculasenha){
+                problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula\n'
+            }
+            for(i=0;i<minuscula.length;i++){
+                if(senha_tentativa.includes(minuscula[i])){
+                    temMinusculasenha=true
+                }
+            }
+            if(!temMinusculasenha){
+                problemasenha+='A senha deve conter pelo menos 1 letra Minúscula\n'
+            }
+
+            for(i=0;i<caracteres.length;i++){
+                if(senha_tentativa.includes(caracteres[i])){
+                    temCaractere=true
+                }
+            }
+            if(!temCaractere){
+                problemasenha+='A senha deve conter pelo menos 1 caractere especial\n'
+            }
+
+            for(i=0;i<numeros.length;i++){
+                if(senha_tentativa.includes(numeros[i])){
+                    temnumero=true
+                }
+            }
+            if(!temnumero){
+                problemasenha+='A senha deve conter pelo menos 1 número\n'
+            }
+
+            if(problemasenha.length>0 || problemaemail>0){
+                erros++
+                alert(`${problemaemail}\nProblemas da senha:\n${problemasenha}Restam apenas ${3-erros} tentativas`)
+            }
+            else{
+                if(email_tentativa==email && senha_tentativa==senha){
+                    alert('Login Realizado')
+                }
             }
 
         }
-        if(!temnumero||!temCaractere||!temMaisculasenha||!temMaisculasenha){
-            erros++
-            alert(`Problemas da senha:\n${problema}Restam apenas ${3-erros} tentativas`)
-        }
-        if(erros>3){
-            document.querySelector('.vazio').className="card_login_block"
-            document.querySelector('.card_login').className="vazio"
-        }
     }
+            
+        
+            
+        
+        
+        
+    
 </script>
