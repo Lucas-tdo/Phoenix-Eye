@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="campo_cadastro">
-                        <input type="text" id="input_telefone_cadastro" placeholder="Telefone:">
+                        <input type="number" id="input_telefone_cadastro" placeholder="Telefone:">
                         <img src="assets/icon/telefone.png">
                     </div>
 
@@ -110,12 +110,22 @@
         var problematelefone=""
 
 
-            if(!email_tentativa.includes('@') || !email_tentativa.includes('.')){
+            if(!email_tentativa.includes('@') && !email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
             }
+            else if(!email_tentativa.includes('@')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '@'`
+            }
+            else if(!email_tentativa.includes('.')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '.'`
+            }
+
            
-            if(telefone_tentativa.length!=11){
-                problematelefone+='Problemas no telefone:Tamanho do número inválido'
+            if(telefone_tentativa.length>11 ||telefone_tentativa.length<9 ||telefone_tentativa.length==10){
+                problematelefone+='Problema no telefone:Tamanho do número inválido'
+            }
+            else if(telefone_tentativa.length==9){
+                problematelefone+='Problema no telefone:Número sem DDD'
             }
                    
             for(i=0;i<maiscula.length;i++){
@@ -194,8 +204,14 @@
             card_login.className="vazio"
         }
         else{
-            if(!email_tentativa.includes('@') || !email_tentativa.includes('.')){
+            if(!email_tentativa.includes('@') && !email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
+            }
+            else if(!email_tentativa.includes('@')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '@'`
+            }
+            else if(!email_tentativa.includes('.')){
+                problemaemail+=`Problema no Email:Email inválido deve conter '.'`
             }
             
             if(senha_tentativa.length<8){
