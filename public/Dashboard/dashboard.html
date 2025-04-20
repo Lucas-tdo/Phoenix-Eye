@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="Styles/dashboard.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="../site institucional/novo/assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -54,8 +55,25 @@
                 </div>
             </div>
 
-            <div class="visao">
-                <h1>Visão Geral</h1>
+            <div class="indicadores_grafico">
+
+                <div>
+                    <h1>Temperatura média:</h1>
+                    <div>
+                        <img src="Assets/Icons/termometro.png">
+                        <h4>28 C°</h4>
+                    </div>
+                </div>
+
+
+                <div>
+                    <h1>Umidade média:</h1>
+                    <div>
+                        <img src="Assets/Icons/umidade.png">
+                        <h4>76%</h4>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -63,7 +81,7 @@
         <div class="Graficos">
             <div class="areaGrid">
                 <div class="A">
-                    <div id="A1" ><img src="Assets/grid_img/sensor.png" alt=""></div>
+                    <div id="A1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A2"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A3"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A4"><img src="Assets/grid_img/sensor.png" alt=""></div>
@@ -75,8 +93,8 @@
                     <div id="A8"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="B">
                     <div id="B1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="B2"></div>
@@ -88,8 +106,8 @@
                     <div id="B8"></div>
                     <div id="B9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="C">
                     <div id="C1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="C2"></div>
@@ -101,8 +119,8 @@
                     <div id="C8"></div>
                     <div id="C9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="D">
                     <div id="D1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="D2"></div>
@@ -114,8 +132,8 @@
                     <div id="D8"></div>
                     <div id="D9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="E">
                     <div id="E1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="E2"></div>
@@ -127,8 +145,8 @@
                     <div id="E8"></div>
                     <div id="E9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="F">
                     <div id="F1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="F2"></div>
@@ -140,9 +158,9 @@
                     <div id="F8"></div>
                     <div id="F9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
-        
+
+
+
                 <div class="G">
                     <div id="G1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="G2"></div>
@@ -154,8 +172,8 @@
                     <div id="G8"></div>
                     <div id="G9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="H">
                     <div id="H1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="H2"></div>
@@ -167,12 +185,12 @@
                     <div id="H8"></div>
                     <div id="H9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
                 <div class="I">
                     <div id="I1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I2"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I3"><img  src="Assets/grid_img/sensor.png" alt=""></div>
+                    <div id="I3"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I4"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I5"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I6"><img src="Assets/grid_img/sensor.png" alt=""></div>
@@ -180,10 +198,22 @@
                     <div id="I8"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-        
-        
+
+
             </div>
+
+
+            <div class="div_grafico">
+
+              
+
+                <canvas id="myChart"></canvas>
+            </div>
+
         </div>
+
+
+
 
     </div>
 
@@ -193,7 +223,7 @@
 </html>
 
 <script>
-    window.onload(atualizar());
+
 
     function atualizar() {
         var umidAviso = 40;
@@ -203,33 +233,33 @@
         var tempAlerta = 38;
 
         var tempSensorA7 = 40;
-        var umidSensorA7 =20;
+        var umidSensorA7 = 20;
 
 
         //Restaurando padrões
 
         A7.innerHTML = `
             <img src="Assets/grid_img/sensor.png" alt="">`;
-            A8.innerHTML = `
+        A8.innerHTML = `
             <img src="Assets/grid_img/sensor.png" alt="">`;
-            A9.innerHTML = `
+        A9.innerHTML = `
             <img src="Assets/grid_img/sensor.png" alt="">`;
-            A6.innerHTML = `
+        A6.innerHTML = `
             <img src="Assets/grid_img/sensor.png" alt="">`;
-            A5.innerHTML = `
+        A5.innerHTML = `
             <img src="Assets/grid_img/sensor.png" alt="">`;
-            B6.innerHTML = `
+        B6.innerHTML = `
             <img src="" alt="">`;
-            B7.innerHTML = `
+        B7.innerHTML = `
             <img src="" alt="">`;
-            B8.innerHTML = `
+        B8.innerHTML = `
             <img src="" alt="">`;
-            C7.innerHTML = `
+        C7.innerHTML = `
             <img src="" alt="">`;
 
 
 
-        if((tempSensorA7 <= 0 && umidSensorA7 < 0)|| (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)){
+        if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
             A7.innerHTML = `
             <img src="Assets/grid_img/sem_sinal.png" height="50px" alt="">`;
         }
@@ -237,21 +267,21 @@
 
             A7.innerHTML = `
         <img src="Assets/grid_img/fogo.png" height="50px" alt="">`;
-        A6.innerHTML = `
+            A6.innerHTML = `
         <img src="Assets/grid_img/alerta_temp_umid.png" height="50px" alt="">`;
-        A8.innerHTML = `
+            A8.innerHTML = `
         <img src="Assets/grid_img/alerta_temp_umid.png" height="50px" alt="">`;
-        B7.innerHTML = `
+            B7.innerHTML = `
         <img src="Assets/grid_img/alerta_temp_umid.png" height="50px" alt="">`;
-        C7.innerHTML = `
+            C7.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
-        B6.innerHTML = `
+            B6.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
-        B8.innerHTML = `
+            B8.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
-        A5.innerHTML = `
+            A5.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
-        A9.innerHTML = `
+            A9.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
         }
         else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
@@ -289,5 +319,51 @@
         }
     }
 
+    function carregarGrafico() {
 
+        const ctx = document.getElementById('myChart');
+
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                datasets: [
+                    {
+                        label: 'Temperatura',
+                        data: [22, 23, 25, 27, 30, 29, 28, 26, 24, 23],
+                        borderWidth: 5,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                    },
+                    {
+                        label: 'Umidade',
+                        data: [75, 76, 78, 80, 82, 81, 79, 78, 76, 74],
+                        borderWidth: 5,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgb(54, 162, 235)',
+
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+
+                }
+            }
+        });
+
+
+    }
+
+    atualizar();
+    carregarGrafico()
 </script>

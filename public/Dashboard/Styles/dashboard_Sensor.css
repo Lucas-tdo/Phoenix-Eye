@@ -47,16 +47,17 @@
     height: 50px;
 }
 
-/* Container */
+    /* Container */
 
 .container {
-    display: flex;
-    height: auto;
-    width: auto;
-    flex-direction: column;
-    background-color: #26833d38;
+        display: flex;
+        height: auto;
+        width: auto;
+        flex-direction: column;
+        background-color: #26833d38;
 }
 
+    
 
 /* kPI */
 
@@ -75,7 +76,7 @@
     background-color: #1A3421;
     display: flex;
     justify-content: space-around;
-    width: 600px;
+    width: 700px;
     align-items: center;
     padding: 20px 0;
     border: solid 3px #091D0E;
@@ -102,7 +103,7 @@
 
 .Status div div {
     display: flex;
-    width: 70px;
+    width: 130px;
     justify-content: space-around;
 
     flex-direction: row;
@@ -135,91 +136,29 @@
 
 }
 
-
-/* Graficos */
-
-
-.Graficos{
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.areaGrid{
-    display: flex;
-    background-image: url("../Assets/Imgs/img-Satelite.jpg");
-   
-    background-size: cover;
-    width: 400px;
-    height: 350px;
-    flex-direction: column;
-}
-
-.areaGrid div{
-    display: flex;
-    flex-direction: row;
-}
-.areaGrid div div{
+.Nome_Sensor{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 37px;
-    width: 50px;
-    border: solid 1px white;
-
-}
-
-.areaGrid div div img{
-    height: 20px;
-}
-
-#myChart{
-    height: 260px;
-}
-
-.div_grafico{
-    display: flex;
-
-    gap: 10px;
-    flex-direction: column;
-}
-
-.indicadores_grafico{
-    display: flex;
-    width: 600px;
-    margin-right: 70px;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.indicadores_grafico div{
-    display: flex;
-    background-color: blanchedalmond;
-    padding: 5px 15px;
-    border-radius: 10px;
+    height: 60px;
+    margin-top: 40px;
+    border: solid 4px #091D0E;
+    border-right: none;
+    border-radius: 10px 0 0px 10px;
+    width: 240px;
+    align-self: flex-start;
     background-color: #1A3421;
     color: white;
-    flex-direction: column;
+
 }
 
-.indicadores_grafico div div{
-    display: flex;
-    flex-direction: column;
-    flex-direction: row;
+.Situacao{
+    height: 100px;
     align-items: center;
- 
+    display: flex;
+    justify-content: space-around;
 }
 
-.indicadores_grafico h1{
-    font-size: 15px;
-}
-
-.indicadores_grafico img{
-    height: 60px;
-    width: 60px;
-}
-
-.indicadores_grafico h4{
-    font-size: 30px;
+.Situacao div h3{
+    
 }
