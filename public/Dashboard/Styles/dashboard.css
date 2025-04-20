@@ -142,7 +142,8 @@
 .Graficos{
     display: flex;
     width: 100%;
-   
+    justify-content: space-around;
+    align-items: center;
 }
 
 .areaGrid{
@@ -150,7 +151,8 @@
     background-image: url("../Assets/Imgs/img-Satelite.jpg");
    
     background-size: cover;
-    width: 540px;
+    width: 400px;
+    height: 350px;
     flex-direction: column;
 }
 
@@ -162,12 +164,62 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 60px;
-    width: 60px;
+    height: 37px;
+    width: 50px;
     border: solid 1px white;
 
 }
 
 .areaGrid div div img{
-    height: 30px;
+    height: 20px;
+}
+
+#myChart{
+    height: 260px;
+}
+
+.div_grafico{
+    display: flex;
+
+    gap: 10px;
+    flex-direction: column;
+}
+
+.indicadores_grafico{
+    display: flex;
+    width: 600px;
+    margin-right: 70px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.indicadores_grafico div{
+    display: flex;
+    background-color: blanchedalmond;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #1A3421;
+    color: white;
+    flex-direction: column;
+}
+
+.indicadores_grafico div div{
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+ 
+}
+
+.indicadores_grafico h1{
+    font-size: 15px;
+}
+
+.indicadores_grafico img{
+    height: 60px;
+    width: 60px;
+}
+
+.indicadores_grafico h4{
+    font-size: 30px;
 }
