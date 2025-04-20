@@ -237,7 +237,7 @@
                 problemasenha+='A senha deve conter pelo menos 1 número\n'
             }
 
-            if(problemasenha.length>0 || problemaemail>0){
+            if(problemasenha.length>0 || problemaemail.length>0){
                 erros++
                 alert(`${problemaemail}\nProblemas da senha:\n${problemasenha}Restam apenas ${3-erros} tentativas`)
             }
