@@ -111,6 +111,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: white;
+    justify-content: center;
 }
 .card_login_block img{
     width: 200px;
@@ -184,9 +186,6 @@
     border: solid black 1px;
 }
 
-
-
-
 #ir_login{
     background-color: transparent;
     text-align: center;
@@ -207,4 +206,12 @@
     text-align: center;
     font-size: 10px;
     cursor: default;
+}
+
+.Erros_senha{
+    
+    color: white;
+    align-self: left;
+    margin-left:150px;
+    font-size: 10px;
 }

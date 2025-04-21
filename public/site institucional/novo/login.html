@@ -25,10 +25,10 @@
                         <img src="assets/icon/perfil.png">
                     </div>
                     <div class="campo_login">
-
-                        <input type="password" id="input_email_senha" placeholder="Senha:">
+                        <input type="password" id="input_email_senha" placeholder="Senha:" oninput="ValidarSenha()">
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
+                    <p id="erros_senha_login" class="Erros_senha"></p>
                     <button onclick="ValidarLogin()" id="button_entrar">Entrar</button>
                 </div>
 
@@ -51,9 +51,10 @@
                         <img src="assets/icon/email.png">
                     </div>
                     <div class="campo_cadastro">
-                        <input type="text" id="input_senha_cadastro" placeholder="Senha:">
+                        <input type="text" id="input_senha_cadastro" placeholder="Senha:" oninput="ValidarSenha()">
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
+                    <p id="erros_senha_cadastro" class="Erros_senha"></p>
                     <button onclick="ValidarCadastro()" id="button_entrar">Cadastre-se</button>
                     <p id="ir_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></p>
                     <p class="ir_dash">Deseja ver a dash? <u onclick="dash()">Clique</u></p> 
@@ -85,6 +86,13 @@
     var senha_padrao = "Urubu100@"
 
 
+    var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    var minuscula = "abcdefghijklmnopqrstuvwxyz"
+    var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
+    var numeros= "0123456789"
+
+    var senha_validada = false
+        
     function Login(){
         card_cadastro.className ='vazio'
         card_login.className = 'card_login'
@@ -94,24 +102,80 @@
         card_cadastro.className = 'card_cadastro'
     }
 
+    function ValidarSenha(){
+
+            senha_validada = false
+            var senha_tentativa = ""
+
+            var temMaisculasenha = false
+            var temMinusculasenha = false
+            var temCaractere = false
+            var temnumero = false
+            var problemasenha=""
+            
+            if(card_cadastro.className =='vazio'){
+                senha_tentativa =input_email_senha.value.replaceAll(" ", "")
+                var senhaerro=document.querySelector('#erros_senha_login')
+            }
+            else{
+                senha_tentativa=input_senha_cadastro.value.replaceAll(" ", "")
+                var senhaerro=document.querySelector('#erros_senha_cadastro')
+            }
+            for(i=0;i<maiscula.length;i++){
+                if(senha_tentativa.includes(maiscula[i])){
+                    temMaisculasenha=true
+                }
+            }
+            if(!temMaisculasenha){
+                problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula<br>'
+            }
+            for(i=0;i<minuscula.length;i++){
+                if(senha_tentativa.includes(minuscula[i])){
+                    temMinusculasenha=true
+                }
+            }
+
+            if(!temMinusculasenha){
+                problemasenha+='A senha deve conter pelo menos 1 letra Minúscula<br>'
+            }
+
+            for(i=0;i<caracteres.length;i++){
+                if(senha_tentativa.includes(caracteres[i])){
+                    temCaractere=true
+                }
+            }
+            if(!temCaractere){
+                problemasenha+='A senha deve conter pelo menos 1 caractere especial<br>'
+            }
+
+            for(i=0;i<numeros.length;i++){
+                if(senha_tentativa.includes(numeros[i])){
+                    temnumero=true
+                }
+            }
+            if(!temnumero){
+                problemasenha+='A senha deve conter pelo menos 1 número<br>'
+            }
+            
+            if(senha_tentativa==""){
+                senhaerro.innerHTML=""
+                
+            }
+            else if(problemasenha.length>0){
+                senhaerro.innerHTML=""
+                senhaerro.innerHTML=`${problemasenha}`
+            }
+            else{
+                senhaerro.innerHTML=""
+                senha_validada=true
+            }
+
+        }
+
     function ValidarCadastro(){
-        var nome_tentativa = input_nome_cadastro.value
         var telefone_tentativa = input_telefone_cadastro.value.replaceAll(" ","").replaceAll("-","")
         var email_tentativa = input_email_cadastro.value.replaceAll(" ", "");
-        var senha_tentativa = input_senha_cadastro.value.replaceAll(" ", "");
-
-        var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        var minuscula = "abcdefghijklmnopqrstuvwxyz"
-        var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
-        var numeros= "0123456789"
-
-        var temMaisculasenha = false
-        var temMinusculasenha = false
-        var temCaractere = false
-        var temnumero = false
-
         var problemaemail=""
-        var problemasenha=""
         var problematelefone=""
 
 
@@ -124,77 +188,34 @@
             else if(!email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '.'`
             }
-
-           
+            
             if(telefone_tentativa.length>11 ||telefone_tentativa.length<9 ||telefone_tentativa.length==10){
                 problematelefone+='Problema no telefone:Tamanho do número inválido'
             }
             else if(telefone_tentativa.length==9){
                 problematelefone+='Problema no telefone:Número sem DDD'
             }
-                   
-            for(i=0;i<maiscula.length;i++){
-                if(senha_tentativa.includes(maiscula[i])){
-                    temMaisculasenha=true
-                }
-            }
-            if(!temMaisculasenha){
-                problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula\n'
-            }
-            for(i=0;i<minuscula.length;i++){
-                if(senha_tentativa.includes(minuscula[i])){
-                    temMinusculasenha=true
-                }
-            }
 
-            if(!temMinusculasenha){
-                problemasenha+='A senha deve conter pelo menos 1 letra Minúscula\n'
-            }
 
-            for(i=0;i<caracteres.length;i++){
-                if(senha_tentativa.includes(caracteres[i])){
-                    temCaractere=true
-                }
-            }
-            if(!temCaractere){
-                problemasenha+='A senha deve conter pelo menos 1 caractere especial\n'
-            }
-
-            for(i=0;i<numeros.length;i++){
-                if(senha_tentativa.includes(numeros[i])){
-                    temnumero=true
-                }
-            }
-            if(!temnumero){
-                problemasenha+='A senha deve conter pelo menos 1 número\n'
-            }
-
-            if(problemasenha.length>0||problematelefone.length>0||problemaemail.length>0){
-                alert(`${problemaemail}\n${problematelefone}\nProblemas da senha:\n${problemasenha}`)
+            if(problematelefone.length>0||problemaemail.length>0||!senha_validada){
+                // adicionar mais coisas
+                alert(`${problemaemail}\n${problematelefone}`)
             }
             else{
-                alert('Cadastro concluido')
-                nome=nome_tentativa
-                telefone=telefone_tentativa
-                email=email_tentativa
-                senha=senha_tentativa
+                if(senha_validada){
+                    nome=nome_tentativa
+                    telefone=telefone_tentativa
+                    email=email_tentativa
+                    senha=senha_tentativa   
+                }
+                
             }
             
         }
             
-
-
-
-
     function ValidarLogin(){
         var email_tentativa = input_email_login.value.replaceAll(" ", "");
         var senha_tentativa = input_email_senha.value.replaceAll(" ", "");
-
-
-        var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        var minuscula = "abcdefghijklmnopqrstuvwxyz"
-        var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
-        var numeros= "0123456789"
 
         var temMaisculasenha = false
         var temMinusculasenha = false
@@ -202,7 +223,6 @@
         var temnumero = false
 
         var problemaemail=""
-        var problemasenha=""
 
         if(erros>2){
             card_login_block.className="card_login_block"
@@ -219,48 +239,9 @@
                 problemaemail+=`Problema no Email:Email inválido deve conter '.'`
             }
             
-            if(senha_tentativa.length<8){
-                problemasenha+=`O tamanho da senha tem que ser maior que 8`
-            } 
-
-            for(i=0;i<maiscula.length;i++){
-                if(senha_tentativa.includes(maiscula[i])){
-                    temMaisculasenha=true
-                }
-            }
-            if(!temMaisculasenha){
-                problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula\n'
-            }
-            for(i=0;i<minuscula.length;i++){
-                if(senha_tentativa.includes(minuscula[i])){
-                    temMinusculasenha=true
-                }
-            }
-            if(!temMinusculasenha){
-                problemasenha+='A senha deve conter pelo menos 1 letra Minúscula\n'
-            }
-
-            for(i=0;i<caracteres.length;i++){
-                if(senha_tentativa.includes(caracteres[i])){
-                    temCaractere=true
-                }
-            }
-            if(!temCaractere){
-                problemasenha+='A senha deve conter pelo menos 1 caractere especial\n'
-            }
-
-            for(i=0;i<numeros.length;i++){
-                if(senha_tentativa.includes(numeros[i])){
-                    temnumero=true
-                }
-            }
-            if(!temnumero){
-                problemasenha+='A senha deve conter pelo menos 1 número\n'
-            }
-
-            if(problemasenha.length>0 || problemaemail.length>0){
+            if(problemaemail.length>0 ||!senha_validada){
                 erros++
-                alert(`${problemaemail}\nProblemas da senha:\n${problemasenha}Restam apenas ${3-erros} tentativas`)
+                alert(`${problemaemail}\nRestam apenas ${3-erros} tentativas`)
             }
             else{
                 if(email_tentativa==email && senha_tentativa==senha){
@@ -270,19 +251,17 @@
                     cadastro()
                 }
                 else{
-                    alert('Sua senha ou email estão incorretos')
+                    erros++
+                    alert('Sua senha ou email estão incorretos\nRestam apenas ${3-erros} tentativas')
                 }
             }
 
         }
     }
             
+
     function dash(){
         window.location.href = '/Dashboard/dashboard.html'
     }
             
-        
-        
-        
-    
 </script>
