@@ -82,7 +82,7 @@
     var telefone = ""
     var email = ""
     var senha = ""
-    var email_padrao = "Corpodebombeiro@sptech.school"
+    var email_padrao = "Corpodebombeiro@gov.br"
     var senha_padrao = "Urubu100@"
 
 
@@ -97,13 +97,7 @@
         card_cadastro.className ='vazio'
         card_login.className = 'card_login'
     }
-    function cadastro(){
-        card_login.className ='vazio'
-        card_cadastro.className = 'card_cadastro'
-    }
-
     function ValidarSenha(){
-
             senha_validada = false
             var senha_tentativa = ""
 
@@ -115,11 +109,10 @@
             
             if(card_cadastro.className =='vazio'){
                 senha_tentativa =input_email_senha.value.replaceAll(" ", "")
-                var senhaerro=document.querySelector('#erros_senha_login')
+                
             }
             else{
                 senha_tentativa=input_senha_cadastro.value.replaceAll(" ", "")
-                var senhaerro=document.querySelector('#erros_senha_cadastro')
             }
             for(i=0;i<maiscula.length;i++){
                 if(senha_tentativa.includes(maiscula[i])){
@@ -158,15 +151,18 @@
             }
             
             if(senha_tentativa==""){
-                senhaerro.innerHTML=""
-                
+                erros_senha_login.innerHTML=""
+                erros_senha_cadastro.innerHTML=""
             }
             else if(problemasenha.length>0){
-                senhaerro.innerHTML=""
-                senhaerro.innerHTML=`${problemasenha}`
+                erros_senha_login.innerHTML=""
+                erros_senha_login.innerHTML =`${problemasenha}`
+                erros_senha_cadastro.innerHTML=""
+                erros_senha_cadastro.innerHTML =`${problemasenha}`
             }
             else{
-                senhaerro.innerHTML=""
+                erros_senha_login.innerHTML=""
+                erros_senha_cadastro.innerHTML=""
                 senha_validada=true
             }
 
@@ -188,7 +184,7 @@
             else if(!email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '.'`
             }
-            
+
             if(telefone_tentativa.length>11 ||telefone_tentativa.length<9 ||telefone_tentativa.length==10){
                 problematelefone+='Problema no telefone:Tamanho do número inválido'
             }
@@ -216,12 +212,6 @@
     function ValidarLogin(){
         var email_tentativa = input_email_login.value.replaceAll(" ", "");
         var senha_tentativa = input_email_senha.value.replaceAll(" ", "");
-
-        var temMaisculasenha = false
-        var temMinusculasenha = false
-        var temCaractere = false
-        var temnumero = false
-
         var problemaemail=""
 
         if(erros>2){
@@ -245,21 +235,20 @@
             }
             else{
                 if(email_tentativa==email && senha_tentativa==senha){
-                    dash()
+                    window.location.href = '/Dashboard/dashboard.html'
                 }
                 else if(email_tentativa=email_padrao && senha_tentativa==senha_padrao){
-                    cadastro()
+                    card_login.className ='vazio'
+                    card_cadastro.className = 'card_cadastro'
                 }
                 else{
                     erros++
                     alert('Sua senha ou email estão incorretos\nRestam apenas ${3-erros} tentativas')
                 }
             }
-
         }
     }
-            
-
+        
     function dash(){
         window.location.href = '/Dashboard/dashboard.html'
     }
