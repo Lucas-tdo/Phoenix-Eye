@@ -30,13 +30,12 @@
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
                     <button onclick="ValidarLogin()" id="button_entrar">Entrar</button>
-                    <button  id="button_cadastro">Não tem uma conta? <u onclick="cadastro()">Cadastre-se</u> </button>
                 </div>
 
 
                 <div id="card_cadastro" class="vazio">
-                    <p class="titulo_cadastro">Cadastro</p>
-
+                    <p class="titulo_cadastro">Olá Corpo de Bombeiros!</p>
+                    <p class="subtitulo_cadastro">Cadastre seu funcionário!</p>
                     <div class="campo_cadastro">
                         <input type="text" id="input_nome_cadastro" placeholder="Nome:">
                         <img src="assets/icon/perfil.png">
@@ -55,8 +54,10 @@
                         <input type="text" id="input_senha_cadastro" placeholder="Senha:">
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
-                    <button onclick="ValidarCadastro()" id="button_entrar">Cadastra-se</button>
-                    <button id="button_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></button>
+                    <button onclick="ValidarCadastro()" id="button_entrar">Cadastre-se</button>
+                    <p id="ir_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></p>
+                    <p class="ir_dash">Deseja ver a dash? <u onclick="dash()">Clique</u></p> 
+
                 </div>
                     
                 <div id="card_login_block" class="vazio">
@@ -79,8 +80,11 @@
     var nome = ""
     var telefone = ""
     var email = ""
-    
     var senha = ""
+    var email_padrao = "Corpodebombeiro@sptech.school"
+    var senha_padrao = "Urubu100@"
+
+
     function Login(){
         card_cadastro.className ='vazio'
         card_login.className = 'card_login'
@@ -260,14 +264,22 @@
             }
             else{
                 if(email_tentativa==email && senha_tentativa==senha){
-                    alert('Login Realizado')
+                    dash()
+                }
+                else if(email_tentativa=email_padrao && senha_tentativa==senha_padrao){
+                    cadastro()
+                }
+                else{
+                    alert('Sua senha ou email estão incorretos')
                 }
             }
 
         }
     }
             
-        
+    function dash(){
+        window.location.href = '/Dashboard/dashboard.html'
+    }
             
         
         

@@ -16,6 +16,7 @@
     width: 100%;
     height: 100%;
     background-image: url(../assets/imgs/Fundo_login.jpg);
+    background-size: cover;
 }
 
 .pagina_fundo_verde {
@@ -117,20 +118,6 @@
 }
 
 
-#button_cadastro{
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 10px;
-}
-
-#button_cadastro u:hover{
-    color: rgba(255, 255, 255, 0.301);
-}
-
-
-
-
 .card_cadastro {
     display: flex;
     width: 600px;
@@ -156,9 +143,14 @@
 
 .titulo_cadastro {
     text-align: center;
-    font-size: 80px;
+    font-size: 30px;
     color: white;
-    font-weight: 700;
+    font-weight: 300;
+}
+
+.subtitulo_cadastro{
+    text-align: center;
+    color: white;
 }
 
 .campo_cadastro {
@@ -195,13 +187,24 @@
 
 
 
-#button_login{
+#ir_login{
     background-color: transparent;
-    border: none;
+    text-align: center;
     color: rgb(255, 255, 255);
     font-size: 10px;
+    cursor: default;
 }
 
-#button_login u:hover{
+#ir_login u{
+    cursor: pointer;
+}
+#ir_login u:hover{
     color: rgba(255, 255, 255, 0.301);
+}
+
+.ir_dash{
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    cursor: default;
 }
