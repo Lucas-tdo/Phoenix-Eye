@@ -87,7 +87,7 @@
                     <div id="A4"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A5"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A6"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A7">
+                    <div id="A7" onclick="dashSensor()" style="cursor: pointer;">
                         <img src="Assets/grid_img/sensor.png" alt="">
                     </div>
                     <div id="A8"><img src="Assets/grid_img/sensor.png" alt=""></div>
@@ -205,13 +205,327 @@
 
             <div class="div_grafico">
 
-              
+
 
                 <canvas id="myChart"></canvas>
             </div>
 
         </div>
+        <div class="Sensores">
 
+            <div class="listSensores">
+                <h2>Sensores</h2>
+                <div class="Tabela_sensores">
+                    <div>
+                        <h1>A1</h1>
+                        <div>
+                            <h1>28C°</h1>
+                            <h1>70%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A2</h1>
+                        <div>
+                            <h1>29C°</h1>
+                            <h1>72%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A3</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A4</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A5</h1>
+                        <div>
+                            <h1>26C°</h1>
+                            <h1>65%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A6</h1>
+                        <div>
+                            <h1>25C°</h1>
+                            <h1>63%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div onclick="dashSensor()" style="cursor: pointer;">
+                        <h1>A7</h1>
+                        <div id="div_A7">
+                            <h1 id="tempA7"></h1>
+                            <h1 id="UmidA7"></h1>
+
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A8</h1>
+                        <div>
+                            <h1>28C°</h1>
+                            <h1>70%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>A9</h1>
+                        <div>
+                            <h1>29C°</h1>
+                            <h1>72%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <h1>B1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>B9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <h1>C1</h1>
+                        <div>
+                            <h1>26C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>C9</h1>
+                        <div>
+                            <h1>29C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>D1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>D9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>E1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>E9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <h1>F1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>F9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>G1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>G9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>H1</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>H9</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>I1</h1>
+                        <div>
+                            <h1>28C°</h1>
+                            <h1>70%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I2</h1>
+                        <div>
+                            <h1>29C°</h1>
+                            <h1>72%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I3</h1>
+                        <div>
+                            <h1>27C°</h1>
+                            <h1>68%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I4</h1>
+                        <div>
+                            <h1>30C°</h1>
+                            <h1>75%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I5</h1>
+                        <div>
+                            <h1>26C°</h1>
+                            <h1>65%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I6</h1>
+                        <div>
+                            <h1>25C°</h1>
+                            <h1>63%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I7</h1>
+                        <div>
+                            <h1>40C°</h1>
+                            <h1>20%</h1>
+                            <h1 style="color: rgb(202, 202, 23);">Alerta</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I8</h1>
+                        <div>
+                            <h1>28C°</h1>
+                            <h1>70%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>I9</h1>
+                        <div>
+                            <h1>29C°</h1>
+                            <h1>72%</h1>
+                            <h1>Ativo</h1>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="KPI-Sensores">
+                <div class="AtencaoSensores">
+                    <h1>Atenção Necessária:</h1>
+                    <div class="lista_Atencao">
+
+                        <div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <img src="Assets/Icons/sem-sinal.png" style="height: 90px;">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 
 
 
@@ -224,7 +538,9 @@
 
 <script>
 
-
+    function dashSensor() {
+        window.location.href = "dashboard_Sensor.html";
+    }
     function atualizar() {
         var umidAviso = 40;
         var tempAviso = 30;
@@ -232,9 +548,11 @@
         var umidAlerta = 20;
         var tempAlerta = 38;
 
-        var tempSensorA7 = 40;
-        var umidSensorA7 = 20;
+        var tempSensorA7 = 30;
+        var umidSensorA7 = 40;
 
+        tempA7.innerText = tempSensorA7 + "°C";
+        UmidA7.innerText = umidSensorA7 + "%";
 
         //Restaurando padrões
 
@@ -262,9 +580,10 @@
         if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
             A7.innerHTML = `
             <img src="Assets/grid_img/sem_sinal.png" height="50px" alt="">`;
+            div_A7.innerHTML += `<h1 style=" color: rgb(180, 180, 180);;">Inativo</h1>`;
         }
-        else if (tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) {
-
+        else if ((tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) || tempSensorA7 >= 47) {
+            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
             A7.innerHTML = `
         <img src="Assets/grid_img/fogo.png" height="50px" alt="">`;
             A6.innerHTML = `
@@ -287,20 +606,8 @@
         else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp_umid.png" alt="">`;
-        }
-        else if (umidSensorA7 <= umidAlerta) {
-            A7.innerHTML = `
-            <img src="Assets/grid_img/alerta_umid.png"  alt="">`;
-            A8.innerHTML = `
-            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
-            A6.innerHTML = `
-            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
-            B7.innerHTML = `
-            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
-        }
-        else if (umidSensorA7 <= umidAviso) {
-            A7.innerHTML = `
-            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);;">Aviso</h1>`;
+
         }
         else if (tempSensorA7 >= tempAlerta) {
             A7.innerHTML = `
@@ -311,11 +618,31 @@
             <img src="Assets/grid_img/aviso_temp.png"  alt="">`;
             B7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp.png"  alt="">`;
+            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
         }
         else if (tempSensorA7 >= tempAviso) {
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp.png"  
             alt="">`;
+            div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);;">Aviso</h1>`;
+        }
+        else if (umidSensorA7 <= umidAlerta) {
+            A7.innerHTML = `
+            <img src="Assets/grid_img/alerta_umid.png"  alt="">`;
+            A8.innerHTML = `
+            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            A6.innerHTML = `
+            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            B7.innerHTML = `
+            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
+        }
+        else if (umidSensorA7 <= umidAviso) {
+            A7.innerHTML = `
+            <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+        } else {
+            div_A7.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
         }
     }
 
@@ -349,7 +676,10 @@
             options: {
                 plugins: {
                     legend: {
-                        display: false
+                        position: 'bottom',
+                        labels: {
+                            padding: 30
+                        }
                     }
                 },
                 scales: {

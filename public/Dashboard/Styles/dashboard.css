@@ -144,12 +144,12 @@
     width: 100%;
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 30px;
 }
 
 .areaGrid{
     display: flex;
     background-image: url("../Assets/Imgs/img-Satelite.jpg");
-   
     background-size: cover;
     width: 400px;
     height: 350px;
@@ -171,7 +171,7 @@
 }
 
 .areaGrid div div img{
-    height: 20px;
+    height: 30px;
 }
 
 #myChart{
@@ -222,4 +222,149 @@
 
 .indicadores_grafico h4{
     font-size: 30px;
+}
+
+
+    /* Sensores */
+
+/*     Listagem dos Sensores: */
+.Sensores{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.listSensores{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    align-items: center;
+
+}
+
+.listSensores h2{
+    color: #1A3421;
+    font-size: 50px;
+}
+
+.Tabela_sensores{
+    display: flex;
+    margin-top: 10px;
+    background-color: #091D0E;
+    flex-direction: column;
+    overflow-x: auto;
+    height: 500px;
+    width: 100%;
+}
+
+.Tabela_sensores h1{
+    color: white;
+    font-size: 20px;
+}
+
+.Tabela_sensores div{
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: solid white 2px;
+}
+
+.Perigo{
+    color: rgb(146, 2, 2);
+}
+
+.Alerta{
+    color: rgb(202, 202, 23);
+}
+
+.Inativo{
+    color: rgb(180, 180, 180);
+}
+
+.Tabela_sensores div div {
+    border: none;
+    width: 60%;
+    align-items: center;
+
+}
+
+    /* Atenção aos sensores */
+
+.KPI-Sensores{
+    display: flex;
+    width: 50%;
+    align-items: start;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+.AtencaoSensores{
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    padding: 10px 0;
+    color: white;
+    flex-direction: column;
+  
+    justify-content: space-around;
+    border: #091D0E solid 4px;
+    width: 80%;
+}
+
+.AtencaoSensores h1{
+    font-size: 40px;
+    color: #091D0E;
+}
+
+.lista_Atencao{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+
+    align-items: center;
+    width: 100%;
+}
+
+.lista_Atencao div{
+    margin-top: 30px;
+    display: flex;
+    background-color: #1A3421;
+    align-items: center;
+    padding: 10px 15px;
+    height: auto;
+    border-radius: 10px;
+    width: 70%;
+    border: #091D0E solid 3px;
+}
+
+.lista_Atencao div img{
+    height: 70%;
+}
+
+.lista_Atencao div div{
+    display: flex;
+    background-color: transparent;
+    display: flex;
+    border-radius: 0;
+    align-items: start;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    flex-direction: column;
+}
+
+.lista_Atencao div div h1{
+    font-size: 30px;
+    color: white;
+}
+
+.lista_Atencao div div p{
+    font-size: 20px;
+    font-weight: 600;
 }
