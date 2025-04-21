@@ -34,7 +34,7 @@
                     <h4>Alertas</h4>
                     <div>
                         <img src="Assets/Icons/aviso.png">
-                        <h3>3</h3>
+                        <h3 id="qtdAviso"></h3>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                     <h4>Perigo</h4>
                     <div>
                         <img src="Assets/Icons/alerta.png" class="perigo">
-                        <h3>1</h3>
+                        <h3 id="qtdAlerta"></h3>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                     <h4>Manutenção</h4>
                     <div>
                         <img src="Assets/Icons/sem-sinal.png">
-                        <h3>1</h3>
+                        <h3 id="qtdManutencao"></h3>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <h1>Temperatura média:</h1>
                     <div>
                         <img src="Assets/Icons/termometro.png">
-                        <h4>28 C°</h4>
+                        <h4 id="temperaturaMedia"></h4>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
                     <h1>Umidade média:</h1>
                     <div>
                         <img src="Assets/Icons/umidade.png">
-                        <h4>76%</h4>
+                        <h4 id="umidadeMedia"></h4>
                     </div>
                 </div>
 
@@ -204,9 +204,6 @@
 
 
             <div class="div_grafico">
-
-
-
                 <canvas id="myChart"></canvas>
             </div>
 
@@ -250,18 +247,16 @@
                     </div>
                     <div>
                         <h1>A5</h1>
-                        <div>
-                            <h1>26C°</h1>
-                            <h1>65%</h1>
-                            <h1>Ativo</h1>
+                        <div id="div_A5">
+                            <h1 id="tempA5"></h1>
+                            <h1 id="UmidA5"></h1>
                         </div>
                     </div>
                     <div>
                         <h1>A6</h1>
-                        <div>
-                            <h1>25C°</h1>
-                            <h1>63%</h1>
-                            <h1>Ativo</h1>
+                        <div id="div_A6">
+                            <h1 id="tempA6"></h1>
+                            <h1 id="UmidA6"></h1>
                         </div>
                     </div>
                     <div onclick="dashSensor()" style="cursor: pointer;">
@@ -274,18 +269,17 @@
                     </div>
                     <div>
                         <h1>A8</h1>
-                        <div>
-                            <h1>28C°</h1>
-                            <h1>70%</h1>
-                            <h1>Ativo</h1>
+                        <div id="div_A8">
+                            <h1 id="tempA8"></h1>
+                            <h1 id="UmidA8"></h1>
                         </div>
                     </div>
+
                     <div>
                         <h1>A9</h1>
-                        <div>
-                            <h1>29C°</h1>
-                            <h1>72%</h1>
-                            <h1>Ativo</h1>
+                        <div id="div_A9">
+                            <h1 id="tempA9"></h1>
+                            <h1 id="UmidA9"></h1>
                         </div>
                     </div>
 
@@ -462,9 +456,9 @@
                     <div>
                         <h1>I7</h1>
                         <div>
-                            <h1>40C°</h1>
-                            <h1>20%</h1>
-                            <h1 style="color: rgb(202, 202, 23);">Alerta</h1>
+                            <h1>27C°</h1>
+                            <h1>63%</h1>
+                            <h1>Ativo</h1>
                         </div>
                     </div>
                     <div>
@@ -494,31 +488,7 @@
             <div class="KPI-Sensores">
                 <div class="AtencaoSensores">
                     <h1>Atenção Necessária:</h1>
-                    <div class="lista_Atencao">
-
-                        <div>
-                            <img src="Assets/Icons/aviso.png">
-                            <div>
-                                <h1>Sensor: A7</h1>
-                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <img src="Assets/Icons/alerta.png">
-                            <div>
-                                <h1>Sensor: A7</h1>
-                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
-                            </div>
-                        </div>
-                       
-                        <div>
-                            <img src="Assets/Icons/sem-sinal.png" style="height: 90px;">
-                            <div>
-                                <h1>Sensor: A7</h1>
-                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
-                            </div>
-                        </div>
+                    <div class="lista_Atencao" id="lista_atencao">
 
                     </div>
                 </div>
@@ -536,6 +506,8 @@
 
 </html>
 
+<script src="Js.js"></script>
+
 <script>
 
     function dashSensor() {
@@ -543,16 +515,52 @@
     }
     function atualizar() {
         var umidAviso = 40;
-        var tempAviso = 30;
+        var tempAviso = 34;
 
         var umidAlerta = 20;
         var tempAlerta = 38;
 
-        var tempSensorA7 = 30;
-        var umidSensorA7 = 40;
+
+        var tempSA6 = tempSensorA7 - 3;
+        var umidSA6 = umidSensorA7 + 3;
+
+        var tempSA8 = tempSensorA7 - 3;
+        var umidSA8 = umidSensorA7 + 3;
+
+        
+
+        var tempSA5 = tempSensorA7 - 6;
+        var umidSA5 = umidSensorA7 + 6;
+
+        var tempSA9 = tempSensorA7 - 6;
+        var umidSA9 = umidSensorA7 + 6;
+
+
+        tempMedia = (28 + 29 + 27 + 30 + tempSA5 + tempSA6 + tempSensorA7 + tempSA8 + tempSA9 + 27 + 30 + 26 + 29 + 27 + 30 + 27 + 30 + 27 + 30 + 27 + 30 + 27 + 30 + 28 + 29 + 27 + 30 + 26 + 25 + 27 + 28 + 29) / 32;
+
+        umidMedia = (70 + 72 + 68 + 75 + umidSA5 + umidSA6 + umidSensorA7 + umidSA8 + umidSA9 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 70 + 72 + 68 + 75 + 65 + 63 + 63 + 70 + 72) / 32;
+
+        tempMedia = tempMedia.toFixed(1);
+        umidMedia = umidMedia.toFixed(1);
+
+        temperaturaMedia.innerText = `${tempMedia}°C`;
+        umidadeMedia.innerText = `${umidMedia}%`;
+
 
         tempA7.innerText = tempSensorA7 + "°C";
         UmidA7.innerText = umidSensorA7 + "%";
+
+        tempA8.innerText = tempSA8 + "°C";
+        UmidA8.innerText = umidSA8 + "%";
+
+        tempA9.innerText = tempSA9 + "°C";
+        UmidA9.innerText = umidSA9 + "%";
+
+        tempA6.innerText = tempSA6 + "°C";
+        UmidA6.innerText = umidSA6 + "%";
+
+        tempA5.innerText = tempSA5 + "°C";
+        UmidA5.innerText = umidSA5 + "%";
 
         //Restaurando padrões
 
@@ -580,10 +588,46 @@
         if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
             A7.innerHTML = `
             <img src="Assets/grid_img/sem_sinal.png" height="50px" alt="">`;
+
+            /* Criação da mensagem */
+
             div_A7.innerHTML += `<h1 style=" color: rgb(180, 180, 180);;">Inativo</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A6.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+
+            
+
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/sem-sinal.png" style="height: 50px;">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Erro ao capturar os dados do sensor. <br> É Necessária uma manutenção!</p>
+                            </div>
+                        </div>`;
+
+            qtdManutencao.innerText = 1;
+            qtdAlerta.innerText = 0;
+            qtdAviso.innerText = 0;
+
         }
         else if ((tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) || tempSensorA7 >= 47) {
-            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
+
+            qtdAlerta.innerText = 3;
+            qtdAviso.innerText = 2;
+            qtdManutencao.innerText = 0;
+            /* Criação da mensagem */
+
+            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Incêndio</h1>`;
+            div_A8.innerHTML += `<h1 style="color: rgb(146, 2, 2);">Perigo</h1>`;
+            div_A6.innerHTML += `<h1 style="color: rgb(146, 2, 2);">Perigo</h1>`;
+            div_A5.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A9.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+
+
             A7.innerHTML = `
         <img src="Assets/grid_img/fogo.png" height="50px" alt="">`;
             A6.innerHTML = `
@@ -602,14 +646,137 @@
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
             A9.innerHTML = `
         <img src="Assets/grid_img/aviso_temp_umid.png" height="50px" alt="">`;
+
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/grid_img/fogo.png" style="height: 50px;">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Possível caso de incêndio! <br>Necessária tomada de ação imediata!</p>
+                            </div>
+                        </div>`;
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A6</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A8</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A5</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A9</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+
+        }
+        else if ((tempSensorA7 >= tempAviso && tempSensorA7 < tempAlerta) && (umidSensorA7 <= umidAviso && umidSensorA7 > umidAlerta)) {
+
+            qtdAlerta.innerText = 1;
+            qtdAviso.innerText = 2;
+            qtdManutencao.innerText = 0;
+
+            A7.innerHTML = `
+            <img src="Assets/grid_img/alerta_temp_umid.png" alt="">`;
+            A8.innerHTML = `
+            <img src="Assets/grid_img/aviso_temp_umid.png" alt="">`;
+            A6.innerHTML = `
+            <img src="Assets/grid_img/aviso_temp_umid.png" alt="">`;
+            B7.innerHTML = `
+            <img src="Assets/grid_img/aviso_temp_umid.png" alt="">`;
+
+            div_A7.innerHTML += `<h1 style="color:  rgb(146, 2, 2);">Perigo</h1>`;
+            div_A8.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A6.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>`;
+
+            lista_atencao.innerHTML += `
+            <div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A8</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>
+
+            `;
+            lista_atencao.innerHTML += `
+            <div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A6</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>
+
+            `;
+
         }
         else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
+
+            qtdAviso.innerText = 1;
+            qtdAviso.innerText = 0;
+            qtdManutencao.innerText = 0;
+
+
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp_umid.png" alt="">`;
+
+
             div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);;">Aviso</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A6.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `
+            <div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>
+
+            `;
 
         }
         else if (tempSensorA7 >= tempAlerta) {
+
+            qtdAlerta.innerText = 1;
+            qtdAviso.innerText = 2;
+            qtdManutencao.innerText = 0;
+
             A7.innerHTML = `
             <img src="Assets/grid_img/alerta_temp.png"  alt="">`;
             A8.innerHTML = `
@@ -618,15 +785,69 @@
             <img src="Assets/grid_img/aviso_temp.png"  alt="">`;
             B7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp.png"  alt="">`;
+
+
             div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
+            div_A8.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A6.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A6</h1>
+                                <p>Temperatura fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A8</h1>
+                                <p>Temperatura fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
         }
         else if (tempSensorA7 >= tempAviso) {
+
+            qtdAviso.innerText = 1;
+            qtdAlerta.innerText = 0;
+            qtdManutencao.innerText = 0;
+
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_temp.png"  
             alt="">`;
+
+
             div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);;">Aviso</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A6.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Temperatura fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+
         }
         else if (umidSensorA7 <= umidAlerta) {
+            qtdAlerta.innerText = 1;
+            qtdAviso.innerText = 2;
+            qtdManutencao.innerText = 0;
+
+
             A7.innerHTML = `
             <img src="Assets/grid_img/alerta_umid.png"  alt="">`;
             A8.innerHTML = `
@@ -635,14 +856,75 @@
             <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
             B7.innerHTML = `
             <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+
+
+
             div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Perigo</h1>`;
+            div_A8.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A6.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/alerta.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A6</h1>
+                                <p>Umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A8</h1>
+                                <p>Umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+
         }
         else if (umidSensorA7 <= umidAviso) {
+            qtdAviso.innerText = 1;
+            qtdAlerta.innerText = 0;
+            qtdManutencao.innerText = 0;
+
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
+            
             div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
-        } else {
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A6.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML += `<div>
+                            <img src="Assets/Icons/aviso.png">
+                            <div>
+                                <h1>Sensor: A7</h1>
+                                <p>Umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>`;
+        }
+        else{
+            qtdAlerta.innerText = 0;
+            qtdAviso.innerText = 0;
+            qtdManutencao.innerText = 0;
+
             div_A7.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A6.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
+            /* Parte do atenção */
+
+            lista_atencao.innerHTML = `<h4>Nenhum alerta</h4>`;
         }
     }
 
