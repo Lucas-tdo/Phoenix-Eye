@@ -1,2 +1,2 @@
-var tempSensorA7 = 30;
-var umidSensorA7 = 60;
+var tempSensorA7 = 20;
+var umidSensorA7 = 20;
