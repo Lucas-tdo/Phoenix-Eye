@@ -21,11 +21,11 @@
                     <p class="titulo_login">Login</p>
                     <div class="campo_login">
 
-                        <input type="text" id="input_email_login" placeholder="Email:">
+                        <input type="text" id="input_email_login" placeholder="Email:" required>
                         <img src="assets/icon/perfil.png">
                     </div>
                     <div class="campo_login">
-                        <input type="password" id="input_email_senha" placeholder="Senha:" oninput="ValidarSenha()">
+                        <input type="password" id="input_email_senha" placeholder="Senha:" oninput="ValidarSenha()" required>
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
                     <p id="erros_senha_login" class="Erros_senha"></p>
@@ -34,24 +34,24 @@
 
 
                 <div id="card_cadastro" class="vazio">
-                    <p class="titulo_cadastro">Olá Corpo de Bombeiros!</p>
+                    <p class="titulo_cadastro">Olá, Corpo de Bombeiros!</p>
                     <p class="subtitulo_cadastro">Cadastre seu funcionário!</p>
                     <div class="campo_cadastro">
-                        <input type="text" id="input_nome_cadastro" placeholder="Nome:">
+                        <input type="text" id="input_nome_cadastro" placeholder="Nome:" required>
                         <img src="assets/icon/perfil.png">
                     </div>
 
                     <div class="campo_cadastro">
-                        <input type="number" id="input_telefone_cadastro" placeholder="Telefone:">
+                        <input type="number" id="input_telefone_cadastro" placeholder="Telefone:" required>
                         <img src="assets/icon/telefone.png">
                     </div>
 
                     <div class="campo_cadastro">
-                        <input type="text" id="input_email_cadastro" placeholder="Email:">
+                        <input type="text" id="input_email_cadastro" placeholder="Email:" required>
                         <img src="assets/icon/email.png">
                     </div>
                     <div class="campo_cadastro">
-                        <input type="text" id="input_senha_cadastro" placeholder="Senha:" oninput="ValidarSenha()">
+                        <input type="text" id="input_senha_cadastro" placeholder="Senha:" oninput="ValidarSenha()" required>
                         <img src="assets/icon/cadeado-seguro.png">
                     </div>
                     <p id="erros_senha_cadastro" class="Erros_senha"></p>
@@ -231,21 +231,24 @@
                 problemaemail+=`Problema no Email:Email inválido deve conter '.'`
             }
             
-            if(problemaemail.length>0 ||!senha_validada){
+            if(problemaemail.length>0){
                 erros++
-                alert(`${problemaemail}\nRestam apenas ${3-erros} tentativas`)
+                alert(`${problemaemail}\nRestam apenas ${4-erros} tentativas`)
+            }
+            else if(!senha_validada){
+                alert(`Senha inválida\nRestam apenas ${4-erros} tentativas`)
             }
             else{
                 if(email_tentativa==email && senha_tentativa==senha){
                     window.location.href = '/Dashboard/dashboard.html'
                 }
-                else if(email_tentativa=email_padrao && senha_tentativa==senha_padrao){
+                else if(email_tentativa==email_padrao && senha_tentativa==senha_padrao){
                     card_login.className ='vazio'
                     card_cadastro.className = 'card_cadastro'
                 }
                 else{
                     erros++
-                    alert('Sua senha ou email estão incorretos\nRestam apenas ${3-erros} tentativas')
+                    alert(`Sua senha ou email estão incorretos\nRestam apenas ${4-erros} tentativas`)
                 }
             }
         }
