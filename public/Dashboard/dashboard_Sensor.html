@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="../site institucional/novo/assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
+
 <body>
     <div class="nav">
 
@@ -32,7 +34,7 @@
                     <h4>Temperatura</h4>
                     <div>
                         <img src="Assets/Icons/termometro.png">
-                        <h3>25°</h3>
+                        <h3 id="tempSensorDash"></h3>
                     </div>
                 </div>
 
@@ -40,19 +42,18 @@
                     <h4>Umidade</h4>
                     <div>
                         <img src="Assets/Icons/umidade.png" class="perigo">
-                        <h3>25%</h3>
+                        <h3 id="umidSensorDash"></h3>
                     </div>
                 </div>
 
                 <div class="Situacao">
                     <h4>Situação</h4>
-                    <div>
-                        <img src="Assets/Icons/aviso.png">
-                        <p>Baixo nível de umidade</p>
+                    <div id="situacao_Dash">
+
                     </div>
                 </div>
             </div>
-                   
+
             <div class="Nome_Sensor">
                 <h1>Sensor A7</h1>
             </div>
@@ -61,12 +62,27 @@
 
         <div class="graficos">
 
-            88,72
+            <div class="Graf_Temp_Atuais">
+                <div>
+                    <h4>Temperatura em tempo real</h4>
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <div>
+                    <h4>Umidade em tempo real</h4>
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+            
+           
+
+
+            
 
         </div>
-         
 
-88,72
+
+
     </div>
     <div class="footer">
 
@@ -74,4 +90,169 @@
 
     </div>
 </body>
+
 </html>
+
+<script src="Js.js"></script>
+<script>
+    function puxarDados(){
+    tempSensorDash.innerHTML = `${tempSensorA7}°C`;
+    umidSensorDash.innerHTML = `${umidSensorA7}%`;
+
+
+    if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
+
+        tempSensorDash.innerHTML = `Erro!`;
+    umidSensorDash.innerHTML = `Erro!`;
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/sem_sinal.png">
+                <p>Sensor inativo!</p>
+            </div>`;
+
+    }
+    else if ((tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) || tempSensorA7 >= 47) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/fogo.png" style= "width : 60px; height : 70px; margin:0 10px;">
+                <p>Possível incêndio detectado!</p>
+            </div>`;
+
+    }
+    else if ((tempSensorA7 >= tempAviso && tempSensorA7 < tempAlerta) && (umidSensorA7 <= umidAviso && umidSensorA7 > umidAlerta)) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/alerta_temp_umid.png" style = "width: 80px;">
+                <p>Temperatura e umidade em níveis críticos!</p>
+            </div>`;
+
+    }
+    else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/aviso_temp_umid.png" style = "width: 80px;">
+                <p>Temperatura e umidade fora dos níveis normais!</p>
+            </div>`;
+
+    }
+    else if (tempSensorA7 >= tempAlerta) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/alerta_temp.png" style = "width: 60px; height :60px;">
+                <p>Temperatura em níveis críticos!</p>
+            </div>`;
+
+    }
+    else if (tempSensorA7 >= tempAviso) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/aviso_temp.png" style = "width: 60px; height :60px;">
+                <p>Alto nível de temperatura!</p>
+            </div>`;
+
+    }
+    else if (umidSensorA7 <= umidAlerta) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/alerta_umid.png" style = "width: 60px; height :60px;">
+                <p>Umidade em níveis críticos!</p>
+            </div>`;
+
+    }
+    else if (umidSensorA7 <= umidAviso) {
+
+        situacao_Dash.innerHTML = `<div>
+                <img src="Assets/grid_img/aviso_umid.png" style = "width: 60px; height :60px;">
+                <p>Baixo nível de umidade!</p>
+            </div>`;   
+
+    }
+    else {
+
+        situacao_Dash.innerHTML = `<div>
+                <h3 style = "font-size : 15px;">Sensor em níveis normais</h3>
+            </div>`;
+    }
+    };
+
+    function carregarGrafico() {
+
+const ctx = document.getElementById('myChart');
+
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        datasets: [
+            {
+                label: 'Temperatura',
+                data: [(tempMedia - 9), 23, 25, 27, 27, 29, 28, 26, 24, tempSensorA7],
+                borderWidth: 5,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(255, 99, 132)',
+            },
+            
+        ]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 30
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            },
+
+        }
+    }
+});
+
+const ctx2 = document.getElementById('myChart2');
+
+
+new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        datasets: [
+            
+                {
+                        label: 'Umidade',
+                        data: [75, 76, 78, 80, 82, 81, 79, 78, 76, umidSensorA7],
+                        borderWidth: 5,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgb(54, 162, 235)',
+
+                    }
+            ,
+            
+        ]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 30
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            },
+
+        }
+    }
+});
+}
+
+puxarDados();
+carregarGrafico();
+</script>

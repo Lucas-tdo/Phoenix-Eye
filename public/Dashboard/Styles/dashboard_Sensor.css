@@ -95,7 +95,8 @@
     align-items: center;
     flex-direction: column;
     background-color: #425647;
-    padding: 2px;
+    justify-content: space-around;
+   
     border-radius: 10px;
 }
 
@@ -103,9 +104,9 @@
 
 .Status div div {
     display: flex;
-    width: 130px;
+    width: 100%;
     justify-content: space-around;
-
+    
     flex-direction: row;
     align-items: center;
 }
@@ -153,16 +154,35 @@
 }
 
 .Situacao{
-    height: 100px;
+    padding: 10px 0;
     align-items: center;
     display: flex;
+    width: 200px;
     justify-content: space-around;
+
 }
 
 
 
+    /* Gráficos */
 
+.graficos{
+ 
+    width: 100%;
+    padding: 40px 0 ;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.Graf_Temp_Atuais{
+   display: flex;
+    gap: 100px;
+}
+
+canvas{
+    height: 250px;
+}
 
 
 
