@@ -169,11 +169,12 @@
         }
 
     function ValidarCadastro(){
+        var nome_tentativa = input_nome_cadastro.value
         var telefone_tentativa = input_telefone_cadastro.value.replaceAll(" ","").replaceAll("-","")
         var email_tentativa = input_email_cadastro.value.replaceAll(" ", "");
+        var senha_tentativa=input_senha_cadastro.value.replaceAll(" ", "")
         var problemaemail=""
         var problematelefone=""
-
 
             if(!email_tentativa.includes('@') && !email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
@@ -203,6 +204,7 @@
                     telefone=telefone_tentativa
                     email=email_tentativa
                     senha=senha_tentativa   
+                    alert('Cadastro realizado!')
                 }
                 
             }
