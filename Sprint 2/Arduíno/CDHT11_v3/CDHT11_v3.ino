@@ -1,4 +1,4 @@
-  #include "DHT.h" //Inclui uma biblioteca externa própria do sensor
+ #include "DHT.h" //Inclui uma biblioteca externa própria do sensor
 
   #define TIPO_SENSOR DHT11 //Define o sensor que está sendo utilizado
   const int PORTA_DHT11= A0; //Define em qual porta analógica está conectado
@@ -21,4 +21,3 @@
 
     delay (1000); //Define o tempo para refazer a ação do loop em ms
   }
-

@@ -73,15 +73,54 @@
                     <canvas id="myChart2"></canvas>
                 </div>
             </div>
-            
-           
-
-
-            
-
         </div>
 
+        <div class="kpi_E_Manutencao">
 
+            <div class="GraficoMedia">
+                <h4>Média comparada a máxima do dia</h4>
+                <canvas id="myChartBar"></canvas>
+            </div>
+
+            <div class="historicoAtencao">
+                <h2>Ocorrências</h2>
+                <div class="Ocorrencias">
+                    <div>
+                        <img src="Assets/Icons/alerta.png">
+                        <div>
+                            <h3>Alerta de temperatura</h3>
+                            <p>emperatura em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            <div>
+                                <p>Data: <b>19/04/2025</b></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img src="Assets/Icons/aviso.png">
+                        <div>
+                            <h3>Alerta de temperatura</h3>
+                            <p>Temperatura e umidade <br>fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            <div>
+                                <p>Data: <b>01/04/2025</b></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img src="Assets/Icons/alerta.png">
+                        <div>
+                            <h3>Alerta de temperatura</h3>
+                            <p>emperatura em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            <div>
+                                <p>Data: <b>10/03/2025</b></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
     <div class="footer">
@@ -95,164 +134,291 @@
 
 <script src="Js.js"></script>
 <script>
-    function puxarDados(){
-    tempSensorDash.innerHTML = `${tempSensorA7}°C`;
-    umidSensorDash.innerHTML = `${umidSensorA7}%`;
+    function puxarDados() {
+        tempSensorDash.innerHTML = `${tempSensorA7}°C`;
+        umidSensorDash.innerHTML = `${umidSensorA7}%`;
 
 
-    if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
+        if ((tempSensorA7 <= 0 && umidSensorA7 < 0) || (tempSensorA7 == "" || umidSensorA7 == "") || (tempSensorA7 == NaN || umidSensorA7 == NaN)) {
 
-        tempSensorDash.innerHTML = `Erro!`;
-    umidSensorDash.innerHTML = `Erro!`;
+            tempSensorDash.innerHTML = `Erro!`;
+            umidSensorDash.innerHTML = `Erro!`;
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/sem_sinal.png">
                 <p>Sensor inativo!</p>
             </div>`;
 
-    }
-    else if ((tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) || tempSensorA7 >= 47) {
+        }
+        else if ((tempSensorA7 >= tempAlerta && umidSensorA7 <= umidAlerta) || tempSensorA7 >= 47) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/fogo.png" style= "width : 60px; height : 70px; margin:0 10px;">
                 <p>Possível incêndio detectado!</p>
             </div>`;
 
-    }
-    else if ((tempSensorA7 >= tempAviso && tempSensorA7 < tempAlerta) && (umidSensorA7 <= umidAviso && umidSensorA7 > umidAlerta)) {
+        }
+        else if ((tempSensorA7 >= tempAviso && tempSensorA7 < tempAlerta) && (umidSensorA7 <= umidAviso && umidSensorA7 > umidAlerta)) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/alerta_temp_umid.png" style = "width: 80px;">
                 <p>Temperatura e umidade em níveis críticos!</p>
             </div>`;
 
-    }
-    else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
+        }
+        else if (tempSensorA7 >= tempAviso && umidSensorA7 <= umidAviso) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/aviso_temp_umid.png" style = "width: 80px;">
                 <p>Temperatura e umidade fora dos níveis normais!</p>
             </div>`;
 
-    }
-    else if (tempSensorA7 >= tempAlerta) {
+        }
+        else if (tempSensorA7 >= tempAlerta) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/alerta_temp.png" style = "width: 60px; height :60px;">
                 <p>Temperatura em níveis críticos!</p>
             </div>`;
 
-    }
-    else if (tempSensorA7 >= tempAviso) {
+        }
+        else if (tempSensorA7 >= tempAviso) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/aviso_temp.png" style = "width: 60px; height :60px;">
                 <p>Alto nível de temperatura!</p>
             </div>`;
 
-    }
-    else if (umidSensorA7 <= umidAlerta) {
+        }
+        else if (umidSensorA7 <= umidAlerta) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/alerta_umid.png" style = "width: 60px; height :60px;">
                 <p>Umidade em níveis críticos!</p>
             </div>`;
 
-    }
-    else if (umidSensorA7 <= umidAviso) {
+        }
+        else if (umidSensorA7 <= umidAviso) {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <img src="Assets/grid_img/aviso_umid.png" style = "width: 60px; height :60px;">
                 <p>Baixo nível de umidade!</p>
-            </div>`;   
+            </div>`;
 
-    }
-    else {
+        }
+        else {
 
-        situacao_Dash.innerHTML = `<div>
+            situacao_Dash.innerHTML = `<div>
                 <h3 style = "font-size : 15px;">Sensor em níveis normais</h3>
             </div>`;
-    }
+        }
     };
 
     function carregarGrafico() {
 
-const ctx = document.getElementById('myChart');
+        const ctx = document.getElementById('myChart');
 
 
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-        datasets: [
-            {
-                label: 'Temperatura',
-                data: [(tempMedia - 9), 23, 25, 27, 27, 29, 28, 26, 24, tempSensorA7],
-                borderWidth: 5,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgb(255, 99, 132)',
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                datasets: [
+                    {
+                        label: 'Aviso',
+                        data: [tempAviso, tempAviso, tempAviso, tempAviso, tempAviso, tempAviso, tempAviso, tempAviso, tempAviso, tempAviso],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 251, 8)',
+                        backgroundColor: 'rgb(255, 251, 8)',
+                    }, {
+                        label: 'Alerta',
+                        data: [tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta, tempAlerta],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 123, 0)',
+                        backgroundColor: 'rgb(255, 123, 0)',
+                    },
+                    {
+                        label: 'Incêndio',
+                        data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)',
+                    },
+                    {
+                        label: 'Temperatura',
+                        data: [(tempMedia - 9), 23, 25, 27, 27, 29, 28, 26, 24, tempSensorA7],
+                        borderWidth: 5,
+                        borderColor: 'rgb(0, 128, 0)',
+                        backgroundColor: 'rgb(0, 128, 0)',
+                    },
+
+                ]
             },
-            
-        ]
-    },
-    options: {
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    padding: 30
+            options: {
+
+                plugins: {
+                    legend: {
+
+                        position: 'bottom',
+                        labels: {
+                            padding: 30,
+                            font: {
+                                size: 14,
+                                weight : 600, 
+
+                            },
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        },
+                        beginAtZero: true
+                    },
+
                 }
             }
-        },
-        scales: {
-            y: {
-                beginAtZero: true
-            },
+        });
 
-        }
-    }
-});
-
-const ctx2 = document.getElementById('myChart2');
+        const ctx2 = document.getElementById('myChart2');
 
 
-new Chart(ctx2, {
-    type: 'line',
-    data: {
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-        datasets: [
-            
-                {
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                datasets: [
+
+                    {
+                        label: 'Aviso',
+                        data: [umidAviso, umidAviso, umidAviso, umidAviso, umidAviso, umidAviso, umidAviso, umidAviso, umidAviso, umidAviso,],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 251, 8)',
+                        backgroundColor: 'rgb(255, 251, 8)',
+
+                    }
+                    , {
+                        label: 'Alerta',
+                        data: [umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta, umidAlerta,],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)',
+
+                    }
+                    , {
                         label: 'Umidade',
                         data: [75, 76, 78, 80, 82, 81, 79, 78, 76, umidSensorA7],
                         borderWidth: 5,
                         borderColor: 'rgb(54, 162, 235)',
                         backgroundColor: 'rgb(54, 162, 235)',
-
                     }
-            ,
-            
-        ]
-    },
-    options: {
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    padding: 30
+                    ,
+
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 30,
+                            font: {
+                                size: 14, 
+                                weight : 600, 
+                              
+                            },
+                            color: 'rgb(26, 51, 32);' 
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);',
+                        }
+                        
+                    },
+                    y: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);' 
+                        },
+                        beginAtZero: true
+                    },
+
                 }
             }
-        },
-        scales: {
-            y: {
-                beginAtZero: true
+        });
+
+        const ctxBar = document.getElementById('myChartBar');
+
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Umidade', 'Temperatura'],
+                datasets: [
+
+                    {
+                        label: 'Média do dia',
+                        data: [umidMedia, umidSensorA7],
+                        borderWidth: 2,
+                        borderColor: 'rgb(56, 56, 219)',
+                        backgroundColor: 'rgb(56, 56, 219)',
+
+                    }
+                    , {
+                        label: 'Valor Atual',
+                        data: [tempMedia, tempSensorA7],
+                        borderWidth: 2,
+                        borderColor: 'rgb(33, 33, 134)',
+                        backgroundColor: 'rgb(33, 33, 134)',
+
+                    }
+
+
+                ]
             },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 30,
+                            font: {
+                                size: 14, 
+                                weight : 600, 
+                               
+                            },
+                            color: 'rgb(26, 51, 32);' 
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);' 
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);' 
+                        },
+                        beginAtZero: true
+                    },
 
-        }
+                }
+            }
+        });
     }
-});
-}
 
-puxarDados();
-carregarGrafico();
+    puxarDados();
+    carregarGrafico();
 </script>

@@ -54,7 +54,7 @@
     height: auto;
     width: auto;
     flex-direction: column;
-    background-color: #26833d38;
+    background-image: url('/site institucional/novo/assets/imgs/Fundo site institucional.jpg');
 }
 
 
@@ -274,7 +274,7 @@
 }
 
 .Perigo{
-    color: rgb(146, 2, 2);
+    color: rgb(255, 39, 39);
 }
 
 .Alerta{

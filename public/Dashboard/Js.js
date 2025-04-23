@@ -1,5 +1,6 @@
 var tempSensorA7 = 58;
 var umidSensorA7 = 20;
+
 var umidAviso = 40;
 var tempAviso = 34;
 
