@@ -56,7 +56,7 @@
                     </div>
                     <p id="erros_senha_cadastro" class="Erros_senha"></p>
                     <button onclick="ValidarCadastro()" id="button_entrar">Cadastre-se</button>
-                    <p id="ir_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></p>
+                    <p id="ir_login" >Voltar <u onclick="Login()">Login</u></p>
                     <p class="ir_dash">Deseja ver a dash? <u onclick="dash()">Clique</u></p> 
 
                 </div>
@@ -70,8 +70,6 @@
             </div>
                 
         </div>
-        
-        
     </div>
 </body>
 
@@ -94,6 +92,8 @@
     var senha_validada = false
         
     function Login(){
+        input_email_login.value = ""
+        input_email_senha.value = ""
         card_cadastro.className ='vazio'
         card_login.className = 'card_login'
     }
@@ -168,7 +168,7 @@
 
         }
 
-    function ValidarCadastro(){
+    function ValidarCadastro(){ 
         var nome_tentativa = input_nome_cadastro.value
         var telefone_tentativa = input_telefone_cadastro.value.replaceAll(" ","").replaceAll("-","")
         var email_tentativa = input_email_cadastro.value.replaceAll(" ", "");
@@ -205,6 +205,10 @@
                     email=email_tentativa
                     senha=senha_tentativa   
                     alert('Cadastro realizado!')
+                    card_cadastro.className ='vazio'
+                    card_login.className = 'card_login'
+                    input_email_login.value = ""
+                    input_email_senha.value = ""
                 }
                 
             }
@@ -245,6 +249,10 @@
                 else if(email_tentativa==email_padrao && senha_tentativa==senha_padrao){
                     card_login.className ='vazio'
                     card_cadastro.className = 'card_cadastro'
+                    input_nome_cadastro.value=""
+                    input_telefone_cadastro.value=""
+                    input_email_cadastro.value=""
+                    input_senha_cadastro.value=""
                 }
                 else{
                     erros++
