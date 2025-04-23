@@ -8,6 +8,26 @@ body {
     font-family: 'Barlow', sans-serif;
 }
 
+
+.vazio{
+    display: none;
+}
+
+.premissas{
+    display: inline;
+}
+
+#configuracao{
+    width: 25px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 30%;
+}
+
+.imagem{
+    display: flex;
+}
+
 /* Container principal */
 .container {
     width: 100vw;
@@ -71,8 +91,8 @@ nav .titulo {
     width: 50%;
     overflow-y: auto;
     text-align: center;
-
 }
+
 
 /* Bloco de resultados */
 .bloco-resultados {
@@ -104,7 +124,7 @@ nav .titulo {
 /* Elementos internos */
 input {
     width: 80%;
-    height: 30px;
+    height: 20px;
     background-color: transparent;
     color: white;
     margin-bottom: 15px;

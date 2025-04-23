@@ -40,33 +40,35 @@
 
                     <p>Tempo médio para extinção de um incêndio dessa proporção (em minutos)</p>
                     <input type="text" id="input_tempoExtincaoIncendio"> <br><br>
-
+                    <div class="imagem">
+                        <img id="configuracao" onclick="config()"src="img/config.png" alt=""></button>
+                    </div>
                     <hr>
+                    <div id="premissas" class="vazio">
+                        <h3>Premissas</h3>
+                        <p>Velocidade de expansão do fogo (em m/s)</p>
+                        <input type="text" id="input_velocidadeFogo" value="1.25">
 
-                    <h3>Premissas</h3>
-                    <p>Velocidade de expansão do fogo (em m/s)</p>
-                    <input type="text" id="input_velocidadeFogo" value="1.25">
+                        <p>Litros d'água por m² de incêndio</p>
+                        <input type="text" id="input_litrosAguaPorM2" value="3.43">
 
-                    <p>Litros d'água por m² de incêndio</p>
-                    <input type="text" id="input_litrosAguaPorM2" value="3.43">
+                        <p>Preço do litro de água</p>
+                        <input type="text" id="input_precoLitroAgua" value="0.00484">
 
-                    <p>Preço do litro de água</p>
-                    <input type="text" id="input_precoLitroAgua" value="0.00484">
+                        <p>Quantidade de bombeiros</p>
+                        <input type="text" id="input_qtdBombeiros" value="" placeholder="10 bombeiros/10000m²">
 
-                    <p>Quantidade de bombeiros</p>
-                    <input type="text" id="input_qtdBombeiros" value="" placeholder="10 bombeiros/10000m²">
+                        <p>Salário médio dos bombeiros (por hora)</p>
+                        <input type="text" id="input_salarioBombeiroHora" value="16.75">
 
-                    <p>Salário médio dos bombeiros (por hora)</p>
-                    <input type="text" id="input_salarioBombeiroHora" value="16.75">
+                        <p>Avião no combate ao incêndio?</p>
+                        <select id="select_aviao">
+                            <option>Sim</option>
+                            <option>Não</option>
+                        </select>
+                        <p>Equipamentos adicionais* (R$/h)</p>
 
-                    <p>Avião no combate ao incêndio?</p>
-                    <select id="select_aviao">
-                        <option>Sim</option>
-                        <option>Não</option>
-                    </select>
-                    <p>Equipamentos adicionais* (R$/h)</p>
-
-                    <input type="text" id="input_equipsAdicionais" value="" placeholder="Equipamentos">
+                        <input type="text" id="input_equipsAdicionais" value="" placeholder="Equipamentos">
 
                     <hr>
 
@@ -77,6 +79,8 @@
                     <p>Preço do sensor (em R$)</p>
                     <input type="text" id="input_precoSensor" value="10"><br>
 
+                    </div>
+                    
                     <button onclick="calc()">Enviar</button>
                 </div>
 
@@ -98,6 +102,15 @@
 
     <!-- Script para lidar com os dados e exibir resultados organizadamente -->
 <script>
+    function config(){
+        if(premissas.className=="vazio"){
+            premissas.className = "premissas"
+        }
+        else{
+            premissas.className = "vazio"
+        }
+    }
+
     function calc() {
     
         //Inputs do cliente
