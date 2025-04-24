@@ -52,5 +52,35 @@ CONSTRAINT fkSensor FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
 primary key (idDados,fkSensor)
 );
 
+insert into orgao values 
+(default,'Corpo de Bombeiros', '12345678000199', '11999998888', 'Corpodebombeiro@gov.br', 'Urubu100@');
+
+insert into usuario values 
+(default,'Guilherme', 'Marques', 'guilhermeM@sptech.school', 'senha_133', '12345678901',default, 1),
+(default,'Juan', 'Viera', 'juanviera@@sptech.school', 'Urubu100@','10987654321',default, 1);
+
+insert into Area values
+(default,'A', 1, 1),
+(default,'A', 2, 1),
+(default,'A', 3, 1),
+(default,'A', 4, 1),
+(default,'A',5,1);
+
+insert into sensor values
+(default,'DHT11', 'Ativo', '2025-01-10 10:00:00', '2025-01-20 09:00:00', 'Manutenção geral', 1),
+(default,'DHT11', 'Inativo', null, null, 'Manutenção geral', 2);
+
+insert into dados values 
+(default,25.5, 75, default, 1, 1),
+(default,28.7, 70, default, 1, 2);
 
 
+select * from orgao;
+
+select * from usuario;
+
+select idArea, concat(Grid,numero) as Grid, fkOrgao from area;
+
+select * from sensor;
+
+select * from dados;
