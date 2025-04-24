@@ -84,3 +84,25 @@ select idArea, concat(Grid,numero) as Grid, fkOrgao from area;
 select * from sensor;
 
 select * from dados;
+
+-- Visualizar funcionários e seu orgão associado
+select nome as Nome_Funcionário, orgao as Orgão_Vínculado from orgao 
+join usuario on FKOrgao = idOrgao;
+
+-- Mostrar sensores da área que estão ativos e seu grid respectivo
+select 
+	idSensor,
+	nomeSensor as nome_sensor,
+	Status_Sensor,
+	concat(Grid,numero) as Grid
+from sensor join area on fkArea = idArea where Status_sensor = "Ativo";
+
+-- Visualizar dados (temperatura e umidade) respectivos do sensor
+select 
+	idSensor as ID,
+    nomeSensor as Nome_Sensor,
+    Status_Sensor,
+    temperatura,
+    umidade
+from sensor join dados on fkSensor = idSensor
+where Status_Sensor = "Ativo";
