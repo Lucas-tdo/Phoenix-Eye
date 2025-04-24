@@ -51,12 +51,12 @@ const serial = async (
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log(data);
         const valores = data.split(';');
-        const sensorTemp = parseFloat(valores[0]);
-        const sensorUmid = parseFloat(valores[1]);
+        const sensorUmid = parseFloat(valores[0]);
+        const sensorTemp = parseFloat(valores[1]);
 
         // armazena os valores dos sensores nos arrays correspondentes
-        valoresSensorTemp.push(sensorUmid);
-        valoresSensorUmid.push(sensorTemp);
+        valoresSensorUmid.push(sensorUmid);
+        valoresSensorTemp.push(sensorTemp);
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
