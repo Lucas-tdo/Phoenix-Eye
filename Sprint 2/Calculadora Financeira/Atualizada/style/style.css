@@ -9,6 +9,12 @@ body {
     overflow-y: auto;
 }
 
+
+/* Voltar ao início */
+.inicio {
+    display: contents;
+}
+
 /* Ocultar conteúdos */
 .vazio{
     display: none;
@@ -19,14 +25,49 @@ body {
     display: contents;
 }
 
+
 /* Botão que leva até as inputs para realizar a simulação */
 .button_simulacao {
     height: 40px;
     width: 160px;
+    margin: 0;
 }
 
-.texto_inicio_simulacao {
-    font-size: 30px;
+/* Textos que aparecem na área inicial */
+.inicio .texto_inicio_simulacao_pt1 {
+    background-color: #334b39f1;
+    border-radius: 15px;
+    border: solid 1px rgba(255, 255, 255, 0.51);
+    padding: 15px;
+    margin: 0;
+    width: 600px;
+    font-size: 20px;
+}
+
+.inicio .texto_inicio_simulacao_pt2 {
+    border: solid 1px rgba(255, 255, 255, 0.51);
+    padding: 15px;
+    width: 600px;
+    margin: 0;
+    font-size: 15px;
+    text-align: left;
+}
+
+/* Estilização das palavras em destaque na branca */
+.inicio .texto_inicio_simulacao_pt2 #txt_titulo {
+    font-weight: 700;
+}
+
+/* Estilização das palavras em destaque na cor laranja */
+.inicio .texto_inicio_simulacao_pt2 #txt_marcado {
+    color: #cd430f;
+    font-weight: 550;
+}
+
+/* Estilização do texto de explicação */
+.inicio .texto_inicio_simulacao_pt2 #txt_explicacao {
+    color: #ffffffe5;
+    font-style: italic;
 }
 
 /* Container principal */
@@ -43,22 +84,29 @@ body {
 /* Navegação (logo e título) */
 nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     background-color: #02330f91;
     height: 70px;
     padding: 0 20px;
+    border-bottom: solid 1px white;
 }
 
-nav img {
+nav #logo {
     width: 65px;
     height: 65px;
+    
 }
 
 nav .titulo {
     color: white;
     font-size: 35px;
     font-weight: 700;
-    margin-left: 530px;
+}
+
+nav #home {
+    width: 35px;
+    margin-right: 20px;
 }
 
 /* Área central da página */
@@ -80,8 +128,8 @@ nav .titulo {
     padding: 20px;
     border-radius:20px;
     border: solid 2px white ;
-    height: 520px;
-    width: 45%;
+    height: 540px;
+    width: 700px;
     max-width: 1100px;
     box-shadow: 0 0 10px #00000080;
 }
@@ -97,6 +145,18 @@ nav .titulo {
     width: 95%;
     overflow-y: auto;
     text-align: center;
+}
+
+/* Estilização dos botões de controle (Início e Enviar) */
+.bloco-inputs-resultados #botoes_controle{
+    display: flex;
+    justify-content: space-evenly;
+    width: 250px;
+}
+
+/* Estilização da área onde os resultados serão exibidos */
+.bloco-inputs-resultados #p_resultado {
+    width: 500px;
 }
 
 /* Barra de rolagem nos blocos */
