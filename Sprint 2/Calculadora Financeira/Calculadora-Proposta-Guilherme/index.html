@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Container principal que cobre toda a tela -->
+    <div class="container">
+
+        <!-- Barra de navegação com logo e título -->
+        <nav>
+            <img id="logo" src="img/logo_branca.png">
+            <div class="titulo">Simulador Financeiro</div>
+            <a href="bla.html"><img id="home" src="img/casa.png"></a>
+        </nav>
+
+        <!-- Área principal de conteúdo -->
+        <div class="conteudo">
+
+            <!-- Área para agrupar o bloco com as inputs e resultados -->
+            <div class="caixa-conteudo">
+
+                <!-- Div para ocultar e exibir a Área inicial do simulador -->
+                <div id="inicio" class="inicio">
+
+                    <!-- Mensagem da tela inicial, antes da vizualização das inputs -->
+                    <p id="texto_inicio_simulacao_pt1" class="texto_inicio_simulacao_pt1">Olá! Antes de iniciarmos a
+                        simulação, aqui estão algumas informações sobre o simulador:</p>
+
+                    <p id="texto_inicio_simulacao_pt2" class="texto_inicio_simulacao_pt2">
+                        <span id="txt_titulo">Para obter os resultados que serão mostrados a seguir na simulação foram
+                            usados os seguintes dados:</span> <br><br><br>
+                        <span id="txt_titulo">- Área destruída pelo incêndio:</span> Cálculada através do <span
+                            id="txt_marcado">Tempo de reação ao incêndio</span> | <span id="txt_marcado">Tempo de
+                            extinção
+                            do incêndio</span> | <span id="txt_marcado">Velocidade média de propagação do fogo</span>.
+                        <br><br>
+                        <span id="txt_titulo">- Custos envolvidos:</span> <span id="txt_marcado">Equipes</span> | <span
+                            id="txt_marcado">Equipamentos</span> | <span id="txt_marcado">Água utilizada</span>.
+                        <br><br>
+                        <span id="txt_titulo">- Valor da redução de custo:</span> Diferença entre o <span
+                            id="txt_marcado">Custo com e sem a solução</span>. <br><br>
+                        <span id="txt_titulo">- Porcentagem de redução:</span> Cálculo realizado a partir do <span
+                            id="txt_marcado">Custo com e sem a solução</span>. <br><br><br>
+                        <span id="txt_explicacao">O que diferencia os cálculos (Área destruida pelo incêndio e Custos
+                            envolvidos) com e sem a solução é o tempo de resposta ao incêndio, pois, quanto maior é
+                            tempo
+                            para o incêndio ser detectado, mais destruição e custos ele gera. Alguns valores usados nos
+                            cálculos já estão definidos, com base em pesquisas realizadas pela equipe, que definiu esses
+                            dados como premissass.</span>
+                    </p>
+
+                    <!-- Botão para exibir os conteúdos da simulação -->
+                    <button onclick="iniciarSimulacao()" id="button_simulacao" class="button_simulacao">Iniciar
+                        Simulação</button>
+
+                </div>
+
+                <!-- Div para ocultar e exibir os conteúdos com as inputs e resultados -->
+                <div id="definicoes" class="vazio">
+
+                    <!-- Vizualização das Inputs -->
+                    <div class="bloco-inputs-resultados">
+
+                        <!-- Definições dos dados a serem inseridos -->
+                        <h3>Definições</h3>
+
+                        <p>Metragem de área da APA protegida:</p>
+                        <input type="text" id="input_metragem" placeholder="m²">
+
+
+                        <p>Tempo de resposta ao incêndio:</p>
+                        <input type="text" id="input_tempoReacaoAtual" placeholder="minutos...">
+
+
+
+
+                        <p>Dinheiro gasto com combates a incêndios:</p>
+                        <input type="text" id="input_tempoExtincaoIncendio" placeholder="minutos..."> <br><br>
+
+
+                        <div id="botoes_controle">
+
+                            <!-- Botão para voltar para Área inicial -->
+                            <button onclick="voltarInicio()" id="botao_inicio" class="botao_inicio">Início</button>
+
+                            <!-- Botão para enviar e processar os dados -->
+                            <button onclick="calc()">Enviar</button>
+
+                        </div>
+
+                        <hr>
+
+                        <!-- Resultados -->
+
+                        <h3 id="h3_resultado"></h3>
+                        <p id="p_resultado"></p>
+                        <br><br>
+
+                        <canvas id="myChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<!-- Script para lidar com os dados e exibir resultados organizadamente -->
+<script>
+
+    function iniciarSimulacao() {
+        if (definicoes.className == "vazio") {
+            definicoes.className = "definicoes"
+            button_simulacao.className = "vazio"
+            texto_inicio_simulacao_pt1.className = "vazio"
+            texto_inicio_simulacao_pt2.className = "vazio"
+
+        }
+        else {
+            definicoes.className = "vazio"
+            button_simulacao.className = "button_simulacao"
+            texto_inicio_simulacao_pt2.className = "texto_inicio_simulacao"
+        }
+    }
+
+    function voltarInicio() {
+        if (inicio.className == "vazio") {
+            inicio.className = "inicio"
+            definicoes.className = "vazio"
+            button_simulacao.className = "button_simulacao"
+            texto_inicio_simulacao_pt1.className = "texto_inicio_simulacao_pt1"
+            texto_inicio_simulacao_pt2.className = "texto_inicio_simulacao_pt2"
+        }
+        else {
+            inicio.className = "vazio"
+            definicoes.className = "definicoes"
+            button_simulacao.className = "vazio"
+            texto_inicio_simulacao_pt1.className = "vazio"
+            texto_inicio_simulacao_pt2.className = "vazio"
+        }
+    }
+
+    function calc() {
+
+
+        // Valores fixos
+        const velocidadePropagacao = 5; // m² por minuto
+        /* Segundo dados retirados do corpo de bombeiros do estado de Goiás 
+        https://www.bombeiros.go.gov.br/wp-content/uploads/2017/05/NO-03-Preven%C3%A7%C3%A3o-e-Combate-a-Inc%C3%AAndio-Florestal.pdf
+
+        A velocidade de propagação de um incêndio pode
+        ser medida em forma de linha (m/seg; m/min;
+        km/hora) e também conforme a superfície (m² ou
+        hectares/unidade de tempo).
+        I – Lenta: 0-2 m/min;
+        II – Mediana 2-10 m/min;
+        III – Alta 10-70 m/min; e
+        IV – Extrema + de 70 m/min
+        */
+
+
+        // Pegando valores dos inputs
+        let areaTotal = parseFloat(document.getElementById("input_metragem").value);
+        let tempoReacao = parseFloat(document.getElementById("input_tempoReacaoAtual").value);
+        let custoAtual = parseFloat(document.getElementById("input_tempoExtincaoIncendio").value); // será tratado como custo total
+
+        // Cálculo da área destruída sem solução
+        let areaDestruidaSemSolucao = tempoReacao * velocidadePropagacao;
+
+        // Cálculo da área destruída com solução (tempo reduzido pela metade)
+        let tempoReacaoSolucao = tempoReacao / 2;
+        let areaDestruidaComSolucao = tempoReacaoSolucao * velocidadePropagacao;
+
+        // Custo proporcional à área destruída
+        let custoComSolucao = (areaDestruidaComSolucao / areaDestruidaSemSolucao) * custoAtual;
+
+        // Diferença e porcentagem de economia
+        let economia = custoAtual - custoComSolucao;
+        let porcentagemEconomia = (economia / custoAtual) * 100;
+
+
+        h3_resultado.innerHTML = `Resultado da Simulação`;
+
+        p_resultado.innerHTML = `
+            Com base no tempo de resposta atual, uma área de <b style="color:red;">${areaDestruidaSemSolucao.toFixed(0)}m²</b> pode ser destruída, gerando custos de <b style="color:red;">R$${custoAtual.toFixed(2)}</b>.<br><br>
+            Com a nossa solução, reduzindo o tempo de resposta para <b>${tempoReacaoSolucao.toFixed(1)} minutos</b>, a área destruída cairia para <b style="color:green;">${areaDestruidaComSolucao.toFixed(0)}m²</b> e o custo direto seria de apenas <b style="color:green;">R$${custoComSolucao.toFixed(2)}</b>.<br><br>
+            <b>Economia estimada:</b> <b style="color:green;">R$${economia.toFixed(2)} (${porcentagemEconomia.toFixed(1)}%)</b>.
+`;
+        function carregarGrafico() {
+
+            const ctx = document.getElementById('myChart');
+
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Custo'],
+                    datasets: [
+                        {
+                            label: 'Com a solução',
+                            data: [custoComSolucao],
+                         
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: 'Sem a solução',
+                            data: [custoAtual],
+                       
+                            borderColor: 'rgb(54, 162, 235)',
+                            backgroundColor: 'rgb(54, 162, 235)',
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+
+                    }
+                }
+            });
+
+
+        }
+        carregarGrafico();
+    }
+</script>
