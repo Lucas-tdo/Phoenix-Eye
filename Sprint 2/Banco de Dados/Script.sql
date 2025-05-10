@@ -3,40 +3,42 @@ use sprint2;
 create table orgao(
 idOrgao int primary key auto_increment,
 orgao varchar(45),
-CNPJ char(15),
+cnpj char(15),
 telefone char(11),
 email varchar(45),
-senha varchar(45)
+senha varchar(20)
 );
 
 create table usuario(
-idUser int auto_increment,
-Nome varchar(50),
-sobrenome varchar(50),
-email varchar(50),
-senha varchar(45),
-Cpf char(11),
-dtCadastro datetime default current_timestamp,
-FKOrgao int,
-constraint fkOrganizacao foreign key (fkOrgao) references orgao(idOrgao),
-primary key (idUser,FKOrgao)
+idUsuario int primary key auto_increment,
+nome varchar(45),
+email varchar(45),
+senha varchar(20),
+nivelUsuario int,
+fkOrgao int,
+constraint fkOrganizacao foreign key (fkOrgao) references orgao (idOrgao)
 );
 
-create table Area(
+create table area(
 idArea int primary key auto_increment,
-Grid char(1),
-numero int,
-fkOrgao int,
-constraint fkOrgao foreign key (fkOrgao) references orgao(idOrgao)
+grid char(1),
+numero int
+);
+
+create table monitoramento (
+fkOrgao INT,
+fkArea INT,
+responsavel VARCHAR(45),
+CONSTRAINT pkOrgaoArea PRIMARY KEY (fkOrgao, fkArea),
+CONSTRAINT fkOrgaoArea 
+FOREIGN KEY (fkOrgao) REFERENCES orgao (idOrgao),
+FOREIGN KEY (fkArea) REFERENCES area (idArea)
 );
 
 CREATE TABLE sensor (
 idSensor int primary key AUTO_INCREMENT,
-nomeSensor VARCHAR(30),
-Status_Sensor VARCHAR(20),
-dtInstalacao DATETIME,
-dtManutencao DATETIME,
-descManutencao VARCHAR(500),
+nome VARCHAR(30),
+status_sensor VARCHAR(20),
 fkArea INT,
 CONSTRAINT fkArea FOREIGN KEY (fkArea) REFERENCES Area(idArea)
 );
@@ -48,7 +50,7 @@ umidade INT,
 dtMedicao DATETIME,
 nivelRisco INT,
 fkSensor  INT,
-CONSTRAINT fkSensor FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
+CONSTRAINT fkSensorDados FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
 primary key (idDados,fkSensor)
 );
 
