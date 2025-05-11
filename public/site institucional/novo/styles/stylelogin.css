@@ -86,9 +86,7 @@
     font-weight: 600;
     font-size: 20px;
 }
-#button_entrar:hover{
-    border: solid black 1px;
-}
+
 
 .button_voltar{
     border: none;
@@ -182,9 +180,7 @@
     font-weight: 600;
     font-size: 20px;
 }
-#button_entrar:hover{
-    border: solid black 1px;
-}
+
 
 #ir_login{
     background-color: transparent;
@@ -197,15 +193,15 @@
 #ir_login u{
     cursor: pointer;
 }
-#ir_login u:hover{
-    color: rgba(255, 255, 255, 0.301);
-}
 
 .ir_dash{
     color: white;
     text-align: center;
     font-size: 10px;
     cursor: default;
+}
+.ir_dash u{
+    cursor: pointer;
 }
 
 .Erros_senha{

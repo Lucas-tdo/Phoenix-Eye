@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+    <!-- Container principal que cobre toda a tela -->
+    <div class="container">
+
+        <!-- Barra de navegação com logo e título -->
+        <nav>
+            <img src="img/logo_branca.png" alt="Logo">
+            <div class="titulo">Simulador Financeiro</div>
+        </nav>
+
+        <!-- Área principal de conteúdo -->
+        <div class="conteudo">
+
+            <!-- Caixa geral para agrupar os dois blocos (inputs e resultados) -->
+            <div class="caixa-conteudo">
+
+                <!-- Bloco da esquerda: Inputs -->
+                <div class="bloco-inputs">
+
+                    <h3>Definições</h3>
+
+                    <p>Qual a metragem da área protegida? (em m²)</p>
+                    <input type="text" id="input_metragem">
+
+                    <p>Tempo de início:ao combate no modelo atual (em minutos)</p>
+                    <input type="text" id="input_tempoReacaoAtual">
+
+                    <p>Tempo de início ao combate com a solução (em minutos)</p>
+                    <input type="text" id="input_tempoReacaoSolucao">
+
+                    <p>Tempo médio para extinção de um incêndio dessa proporção (em minutos)</p>
+                    <input type="text" id="input_tempoExtincaoIncendio"> <br><br>
+                    <div class="imagem">
+                        <img id="configuracao" onclick="config()"src="img/config.png" alt=""></button>
+                    </div>
+                    <hr>
+                    <div id="premissas" class="vazio">
+                        <h3>Premissas</h3>
+                        <p>Velocidade de expansão do fogo (em m/s)</p>
+                        <input type="text" id="input_velocidadeFogo" value="1.25">
+
+                        <p>Litros d'água por m² de incêndio</p>
+                        <input type="text" id="input_litrosAguaPorM2" value="3.43">
+
+                        <p>Preço do litro de água</p>
+                        <input type="text" id="input_precoLitroAgua" value="0.00484">
+
+                        <p>Quantidade de bombeiros</p>
+                        <input type="text" id="input_qtdBombeiros" value="" placeholder="10 bombeiros/10000m²">
+
+                        <p>Salário médio dos bombeiros (por hora)</p>
+                        <input type="text" id="input_salarioBombeiroHora" value="16.75">
+
+                        <p>Avião no combate ao incêndio?</p>
+                        <select id="select_aviao">
+                            <option>Sim</option>
+                            <option>Não</option>
+                        </select>
+                        <p>Equipamentos adicionais* (R$/h)</p>
+
+                        <input type="text" id="input_equipsAdicionais" value="" placeholder="Equipamentos">
+
+                    <hr>
+
+                    <h3><b>Sensores</b></h3>
+                    <p>Distância entre sensores (em metros)</p>
+                    <input type="text" id="input_sensores" value="50">
+
+                    <p>Preço do sensor (em R$)</p>
+                    <input type="text" id="input_precoSensor" value="10"><br>
+
+                    </div>
+                    
+                    <button onclick="calc()">Enviar</button>
+                </div>
+
+                <!-- Bloco da direita: Resultados -->
+                <div class="bloco-resultados">
+                    <h3>Resultados</h3>
+                    <div id="listaResultados" class="resultados-lista">
+                        <h3 id="h3_resultado"></h3>
+                        <p id="p_resultado"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+    <!-- Script para lidar com os dados e exibir resultados organizadamente -->
+<script>
+    function config(){
+        if(premissas.className=="vazio"){
+            premissas.className = "premissas"
+        }
+        else{
+            premissas.className = "vazio"
+        }
+    }
+
+    function calc() {
+    
+        //Inputs do cliente
+        var metragemArea = Number(input_metragem.value); //metragem do terreno em m²;
+        var tempoReacaoAtual = Number(input_tempoReacaoAtual.value); //tempo de reação das equipes até chegarem ao local do incêndio SEM o uso da ferramenta. Desde perceberem o fogo até chegarem no local;
+        var tempoReacaoSolucao = Number(input_tempoReacaoSolucao.value); //tempo da reação COM a implementação da ferramenta. Desde perceberem o fogo até chegarem no local;
+        var tempoExtincaoIncendio = Number(input_tempoExtincaoIncendio.value); //tempo médio para extinção do incêndio a partir do começo do combate;
+        //Premissas  - podem ser alteradas pelo cliente
+        var velocidadeFogo = Number(input_velocidadeFogo.value); //De acordo com estudo da UFRJ, a velocidade de propação do fogo, de forma simplificada, fica entre 0,5 e 2 m/s. Consideraremos na pré definição o valor 1.25 m/s em todas as direções, para fins de simplificação. Fatores como umidade, temperatura do fogo, topografia, ventos e materiais/estruturas ao redor também impactam a velocidade na qual um incêndio se propaga;
+        var litrosAguaPorM2 = Number(input_litrosAguaPorM2.value);//De acordo com matéria do g1, referente a incêndio ocorrido em 2020, em Minas Gerais, incêndios gastam em média 3.43 litros de água por m² de incêndio;
+        var precoLitroAgua = Number(input_precoLitroAgua.value);//Conforme matéria do site Sagres, o custo para tratar e disponibiliar 1 litro de água era de R$0,0048 em 2023;
+        var qtdBombeiros = Number(input_qtdBombeiros.value);//Conforme matéria do g1, referente a um incêndio ocorrido em 2021 no estado de São Paulo, foram utilizados 50 bombeiros para uma área de 50000km. Logo, definimos a quantia de 10 bombeiros para cada 10000km de área atingida;
+        var qtdBombeirosSolucao = Number(input_qtdBombeiros.value)//Caso o cliente não informe a quantidade de bombeiros, esta variável será calculada com base na área atingida (com a solução) - da mesma forma que a linha acima;
+        var salarioBombeiroHora = Number(input_salarioBombeiroHora.value);//De acordo com o site salario.com.br atualizada em 2025, bombeiros em SP ganham, em média 2.679,89 por 40h semanais;
+        var aviao = select_aviao.value;//"Com avanço das queimadas, governo de SP libera R$ 5,9 milhões para combate a incêndios florestais com aeronaves. Verba vai permitir a contratação de 120 horas de voo de monitoramento e 300 de combate aéreo, somando 420 horas." - o que equivale a R$ 14047.62 por hora;
+        var equipsAdicionais = Number(input_equipsAdicionais.value);//Até o momento, o único equipamento adicionado é o avião se selecionado no select_aviao. O usuário pode adicionar outros se necessário.
+        //Quantidade e preço do sensor
+        var metrosPorSensor = Number(input_sensores.value);
+        var precoSensor = Number(input_precoSensor.value);
+        //Totais dos custos - serão utilizados abaixo
+        var custoTotalAtual;
+        var custoTotalSolucao;
+        var difCustoTotal;
+        var porcentDifCustoTotal;
+        //Checar se avião será utilizado;
+        if (aviao == "Sim") {
+            equipsAdicionais += 14047.62;
+        }
+        //areaTotal atual -  não pode ser maior que a metragem da área;
+        var areaTotalAtingidaAtual = ((tempoReacaoAtual * 60) + (tempoExtincaoIncendio * 60)) * velocidadeFogo;
+        if (areaTotalAtingidaAtual > metragemArea) {
+            areaTotalAtingidaAtual = metragemArea
+        }
+        //Calcular quantidade de bombeiros se não foi informado pelo cliente;
+        if (qtdBombeiros == 0) {
+            qtdBombeiros = 10 * (areaTotalAtingidaAtual / 10000);
+        }
+        //Custos atuais
+        var custoEquipesAtual = ((tempoReacaoAtual + tempoExtincaoIncendio) / 60) * (qtdBombeiros * salarioBombeiroHora);
+        var custoAguaAtual = areaTotalAtingidaAtual * litrosAguaPorM2 * precoLitroAgua;
+        var custoEquipamentosAtual = ((tempoReacaoAtual + tempoExtincaoIncendio) / 60) * equipsAdicionais;
+        custoTotalAtual = custoEquipesAtual + custoAguaAtual + custoEquipamentosAtual;
+        //areaTotal solução -  não pode ser maior que a metragem da área;
+        var areaTotalAtingidaSolucao = ((tempoReacaoSolucao * 60) + (tempoExtincaoIncendio * 60)) * velocidadeFogo;
+        if (areaTotalAtingidaSolucao > metragemArea) {
+            areaTotalAtingidaSolucao = metragemArea
+        }
+        //Calcular quantidade de bombeiros se não foi informado pelo cliente;
+        if (qtdBombeirosSolucao == 0) {
+            qtdBombeirosSolucao = 10 * (areaTotalAtingidaSolucao / 10000);
+        }
+        // Custos com a solução
+        var custoEquipesSolucao = ((tempoReacaoSolucao + tempoExtincaoIncendio) / 60) * (qtdBombeiros * salarioBombeiroHora);
+        var custoAguaSolucao = areaTotalAtingidaSolucao * litrosAguaPorM2 * precoLitroAgua;
+        var custoEquipamentosSolucao = ((tempoReacaoSolucao + tempoExtincaoIncendio) / 60) * equipsAdicionais;
+        custoTotalSolucao = custoEquipesSolucao + custoAguaSolucao + custoEquipamentosSolucao;
+        // Custos com os sensores (perímetro)
+        var qtdSensores = ((Math.sqrt(metragemArea)) * 4) / metrosPorSensor; // A quantidade de sensores é definida ao dividir o perímetro da área a ser protegida pela distância entre os sensores;
+        var custoTotalSensores = qtdSensores * precoSensor; // O custo é definido ao multiplicar a quantidade de sensores pelo preço de cada um;
+        //Diferença entre custos sem solução e com solução
+        var areaTotalAtingidaDif = areaTotalAtingidaAtual - areaTotalAtingidaSolucao;
+        var custoEquipesDif = custoEquipesAtual - custoEquipesSolucao;
+        var custoAguaDif = custoAguaAtual - custoAguaSolucao;
+        var custoEquipamentosDif = custoEquipamentosAtual - custoEquipamentosSolucao;
+        difCustoTotal = custoEquipesDif + custoAguaDif + custoEquipamentosDif;
+        porcentDifCustoTotal = 100 - ((custoTotalSolucao / custoTotalAtual) * 100);
+        //Resultados na tela
+        h3_resultado.innerHTML = `Resultado da Simulação`;
+        p_resultado.innerHTML = `Com base nas definições e premissas informadas, serão necessários <b style="color: red;">${qtdSensores.toFixed(0)} sensores</b>, gerando um custo de <b style="color: red;">R$${custoTotalSensores.toFixed(2)}</b>. <br><br> Para chegarmos a este valor, consideramos o perímetro da área informada e dividimos pela quantidade de metros entre os sensores e pelo preço, que foram informados acima. <br><br> Considerando a metragem total a ser protegida, sem a solução, uma área de <b style="color: red;">${areaTotalAtingidaAtual.toFixed(0)}m²</b> seria destruída pelo incêndio, acarretando custos diretos de <b style="color: red;">R$${custoTotalAtual.toFixed(2)}</b>. <br><br> Neste valor são considerados o custo com equipes <b style="color: red;">(R$${custoEquipesAtual.toFixed(2)})</b>, custo com água <b style="color: red;">(R$${custoAguaAtual.toFixed(2)})</b> e o custo com equipamentos <b style="color: red;">(R$${custoEquipamentosAtual.toFixed(2)})</b>. <br><br>
+        Ao usar nossa solução e reduzir o tempo de mobilização e início ao combate de <b style="color: green;">${tempoReacaoAtual.toFixed(0)}</b> minutos para <b style="color: green;">${tempoReacaoSolucao.toFixed(0)}</b> minutos, a área destruída seria reduzida para <b style="color: green;">${areaTotalAtingidaSolucao.toFixed(0)}m²</b>, e os custos diretos cairíam para <b style="color: green;">R$${custoTotalSolucao.toFixed(2)}</b>, uma redução de <b style="color: green;">R$${difCustoTotal.toFixed(2)}</b>, ou  <b style="color: green;">${porcentDifCustoTotal.toFixed(2)}%.</b> <br><br> Com a solução, o custo com equipes <b style="color: green;">(R$${custoEquipesSolucao.toFixed(2)})</b>, custo com água <b style="color: green;">(R$${custoAguaSolucao.toFixed(2)})</b> e o custo com equipamentos <b style="color: green;">(R$${custoEquipamentosSolucao.toFixed(2)})</b> são reduzidos. <br><br>
+        <h2>Tabela de valores</h2>
+        <table>
+        <style>
+        /* Aqui é onde é definido alguns aspectos, a exemplo de bordas largura padding e etc na tb */
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+            
+        }
+        th {
+            border: 2px solid black;
+            padding: 10px;
+            background-color: grey;
+            color: aliceblue;
+        }
+        #diferenca{
+            border: 2px solid black;
+            padding: 10px;
+            background-color: green;
+        }
+        </style>
+        <thead>
+            <!-- <tr></tr> = linha && <td></td> = coluna-->
+            <!-- Inicio de uma tupla da tabela -->
+            <tr> 
+                <!-- Valores atribuidos em cada coluna -->
+                <th>Tipo de custo</th>
+                <th>Atual</th>
+                <th>Solução</th>
+                <th id="diferenca">Diferença</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Equipe</td>
+                <td>R$${custoEquipesAtual.toFixed(2)}</td>
+                <td>R$${custoEquipesSolucao.toFixed(2)}</td>
+                <td>R$${custoEquipesDif.toFixed(2)}</td>
+                
+            </tr>
+            <tr>
+                <td>Água</td>
+                <td>R$${custoAguaAtual.toFixed(2)}</td>
+                <td>R$${custoAguaSolucao.toFixed(2)}</td>
+                <td>R$${custoAguaDif.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Equipamento</td>
+                <td>R$${custoEquipamentosAtual.toFixed(2)}</td>
+                <td>R$${custoEquipamentosSolucao.toFixed(2)}</td>
+                <td>R$${custoEquipamentosDif.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>R$${custoTotalAtual.toFixed(2)}</td>
+                <td>R$${custoTotalSolucao.toFixed(2)}</td>
+                <td>R$${difCustoTotal.toFixed(2)}</td>
+            </tr>
+        </tbody>
+        </table>`
+    }
+</script>

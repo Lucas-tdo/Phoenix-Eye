@@ -1,0 +1,166 @@
+/* Importa a fonte Barlow do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;400;600;700;900&display=swap');
+
+/* Reset de margem, padding e fonte padrão */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', sans-serif;
+}
+
+
+.vazio{
+    display: none;
+}
+
+.premissas{
+    display: inline;
+}
+
+#configuracao{
+    width: 25px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 30%;
+}
+
+.imagem{
+    display: flex;
+}
+
+/* Container principal */
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../img/fundonv.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navegação (logo e título) */
+nav {
+    display: flex;
+    align-items: center;
+    background-color: #02330f91;
+    height: 70px;
+    padding: 0 20px;
+}
+
+nav img {
+    width: 65px;
+    height: 65px;
+}
+
+nav .titulo {
+    color: white;
+    font-size: 35px;
+    font-weight: 700;
+    margin-left: 530px;
+}
+
+/* Área central da página */
+.conteudo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Div que envolve os conteúdos das caixas das inputs e dos resultados */
+.caixa-conteudo {
+    display: flex;
+    background-color: #112917ee;
+    padding: 20px;
+    border-radius:20px;
+    border: solid 2px white ;
+    gap: 20px;
+    height: 450px;
+    width: 90%;
+    max-width: 1100px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Bloco de inputs */
+.bloco-inputs {
+    background-color: #334b39f1;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    overflow-y: auto;
+    text-align: center;
+}
+
+
+/* Bloco de resultados */
+.bloco-resultados {
+    background-color: #334b39f1;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    overflow-y: auto;
+}
+
+/* Barra de rolagem nos blocos */
+.bloco-inputs::-webkit-scrollbar,
+.bloco-resultados::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bloco-inputs::-webkit-scrollbar-thumb,
+.bloco-resultados::-webkit-scrollbar-thumb {
+    background-color: #1e2f23f1;
+    border: solid 1px white;
+    border-radius: 4px;
+}
+
+.bloco-inputs::-webkit-scrollbar-track,
+.bloco-resultados::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Elementos internos */
+input {
+    width: 80%;
+    height: 20px;
+    background-color: transparent;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+    text-align: center;
+}
+
+button {
+    width: 100px;
+    padding: 10px;
+    margin-top: 8px;
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    border: 3px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+h3, p {
+    color: white;
+    text-align: center;
+}
+
+h3 {
+    font-size: 30px;
+    background-color: #1e2f23f1;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}

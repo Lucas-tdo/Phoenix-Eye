@@ -514,31 +514,7 @@
         window.location.href = "dashboard_Sensor.html";
     }
     function atualizar() {
-        var umidAviso = 40;
-        var tempAviso = 34;
 
-        var umidAlerta = 20;
-        var tempAlerta = 38;
-
-
-        var tempSA6 = tempSensorA7 - 3;
-        var umidSA6 = umidSensorA7 + 3;
-
-        var tempSA8 = tempSensorA7 - 3;
-        var umidSA8 = umidSensorA7 + 3;
-
-        
-
-        var tempSA5 = tempSensorA7 - 6;
-        var umidSA5 = umidSensorA7 + 6;
-
-        var tempSA9 = tempSensorA7 - 6;
-        var umidSA9 = umidSensorA7 + 6;
-
-
-        tempMedia = (28 + 29 + 27 + 30 + tempSA5 + tempSA6 + tempSensorA7 + tempSA8 + tempSA9 + 27 + 30 + 26 + 29 + 27 + 30 + 27 + 30 + 27 + 30 + 27 + 30 + 27 + 30 + 28 + 29 + 27 + 30 + 26 + 25 + 27 + 28 + 29) / 32;
-
-        umidMedia = (70 + 72 + 68 + 75 + umidSA5 + umidSA6 + umidSensorA7 + umidSA8 + umidSA9 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 68 + 75 + 70 + 72 + 68 + 75 + 65 + 63 + 63 + 70 + 72) / 32;
 
         tempMedia = tempMedia.toFixed(1);
         umidMedia = umidMedia.toFixed(1);
@@ -597,7 +573,7 @@
             div_A8.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
             div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
 
-            
+
 
             /* Parte do atenção */
 
@@ -621,9 +597,9 @@
             qtdManutencao.innerText = 0;
             /* Criação da mensagem */
 
-            div_A7.innerHTML += `<h1 style="color:rgb(201, 7, 7);;">Incêndio</h1>`;
-            div_A8.innerHTML += `<h1 style="color: rgb(146, 2, 2);">Perigo</h1>`;
-            div_A6.innerHTML += `<h1 style="color: rgb(146, 2, 2);">Perigo</h1>`;
+            div_A7.innerHTML += `<h1 style="color:rgb(255, 39, 39);">Incêndio</h1>`;
+            div_A8.innerHTML += `<h1 style="color: rgb(255, 145, 0);">Perigo</h1>`;
+            div_A6.innerHTML += `<h1 style="color: rgb(255, 145, 0);">Perigo</h1>`;
             div_A5.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
             div_A9.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
 
@@ -896,7 +872,7 @@
 
             A7.innerHTML = `
             <img src="Assets/grid_img/aviso_umid.png"  alt="">`;
-            
+
             div_A7.innerHTML += `<h1 style="color: rgb(202, 202, 23);">Aviso</h1>`;
             div_A5.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
             div_A9.innerHTML += `<h1 style="color:white;">Ativo</h1>`;
@@ -912,7 +888,7 @@
                             </div>
                         </div>`;
         }
-        else{
+        else {
             qtdAlerta.innerText = 0;
             qtdAviso.innerText = 0;
             qtdManutencao.innerText = 0;
@@ -940,14 +916,14 @@
                 datasets: [
                     {
                         label: 'Temperatura',
-                        data: [22, 23, 25, 27, 30, 29, 28, 26, 24, 23],
+                        data: [(tempMedia - 9), 23, 25, 27, 27, 29, 28, 26, 24, tempMedia],
                         borderWidth: 5,
                         borderColor: 'rgb(255, 99, 132)',
                         backgroundColor: 'rgb(255, 99, 132)',
                     },
                     {
                         label: 'Umidade',
-                        data: [75, 76, 78, 80, 82, 81, 79, 78, 76, 74],
+                        data: [75, 76, 78, 80, 82, 81, 79, 78, 76, umidMedia],
                         borderWidth: 5,
                         borderColor: 'rgb(54, 162, 235)',
                         backgroundColor: 'rgb(54, 162, 235)',

@@ -56,7 +56,7 @@
                     </div>
                     <p id="erros_senha_cadastro" class="Erros_senha"></p>
                     <button onclick="ValidarCadastro()" id="button_entrar">Cadastre-se</button>
-                    <p id="ir_login" >Já tem uma conta? <u onclick="Login()">Conecte-se</u></p>
+                    <p id="ir_login" >Voltar <u onclick="Login()">Login</u></p>
                     <p class="ir_dash">Deseja ver a dash? <u onclick="dash()">Clique</u></p> 
 
                 </div>
@@ -66,47 +66,56 @@
                     <img src="assets/icon/block.png" alt="">
                 </div>
 
-                <a href="index.html"><button class="button_voltar">Voltar ao home</button></a>
+                <a href="indexclara.html"><button class="button_voltar">Voltar ao home</button></a>
             </div>
                 
         </div>
-        
-        
     </div>
 </body>
 
 </html>
 <script>
+    // Variável que acumula os erros da conta
     var erros=0
+    // variáveis que recebem os dados do usuário 
     var nome = ""
     var telefone = ""
     var email = ""
     var senha = ""
+    // variáveis do nosso cliente
     var email_padrao = "Corpodebombeiro@gov.br"
     var senha_padrao = "Urubu100@"
 
 
+    // variáveis para validação
     var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var minuscula = "abcdefghijklmnopqrstuvwxyz"
     var caracteres= "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
     var numeros= "0123456789"
 
+
     var senha_validada = false
-        
+    
+    
+    // função para aparecer o login
     function Login(){
+        input_email_login.value = ""
+        input_email_senha.value = ""
         card_cadastro.className ='vazio'
         card_login.className = 'card_login'
     }
     function ValidarSenha(){
             senha_validada = false
-            var senha_tentativa = ""
 
+            var senha_tentativa = ""
             var temMaisculasenha = false
             var temMinusculasenha = false
             var temCaractere = false
             var temnumero = false
+
             var problemasenha=""
             
+
             if(card_cadastro.className =='vazio'){
                 senha_tentativa =input_email_senha.value.replaceAll(" ", "")
                 
@@ -114,6 +123,8 @@
             else{
                 senha_tentativa=input_senha_cadastro.value.replaceAll(" ", "")
             }
+
+            // validação usando for para verificar se tem letrar maisculas 
             for(i=0;i<maiscula.length;i++){
                 if(senha_tentativa.includes(maiscula[i])){
                     temMaisculasenha=true
@@ -122,6 +133,8 @@
             if(!temMaisculasenha){
                 problemasenha+='A senha deve conter pelo menos 1 letra Maiúscula<br>'
             }
+
+            // validação usando for para verificar se tem letrar minusculas na senha
             for(i=0;i<minuscula.length;i++){
                 if(senha_tentativa.includes(minuscula[i])){
                     temMinusculasenha=true
@@ -132,6 +145,7 @@
                 problemasenha+='A senha deve conter pelo menos 1 letra Minúscula<br>'
             }
 
+            // validação usando for para verificar se tem caracteres especiais na senha 
             for(i=0;i<caracteres.length;i++){
                 if(senha_tentativa.includes(caracteres[i])){
                     temCaractere=true
@@ -141,6 +155,7 @@
                 problemasenha+='A senha deve conter pelo menos 1 caractere especial<br>'
             }
 
+            // validação usando for para verificar se tem números na senha
             for(i=0;i<numeros.length;i++){
                 if(senha_tentativa.includes(numeros[i])){
                     temnumero=true
@@ -168,14 +183,14 @@
 
         }
 
-    function ValidarCadastro(){
+    function ValidarCadastro(){ 
         var nome_tentativa = input_nome_cadastro.value
         var telefone_tentativa = input_telefone_cadastro.value.replaceAll(" ","").replaceAll("-","")
         var email_tentativa = input_email_cadastro.value.replaceAll(" ", "");
         var senha_tentativa=input_senha_cadastro.value.replaceAll(" ", "")
         var problemaemail=""
         var problematelefone=""
-
+            // validações email e senha
             if(!email_tentativa.includes('@') && !email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
             }
@@ -195,16 +210,20 @@
 
 
             if(problematelefone.length>0||problemaemail.length>0||!senha_validada){
-                // adicionar mais coisas
                 alert(`${problemaemail}\n${problematelefone}`)
             }
             else{
                 if(senha_validada){
+                    // se senhas tiver validada o cadastro é efetuado e a tela de login é chamada
                     nome=nome_tentativa
                     telefone=telefone_tentativa
                     email=email_tentativa
                     senha=senha_tentativa   
                     alert('Cadastro realizado!')
+                    card_cadastro.className ='vazio'
+                    card_login.className = 'card_login'
+                    input_email_login.value = ""
+                    input_email_senha.value = ""
                 }
                 
             }
@@ -216,11 +235,13 @@
         var senha_tentativa = input_email_senha.value.replaceAll(" ", "");
         var problemaemail=""
 
+        // Se tiver mais de 2 tentativas erradas no login o site é bloqueado
         if(erros>2){
             card_login_block.className="card_login_block"
             card_login.className="vazio"
         }
         else{
+            // Validações email
             if(!email_tentativa.includes('@') && !email_tentativa.includes('.')){
                 problemaemail+=`Problema no Email:Email inválido deve conter '@' e '.'`
             }
@@ -245,6 +266,10 @@
                 else if(email_tentativa==email_padrao && senha_tentativa==senha_padrao){
                     card_login.className ='vazio'
                     card_cadastro.className = 'card_cadastro'
+                    input_nome_cadastro.value=""
+                    input_telefone_cadastro.value=""
+                    input_email_cadastro.value=""
+                    input_senha_cadastro.value=""
                 }
                 else{
                     erros++
@@ -255,6 +280,7 @@
     }
         
     function dash(){
+        // função que leva  dash
         window.location.href = '/Dashboard/dashboard.html'
     }
             
