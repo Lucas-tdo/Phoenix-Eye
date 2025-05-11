@@ -4,6 +4,10 @@
     border: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .container_pai {
     width: 100%;
     height: 100%;
