@@ -283,14 +283,12 @@ nav {
     background-color: white;
     font-size: 17px;
     align-items: flex-start;
+    cursor: pointer;
     font-weight: 700;
     color: #001C07;
 }
 
-.input_contato button:hover {
-    background-color: #001C07;
-    cursor: pointer;
-}
+
 
 
 
@@ -344,6 +342,7 @@ nav {
 
 .contatos img {
     height: 40px;
+    
 }
 
 .contatos span {
