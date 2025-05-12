@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Eye | Perfil</title>
+    <link rel="stylesheet" href="Styles/Perfil.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="lateral">
+
+
+            <a onclick="mostrarPerfil()">
+                <div id="Perfil">
+                    <img src="Assets/Icons/Perfil-Orgao.png">
+                    <h1>Perfil</h1>
+                </div>
+            </a>
+
+            <a onclick="mostrarFunc()">
+                <div id="FuncionarioLat">
+                    <img src="Assets/Icons/Cracha.png">
+                    <h1>Funcionario</h1>
+                </div>
+            </a>
+
+            <a onclick="mostrarAPAs()">
+                <div id="APA">
+                    <img src="Assets/Icons/Floresta.png">
+                    <h1>APAs</h1>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="Central">
+
+            <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
+            <div class="cadastros" id="cadastros">
+                <div class="cadastros_funcionarios" id="cadastro_func">
+                    <div>
+                        <h1>Adicionar os dados do seu funcionário:</h1>
+                        <input type="text" placeholder="Nome:" id="input_nome" >
+                        <input type="text" placeholder="Email:" id="input_email">
+                        <input type="text" placeholder="Senha:" id="input_senha">
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="Cadastrar()">Cadastrar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cadastros_APAs" id="cadastro_APAs">
+                    <div>
+                        <h1>Adicionar os dados da APA:</h1>
+                        <input type="text" placeholder="Nome:">
+                        <section>
+                            <h1>Imagem:</h1>
+                            <input type="file" placeholder="Imagem:">
+                        </section>
+
+                        <input type="text" placeholder="Descrição:">
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button>Cadastrar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+                <!-- Parte do perfil em si -->
+            <div class="dados" id="dados">
+                <div class="top_dados">
+                    <img src="Assets/Icons/Perfil_dado.png">
+                    <h1>Olá, Corpo de Bombeiros</h1>
+                </div>
+
+                <div class="Centro_dados">
+                    <div class="Dados_Cadastrados">
+                        <h1>Dados:</h1>
+                        <h1>Nome: Empresa</h1>
+                        <h1>Email: Empresa@Gmail.com</h1>
+                        <h1>Telefone:1198343832</h1>
+                        <h1>CNPJ: =100.623.904/0001-73</h1>
+                    </div>
+                    <div class="icones">
+                        <a>
+                            <img src="Assets/Icons/Engrenagem.png">
+                        </a>
+                        <a>
+                            <img src="Assets/Icons/Lixeira.png">
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+                    <!-- Parte dos funcionarios -->
+            <div class="Funcionario" id="Funcionario">
+
+                <div class="Funcionario_Acoes">
+                    <div onclick="abrirCadastroFunc()" style="cursor: pointer;">
+                        <img src="Assets/Icons/adicionar.png">
+                        <h1>Adicionar</h1>
+                    </div>
+
+                    <div>
+                        <img src="Assets/Icons/remover.png">
+                        <h1>Remover</h1>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="Lista_Funcionario">
+
+                    <div class="Indicadores">
+                        <h1>Nome</h1>
+                        <h1>Email</h1>
+                        <h1>Senha</h1>
+                    </div>
+
+                    <div class="listagem_Funcionarios" id="listagem_Funcionarios">
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+                <!-- Parte das APAs -->
+            <div class="APAs" id="APAs">
+                <div class="APAs_Acoes">
+                    <div onclick=" abrirCadastroAPAs()" style="cursor: pointer;">
+                        <img src="Assets/Icons/adicionar.png">
+                        <h1>Adicionar</h1>
+                    </div>
+
+                    <div>
+                        <img src="Assets/Icons/remover.png">
+                        <h1>Remover</h1>
+                    </div>
+                </div>
+
+                <div class="Lista_APAs">
+
+                    <div class="Indicadores_APAs">
+                        <div class="nula"></div>
+                        <h1>Nome</h1>
+                        <h1>Sensores</h1>
+                        <h1>Status</h1>
+                    </div>
+
+                    <div class="listagem_APAs">
+                        <div>
+                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
+                            <p>Bororé Colônia</p>
+                            <p>20</p>
+                            <img src="Assets/Icons/aviso.png" class="imagem_Situacao">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    sessionStorage.ID_EMPRESA=`1`
+     var empresa = sessionStorage.ID_EMPRESA
+    listarfunc()
+    
+    function listarfunc(){
+        listagem_Funcionarios.innerHTML=""
+        fetch(`/perfil/listarfunc/${empresa}`,{
+            method:"post",
+        })
+        .then(resposta=>{resposta.json().then(resposta=>{
+            for(resp of resposta){
+                listagem_Funcionarios.innerHTML+=`<div id="${resp.idUsuario}">
+                            <p>${resp.nome}</p>
+                            <p>${resp.email}</p>
+                            <p>${resp.senha}</p>
+                            </div>`
+            }
+            })
+        .catch(erro=>{
+            console.log(erro)
+        })
+        })
+    }
+
+    function Cadastrar(){
+        var nome = input_nome.value
+        var email = input_email.value
+        var senha = input_senha.value
+        if(nome == ''|| email==''||senha==''){
+            alert('Erro')
+        }
+        else{
+            fetch(`/perfil/cadastrar`,{
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nomeServer : nome,
+                    emailServer : email,
+                    senhaServer : senha,
+                    idempresaServer : empresa
+                }),
+            })
+            .then(resposta=>{
+                console.log("funcionario cadastrado",resposta);
+                 listarfunc()
+            })
+            .catch(erro=>{
+                console.log(erro)
+            })
+            ocultarCadastros()
+           
+        }
+    }
+    function mostrarPerfil() {
+        dados.style.display = "flex";
+        Funcionario.style.display = "none";
+        APAs.style.display = "none";
+        FuncionarioLat.style.backgroundColor = "transparent";
+        Perfil.style.backgroundColor = "#024002";
+        APA.style.backgroundColor = "transparent";
+    }
+
+    function mostrarFunc(){
+        APAs.style.display = "none"
+        dados.style.display = "none"
+        Funcionario.style.display = "flex"
+        FuncionarioLat.style.backgroundColor = "#024002";
+        Perfil.style.backgroundColor = "transparent"
+        APA.style.backgroundColor = "transparent";
+    }
+
+    function mostrarAPAs(){
+        dados.style.display = "none"
+        Funcionario.style.display = "none"
+        APAs.style.display = "flex"
+        FuncionarioLat.style.backgroundColor = "transparent";
+        Perfil.style.backgroundColor = "transparent"
+        APA.style.backgroundColor = "#024002";
+    }
+
+
+    function ocultarCadastros() {
+        cadastro_func.style.display = "none"
+        cadastro_APAs.style.display = "none"
+        cadastros.style.display = "none"
+    }
+
+    function abrirCadastroFunc(){
+        cadastro_func.style.display = "flex"
+        cadastro_APAs.style.display = "none"
+        cadastros.style.display = "flex"
+    }
+    function abrirCadastroAPAs(){
+        cadastro_func.style.display = "none"
+        cadastro_APAs.style.display = "flex"
+        cadastros.style.display = "flex"
+    }
+    mostrarPerfil();
+    ocultarCadastros()
+   
+</script>
