@@ -1,62 +1,110 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+CREATE database PhoenixEye;
+use PhoenixEye;
+create table orgao(
+idOrgao int primary key auto_increment,
+orgao varchar(45),
+cnpj char(15),
+telefone char(11),
+email varchar(45),
+senha varchar(20)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table usuario(
+idUsuario int primary key auto_increment,
+nome varchar(45),
+email varchar(45),
+senha varchar(20),
+nivelUsuario int,
+fkOrgao int,
+constraint fkOrganizacao foreign key (fkOrgao) references orgao (idOrgao)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+create table area(
+idArea int primary key auto_increment,
+grid char(1),
+numero int
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table monitoramento (
+fkOrgao INT,
+fkArea INT,
+responsavel VARCHAR(45),
+CONSTRAINT pkOrgaoArea PRIMARY KEY (fkOrgao, fkArea),
+CONSTRAINT fkOrgaoArea 
+FOREIGN KEY (fkOrgao) REFERENCES orgao (idOrgao),
+FOREIGN KEY (fkArea) REFERENCES area (idArea)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+CREATE TABLE sensor (
+idSensor int primary key AUTO_INCREMENT,
+nome VARCHAR(30),
+status_sensor VARCHAR(20),
+fkArea INT,
+CONSTRAINT fkArea FOREIGN KEY (fkArea) REFERENCES area(idArea)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+CREATE TABLE dados (
+idDados INT AUTO_INCREMENT,
+temperatura DECIMAL(4,2),
+umidade INT,
+dtMedicao DATETIME,
+nivelRisco INT,
+fkSensor  INT,
+CONSTRAINT fkSensorDados FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
+primary key (idDados,fkSensor)
+);
+
+insert into orgao values 
+(default,'Corpo de Bombeiros', '12345678000199', '11999998888', 'Corpodebombeiro@gov.br', 'Urubu100@');
+
+insert into usuario values 
+(default,'Guilherme', 'Marques', 'guilhermeM@sptech.school', 'senha_133', '12345678901',default, 1),
+(default,'Juan', 'Viera', 'juanviera@@sptech.school', 'Urubu100@','10987654321',default, 1);
+
+insert into Area values
+(default,'A', 1, 1),
+(default,'A', 2, 1),
+(default,'A', 3, 1),
+(default,'A', 4, 1),
+(default,'A',5,1);
+
+insert into sensor values
+(default,'DHT11', 'Ativo', '2025-01-10 10:00:00', '2025-01-20 09:00:00', 'Manutenção geral', 1),
+(default,'DHT11', 'Inativo', null, null, 'Manutenção geral', 2);
+
+insert into dados values 
+(default,25.5, 75, default, 1, 1),
+(default,28.7, 70, default, 1, 2);
+
+
+select * from orgao;
+
+select * from usuario;
+
+select idArea, concat(Grid,numero) as Grid, fkOrgao from area;
+
+select * from sensor;
+
+select * from dados;
+
+-- Visualizar funcionários e seu orgão associado
+select nome as Nome_Funcionário, orgao as Orgão_Vínculado from orgao 
+join usuario on FKOrgao = idOrgao;
+
+-- Mostrar sensores da área que estão ativos e seu grid respectivo
+select 
+	idSensor,
+	nomeSensor as nome_sensor,
+	Status_Sensor,
+	concat(Grid,numero) as Grid
+from sensor join area on fkArea = idArea where Status_sensor = "Ativo";
+
+-- Visualizar dados (temperatura e umidade) respectivos do sensor
+select 
+	idSensor as ID,
+    nomeSensor as Nome_Sensor,
+    Status_Sensor,
+    temperatura,
+    umidade
+from sensor join dados on fkSensor = idSensor
+where Status_Sensor = "Ativo";

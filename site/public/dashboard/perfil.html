@@ -44,7 +44,7 @@
                 <div class="cadastros_funcionarios" id="cadastro_func">
                     <div>
                         <h1>Adicionar os dados do seu funcionário:</h1>
-                        <input type="text" placeholder="Nome:" id="input_nome" >
+                        <input type="text" placeholder="Nome:" id="input_nome">
                         <input type="text" placeholder="Email:" id="input_email">
                         <input type="text" placeholder="Senha:" id="input_senha">
                         <div>
@@ -80,7 +80,7 @@
             </div>
 
 
-                <!-- Parte do perfil em si -->
+            <!-- Parte do perfil em si -->
             <div class="dados" id="dados">
                 <div class="top_dados">
                     <img src="Assets/Icons/Perfil_dado.png">
@@ -108,7 +108,7 @@
 
             </div>
 
-                    <!-- Parte dos funcionarios -->
+            <!-- Parte dos funcionarios -->
             <div class="Funcionario" id="Funcionario">
 
                 <div class="Funcionario_Acoes">
@@ -117,10 +117,7 @@
                         <h1>Adicionar</h1>
                     </div>
 
-                    <div>
-                        <img src="Assets/Icons/remover.png">
-                        <h1>Remover</h1>
-                    </div>
+
 
 
 
@@ -133,17 +130,18 @@
                         <h1>Nome</h1>
                         <h1>Email</h1>
                         <h1>Senha</h1>
+                        <div></div>
                     </div>
 
                     <div class="listagem_Funcionarios" id="listagem_Funcionarios">
-                        
+
                     </div>
 
                 </div>
 
             </div>
 
-                <!-- Parte das APAs -->
+            <!-- Parte das APAs -->
             <div class="APAs" id="APAs">
                 <div class="APAs_Acoes">
                     <div onclick=" abrirCadastroAPAs()" style="cursor: pointer;">
@@ -187,59 +185,68 @@
 </html>
 
 <script>
-    sessionStorage.ID_EMPRESA=`1`
-     var empresa = sessionStorage.ID_EMPRESA
+    sessionStorage.ID_EMPRESA = `1`
+    var empresa = sessionStorage.ID_EMPRESA
     listarfunc()
-    
-    function listarfunc(){
-        listagem_Funcionarios.innerHTML=""
-        fetch(`/perfil/listarfunc/${empresa}`,{
-            method:"post",
+
+    function listarfunc() {
+        listagem_Funcionarios.innerHTML = ""
+        fetch(`/perfil/listarfunc/${empresa}`, {
+            method: "post",
         })
-        .then(resposta=>{resposta.json().then(resposta=>{
-            for(resp of resposta){
-                listagem_Funcionarios.innerHTML+=`<div id="${resp.idUsuario}">
+            .then(resposta => {
+                resposta.json().then(resposta => {
+                    for (resp of resposta) {
+                        listagem_Funcionarios.innerHTML += `<div id="${resp.idUsuario}">
                             <p>${resp.nome}</p>
                             <p>${resp.email}</p>
                             <p>${resp.senha}</p>
+                            <div>
+                                <a>
+                                <img src="Assets/Icons/Engrenagem.png">
+                                </a>
+                                <a>
+                                   <img src="Assets/Icons/Lixeira.png">
+                               </a>
+                            </div>
                             </div>`
-            }
+                    }
+                })
+                    .catch(erro => {
+                        console.log(erro)
+                    })
             })
-        .catch(erro=>{
-            console.log(erro)
-        })
-        })
     }
 
-    function Cadastrar(){
+    function Cadastrar() {
         var nome = input_nome.value
         var email = input_email.value
         var senha = input_senha.value
-        if(nome == ''|| email==''||senha==''){
+        if (nome == '' || email == '' || senha == '') {
             alert('Erro')
         }
-        else{
-            fetch(`/perfil/cadastrar`,{
+        else {
+            fetch(`/perfil/cadastrar`, {
                 method: "POST",
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    nomeServer : nome,
-                    emailServer : email,
-                    senhaServer : senha,
-                    idempresaServer : empresa
+                    nomeServer: nome,
+                    emailServer: email,
+                    senhaServer: senha,
+                    idempresaServer: empresa
                 }),
             })
-            .then(resposta=>{
-                console.log("funcionario cadastrado",resposta);
-                 listarfunc()
-            })
-            .catch(erro=>{
-                console.log(erro)
-            })
+                .then(resposta => {
+                    console.log("funcionario cadastrado", resposta);
+                    listarfunc()
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
             ocultarCadastros()
-           
+
         }
     }
     function mostrarPerfil() {
@@ -251,7 +258,7 @@
         APA.style.backgroundColor = "transparent";
     }
 
-    function mostrarFunc(){
+    function mostrarFunc() {
         APAs.style.display = "none"
         dados.style.display = "none"
         Funcionario.style.display = "flex"
@@ -260,7 +267,7 @@
         APA.style.backgroundColor = "transparent";
     }
 
-    function mostrarAPAs(){
+    function mostrarAPAs() {
         dados.style.display = "none"
         Funcionario.style.display = "none"
         APAs.style.display = "flex"
@@ -274,19 +281,22 @@
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "none"
         cadastros.style.display = "none"
+        input_nome.value = "";
+        input_email.value = "";
+        input_senha.value = "";
     }
 
-    function abrirCadastroFunc(){
+    function abrirCadastroFunc() {
         cadastro_func.style.display = "flex"
         cadastro_APAs.style.display = "none"
         cadastros.style.display = "flex"
     }
-    function abrirCadastroAPAs(){
+    function abrirCadastroAPAs() {
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "flex"
         cadastros.style.display = "flex"
     }
     mostrarPerfil();
     ocultarCadastros()
-   
+
 </script>

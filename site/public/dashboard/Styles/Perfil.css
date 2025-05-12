@@ -176,7 +176,17 @@
     background-color: #D9D9D9;
 }
 
+.listagem_Funcionarios div img{
+    height: 50px;
+    cursor: pointer;
+}
 
+.listagem_Funcionarios div div {
+    display: flex;
+
+    width: 10%;
+
+}
 /* Cadastro e listagem APAs */
 
 
