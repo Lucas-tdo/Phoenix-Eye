@@ -18,4 +18,8 @@ router.get("/dadosperfil/:idOrgao",function(req,res){
 router.delete("/deletar_func/:idFunc",function(req,res){
     perfilController.deletar_func(req,res)
 })
+
+router.get("/checar_email/:email",function(req,res){
+    perfilController.checar_email(req,res)
+})
 module.exports=router;

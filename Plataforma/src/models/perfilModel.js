@@ -27,10 +27,18 @@ function deletar_func(id){
     `;
     return database.executar(instrucaoSql);
 }
+
+function checar_email(email){
+    var instrucaoSql = `
+        select * from usuario where email='${email}';
+    `;
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     cadastrar,
     listarfunc,
     dadosperfil,
-    deletar_func
+    deletar_func,
+    checar_email
 }
 

@@ -262,37 +262,57 @@
             })
     }
 
-    function Cadastrar() {
+    function cadastrando(nome,email,senha){
+        fetch(`/perfil/cadastrar`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nomeServer: nome,
+                        emailServer: email,
+                        senhaServer: senha,
+                        idempresaServer: empresa
+                    }),
+                })
+                    .then(resposta => {
+                        console.log("funcionario cadastrado", resposta);
+                        listarfunc()
+                    })
+                    .catch(erro => {
+                        console.log(erro)
+                    })
+                ocultarCadastros()
+    }
+
+  function Cadastrar() {
+        
         var nome = input_nome.value
         var email = input_email.value
         var senha = input_senha.value
         if (nome == '' || email == '' || senha == '') {
             alert('Erro')
         }
-        else {
-            fetch(`/perfil/cadastrar`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    nomeServer: nome,
-                    emailServer: email,
-                    senhaServer: senha,
-                    idempresaServer: empresa
-                }),
+        else{
+            fetch(`/perfil/checar_email/${email}`,{
+            method : "GET",
+            headers :{ "Content-Type": "application/json"}
             })
-                .then(resposta => {
-                    console.log("funcionario cadastrado", resposta);
-                    listarfunc()
+            .then(resposta=>{resposta.json().then(resposta=>{
+                if(resposta.length>=1){
+                    alert("Erro email já cadastrado")
+                }
+                else{
+                    cadastrando(nome,email,senha)
+                }
                 })
-                .catch(erro => {
-                    console.log(erro)
-                })
-            ocultarCadastros()
-
+            })
+            .catch(erro=>{
+                console.log(erro)
+            })
         }
     }
+    
     function mostrarPerfil() {
         dados.style.display = "flex";
         Funcionario.style.display = "none";

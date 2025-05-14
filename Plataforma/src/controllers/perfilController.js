@@ -85,9 +85,29 @@ function deletar_func(req,res){
         })
     }
 }
+
+function checar_email(req,res){
+    var email = req.params.email
+    if(email==undefined){
+        res.status(400).send('O email está undefined')
+    }
+    else{
+        perfilModel.checar_email(email)
+        .then(resposta=>{
+            console.log("Email checado")
+            console.log(resposta)
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res(500).json(erro.sqlMessage)
+        })
+    }
+}
 module.exports = {
     cadastrar,
     listarfunc,
     dadosperfil,
-    deletar_func
+    deletar_func,
+    checar_email
 }
