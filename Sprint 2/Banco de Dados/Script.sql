@@ -1,110 +1,137 @@
-use sprint2;
+CREATE DATABASE PhoenixEye;
+USE PhoenixEye;
 
-create table orgao(
-idOrgao int primary key auto_increment,
-orgao varchar(45),
-cnpj char(15),
-telefone char(11),
-email varchar(45),
-senha varchar(20)
+-- Tabela orgao
+CREATE TABLE orgao (
+    idOrgao INT PRIMARY KEY AUTO_INCREMENT,
+    orgao VARCHAR(45),
+    cnpj CHAR(14),
+    telefone CHAR(11),
+    email VARCHAR(45),
+    senha VARCHAR(20)
 );
 
-create table usuario(
-idUsuario int primary key auto_increment,
-nome varchar(45),
-email varchar(45),
-senha varchar(20),
-nivelUsuario int,
-fkOrgao int,
-constraint fkOrganizacao foreign key (fkOrgao) references orgao (idOrgao)
+-- Tabela usuario
+CREATE TABLE usuario (
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(20),
+    nivelUsuario INT,
+    fkOrgao INT,
+    CONSTRAINT fkOrganizacao FOREIGN KEY (fkOrgao) REFERENCES orgao(idOrgao)
 );
 
-create table area(
-idArea int primary key auto_increment,
-grid char(1),
-numero int
+-- Tabela area
+CREATE TABLE area (
+    idArea INT PRIMARY KEY AUTO_INCREMENT,
+    grid CHAR(1),
+    numero INT
 );
 
-create table monitoramento (
-fkOrgao INT,
-fkArea INT,
-responsavel VARCHAR(45),
-CONSTRAINT pkOrgaoArea PRIMARY KEY (fkOrgao, fkArea),
-CONSTRAINT fkOrgaoArea 
-FOREIGN KEY (fkOrgao) REFERENCES orgao (idOrgao),
-FOREIGN KEY (fkArea) REFERENCES area (idArea)
+-- Tabela monitoramento
+CREATE TABLE monitoramento (
+    fkOrgao INT,
+    fkArea INT,
+    responsavel VARCHAR(45),
+    PRIMARY KEY (fkOrgao, fkArea),
+    CONSTRAINT fkOrgaoArea FOREIGN KEY (fkOrgao) REFERENCES orgao(idOrgao),
+    CONSTRAINT fkAreaMonitor FOREIGN KEY (fkArea) REFERENCES area(idArea)
 );
 
+-- Tabela sensor
 CREATE TABLE sensor (
-idSensor int primary key AUTO_INCREMENT,
-nome VARCHAR(30),
-status_sensor VARCHAR(20),
-fkArea INT,
-CONSTRAINT fkArea FOREIGN KEY (fkArea) REFERENCES Area(idArea)
+    idSensor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(30),
+    status_sensor VARCHAR(20),
+    fkArea INT,
+    CONSTRAINT fkSensorArea FOREIGN KEY (fkArea) REFERENCES area(idArea)
 );
 
+-- Tabela dados
 CREATE TABLE dados (
-idDados INT AUTO_INCREMENT,
-temperatura DECIMAL(4,2),
-umidade INT,
-dtMedicao DATETIME,
-nivelRisco INT,
-fkSensor  INT,
-CONSTRAINT fkSensorDados FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
-primary key (idDados,fkSensor)
+    idDados INT AUTO_INCREMENT,
+    temperatura DECIMAL(4,2),
+    umidade INT,
+    dtMedicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    nivelRisco INT,
+    fkSensor INT,
+    PRIMARY KEY (idDados, fkSensor),
+    CONSTRAINT fkSensorDados FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor)
 );
 
-insert into orgao values 
-(default,'Corpo de Bombeiros', '12345678000199', '11999998888', 'Corpodebombeiro@gov.br', 'Urubu100@');
-
-insert into usuario values 
-(default,'Guilherme', 'Marques', 'guilhermeM@sptech.school', 'senha_133', '12345678901',default, 1),
-(default,'Juan', 'Viera', 'juanviera@@sptech.school', 'Urubu100@','10987654321',default, 1);
-
-insert into Area values
-(default,'A', 1, 1),
-(default,'A', 2, 1),
-(default,'A', 3, 1),
-(default,'A', 4, 1),
-(default,'A',5,1);
-
-insert into sensor values
-(default,'DHT11', 'Ativo', '2025-01-10 10:00:00', '2025-01-20 09:00:00', 'Manutenção geral', 1),
-(default,'DHT11', 'Inativo', null, null, 'Manutenção geral', 2);
-
-insert into dados values 
-(default,25.5, 75, default, 1, 1),
-(default,28.7, 70, default, 1, 2);
 
 
-select * from orgao;
 
-select * from usuario;
+-- Inserindo um orgão
+INSERT INTO orgao VALUES 
+(DEFAULT, 'Corpo de Bombeiros', '12345678000199', '11999998888', 'Corpodebombeiro@gov.br', 'Urubu100@');
 
-select idArea, concat(Grid,numero) as Grid, fkOrgao from area;
+-- Inserindo usuários
+INSERT INTO usuario VALUES 
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, 1),
+(DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
-select * from sensor;
+-- Inserindo áreas
+INSERT INTO area VALUES
+(DEFAULT, 'A', 1),
+(DEFAULT, 'A', 2),
+(DEFAULT, 'A', 3),
+(DEFAULT, 'A', 4),
+(DEFAULT, 'A', 5);
 
-select * from dados;
+-- Inserindo sensores
+INSERT INTO sensor VALUES
+(DEFAULT, 'DHT11', 'Ativo', 1),
+(DEFAULT, 'DHT11', 'Inativo', 2);
 
--- Visualizar funcionários e seu orgão associado
-select nome as Nome_Funcionário, orgao as Orgão_Vínculado from orgao 
-join usuario on FKOrgao = idOrgao;
+-- Inserindo dados
+INSERT INTO dados VALUES 
+(DEFAULT, 25.5, 75, DEFAULT, 1, 1),
+(DEFAULT, 28.7, 70, DEFAULT, 2, 2);
 
--- Mostrar sensores da área que estão ativos e seu grid respectivo
-select 
-	idSensor,
-	nomeSensor as nome_sensor,
-	Status_Sensor,
-	concat(Grid,numero) as Grid
-from sensor join area on fkArea = idArea where Status_sensor = "Ativo";
 
--- Visualizar dados (temperatura e umidade) respectivos do sensor
-select 
-	idSensor as ID,
-    nomeSensor as Nome_Sensor,
-    Status_Sensor,
-    temperatura,
-    umidade
-from sensor join dados on fkSensor = idSensor
-where Status_Sensor = "Ativo";
+
+
+-- Visualizar todos os órgãos
+SELECT * FROM orgao;
+
+-- Visualizar todos os usuários
+SELECT * FROM usuario;
+
+-- Visualizar grid das áreas
+SELECT idArea, CONCAT(grid, numero) AS Grid FROM area;
+
+-- Visualizar todos os sensores
+SELECT * FROM sensor;
+
+-- Visualizar todos os dados captados
+SELECT * FROM dados;
+
+-- Visualizar funcionários e seu órgão associado
+SELECT 
+    usuario.nome AS Nome_Funcionario, 
+    orgao.orgao AS Orgao_Vinculado 
+FROM usuario 
+JOIN orgao ON usuario.fkOrgao = orgao.idOrgao;
+
+-- Mostrar sensores ativos e seu grid
+SELECT 
+    sensor.idSensor,
+    sensor.nome AS nome_sensor,
+    sensor.status_sensor,
+    CONCAT(area.grid, area.numero) AS Grid
+FROM sensor 
+JOIN area ON sensor.fkArea = area.idArea 
+WHERE sensor.status_sensor = 'Ativo';
+
+-- Visualizar dados de sensores ativos
+SELECT 
+    sensor.idSensor AS ID,
+    sensor.nome AS Nome_Sensor,
+    sensor.status_sensor,
+    dados.temperatura,
+    dados.umidade
+FROM sensor 
+JOIN dados ON dados.fkSensor = sensor.idSensor
+WHERE sensor.status_sensor = 'Ativo';
