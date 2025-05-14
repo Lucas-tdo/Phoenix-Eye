@@ -76,7 +76,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
 
@@ -84,19 +83,19 @@
             <div class="dados" id="dados">
                 <div class="top_dados">
                     <img src="Assets/Icons/Perfil_dado.png">
-                    <h1>Olá, Corpo de Bombeiros</h1>
+                    <h1 id="titulo_orgao">Olá, </h1>
                 </div>
 
                 <div class="Centro_dados">
                     <div class="Dados_Cadastrados">
                         <h1>Dados:</h1>
-                        <h1>Nome: Empresa</h1>
-                        <h1>Email: Empresa@Gmail.com</h1>
-                        <h1>Telefone:1198343832</h1>
-                        <h1>CNPJ: =100.623.904/0001-73</h1>
+                        <h1 id="nome_orgao">Nome:</h1>
+                        <h1 id="email_orgao">Email:</h1>
+                        <h1 id="telefone_orgao">Telefone:</h1>
+                        <h1 id="cnpj_orgao">CNPJ:</h1>
                     </div>
                     <div class="icones">
-                        <a>
+                        <a onclick=""> 
                             <img src="Assets/Icons/Engrenagem.png">
                         </a>
                         <a>
@@ -116,12 +115,6 @@
                         <img src="Assets/Icons/adicionar.png">
                         <h1>Adicionar</h1>
                     </div>
-
-
-
-
-
-
                 </div>
 
                 <div class="Lista_Funcionario">
@@ -187,7 +180,23 @@
 <script>
     sessionStorage.ID_EMPRESA = `1`
     var empresa = sessionStorage.ID_EMPRESA
-    listarfunc()
+    dadosperfil()
+    function dadosperfil(){
+        fetch(`/perfil/dadosperfil/${empresa}`,{
+            method : "get",
+        })
+        .then(resposta=>{resposta.json().then(resposta=>{
+            titulo_orgao.innerHTML+= resposta[0].orgao
+            nome_orgao.innerHTML+=resposta[0].orgao
+            email_orgao.innerHTML+=resposta[0].cnpj
+            telefone_orgao.innerHTML+=resposta[0].telefone
+            cnpj_orgao.innerHTML+=resposta[0].email
+            })            
+        })
+        .catch(erro=>{
+            console.log(erro)
+        })
+    }
 
     function listarfunc() {
         listagem_Funcionarios.innerHTML = ""
@@ -265,6 +274,7 @@
         FuncionarioLat.style.backgroundColor = "#024002";
         Perfil.style.backgroundColor = "transparent"
         APA.style.backgroundColor = "transparent";
+        listarfunc()
     }
 
     function mostrarAPAs() {

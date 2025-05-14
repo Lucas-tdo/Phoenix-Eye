@@ -48,7 +48,27 @@ function listarfunc(req,res){
         })
     }
 }
+
+
+function dadosperfil(req,res){
+    var id = req.params.idOrgao
+    if(id==undefined){
+        res.status(400).send('O id da empresa está undefined ')
+    }
+    else{
+        perfilModel.dadosperfil(id)
+        .then(resposta=>{
+            console.log("Dados do perfil localizados")
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+    }
+}
 module.exports = {
     cadastrar,
-    listarfunc
+    listarfunc,
+    dadosperfil
 }

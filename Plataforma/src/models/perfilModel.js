@@ -13,8 +13,16 @@ function listarfunc(id){
     `;
     return database.executar(instrucaoSql);
 }
+
+function  dadosperfil(id){
+    var instrucaoSql = `
+        select orgao,cnpj,telefone,email from orgao where idOrgao=${id};
+    `;
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     cadastrar,
-    listarfunc
+    listarfunc,
+    dadosperfil
 }
 

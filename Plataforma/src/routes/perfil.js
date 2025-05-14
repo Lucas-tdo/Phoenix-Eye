@@ -11,4 +11,8 @@ router.post("/listarfunc/:idOrgao",function(req,res){
     perfilController.listarfunc(req,res)
 })
 
+router.get("/dadosperfil/:idOrgao",function(req,res){
+    perfilController.dadosperfil(req,res)
+})
+
 module.exports=router;
