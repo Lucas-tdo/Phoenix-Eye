@@ -67,8 +67,27 @@ function dadosperfil(req,res){
         })
     }
 }
+
+function deletar_func(req,res){
+    var id = req.params.idFunc
+    if(id==undefined){
+        res.status(400).send('O id da empresa está undefined ')
+    }
+    else{
+        perfilModel.deletar_func(id)
+        .then(resposta=>{
+            console.log(`Usuário ${id} excluido`)
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res(500).json(erro.sqlMessage)
+        })
+    }
+}
 module.exports = {
     cadastrar,
     listarfunc,
-    dadosperfil
+    dadosperfil,
+    deletar_func
 }

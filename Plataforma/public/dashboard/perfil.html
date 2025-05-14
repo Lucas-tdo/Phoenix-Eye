@@ -37,7 +37,7 @@
 
         </div>
 
-        <div class="Central">
+        <div class="Central" id="central">
 
             <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
             <div class="cadastros" id="cadastros">
@@ -76,8 +76,28 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="deletar_class" id="deletar">
+                   <div>
+                       <h1>Tem certeza que deseja deletar?</h1>
+                       
+                       <div>
+                           <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                               <img src="Assets/Icons/seta.webp">
+                           </a>
+                           <button onclick="deletar_func()">Deletar</button>
+                           <div></div>
+                       </div>
+                   </div>
+               </div>
+
+
+            </div>
+            
+               
+               
+
+            <!-- Divs para deletar -->
 
             <!-- Parte do perfil em si -->
             <div class="dados" id="dados">
@@ -94,15 +114,7 @@
                         <h1 id="telefone_orgao">Telefone:</h1>
                         <h1 id="cnpj_orgao">CNPJ:</h1>
                     </div>
-                    <div class="icones">
-                        <a onclick=""> 
-                            <img src="Assets/Icons/Engrenagem.png">
-                        </a>
-                        <a>
-                            <img src="Assets/Icons/Lixeira.png">
-                        </a>
-
-                    </div>
+    
                 </div>
 
             </div>
@@ -198,6 +210,29 @@
         })
     }
 
+    function deletar_func(){
+        var idfuncionario = sessionStorage.deletar
+        fetch(`/perfil/deletar_func/${idfuncionario}`,{
+            method: "delete",
+                headers :{
+                    "Content-Type": "application/json",
+                }
+        })
+        .then(resposta=>{resposta.json().then(resposta=>{
+            if(resposta.ok){
+                sessionStorage.deletar = ""
+            }
+            listarfunc()
+            ocultarCadastros()
+            })
+        })
+        .catch(erro=>{
+            console.log(erro)
+        })
+    }
+
+
+
     function listarfunc() {
         listagem_Funcionarios.innerHTML = ""
         fetch(`/perfil/listarfunc/${empresa}`, {
@@ -215,7 +250,7 @@
                                 <img src="Assets/Icons/Engrenagem.png">
                                 </a>
                                 <a>
-                                   <img src="Assets/Icons/Lixeira.png">
+                                   <img src="Assets/Icons/Lixeira.png" onclick="abrirdeletar(${resp.idUsuario})">
                                </a>
                             </div>
                             </div>`
@@ -291,11 +326,17 @@
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "none"
         cadastros.style.display = "none"
+        deletar.style.display = "none"
         input_nome.value = "";
         input_email.value = "";
         input_senha.value = "";
+        deletar.style.display="none"
     }
-
+    function abrirdeletar(id){
+        sessionStorage.deletar=`${id}`
+        deletar.style.display="flex"
+        cadastros.style.display = "flex"
+    }
     function abrirCadastroFunc() {
         cadastro_func.style.display = "flex"
         cadastro_APAs.style.display = "none"

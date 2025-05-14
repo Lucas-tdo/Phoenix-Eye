@@ -20,9 +20,17 @@ function  dadosperfil(id){
     `;
     return database.executar(instrucaoSql);
 }
+
+function deletar_func(id){
+    var instrucaoSql = `
+        delete from usuario where idusuario=${id};
+    `;
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     cadastrar,
     listarfunc,
-    dadosperfil
+    dadosperfil,
+    deletar_func
 }
 

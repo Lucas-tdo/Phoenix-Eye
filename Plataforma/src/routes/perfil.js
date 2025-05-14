@@ -15,4 +15,7 @@ router.get("/dadosperfil/:idOrgao",function(req,res){
     perfilController.dadosperfil(req,res)
 })
 
+router.delete("/deletar_func/:idFunc",function(req,res){
+    perfilController.deletar_func(req,res)
+})
 module.exports=router;

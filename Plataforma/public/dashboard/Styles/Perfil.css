@@ -98,17 +98,6 @@
     margin-left: 20px;
 }
 
-.icones {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 0;
-}
-
-.icones img {
-    height: 100px;
-}
-
 /*     Parte funcionario */
 
 .Funcionario {
@@ -368,7 +357,80 @@
     font-weight: 700;
 }
 
+/* Deletar */
+.deletar_class {
+    background-color: #D9D9D9;
+    height: 20%;
+    width: 50%;
+    flex-direction: column;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
+.deletar_class div {
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.deletar_class div div {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: space-around;
+}
+
+.deletar_class div div img {
+    height: 30px;
+    width: 30px;
+}
+
+.deletar_class div div button {
+    background-color: #091D0E;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.deletar_class div div div {
+    height: 1px;
+    width: 1px;
+}
+
+.deletar_class div h1 {
+    font-weight: 700;
+    font-size: 25px;
+    color: #091D0E;
+}
+
+.deletar_class div input {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    height: 40px;
+    color: #091D0E;
+    width: 70%;
+    font-size: 20px;
+    text-align: center;
+    border: solid 3px;
+}
+
+.deletar_class div input::placeholder {
+    text-align: start;
+    padding: 0px 0 0 10px;
+    color: #091D0E;
+    font-weight: 700;
+}
 /* APAS */
 
 
