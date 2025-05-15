@@ -241,6 +241,7 @@ canvas{
     display: flex;
     flex-direction: column;
     height: 300px;
+    width: 450px;
     align-items: center;
 }
 
@@ -272,11 +273,11 @@ canvas{
 }
 
 .Ocorrencias div div h3{
-    font-size: 35px;
+    font-size: 30px;
 }
 
 .Ocorrencias div div p{
-    font-size: 25px;
+    font-size: 18px;
 }
 .Ocorrencias div div div{
     display: flex;
