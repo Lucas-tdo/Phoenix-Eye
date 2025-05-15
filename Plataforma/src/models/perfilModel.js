@@ -21,6 +21,15 @@ function  dadosperfil(id){
     return database.executar(instrucaoSql);
 }
 
+function  dadosperfil_func(id){
+    var instrucaoSql = `
+        select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from usuario u
+        join orgao o on
+        fkOrgao=idOrgao where idusuario=${id};
+    `;
+    return database.executar(instrucaoSql);
+}
+
 function deletar_func(id){
     var instrucaoSql = `
         delete from usuario where idusuario=${id};
@@ -39,6 +48,7 @@ module.exports = {
     listarfunc,
     dadosperfil,
     deletar_func,
-    checar_email
+    checar_email,
+    dadosperfil_func
 }
 

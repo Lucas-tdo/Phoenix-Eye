@@ -68,6 +68,24 @@ function dadosperfil(req,res){
     }
 }
 
+function dadosperfil_func(req,res){
+    var id = req.params.idFunc
+    if(id==undefined){
+        res.status(400).send('O id da empresa está undefined ')
+    }
+    else{
+        perfilModel.dadosperfil_func(id)
+        .then(resposta=>{
+            console.log("Dados do funcionários localizados")
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+    }
+}
+
 function deletar_func(req,res){
     var id = req.params.idFunc
     if(id==undefined){
@@ -109,5 +127,6 @@ module.exports = {
     listarfunc,
     dadosperfil,
     deletar_func,
-    checar_email
+    checar_email,
+    dadosperfil_func
 }
