@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Eye | Perfil</title>
+    <link rel="stylesheet" href="Styles/Perfil.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="lateral">
+
+
+            <a onclick="mostrarPerfil()">
+                <div id="Perfil">
+                    <img src="Assets/Icons/Perfil-Orgao.png">
+                    <h1>Perfil</h1>
+                </div>
+            </a>
+
+            <a onclick="mostrarOrgao()">
+                <div id="orgao">
+                    <img src="Assets/Icons/Prédio_órgão.png">
+                    <h1>Órgãos</h1>
+                </div>
+            </a>
+
+            <a onclick="mostrarAPAs()">
+                <div id="APA">
+                    <img src="Assets/Icons/Floresta.png">
+                    <h1>APAs</h1>
+                </div>
+            </a>
+
+        </div>
+
+            <!-- Parte do perfil em si -->
+            <div class="dados" id="dados">
+                <div class="top_dados">
+                    <img src="Assets/Icons/Perfil_dado.png">
+                    <h1 id="titulo_func">Olá, </h1>
+                </div>
+
+                <div class="Centro_dados">
+                    <div class="Dados_Cadastrados">
+                        <div id="dados_e_adm">
+                            <h1 id="titulo_dados">Dados:</h1>    
+                            <h1 id="titulo_adm">Administrador</h1>
+                        </div>
+                        <h1 id="nome_func">Nome:</h1>
+                        <h1 id="email_func">Email:</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="org" id="org">
+
+                <div class="Funcionario_Acoes">
+                    <div onclick="abrirCadastroFunc()" style="cursor: pointer;">
+                        <img src="Assets/Icons/adicionar.png">
+                        <h1>Adicionar</h1>
+                    </div>
+                </div>
+
+                <div class="Lista_Funcionario">
+
+                    <div class="Indicadores">
+                        <h1>Órgão</h1>
+                        <h1>Email</h1>
+                        <h1>Senha</h1>
+                        <div></div>
+                    </div>
+
+                    <div class="listagem_Funcionarios" id="listagem_Funcionarios">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Parte das APAs -->
+            <div class="APAs" id="APAs">
+                <div id="titulo_pagina_apa">
+                    <h1>Solicitações</h1>
+                </div>
+
+                <div class="Lista_APAs">
+
+                    <div class="Indicadores_APAs_adm">
+                        <div class="nula"></div>
+                        <h1>Nome</h1>
+                        <h1>Órgão</h1>
+                        <h1>Confirmação</h1>
+                        <div></div>
+                    </div>
+
+                    <div class="listagem_APAs_adm">
+                        <div>
+                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
+                            <p id="nome_adm">Juan Vieira</p>
+                            <p id="nome_orgao_adm">Corpo de Bombeiros</p>
+                            <div id="confirmacao_apa">
+                                <img src="Assets/Icons/confirmar.png">
+                                <img src="Assets/Icons/recusar.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+//     sessionStorage.ID_EMPRESA = `1`
+//     var empresa = sessionStorage.ID_EMPRESA
+//     dadosperfil()
+//     function dadosperfil(){
+//         fetch(`/perfil/dadosperfil/${empresa}`,{
+//             method : "get",
+//         })
+//         .then(resposta=>{resposta.json().then(resposta=>{
+//             titulo_orgao.innerHTML+= resposta[0].orgao
+//             nome_orgao.innerHTML+=resposta[0].orgao
+//             email_orgao.innerHTML+=resposta[0].cnpj
+//             telefone_orgao.innerHTML+=resposta[0].telefone
+//             cnpj_orgao.innerHTML+=resposta[0].email
+//             })            
+//         })
+//         .catch(erro=>{
+//             console.log(erro)
+//         })
+//     }
+
+//     function deletar_func(){
+//         var idfuncionario = sessionStorage.deletar
+//         fetch(`/perfil/deletar_func/${idfuncionario}`,{
+//             method: "delete",
+//                 headers :{
+//                     "Content-Type": "application/json",
+//                 }
+//         })
+//         .then(resposta=>{resposta.json().then(resposta=>{
+//             if(resposta.ok){
+//                 sessionStorage.deletar = ""
+//             }
+//             listarfunc()
+//             ocultarCadastros()
+//             })
+//         })
+//         .catch(erro=>{
+//             console.log(erro)
+//         })
+//     }
+
+
+
+//     function listarfunc() {
+//         listagem_Funcionarios.innerHTML = ""
+//         fetch(`/perfil/listarfunc/${empresa}`, {
+//             method: "post",
+//         })
+//             .then(resposta => {
+//                 resposta.json().then(resposta => {
+//                     for (resp of resposta) {
+//                         listagem_Funcionarios.innerHTML += `<div id="${resp.idUsuario}">
+//                             <p>${resp.nome}</p>
+//                             <p>${resp.email}</p>
+//                             <p>${resp.senha}</p>
+//                             <div>
+//                                 <a>
+//                                 <img src="Assets/Icons/Engrenagem.png">
+//                                 </a>
+//                                 <a>
+//                                    <img src="Assets/Icons/Lixeira.png" onclick="abrirdeletar(${resp.idUsuario})">
+//                                </a>
+//                             </div>
+//                             </div>`
+//                     }
+//                 })
+//                     .catch(erro => {
+//                         console.log(erro)
+//                     })
+//             })
+//     }
+
+//     function cadastrando(nome,email,senha){
+//         fetch(`/perfil/cadastrar`, {
+//                     method: "POST",
+//                     headers: {
+//                         "Content-Type": "application/json",
+//                     },
+//                     body: JSON.stringify({
+//                         nomeServer: nome,
+//                         emailServer: email,
+//                         senhaServer: senha,
+//                         idempresaServer: empresa
+//                     }),
+//                 })
+//                     .then(resposta => {
+//                         console.log("funcionario cadastrado", resposta);
+//                         listarfunc()
+//                     })
+//                     .catch(erro => {
+//                         console.log(erro)
+//                     })
+//                 ocultarCadastros()
+//     }
+
+//   function Cadastrar() {
+        
+//         var nome = input_nome.value
+//         var email = input_email.value
+//         var senha = input_senha.value
+//         if (nome == '' || email == '' || senha == '') {
+//             alert('Erro')
+//         }
+//         else{
+//             fetch(`/perfil/checar_email/${email}`,{
+//             method : "GET",
+//             headers :{ "Content-Type": "application/json"}
+//             })
+//             .then(resposta=>{resposta.json().then(resposta=>{
+//                 if(resposta.length>=1){
+//                     alert("Erro email já cadastrado")
+//                 }
+//                 else{
+//                     cadastrando(nome,email,senha)
+//                 }
+//                 })
+//             })
+//             .catch(erro=>{
+//                 console.log(erro)
+//             })
+//         }
+//     }
+    
+    function mostrarPerfil() {
+        dados.style.display = "flex";
+        APAs.style.display = "none";
+        org.style.display = "none"
+        Perfil.style.backgroundColor = "#024002";
+        APA.style.backgroundColor = "transparent";
+        orgao.style.backgroundColor = "transparent";
+    }
+
+    function mostrarOrgao() {
+        dados.style.display = "none";
+        APAs.style.display = "none";
+        org.style.display = "flex";
+        Perfil.style.backgroundColor = "transparent";
+        APA.style.backgroundColor = "transparent";
+        orgao.style.backgroundColor = "#024002";
+    }
+
+    function mostrarAPAs() {
+        dados.style.display = "none"
+        APAs.style.display = "flex"
+        org.style.display = "none"
+        Perfil.style.backgroundColor = "transparent";
+        APA.style.backgroundColor = "#024002";
+        orgao.style.backgroundColor = "transparent";
+    }
+
+    mostrarPerfil();
+
+</script>

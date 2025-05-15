@@ -249,12 +249,6 @@
     cursor: pointer;
 }
 
-.listagem_APAs div div {
-    display: flex;
-
-    width: 10%;
-
-}
 .imagem_APA {
     height: 80px;
     width: 150px;
@@ -524,4 +518,199 @@
 .cadastros_APAs section input{
     width: 100%;
     margin-top: 10px;
+}
+
+#nome_e_orgao {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#titulo_pagina_apa {
+    width: 90%;
+    margin-top: 20px;
+}
+
+#titulo_pagina_apa h1{
+    font-size: 60px;
+}
+
+.Indicadores_APAs_func {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listagem_APAs_func {
+    background-color: #024002;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listagem_APAs_func div {
+    justify-content: space-around;
+    font-size: 20px;
+    min-height: 90px;
+    font-weight: 500;
+    align-items: center;
+    border-radius: 10px;
+    width: 95%;
+    display: flex;
+    margin-top: 10px;
+    font-weight: 700;
+    background-color: #D9D9D9;
+}
+.listagem_APAs_func div img{
+    height: 50px;
+    cursor: pointer;
+}
+
+.listagem_APAs_func .imagem_APA {
+    height: 80px;
+    width: 150px;
+    border-radius: 90px;
+}
+
+.listagem_APAs_func .imagem_Situacao {
+    height: 70px;
+    width: 70px;
+    margin-right: 40px;
+}
+
+.listagem_APAs_func #quant_sensores {
+    margin-right: 40px;
+}
+
+#dados_e_adm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listagem_APAs_adm {
+    background-color: #024002;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listagem_APAs_adm div {
+    justify-content: space-around;
+    font-size: 20px;
+    min-height: 90px;
+    font-weight: 500;
+    align-items: center;
+    border-radius: 10px;
+    width: 95%;
+    display: flex;
+    margin-top: 10px;
+    font-weight: 700;
+    background-color: #D9D9D9;
+}
+.listagem_APAs_adm div img{
+    height: 50px;
+    cursor: pointer;
+}
+
+.listagem_APAs_adm .imagem_APA {
+    height: 80px;
+    width: 150px;
+    border-radius: 90px;
+}
+
+#confirmacao_apa {
+    width: 150px;
+    justify-content: space-evenly;
+    margin-right: 55px;
+}
+
+#nome_adm {
+    margin-left: 100px;
+}
+
+.Indicadores_APAs_adm {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.org {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.org_Acoes {
+    color: #fff;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 60px;
+    align-items: center;
+    display: flex;
+}
+
+.org_Acoes div {
+    background-color: #091D0E;
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+}
+
+
+.Lista_org {
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+    width: 96%;
+    margin-top: 40px;
+    height: 75%;
+
+}
+
+.Indicadores_org {
+    display: flex;
+    justify-content: space-around;
+}
+
+.listagem_org {
+    background-color: #024002;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listagem_org div {
+    justify-content: space-around;
+    font-size: 20px;
+    min-height: 90px;
+    font-weight: 500;
+    align-items: center;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    margin-top: 10px;
+    background-color: #D9D9D9;
+}
+
+.listagem_org div img{
+    height: 50px;
+    cursor: pointer;
+}
+
+.listagem_org div div {
+    display: flex;
+    width: 10%;
+
 }
