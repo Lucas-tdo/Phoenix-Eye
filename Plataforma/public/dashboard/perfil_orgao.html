@@ -234,14 +234,14 @@
 
 
     function listarfunc() {
-        listagem_Funcionarios.innerHTML = ""
+        listagem_org.innerHTML = ""
         fetch(`/perfil/listarfunc/${empresa}`, {
             method: "post",
         })
             .then(resposta => {
                 resposta.json().then(resposta => {
                     for (resp of resposta) {
-                        listagem_Funcionarios.innerHTML += `<div id="${resp.idUsuario}">
+                        listagem_org.innerHTML += `<div id="${resp.idUsuario}">
                             <p>${resp.nome}</p>
                             <p>${resp.email}</p>
                             <p>${resp.senha}</p>
