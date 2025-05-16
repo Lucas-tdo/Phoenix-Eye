@@ -207,6 +207,7 @@
 
 .indicadores_grafico div div{
     display: flex;
+    width: 50%;
     flex-direction: column;
     flex-direction: row;
     align-items: center;
