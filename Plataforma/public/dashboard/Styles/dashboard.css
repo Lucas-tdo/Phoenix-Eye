@@ -187,8 +187,8 @@
 
 .indicadores_grafico{
     display: flex;
-    width: 600px;
-    margin-right: 70px;
+    width: 800px;
+    margin-right: 90px;
     justify-content: space-around;
     align-items: center;
 }
@@ -196,6 +196,8 @@
 .indicadores_grafico div{
     display: flex;
     background-color: blanchedalmond;
+    width: 200px;
+    height: 120px;
     padding: 5px 15px;
     border-radius: 10px;
     background-color: #1A3421;
@@ -211,8 +213,26 @@
  
 }
 
+.indicadores_grafico #termometro {
+    height: 35px;
+    width: 40px;
+    margin: 0px 0px 50px -180px ;
+}
+
+.indicadores_grafico #umidade {
+    height: 35px;
+    width: 40px;
+    margin: 35px 0px 0px -38px ;
+}
+
+.indicadores_grafico #metrica {
+    height: 70px;
+    width: 70px;
+    margin: 0px 0px 0px 100px ;
+}
+
 .indicadores_grafico h1{
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .indicadores_grafico img{
