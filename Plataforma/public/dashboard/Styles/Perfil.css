@@ -16,7 +16,7 @@
 
 .lateral {
     height: 100%;
-    width: 30%;
+    width: 24%;
     background-color: #091D0E;
     display: flex;
     flex-direction: column;
@@ -41,8 +41,7 @@
 }
 
 .lateral div img {
-    height: 80px;
-
+    height: 110px;
 }
 
 .Central {

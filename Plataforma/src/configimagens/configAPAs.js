@@ -1,6 +1,6 @@
 const multer = require('multer');
 
-const diretorio = 'public/assets/APAs';
+const diretorio = 'public/dashboard/Assets/APAs';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
   
   filename: (req, file, cb) => {
     
-    const extensaoArquivo = file.originalname.split('.').pop();
+    const extensaoArquivo = file.originalname.split('.')[1];
 
     var hoje = new Date()
     var ano =  String(hoje.getFullYear())

@@ -166,16 +166,9 @@
                         <div></div>
                     </div>
 
-                    <div class="listagem_APAs">
-                        <div>
-                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
-                            <p>Bororé Colônia</p>
-                            <p>20</p>
-                            <img src="Assets/Icons/aviso.png" class="imagem_Situacao">
-                            <a>
-                                <img src="Assets/Icons/Lixeira.png">
-                            </a>
-                        </div>
+                    <div class="listagem_APAs" id="listagem_APAs">
+                        
+
                     </div>
 
                 </div>
@@ -231,8 +224,6 @@
         })
     }
 
-
-
     function listarfunc() {
         listagem_org.innerHTML = ""
         fetch(`/perfil/listarfunc/${empresa}`, {
@@ -276,7 +267,6 @@
                     }),
                 })
                     .then(resposta => {
-                        console.log("funcionario cadastrado", resposta);
                         listarfunc()
                     })
                     .catch(erro => {
@@ -284,6 +274,27 @@
                     })
                 ocultarCadastros()
     }
+    function cadastrar_apa(){
+        const form = new FormData()
+        form.append('foto', foto.files[0])
+        form.append('nome',nome_apa.value)
+        form.append('idempresa',empresa)
+
+        fetch("/perfil/cadastrar_apa",{
+            method:"POST",
+            body:form,
+        })
+        .then(resposta=>{
+            
+            listarapas()   
+        })
+        .catch(erro=>{
+            console.log(erro)
+        })
+        ocultarCadastros()   
+        
+    }
+
 
   function Cadastrar() {
         
@@ -312,26 +323,37 @@
             })
         }
     }
-    
-    function cadastrar_apa(){
-        const form = new FormData()
-        form.append('foto', foto.files[0])
-        form.append('nome',nome_apa.value)
-        form.append('idempresa',empresa)
-
-        fetch("/perfil/cadastrar_apa",{
-            method:"POST",
-            body:form
-        })
-        .then(resposta=>{
-            if(resposta.ok){
-                console.log("inserido")
-            }
-        })
-        .catch(erro=>{
+    //listarapas
+     function listarapas(){
+        listagem_APAs.innerHTML=``
+        fetch(`/perfil/listarapas/${empresa}`,{
+            method: "POST"
+        }).then(resposta=>{resposta.json().then(resposta=>{
+                for(resp of resposta){
+                   listagem_APAs.innerHTML+=`
+                   <div>
+                            <img src="${resp.Imagem}" class="imagem_APA">
+                            <p>${resp.Nome_Atribuido}</p>
+                            <p>20</p>
+                            <img src="Assets/Icons/aviso.png" class="imagem_Situacao">
+                            <a>
+                                <img src="Assets/Icons/Lixeira.png" >
+                                
+                            </a>
+                    </div>
+                   
+                   ` 
+                }
+            })
+        }).catch(erro=>{
             console.log(erro)
         })
+
     }
+
+    
+
+
 
     function mostrarPerfil() {
         dados.style.display = "flex";
@@ -359,6 +381,7 @@
         FuncionarioLat.style.backgroundColor = "transparent";
         Perfil.style.backgroundColor = "transparent"
         APA.style.backgroundColor = "#024002";
+        listarapas()
     }
 
 

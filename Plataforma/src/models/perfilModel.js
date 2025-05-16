@@ -46,7 +46,14 @@ function checar_email(email){
 
 function cadastrar_apa(nome,imagem,id){
     var instrucaoSql = `
-        insert into Monitoramento values (default,'${nome}','Em análise','${imagem}',${id});
+        insert into Monitoramento values (default,'${nome}','Em análise','../dashboard/Assets/APAs/${imagem}',${id});
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function listarapas(id){
+    var instrucaoSql = `
+        select * from Monitoramento where FkOrgao=${id};
     `;
     return database.executar(instrucaoSql);
 }
@@ -57,6 +64,7 @@ module.exports = {
     deletar_func,
     checar_email,
     dadosperfil_func,
-    cadastrar_apa
+    cadastrar_apa,
+    listarapas
 }
 

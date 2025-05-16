@@ -113,6 +113,7 @@ function cadastrar_apa(req,res){
     var id = req.body.idempresa
     perfilModel.cadastrar_apa(nome,imagem,id)
     .then(resultado=>{
+        console.log("Apa cadastrada com sucesso")
         res.status(201).send("Usuario criado com sucesso")
     })
     .catch(erro=>{
@@ -140,6 +141,23 @@ function dadosperfil_func(req,res){
     }
 }
 
+function listarapas(req,res){
+    var id = req.params.idOrgao
+    if(id==undefined){
+        res.status(400).send('O id da empresa está undefined ')
+    }
+    else{
+        perfilModel.listarapas(id)
+        .then(resposta=>{
+            console.log('Lista de Apas do orgão')
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+    }
+}
 module.exports = {
     cadastrar,
     listarfunc,
@@ -147,5 +165,6 @@ module.exports = {
     deletar_func,
     checar_email,
     dadosperfil_func,
-    cadastrar_apa
+    cadastrar_apa,
+    listarapas
 }
