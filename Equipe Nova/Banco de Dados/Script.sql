@@ -24,13 +24,14 @@ CREATE TABLE Usuario (
 CREATE TABLE Monitoramento (
     idMonitoramento INT AUTO_INCREMENT,
     Nome_Atribuido VARCHAR(45) NOT NULL,
+    Imagem VARCHAR(255) NOT NULL,
     Status_Monitoramento VARCHAR(45) NOT NULL,
     FkOrgao INT NOT NULL,
     CONSTRAINT Validacao_Status CHECK (Status_Monitoramento in ('Aprovado' , 'Reprovado' , 'Em análise')),
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
-
+select * from Monitoramento;
 CREATE TABLE Area (
     idArea INT AUTO_INCREMENT,
     grid CHAR(1) NOT NULL,
