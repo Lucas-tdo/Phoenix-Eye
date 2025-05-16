@@ -60,18 +60,18 @@
                 <div class="cadastros_APAs" id="cadastro_APAs">
                     <div>
                         <h1>Adicionar os dados da APA:</h1>
-                        <input type="text" placeholder="Nome:">
+                        <input type="text" placeholder="Nome:" id="nome_apa">
                         <section>
                             <h1>Imagem:</h1>
-                            <input type="file" placeholder="Imagem:">
+                            <input type="file" placeholder="Imagem:" id="foto">
                         </section>
 
-                        <input type="text" placeholder="Descrição:">
+                        <input type="text" placeholder="Descrição:" id="descricao_apa">
                         <div>
                             <a onclick="ocultarCadastros()" style="cursor: pointer;">
                                 <img src="Assets/Icons/seta.webp">
                             </a>
-                            <button>Cadastrar</button>
+                            <button onclick="cadastrar_apa()">Cadastrar</button>
                             <div></div>
                         </div>
                     </div>
@@ -313,6 +313,26 @@
         }
     }
     
+    function cadastrar_apa(){
+        const form = new FormData()
+        form.append('foto', foto.files[0])
+        form.append('nome',nome_apa.value)
+        form.append('idempresa',empresa)
+
+        fetch("/perfil/cadastrar_apa",{
+            method:"POST",
+            body:form
+        })
+        .then(resposta=>{
+            if(resposta.ok){
+                console.log("inserido")
+            }
+        })
+        .catch(erro=>{
+            console.log(erro)
+        })
+    }
+
     function mostrarPerfil() {
         dados.style.display = "flex";
         Funcionario.style.display = "none";

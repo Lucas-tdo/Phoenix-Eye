@@ -43,12 +43,20 @@ function checar_email(email){
     `;
     return database.executar(instrucaoSql);
 }
+
+function cadastrar_apa(nome,imagem,id){
+    var instrucaoSql = `
+        insert into Monitoramento values (default,'${nome}','Em análise','${imagem}',${id});
+    `;
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     cadastrar,
     listarfunc,
     dadosperfil,
     deletar_func,
     checar_email,
-    dadosperfil_func
+    dadosperfil_func,
+    cadastrar_apa
 }
 

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
+const upload = require('../configimagens/configAPAs'); 
 var perfilController = require("../controllers/perfilController")
 
 router.post("/cadastrar",function(req,res){
@@ -26,4 +27,9 @@ router.delete("/deletar_func/:idFunc",function(req,res){
 router.get("/checar_email/:email",function(req,res){
     perfilController.checar_email(req,res)
 })
+
+router.post("/cadastrar_apa",upload.single('foto'),(req,res)=>{
+    perfilController.cadastrar_apa(req,res)
+})
+
 module.exports=router;

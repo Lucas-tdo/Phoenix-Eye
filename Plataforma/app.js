@@ -16,7 +16,7 @@ var indexRouter = require("./src/routes/index");
 var perfilRouter = require("./src/routes/perfil")
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());

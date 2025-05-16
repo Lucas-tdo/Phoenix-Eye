@@ -68,23 +68,7 @@ function dadosperfil(req,res){
     }
 }
 
-function dadosperfil_func(req,res){
-    var id = req.params.idFunc
-    if(id==undefined){
-        res.status(400).send('O id da empresa está undefined ')
-    }
-    else{
-        perfilModel.dadosperfil_func(id)
-        .then(resposta=>{
-            console.log("Dados do funcionários localizados")
-            res.json(resposta)
-        })
-        .catch(erro=>{
-            console.log(erro)
-            res.status(500).json(erro.sqlMessage)
-        })
-    }
-}
+
 
 function deletar_func(req,res){
     var id = req.params.idFunc
@@ -122,11 +106,46 @@ function checar_email(req,res){
         })
     }
 }
+
+function cadastrar_apa(req,res){
+    var imagem = req.file.filename
+    var nome = req.body.nome
+    var id = req.body.idempresa
+    perfilModel.cadastrar_apa(nome,imagem,id)
+    .then(resultado=>{
+        res.status(201).send("Usuario criado com sucesso")
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res.status(500).send(erro.sqlMessage)
+    })
+}
+
+// funcionário
+function dadosperfil_func(req,res){
+    var id = req.params.idFunc
+    if(id==undefined){
+        res.status(400).send('O id da empresa está undefined ')
+    }
+    else{
+        perfilModel.dadosperfil_func(id)
+        .then(resposta=>{
+            console.log("Dados do funcionários localizados")
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res.status(500).json(erro.sqlMessage)
+        })
+    }
+}
+
 module.exports = {
     cadastrar,
     listarfunc,
     dadosperfil,
     deletar_func,
     checar_email,
-    dadosperfil_func
+    dadosperfil_func,
+    cadastrar_apa
 }
