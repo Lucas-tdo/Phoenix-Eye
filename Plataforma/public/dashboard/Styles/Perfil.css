@@ -16,7 +16,7 @@
 
 .lateral {
     height: 100%;
-    width: 24%;
+    width: 30%;
     background-color: #091D0E;
     display: flex;
     flex-direction: column;
@@ -41,12 +41,9 @@
 }
 
 .lateral div img {
-    height: 110px;
+    height: 80px;
 
 }
-
-
-
 
 .Central {
     height: 100%;
@@ -714,3 +711,77 @@
     width: 10%;
 
 }
+
+/* Solicitações */
+
+.solicitacao{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.solicitacao #titulo_pagina_solicitacao {
+    width: 90%;
+    margin-top: 20px;
+}
+
+.solicitacao #titulo_pagina_solicitacao h1{
+    font-size: 60px;
+}
+
+.solicitacao .Lista_solicitacao {
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+    width: 96%;
+    margin-top: 40px;
+    height: 75%;
+
+}
+
+.solicitacao .Indicadores_solicitacao {
+    display: flex;
+    justify-content: space-between;
+}
+
+.solicitacao .listagem_solicitacao {
+    background-color: #024002;
+    border-radius: 10px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.solicitacao .listagem_solicitacao div {
+    justify-content: space-around;
+    font-size: 20px;
+    min-height: 90px;
+    font-weight: 500;
+    align-items: center;
+    border-radius: 10px;
+    width: 95%;
+    display: flex;
+    margin-top: 10px;
+    font-weight: 700;
+    background-color: #D9D9D9;
+}
+.solicitacao .listagem_solicitacao div img{
+    height: 50px;
+    cursor: pointer;
+}
+
+.solicitacao .listagem_solicitacao .imagem_APA {
+    height: 80px;
+    width: 150px;
+    border-radius: 90px;
+}
+
+.solicitacao #nome_responsavel {
+    margin-left: 100px;
+}
+
+

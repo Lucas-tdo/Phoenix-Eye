@@ -35,6 +35,13 @@
                 </div>
             </a>
 
+            <a onclick="mostrarSolicitacoes()">
+                <div id="solicitacoes">
+                    <img src="Assets/Icons/solicitação.png">
+                    <h1>Solicitações</h1>
+                </div>
+            </a>
+
         </div>
 
             <!-- Parte do perfil em si -->
@@ -85,7 +92,7 @@
             <!-- Parte das APAs -->
             <div class="APAs" id="APAs">
                 <div id="titulo_pagina_apa">
-                    <h1>Solicitações</h1>
+                    <h1>APAs</h1>
                 </div>
 
                 <div class="Lista_APAs">
@@ -94,7 +101,6 @@
                         <div class="nula"></div>
                         <h1>Nome</h1>
                         <h1>Órgão</h1>
-                        <h1>Confirmação</h1>
                         <div></div>
                     </div>
 
@@ -103,6 +109,32 @@
                             <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
                             <p id="nome_adm">Juan Vieira</p>
                             <p id="nome_orgao_adm">Corpo de Bombeiros</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parte das Solicitações -->
+            <div class="solicitacao" id="solicitacao">
+                <div id="titulo_pagina_solicitacao">
+                    <h1>Solicitações</h1>
+                </div>
+
+                <div class="Lista_solicitacao">
+
+                    <div class="Indicadores_solicitacao">
+                        <div class="nula"></div>
+                        <h1>Nome</h1>
+                        <h1>Órgão</h1>
+                        <h1>Confirmação</h1>
+                        <div></div>
+                    </div>
+
+                    <div class="listagem_solicitacao">
+                        <div>
+                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
+                            <p id="nome_responsavel">Juan Vieira</p>
+                            <p id="nome_orgao">Corpo de Bombeiros</p>
                             <div id="confirmacao_apa">
                                 <img src="Assets/Icons/confirmar.png">
                                 <img src="Assets/Icons/recusar.png">
@@ -246,27 +278,44 @@
         dados.style.display = "flex";
         APAs.style.display = "none";
         org.style.display = "none"
+        solicitacao.style.display = "none";
         Perfil.style.backgroundColor = "#024002";
         APA.style.backgroundColor = "transparent";
         orgao.style.backgroundColor = "transparent";
+        solicitacoes.style.backgroundColor = "transparent";
     }
 
     function mostrarOrgao() {
         dados.style.display = "none";
         APAs.style.display = "none";
         org.style.display = "flex";
+        solicitacao.style.display = "none";
         Perfil.style.backgroundColor = "transparent";
         APA.style.backgroundColor = "transparent";
         orgao.style.backgroundColor = "#024002";
+        solicitacoes.style.backgroundColor = "transparent";
     }
 
     function mostrarAPAs() {
-        dados.style.display = "none"
-        APAs.style.display = "flex"
-        org.style.display = "none"
+        dados.style.display = "none";
+        APAs.style.display = "flex";
+        org.style.display = "none";
+        solicitacao.style.display = "none";
         Perfil.style.backgroundColor = "transparent";
         APA.style.backgroundColor = "#024002";
         orgao.style.backgroundColor = "transparent";
+        solicitacoes.style.backgroundColor = "transparent";
+    }
+
+    function mostrarSolicitacoes() {
+        dados.style.display = "none";
+        APAs.style.display = "none";
+        org.style.display = "none";
+        solicitacao.style.display = "flex";
+        Perfil.style.backgroundColor = "transparent";
+        APA.style.backgroundColor = "transparent";
+        orgao.style.backgroundColor = "transparent";
+        solicitacoes.style.backgroundColor = "#024002";
     }
 
     mostrarPerfil();
