@@ -149,6 +149,7 @@
 
 .areaGrid{
     display: flex;
+    
     background-image: url("../Assets/Imgs/img-Satelite.jpg");
     background-size: cover;
     width: 400px;
@@ -207,11 +208,10 @@
 
 .indicadores_grafico div div{
     display: flex;
-    width: 50%;
     flex-direction: column;
     flex-direction: row;
     align-items: center;
- 
+    width: 100px;
 }
 
 .indicadores_grafico #termometro {
