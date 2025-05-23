@@ -1,4 +1,4 @@
-var tempSensorA7 = 50;
+var tempSensorA7 = 20;
 var umidSensorA7 = 60;
 
 var umidAviso = 40;
