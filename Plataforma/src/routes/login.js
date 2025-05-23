@@ -6,4 +6,8 @@ router.get("/checar/:email/:senha", function(req,res){
     loginController.checar(req,res)
 })
 
+router.get("/checar_orgao/:email/:senha", function(req,res){
+    loginController.checar_orgao(req,res)
+})
+
 module.exports=router;
