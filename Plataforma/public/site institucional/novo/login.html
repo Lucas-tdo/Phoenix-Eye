@@ -48,49 +48,22 @@
 
 </html>
 <script>
-    // Variável que acumula os erros da conta
     var erros = 0
-    // variáveis que recebem os dados do usuário 
-    // variáveis do nosso cliente
-
-    // variáveis para validação
     var maiscula = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var minuscula = "abcdefghijklmnopqrstuvwxyz"
     var caracteres = "!@#$%^&*()_+-={}[]|\:;\<>,.?/~"
     var numeros = "0123456789"
-
-
     var senha_validada = false
-
-
-    // função para aparecer o login
-    function Login() {
-        input_email_login.value = ""
-        input_email_senha.value = ""
-        card_cadastro.className = 'vazio'
-        card_login.className = 'card_login'
-    }
 
     function ValidarSenha() {
         senha_validada = false
-
-        var senha_tentativa = ""
+        var senha_tentativa = input_email_senha.value.replaceAll(" ", "")
         var temMaisculasenha = false
         var temMinusculasenha = false
         var temCaractere = false
         var temnumero = false
 
         var problemasenha = ""
-
-
-        if (card_cadastro.className == 'vazio') {
-            senha_tentativa = input_email_senha.value.replaceAll(" ", "")
-
-        }
-        else {
-            senha_tentativa = input_senha_cadastro.value.replaceAll(" ", "")
-        }
-
         // validação usando for para verificar se tem letrar maisculas 
         for (i = 0; i < maiscula.length; i++) {
             if (senha_tentativa.includes(maiscula[i])) {
@@ -134,17 +107,13 @@
 
         if (senha_tentativa == "") {
             erros_senha_login.innerHTML = ""
-            erros_senha_cadastro.innerHTML = ""
         }
         else if (problemasenha.length > 0) {
             erros_senha_login.innerHTML = ""
             erros_senha_login.innerHTML = `${problemasenha}`
-            erros_senha_cadastro.innerHTML = ""
-            erros_senha_cadastro.innerHTML = `${problemasenha}`
         }
         else {
             erros_senha_login.innerHTML = ""
-            erros_senha_cadastro.innerHTML = ""
             senha_validada = true
         }
 
