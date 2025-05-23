@@ -41,7 +41,7 @@
 
                 <a href="indexclara.html"><button class="button_voltar">Voltar ao home</button></a>
             </div>
-
+            <a href="./"></a>
         </div>
     </div>
 </body>
@@ -152,22 +152,20 @@
             }
             else {
                 fetch(`/login/checar/${email_tentativa}/${senha_tentativa}`, {
-                    method: "get",
+                    method: "GET",
                     headers: { "Content-Type": "application/json" }
                 })
                     .then(resposta => {
                         resposta.json().then(resposta => {
-                            console.log(resposta.length)
+                            if(resposta.length==1){
+                                window.location="./site institucional/novo/login.html"
+                            }
                         })
                     })
                     .catch(erro=>{
                         console.log(erro)
                     })
-                    
-                // else {
-                //     erros++
-                //     alert(`Sua senha ou email estão incorretos\nRestam apenas ${4 - erros} tentativas`)
-                // }
+
             }
         }
     }
