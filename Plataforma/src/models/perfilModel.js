@@ -2,44 +2,44 @@ var database = require("../database/config")
 
 function cadastrar(nome,email,senha,id_empresa){
     var instrucaoSql = `
-       insert into usuario values (default,'${nome}','${email}','${senha}',1,${id_empresa});  
+       insert into Usuario values (default,'${nome}','${email}','${senha}',1,${id_empresa});  
     `;
     return database.executar(instrucaoSql);
 }
 
 function listarfunc(id){
     var instrucaoSql = `
-        select * from usuario where fkOrgao = ${id} order by idusuario desc;
+        select * from Usuario where fkOrgao = ${id} order by idUsuario desc;
     `;
     return database.executar(instrucaoSql);
 }
 
 function  dadosperfil(id){
     var instrucaoSql = `
-        select orgao,cnpj,telefone,email from orgao where idOrgao=${id};
+        select orgao,cnpj,telefone,email from Orgao where idOrgao=${id};
     `;
     return database.executar(instrucaoSql);
 }
 
 function  dadosperfil_func(id){
     var instrucaoSql = `
-        select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from usuario u
-        join orgao o on
-        fkOrgao=idOrgao where idusuario=${id};
+        select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from Usuario u
+        join Orgao o on
+        fkOrgao=idOrgao where idUsuario=${id};
     `;
     return database.executar(instrucaoSql);
 }
 
 function deletar_func(id){
     var instrucaoSql = `
-        delete from usuario where idusuario=${id};
+        delete from Usuario where idUsuario=${id};
     `;
     return database.executar(instrucaoSql);
 }
 
 function checar_email(email){
     var instrucaoSql = `
-        select * from usuario where email='${email}';
+        select * from Usuario where email='${email}';
     `;
     return database.executar(instrucaoSql);
 }
