@@ -78,24 +78,40 @@
                 </div>
 
                 <div class="deletar_class" id="deletar">
-                   <div>
-                       <h1>Tem certeza que deseja deletar?</h1>
-                       
-                       <div>
-                           <a onclick="ocultarCadastros()" style="cursor: pointer;">
-                               <img src="Assets/Icons/seta.webp">
-                           </a>
-                           <button onclick="deletar_func()">Deletar</button>
-                           <div></div>
-                       </div>
-                   </div>
-               </div>
+                    <div>
+                        <h1>Tem certeza que deseja deletar?</h1>
+
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="deletar_func()">Deletar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                    <div class="deletar_class" id="deletar_apa_div">
+                    <div>
+                        <h1>Tem certeza que deseja deletar?</h1>
+
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="deletar_apa()">Deletar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
-            
-               
-               
+
+
+
 
             <!-- Divs para deletar -->
 
@@ -114,7 +130,7 @@
                         <h1 id="telefone_orgao">Telefone:</h1>
                         <h1 id="cnpj_orgao">CNPJ:</h1>
                     </div>
-    
+
                 </div>
 
             </div>
@@ -167,15 +183,14 @@
                     </div>
 
                     <div class="listagem_APAs" id="listagem_APAs">
-                        
+
 
                     </div>
 
                 </div>
             </div>
 
-
-
+ 
         </div>
     </div>
 </body>
@@ -186,48 +201,50 @@
     sessionStorage.ID_EMPRESA = `1`
     var empresa = sessionStorage.ID_EMPRESA
     dadosperfil()
-    function dadosperfil(){
-        fetch(`/perfil/dadosperfil/${empresa}`,{
-            method : "get",
+    function dadosperfil() {
+        fetch(`/perfil/dadosperfil/${empresa}`, {
+            method: "get",
         })
-        .then(resposta=>{resposta.json().then(resposta=>{
-            titulo_orgao.innerHTML+= resposta[0].orgao
-            nome_orgao.innerHTML+=resposta[0].orgao
-            email_orgao.innerHTML+=resposta[0].cnpj
-            telefone_orgao.innerHTML+=resposta[0].telefone
-            cnpj_orgao.innerHTML+=resposta[0].email
-            })            
-        })
-        .catch(erro=>{
-            console.log(erro)
-        })
+            .then(resposta => {
+                resposta.json().then(resposta => {
+                    titulo_orgao.innerHTML += resposta[0].orgao
+                    nome_orgao.innerHTML += resposta[0].orgao
+                    email_orgao.innerHTML += resposta[0].cnpj
+                    telefone_orgao.innerHTML += resposta[0].telefone
+                    cnpj_orgao.innerHTML += resposta[0].email
+                })
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
 
-    function deletar_func(){
+    function deletar_func() {
         var idfuncionario = sessionStorage.deletar
-        fetch(`/perfil/deletar_func/${idfuncionario}`,{
+        fetch(`/perfil/deletar_func/${idfuncionario}`, {
             method: "delete",
-                headers :{
-                    "Content-Type": "application/json",
-                }
-        })
-        .then(resposta=>{resposta.json().then(resposta=>{
-            if(resposta.ok){
-                sessionStorage.deletar = ""
+            headers: {
+                "Content-Type": "application/json",
             }
-            listarfunc()
-            ocultarCadastros()
+        })
+            .then(resposta => {
+                resposta.json().then(resposta => {
+                    if (resposta.ok) {
+                        sessionStorage.deletar = ""
+                    }
+                    listarfunc()
+                    ocultarCadastros()
+                })
             })
-        })
-        .catch(erro=>{
-            console.log(erro)
-        })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
 
     function listarfunc() {
         listagem_org.innerHTML = ""
         fetch(`/perfil/listarfunc/${empresa}`, {
-            method: "post",
+            method: "GET",
         })
             .then(resposta => {
                 resposta.json().then(resposta => {
@@ -241,7 +258,7 @@
                                 <img src="Assets/Icons/Engrenagem.png">
                                 </a>
                                 <a>
-                                   <img src="Assets/Icons/Lixeira.png" onclick="abrirdeletar(${resp.idUsuario})">
+                                   <img src="Assets/Icons/Lixeira.png" onclick="abrir_deletar_apa(${resp.idMonitoramento})">
                                </a>
                             </div>
                             </div>`
@@ -253,106 +270,125 @@
             })
     }
 
-    function cadastrando(nome,email,senha){
+    function cadastrando(nome, email, senha) {
         fetch(`/perfil/cadastrar`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        nomeServer: nome,
-                        emailServer: email,
-                        senhaServer: senha,
-                        idempresaServer: empresa
-                    }),
-                })
-                    .then(resposta => {
-                        listarfunc()
-                    })
-                    .catch(erro => {
-                        console.log(erro)
-                    })
-                ocultarCadastros()
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+                idempresaServer: empresa
+            }),
+        })
+            .then(resposta => {
+                listarfunc()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+        ocultarCadastros()
     }
-    function cadastrar_apa(){
+    function cadastrar_apa() {
         const form = new FormData()
         form.append('foto', foto.files[0])
-        form.append('nome',nome_apa.value)
-        form.append('idempresa',empresa)
+        form.append('nome', nome_apa.value)
+        form.append('idempresa', empresa)
 
-        fetch("/perfil/cadastrar_apa",{
-            method:"POST",
-            body:form,
+        fetch("/perfil/cadastrar_apa", {
+            method: "POST",
+            body: form,
         })
-        .then(resposta=>{
-            
-            listarapas()   
-        })
-        .catch(erro=>{
-            console.log(erro)
-        })
-        ocultarCadastros()   
-        
+            .then(resposta => {
+
+                listarapas()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+        ocultarCadastros()
+
     }
 
 
-  function Cadastrar() {
-        
+    function Cadastrar() {
+
         var nome = input_nome.value
         var email = input_email.value
         var senha = input_senha.value
         if (nome == '' || email == '' || senha == '') {
             alert('Erro')
         }
-        else{
-            fetch(`/perfil/checar_email/${email}`,{
-            method : "GET",
-            headers :{ "Content-Type": "application/json"}
+        else {
+            fetch(`/perfil/checar_email/${email}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
             })
-            .then(resposta=>{resposta.json().then(resposta=>{
-                if(resposta.length>=1){
-                    alert("Erro email já cadastrado")
-                }
-                else{
-                    cadastrando(nome,email,senha)
-                }
+                .then(resposta => {
+                    resposta.json().then(resposta => {
+                        if (resposta.length >= 1) {
+                            alert("Erro email já cadastrado")
+                        }
+                        else {
+                            cadastrando(nome, email, senha)
+                        }
+                    })
                 })
-            })
-            .catch(erro=>{
-                console.log(erro)
-            })
+                .catch(erro => {
+                    console.log(erro)
+                })
         }
     }
     //listarapas
-     function listarapas(){
-        listagem_APAs.innerHTML=``
-        fetch(`/perfil/listarapas/${empresa}`,{
+    function listarapas() {
+        listagem_APAs.innerHTML = ``
+        fetch(`/perfil/listarapas/${empresa}`, {
             method: "POST"
-        }).then(resposta=>{resposta.json().then(resposta=>{
-                for(resp of resposta){
-                   listagem_APAs.innerHTML+=`
+        }).then(resposta => {
+            resposta.json().then(resposta => {
+                for (resp of resposta) {
+                    listagem_APAs.innerHTML += `
                    <div>
                             <img src="${resp.Imagem}" class="imagem_APA">
                             <p>${resp.Nome_Atribuido}</p>
                             <p>20</p>
-                            <img src="Assets/Icons/aviso.png" class="imagem_Situacao">
+                            <img src="./Assets/Icons/${resp.Status_Monitoramento}.png" class="imagem_Situacao">
                             <a>
-                                <img src="Assets/Icons/Lixeira.png" >
+                                <img src="Assets/Icons/Lixeira.png"onclick = "abrir_deletar_apa(${resp.idMonitoramento})cadastros.style.display = "none"" >
                                 
                             </a>
                     </div>
                    
-                   ` 
+                   `
                 }
             })
-        }).catch(erro=>{
+        }).catch(erro => {
             console.log(erro)
         })
 
     }
 
-    
 
+
+
+    function deletar_apa() {
+       var id_apa = sessionStorage.deletar_apa;
+       fetch(`/perfil/deletar_apa/${id_apa}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        },).then(resposta => {
+            listarapas();
+        }).catch(erro => {
+            console.log(erro)
+        })
+         deletar_apa_div.style.display = "none";
+        cadastros.style.display = "none"
+
+    }
 
 
     function mostrarPerfil() {
@@ -385,19 +421,26 @@
     }
 
 
+    function abrir_deletar_apa(id_apa){
+        sessionStorage.deletar_apa = id_apa;
+        deletar_apa_div.style.display = "flex"
+        cadastros.style.display = "flex"
+    }
+
     function ocultarCadastros() {
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "none"
         cadastros.style.display = "none"
         deletar.style.display = "none"
         input_nome.value = "";
+        deletar_apa_div.style.display = "none";
         input_email.value = "";
         input_senha.value = "";
-        deletar.style.display="none"
+        deletar.style.display = "none"
     }
-    function abrirdeletar(id){
-        sessionStorage.deletar=`${id}`
-        deletar.style.display="flex"
+    function abrirdeletar(id) {
+        sessionStorage.deletar = `${id}`
+        deletar.style.display = "flex"
         cadastros.style.display = "flex"
     }
     function abrirCadastroFunc() {

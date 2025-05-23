@@ -88,6 +88,25 @@ function deletar_func(req,res){
     }
 }
 
+
+function deletar_apa(req, res){
+
+     var id_apa = req.params.id_apa;
+
+        perfilModel.deletar_apa(id_apa)
+        .then(resposta=>{
+            console.log(`A apa ${id_apa} foi excluida`)
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+            res(500).json(erro.sqlMessage)
+        })
+    
+
+}
+
+
 function checar_email(req,res){
     var email = req.params.email
     if(email==undefined){
@@ -166,5 +185,6 @@ module.exports = {
     checar_email,
     dadosperfil_func,
     cadastrar_apa,
-    listarapas
+    listarapas,
+    deletar_apa
 }

@@ -8,7 +8,7 @@ router.post("/cadastrar",function(req,res){
     perfilController.cadastrar(req,res)
 })
 
-router.post("/listarfunc/:idOrgao",function(req,res){
+router.get("/listarfunc/:idOrgao",function(req,res){
     perfilController.listarfunc(req,res)
 })
 
@@ -35,5 +35,10 @@ router.post("/cadastrar_apa",upload.single('foto'),(req,res)=>{
 router.post("/listarapas/:idOrgao",function(req,res){
     perfilController.listarapas(req,res)
 })
+
+
+router.delete("/deletar_apa/:id_apa", function(req,res){
+    perfilController.deletar_apa(req, res)
+});
 
 module.exports=router;

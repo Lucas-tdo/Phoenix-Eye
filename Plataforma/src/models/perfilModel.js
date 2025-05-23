@@ -37,6 +37,16 @@ function deletar_func(id){
     return database.executar(instrucaoSql);
 }
 
+function deletar_apa(id_apa){
+    var instrucaoSql = `
+        delete from Monitoramento where idMonitoramento=${id_apa};
+    `;
+    console.log("Apa foi excluida")
+
+    return database.executar(instrucaoSql);
+}
+
+
 function checar_email(email){
     var instrucaoSql = `
         select * from Usuario where email='${email}';
@@ -65,6 +75,7 @@ module.exports = {
     checar_email,
     dadosperfil_func,
     cadastrar_apa,
-    listarapas
+    listarapas,
+    deletar_apa
 }
 
