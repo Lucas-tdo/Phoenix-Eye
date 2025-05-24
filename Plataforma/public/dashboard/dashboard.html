@@ -56,6 +56,7 @@
             </div>
 
             <div class="indicadores_grafico">
+                <a href="../dashboard/dashboard_Sensor.html"></a>
 
                 <div>
                     <h1>Alerta</h1>
@@ -96,8 +97,184 @@
 
 
         <div class="Graficos">
-            <div class="areaGrid">
-                <div class="A">
+            <div class="areaGrid" id="grid">
+                
+
+                <div style="height: 100%; width: 100%;">
+                    <img src="Assets/Icons/loading.gif" alt="">
+                </div>
+
+            </div>
+
+
+            <div class="div_grafico">
+                <canvas id="myChart"></canvas>
+            </div>
+
+        </div>
+        <div class="Sensores">
+
+            <div class="listSensores">
+                <h2>Sensores</h2>
+                <div class="Tabela_sensores" id="Listar_sensores">
+
+                    <div>
+                        <h1>Carregando...</h1>
+                        <img src="Assets/Icons/loading.gif" alt="">
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="KPI-Sensores">
+                <div class="AtencaoSensores">
+                    <h1>Atenção Necessária:</h1>
+                    <div class="lista_Atencao" id="lista_atencao">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</body>
+
+</html>
+
+
+
+<script>
+
+    sessionStorage.idMonitoramento = 1;
+
+    function dashSensor() {
+        window.location.href = "dashboard_Sensor.html";
+    }
+
+
+
+
+
+    async function buscarDados() {
+        var idMonitoramento = sessionStorage.idMonitoramento
+        const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
+        if (resp.ok) {
+            const resp_dados = await resp.json();
+
+            console.log(resp_dados);
+            setTimeout(() => listar_sensores(resp_dados), 2000);
+        } else {
+            console.error("Erro ao buscar dados:", resp.status);
+        }
+
+
+
+    }
+
+
+
+    function listar_sensores(resp_dados) {
+        var mensagem = ""
+        var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+        var mensagem_grid = ''
+
+        /*  Listando os sensores na lista */
+        for (var i = 0; i < resp_dados.length; i++) {
+            mensagem += `
+            <div style = "cursor : pointer"onclick = "direcionar_pagina_individual(${resp_dados[i].ID})">
+                <h1>${resp_dados[i].Nome_Sensor}</h1>
+                <div>
+                    <h1>${resp_dados[i].temperatura}C°</h1>
+                    <h1>${resp_dados[i].umidade}%</h1>
+                    <h1>${resp_dados[i].status_sensor}</h1>
+                </div>
+            </div> 
+            
+           `;
+        }
+
+        /* Fazendo o gráfico de grid */
+
+        var contador_alerta = 0;
+        var contador_perigo = 0;
+        var contador_manutencao = 0;
+
+        var posicaoAtual = 0;
+        for (var i = 0; i < lista_grid.length; i++) {
+
+            posicaoAtual = lista_grid[i];
+            mensagem_grid += `  
+                    <div class = "${posicaoAtual}">
+            `;
+            for (var j = 1; j < 10; j++) {
+                for (var k = 0; k < resp_dados.length; k++) {
+                    if (resp_dados[k].Nome_Sensor.includes(`${posicaoAtual}${j}-${sessionStorage.idMonitoramento}`)) {
+                        var inclui = true
+                        var id = resp_dados[k].ID;
+
+                        if(resp_dados[k].temperatura == 0 || resp_dados[k].umidade == 0){
+                            contador_manutencao++;
+                        }
+                        else if(resp_dados[k].temperatura == 34 || resp_dados[k].umidade == 40 ){
+                            contador_alerta++;
+                        }else if(resp_dados[k].temperatura == 38 || resp_dados[k].umidade == 20){
+                            contador_perigo++;
+                        }
+                        
+                        break;
+                    } else {
+                        inclui = false
+                    }
+                }
+                if (inclui) {
+                    mensagem_grid += `
+                     <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
+                        <img src="Assets/grid_img/sensor.png" alt="">
+                    </div>
+                    `
+                } else {
+                    mensagem_grid += `<div></div>`
+                }
+            }
+
+            mensagem_grid += "</div>"
+        }
+
+
+
+        grid.innerHTML = mensagem_grid
+        qtdAviso.innerHTML = contador_perigo ;
+        qtdAlerta.innerHTML = contador_alerta;
+        qtdManutencao.innerHTML = contador_manutencao;
+        Listar_sensores.innerHTML = mensagem
+    }
+
+     function direcionar_pagina_individual(id_sensor) {
+        sessionStorage.id_sensor =  id_sensor;
+        console.log(id_sensor)
+        window.location = '../dashboard/dashboard_Sensor.html'
+    }
+
+    buscarDados();
+
+</script>
+
+
+
+<!-- Caso precise lucas -->
+
+
+<!--  <div class="A">
                     <div id="A1"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A2"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="A3"><img src="Assets/grid_img/sensor.png" alt=""></div>
@@ -215,108 +392,4 @@
                     <div id="I8"><img src="Assets/grid_img/sensor.png" alt=""></div>
                     <div id="I9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
-
-
-            </div>
-
-
-            <div class="div_grafico">
-                <canvas id="myChart"></canvas>
-            </div>
-
-        </div>
-        <div class="Sensores">
-
-            <div class="listSensores">
-                <h2>Sensores</h2>
-                <div class="Tabela_sensores" id="Listar_sensores">
-                    
-                    <div>
-                        <h1>Carregando...</h1>
-                        <img src="Assets/Icons/loading.gif" alt="">
-                    </div>
-
-                </div>
-
-
-
-            </div>
-
-
-            <div class="KPI-Sensores">
-                <div class="AtencaoSensores">
-                    <h1>Atenção Necessária:</h1>
-                    <div class="lista_Atencao" id="lista_atencao">
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-
-
-    </div>
-
-
-</body>
-
-</html>
-
-
-
-<script>
-
-    sessionStorage.idMonitoramento = 1;
-
-    function dashSensor() {
-        window.location.href = "dashboard_Sensor.html";
-    }
-
-
-
-    async function buscarDados() {
-        var idMonitoramento = sessionStorage.idMonitoramento
-        const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
-        if (resp.ok) {
-            const resp_dados = await resp.json();
-
-            console.log(resp_dados);
-            setTimeout(() => listar_sensores(resp_dados), 2000);
-        } else {
-            console.error("Erro ao buscar dados:", resp.status);
-        }
-
-
-
-    }
-
-
-
-    function listar_sensores(resp_dados) {
-        var mensagem = ""
-
-        for (var i = 0; i < resp_dados.length; i++) {
-            mensagem += `
-            <div style = "cursor : pointer"onclick = "direcionar_pagina_individual(${resp_dados[i].ID})">
-                <h1>${resp_dados[i].Nome_Sensor}</h1>
-                <div>
-                    <h1>${resp_dados[i].temperatura}C°</h1>
-                    <h1>${resp_dados[i].umidade}%</h1>
-                    <h1>${resp_dados[i].status_sensor}</h1>
-                </div>
-            </div> 
-            
-           `;
-        }
-        Listar_sensores.innerHTML = mensagem
-    }
-
-    function direcionar_pagina_individual(id){
-
-    }
-
-    buscarDados();
-
-</script>
+ -->

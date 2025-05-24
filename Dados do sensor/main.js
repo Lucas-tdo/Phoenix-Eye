@@ -15,7 +15,7 @@ const serial = async (
 // conexão com o banco de dados MySQL
 let poolBancoDados = mysql.createPool(
     {
-        host: '10.18.33.58',
+        host: '192.168.1.10',
         user: 'phoenix-eye',
         password: '@Urubu100',
         database: 'PhoenixEye',
@@ -37,7 +37,9 @@ valoresSensorTemp.push(2222);
 
 // insere os dados no banco de dados (se habilitado)
 if (HABILITAR_OPERACAO_INSERIR) {
+    for(var c = 0 ;c <30 ; c++ ){
 
+    
     // este insert irá inserir os dados na tabela "medida"
     await poolBancoDados.execute(
         `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1, 1)`,
@@ -58,7 +60,7 @@ if (HABILITAR_OPERACAO_INSERIR) {
         );
     }
     console.log("Valores reais e simulados inseridos no banco com sucesso.");
-
+}
 
 }}
 

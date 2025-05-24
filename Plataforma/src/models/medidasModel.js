@@ -9,20 +9,43 @@ SELECT
     Sensor.nome AS Nome_Sensor,
     Sensor.status_sensor,
     Dados.temperatura,
-    Dados.umidade
+    Dados.umidade,
+    Dados.dtMedicao
 FROM Sensor 
-JOIN Dados ON Dados.fkSensor = Sensor.idSensor 
+JOIN (
+    SELECT d1.*
+    FROM Dados as d1
+     JOIN (
+        SELECT fkSensor, MAX(idDados) AS maxId
+        FROM Dados
+        GROUP BY fkSensor
+    ) d2 ON d1.fkSensor = d2.fkSensor AND d1.idDados = d2.maxId
+) AS Dados ON Dados.fkSensor = Sensor.idSensor
 JOIN Area ON Sensor.fkArea = Area.idArea 
 JOIN Monitoramento ON Monitoramento.idMonitoramento = Area.FkMonitoramento
-WHERE Sensor.status_sensor = 'Ativo' AND Monitoramento.idMonitoramento = ${idMonitoramento};
+WHERE Sensor.status_sensor = 'Ativo' 
+  AND Monitoramento.idMonitoramento = ${idMonitoramento};
 
     `;
-    console.log("Executando a instrução do SQL : \n" + instrucaoSql);
+    console.log("Selecionando dados do sensor no banco de dados");
     return database.executar(instrucaoSql)
 
 }
 
+function dados_sensor_especifico(id_Sensor){
+    var instrucaoSql = `
+    
+    SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
+    FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = ${id_Sensor};
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+}
+
+
 module.exports = {
-    receber_dados
+    receber_dados,
+    dados_sensor_especifico
 
 }

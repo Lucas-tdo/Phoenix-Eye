@@ -136,7 +136,7 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'A3-1', 'Ativo', 3),
 (DEFAULT, 'A4-1', 'Ativo', 4),
 (DEFAULT, 'A5-1', 'Ativo', 5),
-(DEFAULT, 'A6-1', 'Ativo', 6),
+(DEFAULT, 'A6-1', 'Ativo', 6),	
 (DEFAULT, 'A7-1', 'Ativo', 7),
 (DEFAULT, 'A8-1', 'Ativo', 8),
 (DEFAULT, 'A9-1', 'Ativo', 9),
@@ -186,6 +186,8 @@ Select * from Sensor;
 
 SELECT idSensor FROM Sensor;
 
+select * from Sensor;
+
 -- Inserindo dados
 INSERT INTO dados VALUES 
 (DEFAULT, 25.5, 75, DEFAULT, 1, 1),
@@ -193,21 +195,13 @@ INSERT INTO dados VALUES
 
 SELECT * from Dados;
 SELECT * FROM Dados WHERE fkSensor = 32;
+SELECT * FROM Monitoramento;
+SELECT * FROM Area;
+truncate table Area;
 
--- Visualizar todos os órgãos
-SELECT * FROM orgao;
-
--- Visualizar todos os usuários
-SELECT * FROM usuario;
-
--- Visualizar grid das áreas
-SELECT idArea, CONCAT(grid, numero) AS Grid FROM Area;
-
--- Visualizar todos os sensores
-SELECT * FROM sensor;
-
--- Visualizar todos os dados captados
-SELECT * FROM dados;
+DROP TABLE Dados;
+DROP TABLE Area;
+DROP TABLE Sensor;
 
 -- Visualizar funcionários e seu órgão associado
 SELECT 
@@ -228,11 +222,31 @@ WHERE sensor.status_sensor = 'Ativo';
 
 -- Visualizar dados de sensores ativos
 SELECT 
-    sensor.idSensor AS ID,
-    sensor.nome AS Nome_Sensor,
-    sensor.status_sensor,
-    dados.temperatura,
-    dados.umidade
-FROM sensor 
-JOIN dados ON dados.fkSensor = sensor.idSensor
-WHERE sensor.status_sensor = 'Ativo';
+    Sensor.idSensor AS ID,
+    Sensor.nome AS Nome_Sensor,
+    Sensor.status_sensor,
+    Dados.temperatura,
+    Dados.umidade,
+    Dados.dtMedicao
+FROM Sensor 
+JOIN (
+    SELECT d1.*
+    FROM Dados d1
+    INNER JOIN (
+        SELECT fkSensor, MAX(idDados) AS maxId
+        FROM Dados
+        GROUP BY fkSensor
+    ) d2 ON d1.fkSensor = d2.fkSensor AND d1.idDados = d2.maxId
+) AS Dados ON Dados.fkSensor = Sensor.idSensor
+JOIN Area ON Sensor.fkArea = Area.idArea 
+JOIN Monitoramento ON Monitoramento.idMonitoramento = Area.FkMonitoramento
+WHERE Sensor.status_sensor = 'Ativo' 
+  AND Monitoramento.idMonitoramento = 1;
+
+-- Puxar dados do Sensor
+
+SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = 3 limit 24;
+
+
+
