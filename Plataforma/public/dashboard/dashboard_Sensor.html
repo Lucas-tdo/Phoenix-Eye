@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor A7</title>
+    <title id="id_Title">Sensor</title>
     <link rel="stylesheet" href="Styles/dashboard_Sensor.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="../site institucional/novo/assets/imgs/Logo_com fundo.png" type="image/x-icon">
@@ -27,7 +27,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" id="div_container">
 
         <div class="KPI">
             <div class="Status">
@@ -62,7 +62,7 @@
         </div>
 
 
-        <div class="graficos">
+        <div class="graficos" id="div_grafico">
 
             <div class="Graf_Temp_Atuais">
                 <div>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="kpi_E_Manutencao">
+        <div class="kpi_E_Manutencao" id="div_kpi">
 
             <div class="GraficoMedia">
                 <h4>Média comparada a máxima do dia</h4>
@@ -139,11 +139,12 @@
     id_sensor = sessionStorage.id_sensor;
     console.log(id_sensor)
 
-    async function puxar_dados_sensor() {
+    async function puxar_dados_sensor(){
 
         const resp = await fetch(`/medidas/dados_sensor_especifico/${id_sensor}`)
         const resp_dados = await resp.json();
-
+        
+        id_Title.innerHTML =  "Dash:"+  (Nome_Sensor.innerHTML = resp_dados[0].nome); 
 
         tempSensorDash.innerHTML = resp_dados[0].temperatura
         umidSensorDash.innerHTML = resp_dados[0].umidade
@@ -151,7 +152,14 @@
 
         console.log(resp_dados)
 
+        
+
+
+
     }
+
+
+
     puxar_dados_sensor();
 
 

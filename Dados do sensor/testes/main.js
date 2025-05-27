@@ -23,7 +23,7 @@ const serial = async (
             user: 'phoenix-eye',
             password: '@Urubu100',
             database: 'PhoenixEye',
-            port: 3307  
+            port: 3307
         }
     ).promise();
 
@@ -78,13 +78,26 @@ const serial = async (
             // Sensores fictícios (idSensor de 2 até 35)
             for (let idSensor = 2; idSensor <= 35; idSensor++) {
                 // Geração de valores aleatórios
-                const temperaturaFake = parseFloat((Math.random() * 10 + 20).toFixed(1)); // entre 20.0 e 30.0
-                const umidadeFake = parseFloat((Math.random() * 20 + 60).toFixed(1));     // entre 60.0 e 80.0
+                const temperaturaFake = parseFloat((Math.random() * (37 - 20) + 20).toFixed(1)); // entre 20.0 e 37.0
+                const umidadeFake = parseFloat((Math.random() * (90 - 30) + 30).toFixed(1));     // entre 30.0 e 90.0
+
+                var situacao = "";
+
+                if (umidadeFake > 40 && temperaturaFake < 34) {
+                    situacao = "Normal"
+                } else if (temperaturaFake > 47) {
+                    situacao = "Incêndio"
+                } else if (umidadeFake < 20 || temperaturaFake > 38) {
+                    situacao = "Perigo"
+                } else {
+                    situacao = "Alerta"
+                }
+
 
                 // Inserção no banco
                 await poolBancoDados.execute(
-                    `INSERT INTO dados VALUES (DEFAULT, ?, ?, DEFAULT, ?, 1)`,
-                    [temperaturaFake, umidadeFake, idSensor]    
+                    `INSERT INTO dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?, 1)`,
+                    [temperaturaFake, umidadeFake, situacao, idSensor]
                 );
             }
             console.log("Valores reais e simulados inseridos no banco com sucesso.");

@@ -98,7 +98,7 @@
 
         <div class="Graficos">
             <div class="areaGrid" id="grid">
-                
+
 
                 <div style="height: 100%; width: 100%;">
                     <img src="Assets/Icons/loading.gif" alt="">
@@ -188,6 +188,8 @@
         var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
         var mensagem_grid = ''
 
+
+
         /*  Listando os sensores na lista */
         for (var i = 0; i < resp_dados.length; i++) {
             mensagem += `
@@ -197,12 +199,13 @@
                     <h1>${resp_dados[i].temperatura}C°</h1>
                     <h1>${resp_dados[i].umidade}%</h1>
                     <h1>${resp_dados[i].status_sensor}</h1>
+                    <h1>${resp_dados[i].Situacao}</h1>
                 </div>
             </div> 
             
            `;
         }
-
+        console.log(resp_dados);
         /* Fazendo o gráfico de grid */
 
         var contador_alerta = 0;
@@ -222,26 +225,48 @@
                         var inclui = true
                         var id = resp_dados[k].ID;
 
-                        if(resp_dados[k].temperatura == 0 || resp_dados[k].umidade == 0){
-                            contador_manutencao++;
+                        if (resp_dados[k].Situacao == "Alerta"){
+                            contador_alerta ++;
+                        }else if( resp_dados[k].Situacao == "Perigo"){
+                            contador_perigo++
+                        }else if(resp_dados[k].status_sensor == "Manutencao"){
+                            contador_manutencao++
                         }
-                        else if(resp_dados[k].temperatura == 34 || resp_dados[k].umidade == 40 ){
-                            contador_alerta++;
-                        }else if(resp_dados[k].temperatura == 38 || resp_dados[k].umidade == 20){
-                            contador_perigo++;
-                        }
-                        
+
                         break;
                     } else {
                         inclui = false
                     }
                 }
                 if (inclui) {
-                    mensagem_grid += `
+
+                    if (resp_dados[k].Situacao == "Alerta"){
+                            mensagem_grid += `
+                     <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
+                        <img src="Assets/Icons/alerta.png" alt="">
+                    </div>
+                    `
+                        }else if( resp_dados[k].Situacao == "Perigo"){
+                            mensagem_grid += `
+                     <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
+                        <img src="Assets/Icons/perigo.png" alt="">
+                    </div>
+                    `
+                        }else if(resp_dados[k].status_sensor == "Manutencao"){
+                                 mensagem_grid += `
+                     <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
+                        <img src="Assets/Icons/sem-sinal.png" alt="">
+                    </div>
+                    `
+                        }else{
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/sensor.png" alt="">
                     </div>
                     `
+                        }
+
+                    
                 } else {
                     mensagem_grid += `<div></div>`
                 }
@@ -249,18 +274,23 @@
 
             mensagem_grid += "</div>"
         }
-
-
+        
+        
 
         grid.innerHTML = mensagem_grid
-        qtdAviso.innerHTML = contador_perigo ;
-        qtdAlerta.innerHTML = contador_alerta;
+        qtdAviso.innerHTML = contador_alerta;
+        qtdAlerta.innerHTML = contador_perigo;
         qtdManutencao.innerHTML = contador_manutencao;
         Listar_sensores.innerHTML = mensagem
+
     }
 
-     function direcionar_pagina_individual(id_sensor) {
-        sessionStorage.id_sensor =  id_sensor;
+
+
+
+
+    function direcionar_pagina_individual(id_sensor) {
+        sessionStorage.id_sensor = id_sensor;
         console.log(id_sensor)
         window.location = '../dashboard/dashboard_Sensor.html'
     }
@@ -393,3 +423,5 @@
                     <div id="I9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
  -->
+
+

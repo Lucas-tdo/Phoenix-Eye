@@ -10,7 +10,8 @@ SELECT
     Sensor.status_sensor,
     Dados.temperatura,
     Dados.umidade,
-    Dados.dtMedicao
+    Dados.dtMedicao,
+    Dados.Situacao_dado AS Situacao
 FROM Sensor 
 JOIN (
     SELECT d1.*
@@ -23,8 +24,7 @@ JOIN (
 ) AS Dados ON Dados.fkSensor = Sensor.idSensor
 JOIN Area ON Sensor.fkArea = Area.idArea 
 JOIN Monitoramento ON Monitoramento.idMonitoramento = Area.FkMonitoramento
-WHERE Sensor.status_sensor = 'Ativo' 
-  AND Monitoramento.idMonitoramento = ${idMonitoramento};
+WHERE Monitoramento.idMonitoramento = ${idMonitoramento};
 
     `;
     console.log("Selecionando dados do sensor no banco de dados");
@@ -35,8 +35,8 @@ WHERE Sensor.status_sensor = 'Ativo'
 function dados_sensor_especifico(id_Sensor){
     var instrucaoSql = `
     
-    SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
-    FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = ${id_Sensor};
+    SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao , Dados.Situacao_dado, Sensor.status_sensor
+    FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = ${id_Sensor} ORDER BY Dados.dtMedicao DESC;
     `;
 
     console.log("Selecionando dados do sensor no banco de dados");

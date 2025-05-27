@@ -277,8 +277,9 @@
     background-color: #091D0E;
     flex-direction: column;
     overflow-x: auto;
+    margin-left: 60px;
     height: 500px;
-    width: 100%;
+    width: 120%;
 }
 
 .Tabela_sensores h1{
