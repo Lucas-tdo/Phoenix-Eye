@@ -50,8 +50,8 @@
 
                 <div class="Situacao">
                     <h4>Situação</h4>
-                    <div id="situacao_Dash">
-
+                    <div>
+                        <img src="Assets/Icons/loading.gif" id="situacao_Dash" style="height: 70px; width: 70px;">
                     </div>
                 </div>
             </div>
@@ -124,6 +124,13 @@
             </div>
         </div>
 
+
+        <div class="aviso" id="div_aviso">
+
+            <h1>Sensor em manutenção! Por favor retorne em outro momento.</h1>
+
+        </div>
+
     </div>
     <div class="footer">
 
@@ -134,26 +141,53 @@
 
 </html>
 
+<img src="Assets/grid_img/sensor.png" alt="">
+
 <script>
 
-    id_sensor = sessionStorage.id_sensor;
-    console.log(id_sensor)
+    var id_sensor = sessionStorage.id_sensor;
 
-    async function puxar_dados_sensor(){
+
+
+    async function puxar_dados_sensor() {
+
+        div_aviso.style.display = "none"
 
         const resp = await fetch(`/medidas/dados_sensor_especifico/${id_sensor}`)
         const resp_dados = await resp.json();
-        
-        id_Title.innerHTML =  "Dash:"+  (Nome_Sensor.innerHTML = resp_dados[0].nome); 
 
-        tempSensorDash.innerHTML = resp_dados[0].temperatura
-        umidSensorDash.innerHTML = resp_dados[0].umidade
-        Nome_Sensor.innerHTML = resp_dados[0].nome
+        id_Title.innerHTML = "Dash:" + (Nome_Sensor.innerHTML = resp_dados[0].nome);
+
+        tempSensorDash.innerHTML = resp_dados[1].temperatura
+        umidSensorDash.innerHTML = resp_dados[1].umidade
+        Nome_Sensor.innerHTML = resp_dados[1].nome
 
         console.log(resp_dados)
 
-        
+        if (resp_dados[1].status_sensor == "Manutencao") {
+            div_grafico.style.display = "none";
+            div_kpi.style.display = "none";
+            div_aviso.style.display = "flex"
+            tempSensorDash.innerHTML = "Erro!"
+            umidSensorDash.innerHTML = "Erro!"
+        }
 
+
+
+        /* ARRUMAR A INCONSISTÊNCIA DOS DADOS */
+
+        if (resp_dados[1].Situacao_dado == "Alerta") {
+            situacao_Dash.src = "Assets/Icons/alerta.png"
+
+        } else if (resp_dados[1].Situacao_dado == "Perigo") {
+            situacao_Dash.src = "Assets/Icons/perigo.png"
+        } else if (resp_dados[1].status_sensor == "Manutencao") {
+
+            situacao_Dash.src = "Assets/Icons/sem-sinal.png"
+
+        } else {
+             situacao_Dash.src = "Assets/grid_img/sensor.png"
+        }
 
 
     }
@@ -455,7 +489,7 @@
                }
            });
        } */
-    /* 
+    /*
         puxarDados();
         carregarGrafico(); */
 </script>

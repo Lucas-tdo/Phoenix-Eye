@@ -324,3 +324,19 @@ canvas{
     border-radius: 50%;
     margin-left: 10px;
 }
+
+
+.aviso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 100%;
+}
+
+
+.aviso h1{
+    color: #1A3421;
+    font-size: 30px;
+    font-weight: bolder;
+}
