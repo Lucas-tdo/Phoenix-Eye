@@ -61,28 +61,22 @@ const serial = async (
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
-            // este insert irá inserir os
-            // 
-                var situacao = "";
-
-                if (sensorUmid > 40 && sensorTemp < 34) {
-                    situacao = "Normal"
-                } else if (sensorTemp > 47) {
-                    situacao = "Incêndio"
-                } else if (sensorUmid < 20 || sensorTemp > 38) {
-                    situacao = "Perigo"
-                } else {
-                    situacao = "Alerta"
-                }
-            //  dados na tabela "medida"
+            // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1,  ?)`,
-                [sensorUmid, sensorTemp, situacao]
+                `INSERT INTO dados VALUES (DEFAULT,?,?,DEFAULT,?,?)`,
+                [sensorTemp, sensorUmid, 1, 1]
             );
             console.log("valores inseridos no banco: ", sensorUmid + ", " + sensorTemp);
 
+
+            // Sensor real (idSensor = 1)
+            await poolBancoDados.execute(
+                `INSERT INTO dados VALUES (DEFAULT, ?, ?, DEFAULT, 1, 1)`,
+                [sensorTemp, sensorUmid]
+            );
+
             // Sensores fictícios (idSensor de 2 até 35)
-            for (let idSensor = 2; idSensor < 33; idSensor++) {
+            for (let idSensor = 2; idSensor <= 35; idSensor++) {
                 // Geração de valores aleatórios
                 const temperaturaFake = parseFloat((Math.random() * (37 - 20) + 20).toFixed(1)); // entre 20.0 e 37.0
                 const umidadeFake = parseFloat((Math.random() * (90 - 30) + 30).toFixed(1));     // entre 30.0 e 90.0
@@ -102,8 +96,8 @@ const serial = async (
 
                 // Inserção no banco
                 await poolBancoDados.execute(
-                    `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?)`,
-                    [temperaturaFake, umidadeFake, , idSensor, situacao]
+                    `INSERT INTO dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?, 1)`,
+                    [temperaturaFake, umidadeFake, situacao, idSensor]
                 );
             }
             console.log("Valores reais e simulados inseridos no banco com sucesso.");

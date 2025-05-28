@@ -172,7 +172,7 @@
             const resp_dados = await resp.json();
 
             console.log(resp_dados);
-            setTimeout(() => listar_sensores(resp_dados), 2000);
+            listar_sensores(resp_dados)
         } else {
             console.error("Erro ao buscar dados:", resp.status);
         }
@@ -285,6 +285,13 @@
 
     }
 
+
+
+
+
+    setInterval(() => {
+        buscarDados();
+    }, 3000);
 
 
 
