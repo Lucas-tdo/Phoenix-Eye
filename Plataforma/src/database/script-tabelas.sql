@@ -55,7 +55,7 @@ CREATE TABLE Dados (
     umidade INT,
     dtMedicao DATETIME DEFAULT CURRENT_TIMESTAMP(),
     fkSensor INT,
-    Situacao_dado VARCHAR(15)
+    Situacao_dado VARCHAR(15),
     CONSTRAINT Fk_Sensor_Dados FOREIGN KEY (fkSensor) REFERENCES Sensor(idSensor),
     CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta" , "Perigo", "Incêndio"))
 );
@@ -67,6 +67,8 @@ ALTER TABLE Dados DROP COLUMN NivelRisco;
 TRUNCATE Dados;
 show tables;
 Select * from Dados;
+
+desc dados;
 
 
 
