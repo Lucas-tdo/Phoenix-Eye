@@ -20,7 +20,7 @@
             <a href="#">Home</a>
             <a href="#">Dashboard</a>
             <a href="#">Relatórios</a>
-            <a href=""><img src="Assets/Icons/perfil.png" alt=""></a>
+            <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
         </div>
 
     </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-
+            
 
         </div>
 
@@ -161,7 +161,18 @@
         window.location.href = "dashboard_Sensor.html";
     }
 
-
+    function direcionar_perfil(){
+        var nivel = sessionStorage.nivelusuario
+        if(nivel==1){
+            window.location.href=`./perfil_adm.html`
+        }
+        else if(nivel==2){
+            window.location.href=`./perfil_funcionario.html`
+        }
+        else{
+            window.location.href=`./perfil_orgao.html`
+        }
+    }
 
 
 

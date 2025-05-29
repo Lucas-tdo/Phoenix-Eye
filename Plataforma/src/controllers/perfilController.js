@@ -150,7 +150,8 @@ function dadosperfil_func(req,res){
     else{
         perfilModel.dadosperfil_func(id)
         .then(resposta=>{
-            console.log("Dados do funcionários localizados")
+            console.log(resposta)
+            console.log("Dados do funcionário localizados")
             res.json(resposta)
         })
         .catch(erro=>{

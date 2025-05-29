@@ -17,7 +17,7 @@ CREATE TABLE Usuario (
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(20) NOT NULL,
     nivelUsuario TINYINT NOT NULL,
-    fkOrgao INT NOT NULL,
+    fkOrgao INT,
     FOREIGN KEY (fkOrgao) REFERENCES Orgao(idOrgao)
 );
 
@@ -31,7 +31,8 @@ CREATE TABLE Monitoramento (
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
-select * from Monitoramento;
+INSERT INTO Monitoramento VALUES
+(DEFAULT , 'Area Verde 3' ,'Sem imagem' ,'Aprovado' , 1);
 CREATE TABLE Area (
     idArea INT AUTO_INCREMENT,
     grid CHAR(1) NOT NULL,
@@ -69,12 +70,17 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, 1),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'Senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
+select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from Usuario u
+        join Orgao o on
+        fkOrgao=idOrgao where idUsuario=2;
 
-INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' , 'Aprovado' , 1);
+-- 1 ADM
+-- 2 FUNC
+-- 3 ORGAO
+
 
 
 -- Inserindo áreas
