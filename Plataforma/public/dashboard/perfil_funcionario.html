@@ -62,18 +62,11 @@
                         <div class="nula"></div>
                         <h1>Nome</h1>
                         <h1>Sensores</h1>
-                        <h1>Status</h1>
+                        
                         <div></div>
                     </div>
 
-                    <div class="listagem_APAs_func">
-                        <div>
-                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
-                            <p id="nome_apa">Bororé Colônia</p>
-                            <p id="quant_sensores">20</p>
-                            <img src="Assets/Icons/aviso.png" class="imagem_Situacao">
-                        </div>
-                    </div>
+                    <div class="listagem_APAs_func" id="listagem_APAs"></div>
                 </div>
             </div>
 
@@ -84,8 +77,7 @@
 </html>
 
 <script>
-    sessionStorage.ID_Funcionario = "16"
-    var funcionario = sessionStorage.ID_Funcionario
+    var funcionario = sessionStorage.idUsuario
 
     function dadosperfil_func(){
         fetch(`/perfil/dadosperfil_func/${funcionario}`,{
@@ -104,7 +96,7 @@
             console.log(erro)
         })
     }
-
+    
     function mostrarPerfil() {
         dados.style.display = "flex";
         APAs.style.display = "none";
@@ -118,8 +110,34 @@
         APAs.style.display = "flex"
         Perfil.style.backgroundColor = "transparent"
         APA.style.backgroundColor = "#024002";
+        listarapas()
+
     }
 
+    function listarapas(){
+        var empresa = sessionStorage.ID_EMPRESA
+        listagem_APAs.innerHTML = ``
+        fetch(`/perfil/listarapas/${empresa}`, {
+            method: "POST"
+        }).then(resposta => {
+            resposta.json().then(resposta => {
+                for (resp of resposta) {
+                    if(resp.Status_Monitoramento=="Aprovado"){
+                        listagem_APAs.innerHTML += `
+                        <div>
+                            <img src="${resp.Imagem}" class="imagem_APA">
+                            <p id="nome_apa">${resp.Nome_Atribuido}</p>
+                            <p id="quant_sensores">20</p>
+                        </div>
+                   `
+                    }
+                    
+                }
+            })
+        }).catch(erro => {
+            console.log(erro)
+        })
+    }
     mostrarPerfil();
 
 </script>
