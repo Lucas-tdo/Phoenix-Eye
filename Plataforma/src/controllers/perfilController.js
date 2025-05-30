@@ -89,6 +89,35 @@ function deletar_func(req,res){
 }
 
 
+function atualizar_funcionario(req,res){
+    var id = req.body.idServer
+    var nome = req.body.nomeServer
+    var email = req.body.emailServer
+    var senha = req.body.senhaServer
+    if(id==undefined){
+        res.status(400).send("O id do seu usuário está undefined")
+    }
+    else if(nome==undefined){
+        res.status(400).send("O nome do seu usuário está undefined")
+    }
+    else if(email==undefined){
+        res.status(400).send("O email do seu usuário está undefined")
+    }
+    else if(senha==undefined){
+        res.status(400).send("A senha do seu usuário está undefined")
+    }
+    else{
+        perfilModel.atualizar_funcionario(nome,email,senha,id)
+        .then(resposta=>{
+            console.log(`O Usuário ${id} teve seus dados atualizados`)
+            res.json(resposta)
+        })
+        .catch(erro=>{
+            console.log(erro)
+        })
+    }
+}
+
 function deletar_apa(req, res){
 
         var id_apa = req.params.id_apa;
@@ -187,5 +216,6 @@ module.exports = {
     dadosperfil_func,
     cadastrar_apa,
     listarapas,
-    deletar_apa
+    deletar_apa,
+    atualizar_funcionario
 }

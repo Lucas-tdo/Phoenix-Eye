@@ -37,6 +37,13 @@ function deletar_func(id){
     return database.executar(instrucaoSql);
 }
 
+function atualizar_funcionario(nome,email,senha,id){
+    var instrucaoSql = `
+        update Usuario set nome="${nome}",email="${email}",senha="${senha}" where idUsuario=${id};
+    `;
+    return database.executar(instrucaoSql);
+}
+
 function deletar_apa(id_apa){
     var instrucaoSql = `
         delete from Monitoramento where idMonitoramento=${id_apa};
@@ -76,6 +83,7 @@ module.exports = {
     dadosperfil_func,
     cadastrar_apa,
     listarapas,
-    deletar_apa
+    deletar_apa,
+    atualizar_funcionario
 }
 

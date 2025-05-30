@@ -41,4 +41,8 @@ router.delete("/deletar_apa/:id_apa", function(req,res){
     perfilController.deletar_apa(req, res)
 });
 
+router.put("/atualizar_funcionario",function(req,res){
+    perfilController.atualizar_funcionario(req,res)
+})
+
 module.exports=router;

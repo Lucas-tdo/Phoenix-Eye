@@ -57,6 +57,22 @@
                     </div>
                 </div>
 
+                <div class="cadastros_funcionarios" id="atualizar_func">
+                    <div>
+                        <h1>Atualizar os dados do seu funcionário:</h1>
+                        <input type="text" placeholder="Nome:" id="input_nome_atualizar">
+                        <input type="text" placeholder="Email:" id="input_email_atualizar">
+                        <input type="text" placeholder="Senha:" id="input_senha_atualizar">
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="atualizar_funcionario()">Atualizar cadastro</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="cadastros_APAs" id="cadastro_APAs">
                     <div>
                         <h1>Adicionar os dados da APA:</h1>
@@ -211,8 +227,8 @@
 </html>
 
 <script>
-    sessionStorage.ID_EMPRESA = `1`
-    var empresa = sessionStorage.ID_EMPRESA
+    const empresa = sessionStorage.idOrgao
+    var funcionariosorg = []
     dadosperfil()
     function dadosperfil() {
         fetch(`/perfil/dadosperfil/${empresa}`, {
@@ -242,9 +258,7 @@
         })
             .then(resposta => {
                 resposta.json().then(resposta => {
-                    if (resposta.ok) {
-                        sessionStorage.deletar_funcionario = ""
-                    }
+                    sessionStorage.removeItem('deletar_funcionario');
                     listarfunc()
                     ocultarCadastros()
                 })
@@ -254,6 +268,30 @@
             })
     }
 
+    function atualizar_funcionario(){
+        var idusuario=sessionStorage.Func_atualizar
+        var nome=input_nome_atualizar.value
+        var email=input_email_atualizar.value
+        var senha=input_senha_atualizar.value
+        fetch("/perfil/atualizar_funcionario",{
+            method:"PUT",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                idServer:idusuario,
+                nomeServer:nome,
+                emailServer:email,
+                senhaServer:senha
+            })
+        })
+        .then(resposta=>resposta.json().then(resposta=>{
+            sessionStorage.removeItem('Func_atualizar');
+            listarfunc()
+            ocultarCadastros()
+        }))
+    }   
+
     function listarfunc() {
         listagem_org.innerHTML = ""
         fetch(`/perfil/listarfunc/${empresa}`, {
@@ -261,6 +299,7 @@
         })
             .then(resposta => {
                 resposta.json().then(resposta => {
+                    funcionariosorg=resposta
                     for (resp of resposta) {
                         listagem_org.innerHTML += `<div id="${resp.idUsuario}">
                             <p>${resp.nome}</p>
@@ -268,7 +307,7 @@
                             <p>${resp.senha}</p>
                             <div>
                                 <a>
-                                <img src="Assets/Icons/Engrenagem.png">
+                                <img src="Assets/Icons/Engrenagem.png" onclick="abrirAtualizarFunc(${resp.idUsuario})">
                                 </a>
                                 <a>
                                    <img src="Assets/Icons/Lixeira.png" onclick="abrir_deletar_func(${resp.idUsuario})">
@@ -326,6 +365,9 @@
                         }
                         else {
                             cadastrando(nome, email, senha)
+                            input_nome.value=""
+                            input_email.value=""
+                            input_senha.value=""
                         }
                     })
                 })
@@ -465,17 +507,39 @@
         input_email.value = "";
         input_senha.value = "";
         deletar.style.display = "none"
+        atualizar_func.style.display = "none"
+        
+        
     }
     function abrirdeletar(id) {
         sessionStorage.deletar = `${id}`
         deletar.style.display = "flex"
         cadastros.style.display = "flex"
+
     }
     function abrirCadastroFunc() {
         cadastro_func.style.display = "flex"
         cadastro_APAs.style.display = "none"
         cadastros.style.display = "flex"
     }
+
+    function abrirAtualizarFunc(id_func){
+        atualizar_func.style.display = "flex"
+        cadastros.style.display = "flex"
+        var posicao = 0
+        console.log(funcionariosorg)
+        for(i=0;i<funcionariosorg.length;i++){
+            if(funcionariosorg[i].idUsuario==id_func){
+                posicao=i
+                break
+            }
+        }
+        input_nome_atualizar.value=funcionariosorg[posicao].nome
+        input_email_atualizar.value=funcionariosorg[posicao].email
+        input_senha_atualizar.value=funcionariosorg[posicao].senha
+        sessionStorage.Func_atualizar=id_func
+    }
+
     function abrirCadastroAPAs() {
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "flex"
