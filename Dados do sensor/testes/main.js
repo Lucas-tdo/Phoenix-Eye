@@ -39,36 +39,54 @@ const serial = async (
     if (HABILITAR_OPERACAO_INSERIR) {
 
 
-
-        // Sensores fictícios (idSensor de 2 até 35)
-        for (let idSensor = 1; idSensor < 33; idSensor++) {
-            // Geração de valores aleatórios
-            const temperaturaFake = parseFloat((Math.random() * (37 - 20) + 20).toFixed(1)); // entre 20.0 e 37.0
-            const umidadeFake = parseFloat((Math.random() * (90 - 30) + 30).toFixed(1));     // entre 30.0 e 90.0
-
-            var situacao = "";
-
-            if (umidadeFake > 40 && temperaturaFake < 34) {
-                situacao = "Normal"
-            } else if (temperaturaFake > 47) {
-                situacao = "Incêndio"
-            } else if (umidadeFake < 20 || temperaturaFake > 38) {
-                situacao = "Perigo"
-            } else {
-                situacao = "Alerta"
-            }
+        
 
 
-            // Inserção no banco
+
+            // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?)`,
-                [temperaturaFake, umidadeFake, idSensor, situacao]
+                `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1,  ?)`,
+                [20.0, 50, "Normal"]
             );
+            console.log("valores inseridos no banco: ", 20.0 + ", " + 50);
+
+            // Sensores fictícios (idSensor de 2 até 35)
+            for (let idSensor = 2; idSensor < 33; idSensor++) {
+                // Geração de valores aleatórios
+                const temperaturaFake = parseFloat((Math.random() * (37 - 20) + 20).toFixed(1)); // entre 20.0 e 37.0
+                const umidadeFake = parseFloat((Math.random() * (90 - 30) + 30).toFixed(1));     // entre 30.0 e 90.0
+
+                var situacao = "";
+
+                if (umidadeFake > 40 && temperaturaFake < 34) {
+                    situacao = "Normal"
+                } else if (temperaturaFake > 47) {
+                    situacao = "Incêndio"
+                } else if (umidadeFake < 20 || temperaturaFake > 38) {
+                    situacao = "Perigo"
+                } else {
+                    situacao = "Alerta"
+                }
+
+
+                // Inserção no banco
+                await poolBancoDados.execute(
+                    `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?)`,
+                    [temperaturaFake, umidadeFake, idSensor, situacao]
+                );
+            }
+            console.log("Valores reais e simulados inseridos no banco com sucesso.");
+
         }
-        console.log("Valores reais e simulados inseridos no banco com sucesso.");
-    }
 
 }
+
+
+
+
+
+
+
 
 
 

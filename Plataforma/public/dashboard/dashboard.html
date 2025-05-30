@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- teste -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -236,11 +237,11 @@
                         var inclui = true
                         var id = resp_dados[k].ID;
 
-                        if (resp_dados[k].Situacao == "Alerta"){
-                            contador_alerta ++;
-                        }else if( resp_dados[k].Situacao == "Perigo"){
+                        if (resp_dados[k].Situacao == "Alerta") {
+                            contador_alerta++;
+                        } else if (resp_dados[k].Situacao == "Perigo") {
                             contador_perigo++
-                        }else if(resp_dados[k].status_sensor == "Manutencao"){
+                        } else if (resp_dados[k].status_sensor == "Manutencao") {
                             contador_manutencao++
                         }
 
@@ -251,33 +252,33 @@
                 }
                 if (inclui) {
 
-                    if (resp_dados[k].Situacao == "Alerta"){
-                            mensagem_grid += `
+                    if (resp_dados[k].Situacao == "Alerta") {
+                        mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/alerta.png" alt="">
                     </div>
                     `
-                        }else if( resp_dados[k].Situacao == "Perigo"){
-                            mensagem_grid += `
+                    } else if (resp_dados[k].Situacao == "Perigo") {
+                        mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/perigo.png" alt="">
                     </div>
                     `
-                        }else if(resp_dados[k].status_sensor == "Manutencao"){
-                                 mensagem_grid += `
+                    } else if (resp_dados[k].status_sensor == "Manutencao") {
+                        mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/sem-sinal.png" alt="">
                     </div>
                     `
-                        }else{
-                            mensagem_grid += `
+                    } else {
+                        mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/sensor.png" alt="">
                     </div>
                     `
-                        }
+                    }
 
-                    
+
                 } else {
                     mensagem_grid += `<div></div>`
                 }
@@ -285,14 +286,76 @@
 
             mensagem_grid += "</div>"
         }
-        
-        
+
+
 
         grid.innerHTML = mensagem_grid
         qtdAviso.innerHTML = contador_alerta;
         qtdAlerta.innerHTML = contador_perigo;
         qtdManutencao.innerHTML = contador_manutencao;
         Listar_sensores.innerHTML = mensagem
+
+
+
+        const ctx = document.getElementById('myChart');
+        
+        Chart
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h'],
+                datasets: [
+                    {
+                        label: 'Umidade',
+                        data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)',
+                    },
+                    {
+                        label: 'Temperatura',
+                        data: [],
+                        borderWidth: 5,
+                        borderColor: 'rgb(0, 128, 0)',
+                        backgroundColor: 'rgb(0, 128, 0)',
+                    },
+
+                ]
+            },
+            options: {
+
+                plugins: {
+                    legend: {
+
+                        position: 'bottom',
+                        labels: {
+                            padding: 30,
+                            font: {
+                                size: 14,
+                                weight: 600,
+
+                            },
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        },
+                        beginAtZero: true
+                    },
+
+                }
+            }
+        });
+
 
     }
 
@@ -441,5 +504,3 @@
                     <div id="I9"><img src="Assets/grid_img/sensor.png" alt=""></div>
                 </div>
  -->
-
-
