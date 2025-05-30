@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function cadastrar(nome,email,senha,id_empresa){
     var instrucaoSql = `
-       insert into Usuario values (default,'${nome}','${email}','${senha}',1,${id_empresa});  
+       insert into Usuario values (default,'${nome}','${email}','${senha}',2,${id_empresa});  
     `;
     return database.executar(instrucaoSql);
 }
