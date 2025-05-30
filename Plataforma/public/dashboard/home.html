@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="Styles/dashboard.css">
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <div class="nav">
+
+        <a href=""><img src="Assets/Icons/logo_branca.png" alt=""></a>
+
+        <div>
+            <a href="#">Home</a>
+            <a href="#">Dashboard</a>
+            <a href="#">Relatórios</a>
+            <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
+        </div>
+
+    </div>
+
+    <!-- Conteúdo da home -->
+    <div id="container">
+
+        <!-- Cabeçalho -->
+        <div id="cabecalho">
+
+            <p id="saudacoes">Olá, <span>(ÓRGÃO/FUNCIONÁRIO)</span>!</p>
+            <p id="apa_selecionada">APA selecionada: <span>NOME APA</span></p>
+
+        </div>
+
+        <!-- Cards de situações e avisos -->
+        <div id="cards_status">
+
+            <!-- Situação atual -->
+            <div class="card">
+
+                <div id="conteudo">
+
+                    <p id="titulo_situacao">Situação Atual:</p>
+    
+                    <p id="status_situacao">1 possível ponto de <span>incêndio</span> detectado!</p>
+
+                    <div id="linha"></div>
+    
+                    <p id="msg_situacao">Temperatura acima do normal capturada</p>
+
+                </div>
+
+
+            </div>
+
+            <!-- Avisos do dia -->
+            <div class="card">
+                
+                <p id="avisos_dia">Avisos do dia:</p>
+
+                <p id="num_avisos">10</p>
+
+                <div id="status_avisos">
+
+                    <div class="status">
+
+                        <p class="titulo_status">alerta</p>
+                        <div class="icon">
+                            <img src="Assets/Icons/alerta.png">
+                            <p id="status_alerta">6</p>
+                        </div>
+
+                    </div>
+
+                    <div class="status">
+                        
+                        <p class="titulo_status">perigo</p>
+                        <div class="icon">
+                            <img src="Assets/Icons/perigo.png">
+                            <p id="status_perigo">6</p>
+                        </div>
+
+                    </div>
+
+                    <div class="status">
+                        
+                        <p class="titulo_status">incêndio</p>
+                        <div class="icon">
+                            <img src="Assets/grid_img/fogo.png">
+                            <p id="status_incendio">6</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+        function direcionar_perfil(){
+
+        var nivel = sessionStorage.nivelusuario
+        console.log(nivel)
+        if(nivel==1){
+            window.location.href=`./perfil_adm.html`
+        }
+        else if(nivel==2){
+            window.location.href=`./perfil_funcionario.html`
+        }
+        else{
+            window.location.href=`./perfil_orgao.html`
+        }
+    }
+
+</script>
