@@ -16,10 +16,12 @@ CREATE TABLE Usuario (
     nome VARCHAR(45) NOT NULL,
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(20) NOT NULL,
-    nivelUsuario TINYINT NOT NULL,
+    nivelUsuario TINYINT,
     fkOrgao INT NOT NULL,
     FOREIGN KEY (fkOrgao) REFERENCES Orgao(idOrgao)
 );
+
+ALTER TABLE Usuario MODIFY COLUMN NivelUsuario TINYINT;
 
 CREATE TABLE Monitoramento (
     idMonitoramento INT AUTO_INCREMENT,
@@ -31,7 +33,7 @@ CREATE TABLE Monitoramento (
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
-select * from Monitoramento;
+
 
 CREATE TABLE Acesso(
 	idAcesso INT AUTO_INCREMENT,
@@ -93,12 +95,12 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, 1),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
 
 INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' , 'Aprovado' , 1);
+(DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
 
 
 -- Inserindo áreas

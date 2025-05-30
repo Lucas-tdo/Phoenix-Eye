@@ -163,7 +163,10 @@
     }
 
     function direcionar_perfil(){
+
+
         var nivel = sessionStorage.nivelusuario
+        console.log(nivel)
         if(nivel==1){
             window.location.href=`./perfil_adm.html`
         }
@@ -299,7 +302,7 @@
 
         const ctx = document.getElementById('myChart');
         
-        Chart
+        
         new Chart(ctx, {
             type: 'line',
             data: {

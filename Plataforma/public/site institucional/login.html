@@ -158,13 +158,14 @@
                     .then(resposta => {
                         resposta.json().then(resposta => {
                             if(resposta.length==1){
+                                console.log(resposta[0].NivelUsuario)
                                 window.location="../dashboard/dashboard.html"
-                                sessionStorage.nivelusuario = resposta[0].nivelUsuario
+                                sessionStorage.nivelusuario = resposta[0].NivelUsuario
                                 sessionStorage.idUsuario = resposta[0].idUsuario
                                 sessionStorage.idOrgao = resposta[0].fkOrgao
                             }
                             else{
-                                validarloginemail()
+                                validarloginemail() 
                             }
                         })
                     })

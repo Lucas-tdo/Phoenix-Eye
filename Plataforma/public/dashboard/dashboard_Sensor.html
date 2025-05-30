@@ -158,13 +158,13 @@
 
         id_Title.innerHTML = "Dash:" + (Nome_Sensor.innerHTML = resp_dados[0].nome);
 
-        tempSensorDash.innerHTML = resp_dados[1].temperatura
-        umidSensorDash.innerHTML = resp_dados[1].umidade
-        Nome_Sensor.innerHTML = resp_dados[1].nome
+        tempSensorDash.innerHTML = resp_dados[0].temperatura
+        umidSensorDash.innerHTML = resp_dados[0].umidade
+        Nome_Sensor.innerHTML = resp_dados[0].nome
 
         console.log(resp_dados)
 
-        if (resp_dados[1].status_sensor == "Manutencao") {
+        if (resp_dados[0].status_sensor == "Manutencao") {
             div_grafico.style.display = "none";
             div_kpi.style.display = "none";
             div_aviso.style.display = "flex"
@@ -176,18 +176,93 @@
 
         /* ARRUMAR A INCONSISTÊNCIA DOS DADOS */
 
-        if (resp_dados[1].Situacao_dado == "Alerta") {
+        if (resp_dados[0].Situacao_dado == "Alerta") {
             situacao_Dash.src = "Assets/Icons/alerta.png"
 
-        } else if (resp_dados[1].Situacao_dado == "Perigo") {
+        } else if (resp_dados[0].Situacao_dado == "Perigo") {
             situacao_Dash.src = "Assets/Icons/perigo.png"
-        } else if (resp_dados[1].status_sensor == "Manutencao") {
+        } else if (resp_dados[0].status_sensor == "Manutencao") {
 
             situacao_Dash.src = "Assets/Icons/sem-sinal.png"
 
         } else {
-             situacao_Dash.src = "Assets/grid_img/sensor.png"
+            situacao_Dash.src = "Assets/grid_img/sensor.png"
         }
+
+
+        const ctx = document.getElementById('myChart');
+
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h'],
+                datasets: [
+                    {
+                        label: 'Aviso',
+                        data: [34, 34, 34, 34, 34, 34, 34, 34, 34, 34],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 251, 8)',
+                        backgroundColor: 'rgb(255, 251, 8)',
+                    }, {
+                        label: 'Alerta',
+                        data: [38, 38, 38, 38, 38, 38, 38, 38, 38, 38],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 123, 0)',
+                        backgroundColor: 'rgb(255, 123, 0)',
+                    },
+                    {
+                        label: 'Incêndio',
+                        data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
+                        borderWidth: 2,
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 0, 0)',
+                    },
+                    {
+                        label: 'Temperatura',
+                        data: [38, 23, 25, 27, 27, 29, 28, 26, 24, 38],
+                        borderWidth: 5,
+                        borderColor: 'rgb(0, 128, 0)',
+                        backgroundColor: 'rgb(0, 128, 0)',
+                    },
+
+                ]
+            },
+            options: {
+
+                plugins: {
+                    legend: {
+
+                        position: 'bottom',
+                        labels: {
+                            padding: 30,
+                            font: {
+                                size: 14,
+                                weight: 600,
+
+                            },
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'rgb(26, 51, 32);'
+                        },
+                        beginAtZero: true
+                    },
+
+                }
+            }
+        });
+
+
 
 
     }
