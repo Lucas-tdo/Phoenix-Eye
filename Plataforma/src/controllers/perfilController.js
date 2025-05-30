@@ -91,7 +91,7 @@ function deletar_func(req,res){
 
 function deletar_apa(req, res){
 
-     var id_apa = req.params.id_apa;
+        var id_apa = req.params.id_apa;
 
         perfilModel.deletar_apa(id_apa)
         .then(resposta=>{

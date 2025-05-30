@@ -93,7 +93,7 @@
 
 
 
-                    <div class="deletar_class" id="deletar_apa_div">
+                <div class="deletar_class" id="deletar_apa_div">
                     <div>
                         <h1>Tem certeza que deseja deletar?</h1>
 
@@ -107,6 +107,19 @@
                     </div>
                 </div>
 
+                <div class="deletar_class" id="deletar_funcionario_div">
+                    <div>
+                        <h1>Tem certeza que deseja deletar?</h1>
+
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="deletar_func()">Deletar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -220,7 +233,7 @@
     }
 
     function deletar_func() {
-        var idfuncionario = sessionStorage.deletar
+        var idfuncionario = sessionStorage.deletar_funcionario
         fetch(`/perfil/deletar_func/${idfuncionario}`, {
             method: "delete",
             headers: {
@@ -230,7 +243,7 @@
             .then(resposta => {
                 resposta.json().then(resposta => {
                     if (resposta.ok) {
-                        sessionStorage.deletar = ""
+                        sessionStorage.deletar_funcionario = ""
                     }
                     listarfunc()
                     ocultarCadastros()
@@ -258,7 +271,7 @@
                                 <img src="Assets/Icons/Engrenagem.png">
                                 </a>
                                 <a>
-                                   <img src="Assets/Icons/Lixeira.png" onclick="abrir_deletar_apa(${resp.idMonitoramento})">
+                                   <img src="Assets/Icons/Lixeira.png" onclick="abrir_deletar_func(${resp.idUsuario})">
                                </a>
                             </div>
                             </div>`
@@ -291,30 +304,10 @@
             })
         ocultarCadastros()
     }
-    function cadastrar_apa() {
-        const form = new FormData()
-        form.append('foto', foto.files[0])
-        form.append('nome', nome_apa.value)
-        form.append('idempresa', empresa)
-
-        fetch("/perfil/cadastrar_apa", {
-            method: "POST",
-            body: form,
-        })
-            .then(resposta => {
-
-                listarapas()
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
-        ocultarCadastros()
-
-    }
+    
 
 
     function Cadastrar() {
-
         var nome = input_nome.value
         var email = input_email.value
         var senha = input_senha.value
@@ -341,7 +334,34 @@
                 })
         }
     }
+
+
+
+
     //listarapas
+
+
+    function cadastrar_apa() {
+        const form = new FormData()
+        form.append('foto', foto.files[0])
+        form.append('nome', nome_apa.value)
+        form.append('idempresa', empresa)
+
+        fetch("/perfil/cadastrar_apa", {
+            method: "POST",
+            body: form,
+        })
+            .then(resposta => {
+
+                listarapas()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+        ocultarCadastros()
+
+    }
+
     function listarapas() {
         listagem_APAs.innerHTML = ``
         fetch(`/perfil/listarapas/${empresa}`, {
@@ -427,6 +447,13 @@
         cadastros.style.display = "flex"
     }
 
+    function abrir_deletar_func(id_func){
+        sessionStorage.deletar_funcionario = id_func
+        deletar_funcionario_div.style.display="flex"
+        cadastros.style.display = "flex"
+
+    }
+
     function ocultarCadastros() {
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "none"
@@ -434,6 +461,7 @@
         deletar.style.display = "none"
         input_nome.value = "";
         deletar_apa_div.style.display = "none";
+        deletar_funcionario_div.style.display="none"
         input_email.value = "";
         input_senha.value = "";
         deletar.style.display = "none"
