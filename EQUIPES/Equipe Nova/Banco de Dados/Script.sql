@@ -31,8 +31,7 @@ CREATE TABLE Monitoramento (
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
-INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' ,'Sem imagem' ,'Aprovado' , 1);
+
 CREATE TABLE Area (
     idArea INT AUTO_INCREMENT,
     grid CHAR(1) NOT NULL,
@@ -55,13 +54,13 @@ CREATE TABLE Dados (
     temperatura DECIMAL(4,2) ,
     umidade INT,
     dtMedicao DATETIME DEFAULT CURRENT_TIMESTAMP(),
-    nivelRisco INT,
     fkSensor INT,
-    CONSTRAINT Fk_Sensor_Dados FOREIGN KEY (fkSensor) REFERENCES Sensor(idSensor)
+    Situacao_dado VARCHAR(15),
+    CONSTRAINT Fk_Sensor_Dados FOREIGN KEY (fkSensor) REFERENCES Sensor(idSensor),
+    CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta" , "Perigo", "Incêndio"))
 );
 
-TRUNCATE Dados;
-Select * from Dados;
+ALTER TABLE Dados ADD COLUMN Situacao_dado VARCHAR(45);
 
 
 -- Inserindo um orgão
@@ -70,17 +69,12 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'Senha_133', 1, null),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
-select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from Usuario u
-        join Orgao o on
-        fkOrgao=idOrgao where idUsuario=2;
 
--- 1 ADM
--- 2 FUNC
--- 3 ORGAO
-
+INSERT INTO Monitoramento VALUES
+(DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
 
 
 -- Inserindo áreas
@@ -131,7 +125,6 @@ INSERT INTO Area VALUES
 (DEFAULT, 'I', 7, 1), (DEFAULT, 'I', 8, 1), (DEFAULT, 'I', 9, 1);
 
 
-SELECT * FROM Area;
 
 -- Inserindo sensores
 
@@ -142,7 +135,7 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'A3-1', 'Ativo', 3),
 (DEFAULT, 'A4-1', 'Ativo', 4),
 (DEFAULT, 'A5-1', 'Ativo', 5),
-(DEFAULT, 'A6-1', 'Ativo', 6),
+(DEFAULT, 'A6-1', 'Ativo', 6),	
 (DEFAULT, 'A7-1', 'Ativo', 7),
 (DEFAULT, 'A8-1', 'Ativo', 8),
 (DEFAULT, 'A9-1', 'Ativo', 9),
@@ -178,7 +171,7 @@ INSERT INTO Sensor VALUES
 -- Linha I
 (DEFAULT, 'I1-1', 'Ativo', 73),
 (DEFAULT, 'I2-1', 'Ativo', 74),
-(DEFAULT, 'I3-1', 'Inativo', 75),
+(DEFAULT, 'I3-1', 'Ativo', 75),
 (DEFAULT, 'I4-1', 'Ativo', 76),
 (DEFAULT, 'I5-1', 'Ativo', 77),
 (DEFAULT, 'I6-1', 'Ativo', 78),
@@ -187,33 +180,13 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'I9-1', 'Ativo', 81);
 
 
-Select * from Sensor;
 
-
-SELECT idSensor FROM Sensor;
 
 -- Inserindo dados
-INSERT INTO dados VALUES 
+INSERT INTO Dados VALUES 
 (DEFAULT, 25.5, 75, DEFAULT, 1, 1),
 (DEFAULT, 28.7, 70, DEFAULT, 2, 2);
 
-SELECT * from Dados;
-SELECT * FROM Dados WHERE fkSensor = 32;
-
--- Visualizar todos os órgãos
-SELECT * FROM orgao;
-
--- Visualizar todos os usuários
-SELECT * FROM usuario;
-
--- Visualizar grid das áreas
-SELECT idArea, CONCAT(grid, numero) AS Grid FROM Area;
-
--- Visualizar todos os sensores
-SELECT * FROM sensor;
-
--- Visualizar todos os dados captados
-SELECT * FROM dados;
 
 -- Visualizar funcionários e seu órgão associado
 SELECT 
@@ -221,7 +194,7 @@ SELECT
     orgao.orgao AS Orgao_Vinculado 
 FROM usuario 
 JOIN orgao ON usuario.fkOrgao = orgao.idOrgao;
-
+select * from Dados where fkSensor =26;
 -- Mostrar sensores ativos e seu grid
 SELECT 
     sensor.idSensor,
@@ -234,11 +207,91 @@ WHERE sensor.status_sensor = 'Ativo';
 
 -- Visualizar dados de sensores ativos
 SELECT 
-    sensor.idSensor AS ID,
-    sensor.nome AS Nome_Sensor,
-    sensor.status_sensor,
-    dados.temperatura,
-    dados.umidade
-FROM sensor 
-JOIN dados ON dados.fkSensor = sensor.idSensor
-WHERE sensor.status_sensor = 'Ativo';
+    Sensor.idSensor AS ID,
+    Sensor.nome AS Nome_Sensor,
+    Sensor.status_sensor,
+    Dados.temperatura,
+    Dados.umidade,
+    Dados.dtMedicao
+FROM Sensor 
+JOIN (
+    SELECT d1.*
+    FROM Dados as d1
+     JOIN (
+        SELECT fkSensor, MAX(idDados) AS maxId
+        FROM Dados
+        GROUP BY fkSensor
+    ) d2 ON d1.fkSensor = d2.fkSensor AND d1.idDados = d2.maxId
+) AS Dados ON Dados.fkSensor = Sensor.idSensor
+JOIN Area ON Sensor.fkArea = Area.idArea 
+JOIN Monitoramento ON Monitoramento.idMonitoramento = Area.FkMonitoramento
+WHERE Monitoramento.idMonitoramento = 1;
+
+-- Puxar dados do Sensor
+SELECT 
+    Sensor.idSensor AS ID,
+    Sensor.nome AS Nome_Sensor,
+    Sensor.status_sensor,
+    Dados.temperatura,
+    Dados.umidade,
+    Dados.dtMedicao,
+    Dados.Situacao_dado AS Situacao
+FROM Sensor
+JOIN (
+    SELECT d1.*
+    FROM Dados AS d1
+    JOIN (
+        SELECT fkSensor, MAX(dtMedicao) AS maxData
+        FROM Dados
+        GROUP BY fkSensor
+    ) AS d2 
+    ON d1.fkSensor = d2.fkSensor AND d1.dtMedicao = d2.maxData
+) AS Dados 
+ON Dados.fkSensor = Sensor.idSensor
+JOIN Area 
+ON Sensor.fkArea = Area.idArea
+JOIN Monitoramento 
+ON Monitoramento.idMonitoramento = Area.FkMonitoramento
+WHERE Sensor.status_sensor = 'Ativo'
+  AND Monitoramento.idMonitoramento = 1;
+
+SELECT * FROM Sensor;
+SELECT * FROM Dados;
+  
+SELECT Sensor.Nome, MAX(Dados.dtMedicao) FROM Sensor JOIN Dados ON Sensor.idSensor = Dados.fkSensor GROUP BY Sensor.Nome;
+  
+SELECT Sensor.Nome, Dados.temperatura, Dados.Situacao_dado 
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor 
+GROUP BY Sensor.Nome, Dados.temperatura, Dados.Situacao_dado;
+  
+  
+  
+SELECT 
+    s.idSensor AS ID,
+    s.nome AS Nome_Sensor,
+    s.status_sensor,
+    d.temperatura,
+    d.umidade,
+    d.dtMedicao,
+    d.Situacao_dado AS Situacao
+FROM Sensor s
+JOIN Dados d ON s.idSensor = d.fkSensor
+JOIN (
+    SELECT fkSensor, MAX(dtMedicao) AS max_dt
+    FROM Dados
+    GROUP BY fkSensor
+) latest ON latest.fkSensor = d.fkSensor AND latest.max_dt = d.dtMedicao
+JOIN Area a ON s.fkArea = a.idArea
+JOIN Monitoramento m ON m.idMonitoramento = a.FkMonitoramento
+WHERE s.status_sensor = 'Ativo'
+  AND m.idMonitoramento = 1;
+
+update Sensor SET status_sensor = "Manutencao" WHERE idSensor = 15;
+  
+Select * from Dados;
+
+SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = 3;
+
+
+
