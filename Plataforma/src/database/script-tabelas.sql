@@ -17,7 +17,7 @@ CREATE TABLE Usuario (
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(20) NOT NULL,
     nivelUsuario TINYINT NOT NULL,
-    fkOrgao INT,
+    fkOrgao INT NOT NULL,
     FOREIGN KEY (fkOrgao) REFERENCES Orgao(idOrgao)
 );
 
@@ -30,6 +30,19 @@ CREATE TABLE Monitoramento (
     CONSTRAINT Validacao_Status CHECK (Status_Monitoramento in ('Aprovado' , 'Reprovado' , 'Em análise')),
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
+);
+select * from Monitoramento;
+
+CREATE TABLE Acesso(
+	idAcesso INT AUTO_INCREMENT,
+	fkUsuario INT,
+    fkMonitoramento INT,
+    fkOrgao INT,
+    dataAcesso DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    CONSTRAINT Chave_composta_Acesso PRIMARY KEY (idAcesso,fkUsuario, fkMonitoramento, fkOrgao, dataAcesso),
+    CONSTRAINT fk_usuario_acesso FOREIGN KEY (fkUsuario) REFERENCES Usuario(idUsuario),
+	CONSTRAINT fk_Monitoramento_acesso FOREIGN KEY (fkMonitoramento) REFERENCES Monitoramento(idMonitoramento),
+	CONSTRAINT fk_Orgao_acesso FOREIGN KEY(fkOrgao) REFERENCES Orgao(idOrgao)
 );
 
 CREATE TABLE Area (
@@ -52,7 +65,7 @@ CREATE TABLE Sensor (
 CREATE TABLE Dados (
     idDados INT AUTO_INCREMENT PRIMARY KEY,
     temperatura DECIMAL(4,2) ,
-    umidade INT,
+    umidade DECIMAL(4,2),
     dtMedicao DATETIME DEFAULT CURRENT_TIMESTAMP(),
     fkSensor INT,
     Situacao_dado VARCHAR(15),
@@ -60,7 +73,18 @@ CREATE TABLE Dados (
     CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta" , "Perigo", "Incêndio"))
 );
 
+
+
 ALTER TABLE Dados ADD COLUMN Situacao_dado VARCHAR(45);
+ALTER TABLE Dados ADD CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta", "Perigo", "Incêndio"));
+ALTER TABLE Dados DROP COLUMN NivelRisco;
+
+TRUNCATE Dados;
+show tables;
+Select * from Dados;
+
+
+
 
 
 -- Inserindo um orgão
@@ -69,12 +93,12 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, null),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, 1),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
 
 INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
+(DEFAULT , 'Area Verde 3' , 'Aprovado' , 1);
 
 
 -- Inserindo áreas
@@ -125,6 +149,7 @@ INSERT INTO Area VALUES
 (DEFAULT, 'I', 7, 1), (DEFAULT, 'I', 8, 1), (DEFAULT, 'I', 9, 1);
 
 
+SELECT * FROM Area;
 
 -- Inserindo sensores
 
@@ -171,7 +196,7 @@ INSERT INTO Sensor VALUES
 -- Linha I
 (DEFAULT, 'I1-1', 'Ativo', 73),
 (DEFAULT, 'I2-1', 'Ativo', 74),
-(DEFAULT, 'I3-1', 'Ativo', 75),
+(DEFAULT, 'I3-1', 'Inativo', 75),
 (DEFAULT, 'I4-1', 'Ativo', 76),
 (DEFAULT, 'I5-1', 'Ativo', 77),
 (DEFAULT, 'I6-1', 'Ativo', 78),
@@ -179,14 +204,29 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'I8-1', 'Ativo', 80),
 (DEFAULT, 'I9-1', 'Ativo', 81);
 
+update Sensor SET status_sensor = 'Ativo' WHERE idSensor = 26;
+
+Select * from Sensor;
 
 
+SELECT idSensor FROM Sensor;
+
+select * from Sensor;
 
 -- Inserindo dados
-INSERT INTO Dados VALUES 
+INSERT INTO dados VALUES 
 (DEFAULT, 25.5, 75, DEFAULT, 1, 1),
 (DEFAULT, 28.7, 70, DEFAULT, 2, 2);
 
+SELECT * from Dados;
+SELECT * FROM Dados WHERE fkSensor = 32;
+SELECT * FROM Monitoramento;
+SELECT * FROM Area;
+truncate table Area;
+
+DROP TABLE Dados;
+DROP TABLE Area;
+DROP TABLE Sensor;
 
 -- Visualizar funcionários e seu órgão associado
 SELECT 
@@ -292,6 +332,14 @@ Select * from Dados;
 
 SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
 FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = 3;
+
+
+-- Buscando historico de cada sensor;
+
+
+SELECT Sensor.idSensor,Sensor.Nome, Dados.temperatura, Dados.umidade, Dados.Situacao_dado, Dados.dtMedicao
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor 
+WHERE Sensor.idSensor = 3 GROUP BY Sensor.idSensor,Sensor.Nome, Dados.temperatura, Dados.umidade, Dados.Situacao_dado,Dados.dtMedicao ORDER BY DAY(Dados.dtMedicao);
 
 
 
