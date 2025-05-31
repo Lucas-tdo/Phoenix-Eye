@@ -24,7 +24,7 @@ function  dadosperfil(id){
 function  dadosperfil_func(id){
     var instrucaoSql = `
         select u.nome,u.email,u.senha,u.nivelUsuario,o.orgao from Usuario u
-        join Orgao o on
+        left join Orgao o on
         fkOrgao=idOrgao where idUsuario=${id};
     `;
     return database.executar(instrucaoSql);
@@ -74,6 +74,14 @@ function listarapas(id){
     `;
     return database.executar(instrucaoSql);
 }
+
+function listarorgao(){
+    var instrucaoSql = `
+        select * from Orgao;
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
     listarfunc,
@@ -84,6 +92,7 @@ module.exports = {
     cadastrar_apa,
     listarapas,
     deletar_apa,
-    atualizar_funcionario
+    atualizar_funcionario,
+    listarorgao
 }
 

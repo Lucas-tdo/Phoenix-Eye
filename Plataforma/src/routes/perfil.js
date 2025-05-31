@@ -45,4 +45,8 @@ router.put("/atualizar_funcionario",function(req,res){
     perfilController.atualizar_funcionario(req,res)
 })
 
+router.get("/listarorgao",function(req,res){
+    perfilController.listarorgao(req,res)
+})
+
 module.exports=router;

@@ -207,6 +207,19 @@ function listarapas(req,res){
         })
     }
 }
+
+function listarorgao(req,res){
+    perfilModel.listarorgao()
+    .then(resposta=>{
+        console.log("Orgãos do sistema listados")
+        res.json(resposta)
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
 module.exports = {
     cadastrar,
     listarfunc,
@@ -217,5 +230,6 @@ module.exports = {
     cadastrar_apa,
     listarapas,
     deletar_apa,
-    atualizar_funcionario
+    atualizar_funcionario,
+    listarorgao
 }

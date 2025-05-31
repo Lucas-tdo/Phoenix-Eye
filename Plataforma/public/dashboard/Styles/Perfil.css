@@ -16,7 +16,7 @@
 
 .lateral {
     height: 100%;
-    width: 24%;
+    width: 24vw;
     background-color: #091D0E;
     display: flex;
     flex-direction: column;
@@ -46,7 +46,7 @@
 
 .Central {
     height: 100%;
-    width: 76%;
+    width: 76vw;
 }
 
 
