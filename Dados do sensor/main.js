@@ -50,52 +50,32 @@ const serial = async (
             // Sensores fictícios (idSensor de 2 até 35)
             for (let idSensor = 2; idSensor < 33; idSensor++) {
                 // Geração de valores aleatórios
-                var temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1)); // entre 27.0 e 33.0
-                var umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
 
+                var situacao = "";
+                // Sorteia a situação
+                const sorteio = Math.random();
+                let temperaturaFake, umidadeFake;
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 90) {
-                    temperaturaFake = 35;
-                }
-
-
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 90) {
-                    umidadeFake = 39;
-                }
-
-
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
-                    temperaturaFake = 38;
-                }
-
-
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
-                    umidadeFake = 20;
-                }
-
-
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
-                    temperaturaFake = 15;
-                    umidadeFake = 49;
+                if (sorteio < 0.84) { // 84% Normal
+                    temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 40) + 41).toFixed(1));
+                    situacao = "Normal";
+                } else if (sorteio < 0.94) { // 10% Alerta
+                    temperaturaFake = parseFloat(((Math.random() * 4) + 34).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 20) + 21).toFixed(1));
+                    situacao = "Alerta";
+                } else if (sorteio < 0.99) { // 5% Perigo
+                    temperaturaFake = parseFloat(((Math.random() * 3) + 39).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 19) + 1).toFixed(1));
+                    situacao = "Perigo";
+                } else { // 1% Incêndio
+                    temperaturaFake = parseFloat(((Math.random() * 5) + 48).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 10) + 10).toFixed(1));
+                    situacao = "Incêndio";
                 }
 
 
                 const diaHoje = new Date();
-
-
-
-                var situacao = "";
-
-                if (umidadeFake > 40 && temperaturaFake < 34) {
-                    situacao = "Normal"
-                } else if (temperaturaFake > 47) {
-                    situacao = "Incêndio"
-                } else if (umidadeFake < 20 || temperaturaFake > 38) {
-                    situacao = "Perigo"
-                } else {
-                    situacao = "Alerta"
-                }
-
 
                 const ano = 2025;
 
@@ -109,7 +89,8 @@ const serial = async (
                     dia = '0' + dia;
                 }
 
-                // Corrige os métodos de data
+
+                
                 if (parseInt(mes) > (diaHoje.getMonth() + 1) && parseInt(dia) > diaHoje.getDate()) {
                     dia = diaHoje.getDate().toFixed(0);
                     mes = (diaHoje.getMonth() + 1).toFixed(0);
@@ -140,11 +121,9 @@ const serial = async (
                 const dataGerada = new Date(`${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}`);
                 const agora = new Date();
                 if (dataGerada <= agora) {
-                    console.log(dataFormatada);
+         
+                    console.log(`Sensor: ${idSensor}, Data: ${dataFormatada}, Temp: ${temperaturaFake}, Umid: ${umidadeFake}, Situação: ${situacao}`);
 
-
-
-                    // Inserção no banco
                     await poolBancoDados.execute(
                         `INSERT INTO Dados VALUES (DEFAULT, ?, ?, ?, ?, ?)`,
                         [temperaturaFake, umidadeFake, dataFormatada, idSensor, situacao]

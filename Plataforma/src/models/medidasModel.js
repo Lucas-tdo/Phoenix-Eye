@@ -66,9 +66,30 @@ function dados_monitoramento(idMonitoramento) {
 }
 
 
+function kpis_cinco_dias(idMonitoramento) {
+    var instrucaoSql = `
+    SELECT 
+    DATE(dtMedicao) AS dia,
+    SUM(CASE WHEN Situacao_dado = 'Alerta' THEN 1 ELSE 0 END) AS alertas,
+    SUM(CASE WHEN Situacao_dado = 'Perigo' THEN 1 ELSE 0 END) AS perigos,
+    SUM(CASE WHEN Situacao_dado = 'Incêndio' THEN 1 ELSE 0 END) AS incendios
+    FROM Dados JOIN Sensor ON Sensor.idSensor = Dados.fkSensor 
+    JOIN Area ON Sensor.fkArea = Area.idArea JOIN Monitoramento ON Monitoramento.idMonitoramento= 
+    Area.fkMonitoramento
+    WHERE dtMedicao >= CURDATE() - INTERVAL 4 DAY AND Monitoramento.idMonitoramento = ${idMonitoramento}
+    GROUP BY DATE(dtMedicao)
+    ORDER BY dia DESC;
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+}
+
+
 module.exports = {
     receber_dados,
     dados_sensor_especifico,
     listar_apas,
-    dados_monitoramento
+    dados_monitoramento,
+    kpis_cinco_dias
 }

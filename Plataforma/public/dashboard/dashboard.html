@@ -188,13 +188,13 @@
         const resp = await fetch(`/medidas//dados_monitoramento/${idMonitoramento}`);
         if (resp.ok) {
             const resp_dados_monitoramento = await resp.json();
-            
+
             grid.style.backgroundImage = `url("${resp_dados_monitoramento[0].Imagem}")`;
             Nome_monitoramento.innerHTML = resp_dados_monitoramento[0].Nome_Atribuido;
             listar_sensores(resp_dados_monitoramento)
         } else {
             console.error("Erro ao buscar dados:", resp.status);
-        }   
+        }
     }
 
 
@@ -205,15 +205,16 @@
             const resp_dados = await resp.json();
 
             console.log(resp_dados);
+            
             listar_sensores(resp_dados)
         } else {
             console.error("Erro ao buscar dados:", resp.status);
-        }        
+        }
     }
 
 
 
-    function listar_sensores(resp_dados) {
+    async function listar_sensores(resp_dados) {
         var mensagem = ""
         var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
         var mensagem_grid = ''
@@ -318,65 +319,71 @@
 
         const ctx = document.getElementById('myChart');
 
+        const dataAtual = new Date();
+        const diaHoje = parseInt(dataAtual.getDate().toFixed(0));
+        const mesHoje = parseInt(dataAtual.getMonth().toFixed(0)) + 1;
 
+
+        console.log(mesHoje)
+
+
+        const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${sessionStorage.idMonitoramento}`)
+        const resp_cinco_dias = await dados_cinco_dias.json();
+
+
+
+
+
+        console.log(resp_cinco_dias)
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h'],
+                labels: [`${diaHoje - 4}/${mesHoje}`, `${diaHoje - 3}/${mesHoje}`, `${diaHoje - 2}/${mesHoje}`, `${diaHoje - 1}/${mesHoje}`, 'Hoje'], // datas
                 datasets: [
                     {
-                        label: 'Umidade',
-                        data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
-                        borderWidth: 2,
-                        borderColor: 'rgb(255, 0, 0)',
-                        backgroundColor: 'rgb(255, 0, 0)',
+                        label: 'Alerta',
+                        data: [resp_cinco_dias[4].alertas, resp_cinco_dias[3].alertas, resp_cinco_dias[2].alertas, resp_cinco_dias[1].alertas, resp_cinco_dias[0].alertas], // exemplo, ajuste conforme seus dados
+                        backgroundColor: '#FFEB3B' // amarelo
                     },
                     {
-                        label: 'Temperatura',
-                        data: [],
-                        borderWidth: 5,
-                        borderColor: 'rgb(0, 128, 0)',
-                        backgroundColor: 'rgb(0, 128, 0)',
+                        label: 'Perigo',
+                        data: [resp_cinco_dias[4].perigos, resp_cinco_dias[3].perigos, resp_cinco_dias[2].perigos, resp_cinco_dias[1].perigos, resp_cinco_dias[0].perigos],
+                        backgroundColor: '#A76E2A' // marrom
                     },
-
+                    {
+                        label: 'Incêndio',
+                        data: [resp_cinco_dias[4].incendios, resp_cinco_dias[3].incendios, resp_cinco_dias[2].incendios, resp_cinco_dias[1].incendios, resp_cinco_dias[0].incendios],
+                        backgroundColor: '#B22222' // vermelho
+                    }
                 ]
             },
             options: {
+                scales: {
+                    x: {
+                    },
+                    y: {
 
-                plugins: {
-                    legend: {
-
-                        position: 'bottom',
-                        labels: {
-                            padding: 30,
-                            font: {
-                                size: 14,
-                                weight: 600,
-
-                            },
-                            color: 'rgb(26, 51, 32);'
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Número de Avisos'
                         }
                     }
                 },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'rgb(26, 51, 32);'
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: 20
                         }
-                    },
-                    y: {
-                        ticks: {
-                            color: 'rgb(26, 51, 32);'
-                        },
-                        beginAtZero: true
-                    },
-
+                    }
                 }
             }
         });
 
-
     }
+
+
 
 
 

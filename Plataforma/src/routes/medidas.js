@@ -5,21 +5,25 @@ var router = express.Router();
 var medidasController = require("../controllers/medidasController")
 
 
-router.get("/receber_dados/:idMonitoramento", function(req,res){
-    medidasController.receber_dados(req,res)
+router.get("/receber_dados/:idMonitoramento", function (req, res) {
+    medidasController.receber_dados(req, res)
 })
 
-router.get("/dados_sensor_especifico/:id_Sensor", function(req,res){
-    medidasController.dados_sensor_especifico(req,res)
+router.get("/dados_sensor_especifico/:id_Sensor", function (req, res) {
+    medidasController.dados_sensor_especifico(req, res)
 })
 
 
-router.get("/listar_apas/:idOrgao", function(req,res){
-    medidasController.listar_apas(req,res)
+router.get("/listar_apas/:idOrgao", function (req, res) {
+    medidasController.listar_apas(req, res)
 })
 
-router.get("/dados_monitoramento/:idMonitoramento", function(req,res){
-    medidasController.dados_monitoramento(req,res)
+router.get("/dados_monitoramento/:idMonitoramento", function (req, res) {
+    medidasController.dados_monitoramento(req, res)
+})
+
+router.get("/kpis_cinco_dias/:idMonitoramento", function (req, res) {
+    medidasController.kpis_cinco_dias(req, res)
 })
 
 
