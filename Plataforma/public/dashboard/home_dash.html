@@ -27,8 +27,8 @@
 
         <h1>Escolha uma das áreas de monitoramento disponíveis:</h1>
 
-        <div>
-            <div></div>
+        <div class="listar_apas" id="listar_apas_id">
+
         </div>
 
     </main>
@@ -37,3 +37,38 @@
 </body>
 
 </html>
+
+<script>
+
+    async function listar_apas() {
+
+        var idOrgao = sessionStorage.idOrgao;
+        var mensagem = "";
+
+        const resp = await fetch(`/medidas/listar_apas/${idOrgao}`);
+
+        const resposta_apa = await resp.json();
+        console.log(resposta_apa)
+        for (var i = 0; i < resposta_apa.length; i++) {
+            
+            mensagem += `
+            <div class="cartao">
+                <h1>${resposta_apa[i].Nome_Atribuido}</h1>
+                <img src="${resposta_apa[i].Imagem}" onclick = "redirecionar(${resposta_apa[i].idMonitoramento})">
+            </div>
+            `;
+        }
+
+
+        listar_apas_id.innerHTML = mensagem
+    }
+
+    function redirecionar(id){
+        sessionStorage.idMonitoramento = id;
+        window.location = "./dashboard.html"
+    }
+
+
+    listar_apas();
+
+</script>

@@ -149,8 +149,6 @@
 
 .areaGrid{
     display: flex;
-    
-    background-image: url("../Assets/Imgs/img-Satelite.jpg");
     background-size: cover;
     width: 400px;
     height: 350px;

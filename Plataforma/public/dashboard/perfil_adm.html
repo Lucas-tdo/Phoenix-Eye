@@ -43,7 +43,7 @@
             </a>
 
         </div>
-            <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
+        <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
         <div class="Central" id="central">
 
             <div class="cadastros" id="cadastros">
@@ -74,7 +74,7 @@
                 <div class="Centro_dados">
                     <div class="Dados_Cadastrados">
                         <div id="dados_e_adm">
-                            <h1 id="titulo_dados">Dados:</h1>    
+                            <h1 id="titulo_dados">Dados:</h1>
                             <h1 id="titulo_adm">Administrador</h1>
                         </div>
                         <h1 id="nome_func">Nome:</h1>
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="listagem_Funcionarios" id="listagem_Orgao">
-                        
+
                     </div>
 
                 </div>
@@ -150,51 +150,44 @@
                         <div></div>
                     </div>
 
-                    <div class="listagem_solicitacao">
-                        <div>
-                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
-                            <p id="nome_responsavel">Juan Vieira</p>
-                            <p id="nome_orgao">Corpo de Bombeiros</p>
-                            <div id="confirmacao_apa">
-                                <img src="Assets/Icons/confirmar.png">
-                                <img src="Assets/Icons/recusar.png">
-                            </div>
-                        </div>
+                    <div class="listagem_solicitacao" id="apas_solicitacao">
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </body>
 
 </html>
 
 <script>
     var funcionario = sessionStorage.idUsuario
-        function dadosperfil_adm(){
-        fetch(`/perfil/dadosperfil_func/${funcionario}`,{
-            method : "GET",
-            headers :{ "Content-Type": "application/json"}
+    function dadosperfil_adm() {
+        fetch(`/perfil/dadosperfil_func/${funcionario}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
         })
-        .then(resposta=>{resposta.json().then(resposta=>{
-            titulo_func.innerHTML +=resposta[0].nome
-            nome_func.innerHTML+=resposta[0].nome
-            email_func.innerHTML+=resposta[0].email
-            })            
-        })
-        .catch(erro=>{
-            console.log(erro)
-        })
+            .then(resposta => {
+                resposta.json().then(resposta => {
+                    titulo_func.innerHTML += resposta[0].nome
+                    nome_func.innerHTML += resposta[0].nome
+                    email_func.innerHTML += resposta[0].email
+                })
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
-    
-    async function listarorgao(){
-        
-        listagem_Orgao.innerHTML=""
+
+    async function listarorgao() {
+
+        listagem_Orgao.innerHTML = ""
         const dados = await fetch(`/perfil/listarorgao`)
         const orgaos = await dados.json()
-        for (orgao of orgaos){
-            listagem_Orgao.innerHTML+=`
+        for (orgao of orgaos) {
+            listagem_Orgao.innerHTML += `
             <div>
                 <p >${orgao.orgao}</p>
                 <p>${orgao.email}</p>
@@ -206,6 +199,59 @@
             `
         }
     }
+
+    async function listar_solicitacoes_apa() {
+
+        var mensagem = "";
+
+        const resp_solicitacoes = await fetch(`/perfil/listar_solicitacao`)
+        const solicitacoes = await resp_solicitacoes.json();
+
+        for (var i = 0; i < solicitacoes.length; i++) {
+            mensagem += `
+                    <div>
+                            <img src="${solicitacoes[i].Imagem}" class="imagem_APA">
+                            <p id="nome_responsavel">${solicitacoes[i].Nome_Atribuido}</p>
+                            <p id="nome_orgao">${solicitacoes[i].orgao}</p>
+                            <div id="confirmacao_apa">
+                                <img src="Assets/Icons/confirmar.png" onclick = "aceitar_apa(${solicitacoes[i].idMonitoramento})">
+                                <img src="Assets/Icons/recusar.png">
+                            </div>
+                        </div>
+            `
+        }
+
+        apas_solicitacao.innerHTML = mensagem
+
+        console.log(solicitacoes)
+
+    }
+
+
+
+
+     function aceitar_apa(idMonitoramento){
+
+         fetch(`/perfil/atualizar_monitoramento`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                monitoramentoServer: idMonitoramento
+            }),
+        })
+            .then(resposta => {
+                listar_solicitacoes_apa()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+
+     }
+
+
+    listar_solicitacoes_apa();
 
     function mostrarPerfil() {
         var solicitacoes = document.querySelector("#solicitacoes")
@@ -238,7 +284,7 @@
         orgao.style.backgroundColor = "#024002";
         solicitacoes.style.backgroundColor = "transparent";
         cadastros.style.display = "none"
-        
+
         listarorgao()
     }
 
@@ -275,7 +321,7 @@
         cadastros.style.display = "none"
     }
 
-    function abrirCadastroOrgao(){
+    function abrirCadastroOrgao() {
         cadastro_orgao.style.display = "flex"
         cadastros.style.display = "flex"
     }

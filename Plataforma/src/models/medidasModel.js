@@ -32,7 +32,7 @@ WHERE Monitoramento.idMonitoramento = ${idMonitoramento};
 
 }
 
-function dados_sensor_especifico(id_Sensor){
+function dados_sensor_especifico(id_Sensor) {
     var instrucaoSql = `
     
     SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao , Dados.Situacao_dado, Sensor.status_sensor
@@ -44,8 +44,31 @@ function dados_sensor_especifico(id_Sensor){
 }
 
 
+function listar_apas(idOrgao) {
+    var instrucaoSql = `
+    
+  SELECT * FROM Monitoramento WHERE FkOrgao = ${idOrgao} AND Status_Monitoramento = "Aprovado"
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+}
+
+
+function dados_monitoramento(idMonitoramento) {
+    var instrucaoSql = `
+    
+        SELECT * FROM Monitoramento WHERE idMonitoramento = ${idMonitoramento};
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+}
+
+
 module.exports = {
     receber_dados,
-    dados_sensor_especifico
-
+    dados_sensor_especifico,
+    listar_apas,
+    dados_monitoramento
 }

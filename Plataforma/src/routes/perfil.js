@@ -49,4 +49,15 @@ router.get("/listarorgao",function(req,res){
     perfilController.listarorgao(req,res)
 })
 
+
+router.get("/listar_solicitacao", function(req,res){
+    perfilController.listar_solicitacao(req,res)
+})
+
+
+router.put("/atualizar_monitoramento", function(req,res){
+    perfilController.atualizar_monitoramento(req,res)
+})
+
+
 module.exports=router;

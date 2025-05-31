@@ -14,5 +14,14 @@ router.get("/dados_sensor_especifico/:id_Sensor", function(req,res){
 })
 
 
+router.get("/listar_apas/:idOrgao", function(req,res){
+    medidasController.listar_apas(req,res)
+})
+
+router.get("/dados_monitoramento/:idMonitoramento", function(req,res){
+    medidasController.dados_monitoramento(req,res)
+})
+
+
 
 module.exports = router;

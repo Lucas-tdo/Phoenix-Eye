@@ -28,6 +28,10 @@
 
     <div class="container">
 
+        <div style="width: 100%; padding: 30px 0; display: flex;align-items: center; justify-content: center;">
+            <h1 id="Nome_monitoramento" style="font-size: 60px; color: #1A3421;"></h1>
+        </div>
+
         <div class="KPI">
             <div class="Status">
                 <h1>Status dos Sensores</h1>
@@ -139,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
 
@@ -156,28 +160,42 @@
 
 <script>
 
-    sessionStorage.idMonitoramento = 1;
+
 
     function dashSensor() {
         window.location.href = "dashboard_Sensor.html";
     }
 
-    function direcionar_perfil(){
+    function direcionar_perfil() {
 
 
         var nivel = sessionStorage.nivelusuario
         console.log(nivel)
-        if(nivel==1){
-            window.location.href=`./perfil_adm.html`
+        if (nivel == 1) {
+            window.location.href = `./perfil_adm.html`
         }
-        else if(nivel==2){
-            window.location.href=`./perfil_funcionario.html`
+        else if (nivel == 2) {
+            window.location.href = `./perfil_funcionario.html`
         }
-        else{
-            window.location.href=`./perfil_orgao.html`
+        else {
+            window.location.href = `./perfil_orgao.html`
         }
     }
 
+
+    async function buscar_dados_monitoramento() {
+        var idMonitoramento = sessionStorage.idMonitoramento
+        const resp = await fetch(`/medidas//dados_monitoramento/${idMonitoramento}`);
+        if (resp.ok) {
+            const resp_dados_monitoramento = await resp.json();
+            
+            grid.style.backgroundImage = `url("${resp_dados_monitoramento[0].Imagem}")`;
+            Nome_monitoramento.innerHTML = resp_dados_monitoramento[0].Nome_Atribuido;
+            listar_sensores(resp_dados_monitoramento)
+        } else {
+            console.error("Erro ao buscar dados:", resp.status);
+        }   
+    }
 
 
     async function buscarDados() {
@@ -190,10 +208,7 @@
             listar_sensores(resp_dados)
         } else {
             console.error("Erro ao buscar dados:", resp.status);
-        }
-
-
-
+        }        
     }
 
 
@@ -222,6 +237,7 @@
         }
         console.log(resp_dados);
         /* Fazendo o gráfico de grid */
+
 
         var contador_alerta = 0;
         var contador_perigo = 0;
@@ -301,8 +317,8 @@
 
 
         const ctx = document.getElementById('myChart');
-        
-        
+
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -380,6 +396,7 @@
     }
 
     buscarDados();
+    buscar_dados_monitoramento();
 
 </script>
 

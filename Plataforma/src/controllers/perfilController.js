@@ -220,6 +220,45 @@ function listarorgao(req,res){
     })
 }
 
+
+function listar_solicitacao(req,res){
+    perfilModel.listar_solicitacao()
+    .then(resposta=>{
+        console.log("Orgãos do sistema listados")
+        res.json(resposta)
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
+
+
+
+function atualizar_monitoramento(req,res){
+    var idMonitoramento = req.body.monitoramentoServer
+
+    if (idMonitoramento == undefined) {
+        res.status(400).send("Seu idMonitoramento está undefined!");
+    } else{
+        perfilModel.atualizar_monitoramento(idMonitoramento)
+        .then(resultado=>{
+            res.json(resultado)
+            console.log('Área de Monitoramento realizado com sucesso')
+        })
+        .catch(erro=>{
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o cadastro! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage)
+        })
+    }
+}
+
+
 module.exports = {
     cadastrar,
     listarfunc,
@@ -231,5 +270,7 @@ module.exports = {
     listarapas,
     deletar_apa,
     atualizar_funcionario,
-    listarorgao
+    listarorgao,
+    listar_solicitacao,
+    atualizar_monitoramento
 }
