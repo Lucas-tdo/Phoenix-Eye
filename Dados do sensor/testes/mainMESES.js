@@ -1,8 +1,11 @@
 // importa os bibliotecas necessários
-
+const serialport = require('serialport');
 const express = require('express');
 const mysql = require('mysql2');
 
+// constantes para configurações
+const SERIAL_BAUD_RATE = 9600;
+const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
@@ -12,6 +15,7 @@ const serial = async (
     valoresSensorTemp,
     valoresSensorUmid,
 ) => {
+
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
@@ -24,28 +28,58 @@ const serial = async (
     ).promise();
 
     // lista as portas seriais disponíveis e procura pelo Arduino
+    const portas = await serialport.SerialPort.list();
+    const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
+    if (!portaArduino) {
+        throw new Error('O arduino não foi encontrado em nenhuma porta serial');
+    }
 
+    // configura a porta serial com o baud rate especificado
+    const arduino = new serialport.SerialPort(
+        {
+            path: portaArduino.path,
+            baudRate: SERIAL_BAUD_RATE
+        }
+    );
 
+    // evento quando a porta serial é aberta
+    arduino.on('open', () => {
+        console.log(`A leitura do arduino foi iniciada na porta ${portaArduino.path} utilizando Baud Rate de ${SERIAL_BAUD_RATE}`);
+    });
 
     // processa os dados recebidos do Arduino
+    arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
+        console.log(data);
+        const valores = data.split(';');
+        const sensorUmid = parseFloat(valores[0]);
+        const sensorTemp = parseFloat(valores[1]);
 
+        // armazena os valores dos sensores nos arrays correspondentes
+        valoresSensorTemp.push(sensorUmid);
+        valoresSensorUmid.push(sensorTemp);
 
-    // armazena os valores dos sensores nos arrays correspondentes
+        // insere os dados no banco de dados (se habilitado)
+        if (HABILITAR_OPERACAO_INSERIR) {
 
-    valoresSensorTemp.push(2222);
-    valoresSensorUmid.push(3333);
+            // este insert irá inserir os
+            // 
+            var situacao = "";
 
-    // insere os dados no banco de dados (se habilitado)
-    if (HABILITAR_OPERACAO_INSERIR) {
-        for (var c = 0; c < 2; c++) {
-
-
-            // este insert irá inserir os dados na tabela "medida"
+            if (sensorUmid > 40 && sensorTemp < 34) {
+                situacao = "Normal"
+            } else if (sensorTemp > 47) {
+                situacao = "Incêndio"
+            } else if (sensorUmid < 20 || sensorTemp > 38) {
+                situacao = "Perigo"
+            } else {
+                situacao = "Alerta"
+            }
+            //  dados na tabela "medida"
             await poolBancoDados.execute(
                 `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1,  ?)`,
-                [20.0, 50, "Normal"]
+                [sensorUmid, sensorTemp, situacao]
             );
-            console.log("valores inseridos no banco: ", 20.0 + ", " + 50);
+            console.log("valores inseridos no banco: ", sensorUmid + ", " + sensorTemp);
 
             // Sensores fictícios (idSensor de 2 até 35)
             for (let idSensor = 2; idSensor < 33; idSensor++) {
@@ -64,7 +98,7 @@ const serial = async (
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
+                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
                     temperaturaFake = 38;
                 }
 
@@ -74,7 +108,7 @@ const serial = async (
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
+                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
                     temperaturaFake = 15;
                     umidadeFake = 49;
                 }
@@ -103,20 +137,20 @@ const serial = async (
                 if (mes < 10) {
                     mes = '0' + mes;
                 }
+                
 
                 var dia = (Math.random() * 29 + 1).toFixed(0);
                 if (dia < 10) {
                     dia = '0' + dia;
                 }
 
-                // Corrige os métodos de data
-                if (parseInt(mes) > (diaHoje.getMonth() + 1) && parseInt(dia) > diaHoje.getDate()) {
-                    dia = diaHoje.getDate().toFixed(0);
-                    mes = (diaHoje.getMonth() + 1).toFixed(0);
+                if(mes > diaHoje.getMonth+1 && dia > diaHoje.getDay){
+                    dia = diaHoje.getDay
+                    mes = diaHoje.getMonth+1
                 }
 
-                if ((mes == '02' && dia == '29') || (mes == '02' && dia == '30')) {
-                    dia = '28';
+                if((mes == 2 && dia == 29 ) || (mes == 2 && dia == 30) ){
+                    dia = 28;
                 }
 
                 var hora = (Math.random() * 23).toFixed(0);
@@ -134,29 +168,34 @@ const serial = async (
                     segundo = '0' + segundo;
                 }
 
+
+
+                
                 const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
 
-                // Só insere se a data gerada for menor ou igual à data/hora atual
-                const dataGerada = new Date(`${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}`);
-                const agora = new Date();
-                if (dataGerada <= agora) {
-                    console.log(dataFormatada);
+                console.log(dataFormatada);
 
 
 
-                    // Inserção no banco
-                    await poolBancoDados.execute(
-                        `INSERT INTO Dados VALUES (DEFAULT, ?, ?, ?, ?, ?)`,
-                        [temperaturaFake, umidadeFake, dataFormatada, idSensor, situacao]
-                    );
-                }
+                // Inserção no banco
+                await poolBancoDados.execute(
+                    `INSERT INTO Dados VALUES (DEFAULT, ?, ?, ?, ?, ?)`,
+                    [temperaturaFake, umidadeFake, dataFormatada, idSensor, situacao]
+                );
+
             }
             console.log("Valores reais e simulados inseridos no banco com sucesso.");
+
+
         }
 
-    }
-}
+    });
 
+    // evento para lidar com erros na comunicação serial
+    arduino.on('error', (mensagem) => {
+        console.error(`Erro no arduino (Mensagem: ${mensagem}`)
+    });
+}
 
 // função para criar e configurar o servidor web
 const servidor = (
@@ -173,7 +212,9 @@ const servidor = (
     });
 
     // inicia o servidor na porta especificada
-
+    app.listen(SERVIDOR_PORTA, () => {
+        console.log(`API executada com sucesso na porta ${SERVIDOR_PORTA}`);
+    });
 
     // define os endpoints da API para cada tipo de sensor
     app.get('/sensores/temperatura', (_, response) => {
@@ -190,18 +231,15 @@ const servidor = (
     const valoresSensorTemp = [];
     const valoresSensorUmid = [];
 
+    // inicia a comunicação serial
+    await serial(
+        valoresSensorTemp,
+        valoresSensorUmid
+    );
+
     // inicia o servidor web
     servidor(
         valoresSensorTemp,
         valoresSensorUmid
     );
-
-    // chama a função serial a cada 10 segundos (10000 ms)
-    setInterval(async () => {
-        await serial(
-            valoresSensorTemp,
-            valoresSensorUmid
-        );
-    }, 3000);
-
 })();

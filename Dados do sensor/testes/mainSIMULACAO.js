@@ -15,7 +15,7 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '192.168.109.232',
+            host: 'localhost',
             user: 'phoenix-eye',
             password: '@Urubu100',
             database: 'PhoenixEye',
@@ -50,27 +50,85 @@ const serial = async (
             // Sensores fictícios (idSensor de 2 até 35)
             for (let idSensor = 2; idSensor < 33; idSensor++) {
                 // Geração de valores aleatórios
-                const temperaturaFake = parseFloat((Math.random() * (37 - 20) + 20).toFixed(1)); // entre 20.0 e 37.0
-                const umidadeFake = parseFloat((Math.random() * (90 - 30) + 30).toFixed(1));     // entre 30.0 e 90.0
 
                 var situacao = "";
+                // Sorteia a situação
+                const sorteio = Math.random();
+                let temperaturaFake, umidadeFake, situacao;
 
-                if (umidadeFake > 40 && temperaturaFake < 34) {
-                    situacao = "Normal"
-                } else if (temperaturaFake > 47) {
-                    situacao = "Incêndio"
-                } else if (umidadeFake < 20 || temperaturaFake > 38) {
-                    situacao = "Perigo"
-                } else {
-                    situacao = "Alerta"
+                if (sorteio < 0.84) { // 84% Normal
+                    temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 40) + 41).toFixed(1));
+                    situacao = "Normal";
+                } else if (sorteio < 0.94) { // 10% Alerta
+                    temperaturaFake = parseFloat(((Math.random() * 4) + 34).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 20) + 21).toFixed(1));
+                    situacao = "Alerta";
+                } else if (sorteio < 0.99) { // 5% Perigo
+                    temperaturaFake = parseFloat(((Math.random() * 3) + 39).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 19) + 1).toFixed(1));
+                    situacao = "Perigo";
+                } else { // 1% Incêndio
+                    temperaturaFake = parseFloat(((Math.random() * 5) + 48).toFixed(1));
+                    umidadeFake = parseFloat(((Math.random() * 10) + 10).toFixed(1));
+                    situacao = "Incêndio";
                 }
 
 
-                // Inserção no banco
-                await poolBancoDados.execute(
-                    `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?)`,
-                    [temperaturaFake, umidadeFake,idSensor , situacao]
-                );
+                const diaHoje = new Date();
+
+                const ano = 2025;
+
+                var mes = (Math.random() * 5 + 1).toFixed(0);
+                if (mes < 10) {
+                    mes = '0' + mes;
+                }
+
+                var dia = (Math.random() * 29 + 1).toFixed(0);
+                if (dia < 10) {
+                    dia = '0' + dia;
+                }
+
+
+                
+                if (parseInt(mes) > (diaHoje.getMonth() + 1) && parseInt(dia) > diaHoje.getDate()) {
+                    dia = diaHoje.getDate().toFixed(0);
+                    mes = (diaHoje.getMonth() + 1).toFixed(0);
+                }
+
+                if ((mes == '02' && dia == '29') || (mes == '02' && dia == '30')) {
+                    dia = '28';
+                }
+
+                var hora = (Math.random() * 23).toFixed(0);
+                if (hora < 10) {
+                    hora = '0' + hora;
+                }
+
+                var minuto = (Math.random() * 59).toFixed(0);
+                if (minuto < 10) {
+                    minuto = '0' + minuto;
+                }
+
+                var segundo = (Math.random() * 59).toFixed(0);
+                if (segundo < 10) {
+                    segundo = '0' + segundo;
+                }
+
+                const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+
+                // Só insere se a data gerada for menor ou igual à data/hora atual
+                const dataGerada = new Date(`${ano}-${mes}-${dia}T${hora}:${minuto}:${segundo}`);
+                const agora = new Date();
+                if (dataGerada <= agora) {
+         
+                    console.log(`Sensor: ${idSensor}, Data: ${dataFormatada}, Temp: ${temperaturaFake}, Umid: ${umidadeFake}, Situação: ${situacao}`);
+
+                    await poolBancoDados.execute(
+                        `INSERT INTO Dados VALUES (DEFAULT, ?, ?, ?, ?, ?)`,
+                        [temperaturaFake, umidadeFake, dataFormatada, idSensor, situacao]
+                    );
+                }
             }
             console.log("Valores reais e simulados inseridos no banco com sucesso.");
         }
@@ -111,15 +169,18 @@ const servidor = (
     const valoresSensorTemp = [];
     const valoresSensorUmid = [];
 
-    // inicia a comunicação serial
-    await serial(
-        valoresSensorTemp,
-        valoresSensorUmid
-    );
-
     // inicia o servidor web
     servidor(
         valoresSensorTemp,
         valoresSensorUmid
     );
+
+    // chama a função serial a cada 10 segundos (10000 ms)
+    setInterval(async () => {
+        await serial(
+            valoresSensorTemp,
+            valoresSensorUmid
+        );
+    }, 3000);
+
 })();
