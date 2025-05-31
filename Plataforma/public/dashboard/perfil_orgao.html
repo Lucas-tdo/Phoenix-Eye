@@ -229,7 +229,7 @@
 <script>
     const empresa = sessionStorage.idOrgao
     var funcionariosorg = []
-    dadosperfil()
+    
     function dadosperfil() {
         fetch(`/perfil/dadosperfil/${empresa}`, {
             method: "get",
@@ -407,7 +407,7 @@
     function listarapas() {
         listagem_APAs.innerHTML = ``
         fetch(`/perfil/listarapas/${empresa}`, {
-            method: "POST"
+            method: "GET"
         }).then(resposta => {
             resposta.json().then(resposta => {
                 for (resp of resposta) {
@@ -418,7 +418,7 @@
                             <p>20</p>
                             <img src="./Assets/Icons/${resp.Status_Monitoramento}.png" class="imagem_Situacao">
                             <a>
-                                <img src="Assets/Icons/Lixeira.png"onclick = "abrir_deletar_apa(${resp.idMonitoramento})cadastros.style.display = "none"" >
+                                <img src="Assets/Icons/Lixeira.png" onclick ="abrir_deletar_apa(${resp.idMonitoramento})" >
                                 
                             </a>
                     </div>
@@ -545,6 +545,7 @@
         cadastro_APAs.style.display = "flex"
         cadastros.style.display = "flex"
     }
+    dadosperfil()
     mostrarPerfil();
     ocultarCadastros()
 

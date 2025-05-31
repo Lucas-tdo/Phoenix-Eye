@@ -60,7 +60,6 @@ CREATE TABLE Dados (
     CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta" , "Perigo", "Incêndio"))
 );
 
-ALTER TABLE Dados ADD COLUMN Situacao_dado VARCHAR(45);
 
 
 -- Inserindo um orgão
@@ -180,12 +179,6 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'I9-1', 'Ativo', 81);
 
 
-
-
--- Inserindo dados
-INSERT INTO Dados VALUES 
-(DEFAULT, 25.5, 75, DEFAULT, 1, 1),
-(DEFAULT, 28.7, 70, DEFAULT, 2, 2);
 
 
 -- Visualizar funcionários e seu órgão associado

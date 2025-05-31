@@ -32,7 +32,7 @@ router.post("/cadastrar_apa",upload.single('foto'),(req,res)=>{
     perfilController.cadastrar_apa(req,res)
 })
 
-router.post("/listarapas/:idOrgao",function(req,res){
+router.get("/listarapas/:idOrgao",function(req,res){
     perfilController.listarapas(req,res)
 })
 

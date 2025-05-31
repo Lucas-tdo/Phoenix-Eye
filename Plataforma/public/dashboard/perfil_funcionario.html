@@ -85,11 +85,11 @@
             headers :{ "Content-Type": "application/json"}
         })
         .then(resposta=>{resposta.json().then(resposta=>{
-            console.log(resposta)
-            titulo_func.innerHTML = resposta[0].nome
-            nome_func.innerHTML=resposta[0].nome
-            email_func.innerHTML=resposta[0].email
-            orgao.innerHTML=resposta[0].orgao
+            
+            titulo_func.innerHTML +=resposta[0].nome
+            nome_func.innerHTML+=resposta[0].nome
+            email_func.innerHTML+=resposta[0].email
+            orgao.innerHTML+=resposta[0].orgao
             })            
         })
         .catch(erro=>{
@@ -102,7 +102,6 @@
         APAs.style.display = "none";
         Perfil.style.backgroundColor = "#024002";
         APA.style.backgroundColor = "transparent";
-        dadosperfil_func()
     }
 
     function mostrarAPAs() {
@@ -115,10 +114,10 @@
     }
 
     function listarapas(){
-        var empresa = sessionStorage.ID_EMPRESA
+        var empresa = sessionStorage.idOrgao
         listagem_APAs.innerHTML = ``
         fetch(`/perfil/listarapas/${empresa}`, {
-            method: "POST"
+            method: "GET"
         }).then(resposta => {
             resposta.json().then(resposta => {
                 for (resp of resposta) {
@@ -138,6 +137,7 @@
             console.log(erro)
         })
     }
+    dadosperfil_func()
     mostrarPerfil();
 
 </script>
