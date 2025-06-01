@@ -785,3 +785,51 @@
 }
 
 
+.Acesso{
+
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Acesso h1{
+    color: #024002;
+    font-size: 50px;
+}
+
+.lista_acessos{
+    background-color: #024002;
+    border: solid 10px #024002;
+    padding:30px;
+    border-radius: 40px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    overflow-y: auto;
+    height: 450px;
+}
+
+.lista_acessos::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.lista_acessos div h1{
+    font-size: 20px;
+    display: flex;
+    
+}
+
+.lista_acessos div{
+    width: 90%;
+    justify-content: space-between;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+}
+

@@ -27,5 +27,10 @@ router.get("/kpis_cinco_dias/:idMonitoramento", function (req, res) {
 })
 
 
+router.get("/buscar_acessos/:idOrgao", function (req, res) {
+    medidasController.buscar_acessos(req, res)
+})
+
+
 
 module.exports = router;

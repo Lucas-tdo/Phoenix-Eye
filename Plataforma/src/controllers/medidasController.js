@@ -90,11 +90,30 @@ function kpis_cinco_dias(req, res) {
     });
 }
 
+function  buscar_acessos(req, res) {
+
+    var idOrgao = req.params.idOrgao;
+
+    medidaslModel.buscar_acessos(idOrgao).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+           res.status(200).json([]);
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as postagens.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 
 module.exports = {
     dados_sensor_especifico,
     receber_dados,
     listar_apas,
     dados_monitoramento,
-    kpis_cinco_dias
+    kpis_cinco_dias,
+    buscar_acessos
 }

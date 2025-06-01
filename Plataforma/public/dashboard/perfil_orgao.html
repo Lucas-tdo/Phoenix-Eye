@@ -35,7 +35,12 @@
                 </div>
             </a>
 
-    
+            <a onclick="mostrarAcessos()">
+                <div id="Acessos">
+                    <img src="Assets/Icons/relogio.png">
+                    <h1>Acessos</h1>
+                </div>
+            </a>
 
         </div>
 
@@ -43,6 +48,9 @@
 
             <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
             <div class="cadastros" id="cadastros">
+
+
+
                 <div class="cadastros_funcionarios" id="cadastro_func">
                     <div>
                         <h1>Adicionar os dados do seu funcionário:</h1>
@@ -111,7 +119,7 @@
 
 
 
-                
+
 
                 <div class="deletar_class" id="deletar_funcionario_div">
                     <div>
@@ -208,7 +216,18 @@
                 </div>
             </div>
 
- 
+
+            <div class="Acesso" id="div_Acessos">
+
+                <h1>Histórico de Acessos:</h1>
+
+                <div class="lista_acessos" id="Listagem_acesso">
+
+                </div>
+
+            </div>
+
+
         </div>
     </div>
 </body>
@@ -218,7 +237,7 @@
 <script>
     const empresa = sessionStorage.idOrgao
     var funcionariosorg = []
-    
+
     function dadosperfil() {
         fetch(`/perfil/dadosperfil/${empresa}`, {
             method: "get",
@@ -257,29 +276,29 @@
             })
     }
 
-    function atualizar_funcionario(){
-        var idusuario=sessionStorage.Func_atualizar
-        var nome=input_nome_atualizar.value
-        var email=input_email_atualizar.value
-        var senha=input_senha_atualizar.value
-        fetch("/perfil/atualizar_funcionario",{
-            method:"PUT",
-            headers:{
+    function atualizar_funcionario() {
+        var idusuario = sessionStorage.Func_atualizar
+        var nome = input_nome_atualizar.value
+        var email = input_email_atualizar.value
+        var senha = input_senha_atualizar.value
+        fetch("/perfil/atualizar_funcionario", {
+            method: "PUT",
+            headers: {
                 "Content-Type": "application/json",
             },
-            body:JSON.stringify({
-                idServer:idusuario,
-                nomeServer:nome,
-                emailServer:email,
-                senhaServer:senha
+            body: JSON.stringify({
+                idServer: idusuario,
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha
             })
         })
-        .then(resposta=>resposta.json().then(resposta=>{
-            sessionStorage.removeItem('Func_atualizar');
-            listarfunc()
-            ocultarCadastros()
-        }))
-    }   
+            .then(resposta => resposta.json().then(resposta => {
+                sessionStorage.removeItem('Func_atualizar');
+                listarfunc()
+                ocultarCadastros()
+            }))
+    }
 
     function listarfunc() {
         listagem_org.innerHTML = ""
@@ -288,7 +307,7 @@
         })
             .then(resposta => {
                 resposta.json().then(resposta => {
-                    funcionariosorg=resposta
+                    funcionariosorg = resposta
                     for (resp of resposta) {
                         listagem_org.innerHTML += `<div id="${resp.idUsuario}">
                             <p>${resp.nome}</p>
@@ -300,10 +319,10 @@
                             </div>
                             </div>`
                     }
-                })        
+                })
             })
             .catch(erro => {
-                        console.log(erro)
+                console.log(erro)
             })
     }
 
@@ -328,7 +347,7 @@
             })
         ocultarCadastros()
     }
-    
+
 
 
     function Cadastrar() {
@@ -350,9 +369,9 @@
                         }
                         else {
                             cadastrando(nome, email, senha)
-                            input_nome.value=""
-                            input_email.value=""
-                            input_senha.value=""
+                            input_nome.value = ""
+                            input_email.value = ""
+                            input_senha.value = ""
                         }
                     })
                 })
@@ -413,10 +432,46 @@
 
     }
 
+    async function buscar_acessos() {
 
- 
+        const resp_acessos = await fetch(`/medidas/buscar_acessos/${sessionStorage.idOrgao}`)
+        const dados_acessos = await resp_acessos.json();
+        console.log(dados_acessos)
+        var mensagem = "";
+
+
+        for (var i = 0; i < dados_acessos.length; i++) {
+            mensagem += `
+                    <div>
+                        <h1>${dados_acessos[i].nome}</h1>
+                        <h1>${dados_acessos[i].Nome_Atribuido}</h1>
+                        <h1>${dados_acessos[i].Data}</h1>
+                    </div>
+
+            `
+        }
+        Listagem_acesso.innerHTML = mensagem
+    }
+
+
+    function mostrarAcessos() {
+        div_Acessos.style.display = "flex"
+        Acessos.style.backgroundColor = "#024002";
+        dados.style.display = "none";
+        Funcionario.style.display = "none";
+        APAs.style.display = "none";
+        FuncionarioLat.style.backgroundColor = "transparent";
+        Perfil.style.backgroundColor = "transparent";
+        APA.style.backgroundColor = "transparent";
+        buscar_acessos();
+    }
+
+
+
     function mostrarPerfil() {
+        div_Acessos.style.display = "none"
         dados.style.display = "flex";
+        Acessos.style.backgroundColor = "transparent";
         Funcionario.style.display = "none";
         APAs.style.display = "none";
         FuncionarioLat.style.backgroundColor = "transparent";
@@ -425,7 +480,9 @@
     }
 
     function mostrarFunc() {
+        div_Acessos.style.display = "none"
         APAs.style.display = "none"
+        Acessos.style.backgroundColor = "transparent";
         dados.style.display = "none"
         Funcionario.style.display = "flex"
         FuncionarioLat.style.backgroundColor = "#024002";
@@ -435,7 +492,9 @@
     }
 
     function mostrarAPAs() {
+        div_Acessos.style.display = "none"
         dados.style.display = "none"
+        Acessos.style.backgroundColor = "transparent";
         Funcionario.style.display = "none"
         APAs.style.display = "flex"
         FuncionarioLat.style.backgroundColor = "transparent";
@@ -445,9 +504,9 @@
     }
 
 
-    function abrir_deletar_func(id_func){
+    function abrir_deletar_func(id_func) {
         sessionStorage.deletar_funcionario = id_func
-        deletar_funcionario_div.style.display="flex"
+        deletar_funcionario_div.style.display = "flex"
         cadastros.style.display = "flex"
 
     }
@@ -458,13 +517,13 @@
         cadastros.style.display = "none"
         deletar.style.display = "none"
         input_nome.value = "";
-        deletar_funcionario_div.style.display="none"
+        deletar_funcionario_div.style.display = "none"
         input_email.value = "";
         input_senha.value = "";
         deletar.style.display = "none"
         atualizar_func.style.display = "none"
-        
-        
+
+
     }
     function abrirdeletar(id) {
         sessionStorage.deletar = `${id}`
@@ -477,21 +536,21 @@
         cadastros.style.display = "flex"
     }
 
-    function abrirAtualizarFunc(id_func){
+    function abrirAtualizarFunc(id_func) {
         atualizar_func.style.display = "flex"
         cadastros.style.display = "flex"
         var posicao = 0
         console.log(funcionariosorg)
-        for(i=0;i<funcionariosorg.length;i++){
-            if(funcionariosorg[i].idUsuario==id_func){
-                posicao=i
+        for (i = 0; i < funcionariosorg.length; i++) {
+            if (funcionariosorg[i].idUsuario == id_func) {
+                posicao = i
                 break
             }
         }
-        input_nome_atualizar.value=funcionariosorg[posicao].nome
-        input_email_atualizar.value=funcionariosorg[posicao].email
-        input_senha_atualizar.value=funcionariosorg[posicao].senha
-        sessionStorage.Func_atualizar=id_func
+        input_nome_atualizar.value = funcionariosorg[posicao].nome
+        input_email_atualizar.value = funcionariosorg[posicao].email
+        input_senha_atualizar.value = funcionariosorg[posicao].senha
+        sessionStorage.Func_atualizar = id_func
     }
 
     function abrirCadastroAPAs() {

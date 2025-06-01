@@ -86,10 +86,24 @@ function kpis_cinco_dias(idMonitoramento) {
 }
 
 
+function buscar_acessos(idOrgao) {
+    var instrucaoSql = `
+        SELECT Usuario.nome, Monitoramento.Nome_Atribuido ,DATE_FORMAT(Acesso.dataAcesso, '%d/%m/%Y %H:%i') AS "Data"
+        FROM Acesso JOIN Monitoramento ON fkMonitoramento = Monitoramento.idMonitoramento
+        JOIN Usuario ON fkUsuario = Usuario.idUsuario 
+        JOIN Orgao  ON Usuario.fkOrgao = Orgao.idOrgao 
+        WHERE Usuario.fkOrgao = ${idOrgao} ORDER BY Acesso.dataAcesso DESC; 
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     receber_dados,
     dados_sensor_especifico,
     listar_apas,
     dados_monitoramento,
-    kpis_cinco_dias
+    kpis_cinco_dias,
+    buscar_acessos
 }
