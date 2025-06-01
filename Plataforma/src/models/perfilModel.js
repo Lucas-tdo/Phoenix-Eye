@@ -46,12 +46,18 @@ function atualizar_funcionario(nome, email, senha, id) {
 
 function deletar_apa(id_apa) {
     var instrucaoSql = `
-        delete from Monitoramento where idMonitoramento=${id_apa};
+        delete from Acesso where fkMonitoramento=${id_apa};
     `;
-    console.log("Apa foi excluida")
-
-    return database.executar(instrucaoSql);
+    var instrucaoSql2=`
+    delete from Monitoramento where idMonitoramento=${id_apa};
+    `
+    return database.executar(instrucaoSql).then(()=>{
+    return database.executar(instrucaoSql2);
+    })
+    
 }
+
+
 
 
 function checar_email(email) {
