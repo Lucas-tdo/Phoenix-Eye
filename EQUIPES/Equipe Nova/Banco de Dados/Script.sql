@@ -11,6 +11,9 @@ CREATE TABLE Orgao (
     senha VARCHAR(20) NOT NULL
 );
 
+insert into Orgao values
+(default,'Lucas','111222333444555','11977719779','lucas@gmail.com','senha123');
+select * from Orgao;
 CREATE TABLE Usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
@@ -31,7 +34,7 @@ CREATE TABLE Monitoramento (
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
-
+select * from Monitoramento;
 CREATE TABLE Area (
     idArea INT AUTO_INCREMENT,
     grid CHAR(1) NOT NULL,
@@ -58,7 +61,26 @@ CREATE TABLE Dados (
     Situacao_dado VARCHAR(15),
     CONSTRAINT Fk_Sensor_Dados FOREIGN KEY (fkSensor) REFERENCES Sensor(idSensor),
     CONSTRAINT Check_Situacao CHECK (Situacao_dado IN ("Normal", "Alerta" , "Perigo", "Incêndio"))
+); 
+
+select * from Dados where dtMedicao between date("2025-03-02") and date("2025-03-05");
+
+select * from Monitoramento;
+select * from Dados;
+
+CREATE TABLE Acesso(
+	idAcesso INT AUTO_INCREMENT,
+	fkUsuario INT,
+    fkMonitoramento INT,
+    fkOrgao INT,
+    dataAcesso DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    CONSTRAINT Chave_composta_Acesso PRIMARY KEY (idAcesso,fkUsuario, fkMonitoramento, fkOrgao, dataAcesso),
+    CONSTRAINT fk_usuario_acesso FOREIGN KEY (fkUsuario) REFERENCES Usuario(idUsuario),
+	CONSTRAINT fk_Monitoramento_acesso FOREIGN KEY (fkMonitoramento) REFERENCES Monitoramento(idMonitoramento),
+	CONSTRAINT fk_Orgao_acesso FOREIGN KEY(fkOrgao) REFERENCES Orgao(idOrgao)
 );
+
+
 
 
 
@@ -68,13 +90,12 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, null),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'Senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
 
-INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
-
+insert into Monitoramento values
+(1,"Area Verde","../dashboard/Assets/APAs/2025-5-31_1_46_7.jpg","Aprovado",1);
 
 -- Inserindo áreas
 INSERT INTO Area VALUES
@@ -180,7 +201,6 @@ INSERT INTO Sensor VALUES
 
 
 
-
 -- Visualizar funcionários e seu órgão associado
 SELECT 
     usuario.nome AS Nome_Funcionario, 
@@ -257,7 +277,7 @@ SELECT Sensor.Nome, Dados.temperatura, Dados.Situacao_dado
 FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor 
 GROUP BY Sensor.Nome, Dados.temperatura, Dados.Situacao_dado;
   
-  
+
   
 SELECT 
     s.idSensor AS ID,
@@ -281,10 +301,44 @@ WHERE s.status_sensor = 'Ativo'
 
 update Sensor SET status_sensor = "Manutencao" WHERE idSensor = 15;
   
-Select * from Dados;
+TRUNCATE TABLE Dados;
 
-SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
-FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = 3;
+
+TRUNCATE TABLE Monitoramento;
+
+
+SELECT * FROM Monitoramento WHERE idMonitoramento = 1;
+
+SELECT * FROM Monitoramento;
+
+SELECT Nome_Atribuido, Imagem, Status_Monitoramento,FkOrgao,idMonitoramento, Orgao.orgao
+FROM Monitoramento JOIN Orgao ON Orgao.idOrgao = Monitoramento.FkOrgao 
+WHERE Status_Monitoramento = "Em análise" AND FkOrgao = 1;
+
+
+SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.Situacao_dado
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Dados.Situacao_dado = "Incêndio";
+
+
+SELECT COUNT(*) AS total_alertas
+FROM Dados
+WHERE Situacao_dado = 'Alerta'
+AND DATE(dtMedicao) = '2025-05-29';
+
+
+-- Dados de alerta, perigo e incêndio nos ultimos 5 dias 
+SELECT 
+    DATE(dtMedicao) AS dia,
+    SUM(CASE WHEN Situacao_dado = 'Alerta' THEN 1 ELSE 0 END) AS alertas,
+    SUM(CASE WHEN Situacao_dado = 'Perigo' THEN 1 ELSE 0 END) AS perigos,
+    SUM(CASE WHEN Situacao_dado = 'Incêndio' THEN 1 ELSE 0 END) AS incendios
+FROM Dados JOIN Sensor ON Sensor.idSensor = Dados.fkSensor 
+JOIN Area ON Sensor.fkArea = Area.idArea JOIN Monitoramento ON Monitoramento.idMonitoramento= 
+Area.fkMonitoramento
+WHERE dtMedicao >= CURDATE() - INTERVAL 4 DAY AND Monitoramento.idMonitoramento = 1
+GROUP BY DATE(dtMedicao)
+ORDER BY dia DESC;
+
 
 
 

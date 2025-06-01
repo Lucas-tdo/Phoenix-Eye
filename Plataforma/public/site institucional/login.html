@@ -38,7 +38,7 @@
                     <h1>Página bloqueada!</h1>
                     <img src="assets/icon/block.png" alt="">
                 </div>
-
+                
                 <a href="indexclara.html"><button class="button_voltar">Voltar ao home</button></a>
             </div>
         </div>
@@ -161,7 +161,7 @@
                                 sessionStorage.nivelusuario = resposta[0].nivelUsuario
                                 sessionStorage.idUsuario = resposta[0].idUsuario
                                 sessionStorage.idOrgao = resposta[0].fkOrgao
-                                window.location="../dashboard/dashboard.html" 
+                                dash()
                             }
                             else{
                                 validarloginemail() 
@@ -187,9 +187,9 @@
                         resposta.json().then(resposta => {
                             console.log(resposta)
                             if(resposta.length==1){
-                                window.location="../dashboard/dashboard.html"
                                 sessionStorage.nivelusuario = 3
                                 sessionStorage.idOrgao = resposta[0].idOrgao
+                                dash()
                             }
                             else{
                                 erros++
@@ -203,8 +203,17 @@
     }
 
     function dash() {
-        // função que leva  dash
-        window.location.href = '/Dashboard/dashboard.html'
+        var nivel = sessionStorage.nivelusuario
+        if (nivel == 1) {
+            window.location.href = `../Dashboard/perfil_adm.html`
+        }
+        else if (nivel == 2) {
+            window.location.href = `../Dashboard/home_dash.html`
+        }
+        else {
+            window.location.href = `../Dashboard/home_dash.html`
+        }
+
     }
 
 </script>
