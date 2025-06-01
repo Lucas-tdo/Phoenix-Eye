@@ -49,20 +49,55 @@
             <div class="cadastros" id="cadastros">
                 <div class="cadastros_funcionarios" id="cadastro_orgao">
                     <div>
-                        <h1>Adicionar os dados do seu funcionário:</h1>
-                        <input type="text" placeholder="Nome:" id="input_nome">
+                        <h1>Adicionar os dados do Orgão:</h1>
+                        <input type="text" placeholder="Nome orgão:" id="input_nome">
+                        <input type="text" placeholder="Telefone:" id="input_telefone">
+                        <input type="text" placeholder="Cnpj:" id="input_cnpj">
                         <input type="text" placeholder="Email:" id="input_email">
                         <input type="text" placeholder="Senha:" id="input_senha">
                         <div>
                             <a onclick="ocultarCadastros()" style="cursor: pointer;">
                                 <img src="Assets/Icons/seta.webp">
                             </a>
-                            <button onclick="Cadastrar()">Cadastrar</button>
+                            <button onclick="cadastrar_orgao()">Cadastrar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="deletar_class" id="deletar_apa_div">
+                    <div>
+                        <h1>Tem certeza que deseja deletar?</h1>
+
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="deletar_apa()">Deletar</button>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="deletar_class" id="deletar_orgao_div">
+                    <div>
+                        <h1>Tem certeza que deseja deletar?</h1>
+
+                        <div>
+                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
+                                <img src="Assets/Icons/seta.webp">
+                            </a>
+                            <button onclick="deletar_orgao()">Deletar</button>
                             <div></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- divs de deletar -->
+            
+
 
             <!-- Parte do perfil em si -->
             <div class="dados" id="dados">
@@ -121,15 +156,13 @@
                         <div class="nula"></div>
                         <h1>Nome</h1>
                         <h1>Órgão</h1>
+                        <h1>Status</h1>
+                        <h1></h1>
                         <div></div>
                     </div>
 
-                    <div class="listagem_APAs_adm">
-                        <div>
-                            <img src="Assets/Imgs/img-Satelite.jpg" class="imagem_APA">
-                            <p id="nome_adm">Juan Vieira</p>
-                            <p id="nome_orgao_adm">Corpo de Bombeiros</p>
-                        </div>
+                    <div class="listagem_APAs_adm" id="listagem_APAs_adm">
+                        
                     </div>
                 </div>
             </div>
@@ -163,9 +196,9 @@
 </html>
 
 <script>
-    var funcionario = sessionStorage.idUsuario
+    var adm = sessionStorage.idUsuario
     function dadosperfil_adm() {
-        fetch(`/perfil/dadosperfil_func/${funcionario}`, {
+        fetch(`/perfil/dadosperfil_func/${adm}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         })
@@ -193,12 +226,106 @@
                 <p>${orgao.email}</p>
                 <p>${orgao.senha}</p>
                 <div >
-                    <img src="Assets/Icons/Lixeira.png">
+                    <img src="Assets/Icons/Lixeira.png" onclick="abrirdeletar(${orgao.idOrgao})">
                 </div>
             </div>
             `
         }
     }
+
+
+
+    function cadastrar_orgao(){
+        var nome = input_nome.value
+        var telefone =input_telefone.value
+        var cnpj=input_cnpj.value
+        var email=input_email.value
+        var senha = input_senha.value
+        if(nome==""||telefone==""||cnpj==""||email==""||senha==""){
+            alert("Erro todos os campos devem estar preenchidos")
+        }
+        else{
+            fetch("/perfil/cadastrar_orgao",{
+                method:"POST",
+                 headers: {
+                "Content-Type": "application/json",
+                },
+                body:JSON.stringify({
+                    nomeServer:nome,
+                    telefoneServer:telefone,
+                    cnpjServer:cnpj,
+                    emailServer:email,
+                    senhaServer:senha
+                })
+            })
+            .then(resposta=>{
+                listarorgao()
+            })
+            .catch(erro=>{
+                console.log(erro)
+            })
+            ocultarCadastros()
+        }
+        
+    }
+
+    function deletar_orgao(){
+        var orgao = sessionStorage.deletar_orgao
+        fetch(`/perfil/deletar_orgao/${orgao}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(resposta => {
+                resposta.json().then(resposta => {
+                    sessionStorage.removeItem('deletar_orgao');
+                    listarorgao()
+                    ocultarCadastros()
+                })
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
+
+    async function listar_todas_apas(){
+        listagem_APAs_adm.innerHTML=""
+        const resposta = await fetch(`/perfil/listar_todas_apas`)
+        const apas = await resposta.json()
+        for(apa of apas){
+            listagem_APAs_adm.innerHTML+=`
+            <div>
+                    <img src="${apa.Imagem}" class="imagem_APA">
+                    <p>${apa.Nome_Atribuido}</p>
+                    <p>${apa.orgao}</p>
+                    <img src="./Assets/Icons/${apa.Status_Monitoramento}.png" class="imagem_Situacao">
+                    <img src="Assets/Icons/Lixeira.png" onclick ="abrir_deletar_apa(${apa.idMonitoramento})">
+            </div>
+            `
+        }
+    }   
+
+
+    function deletar_apa() {
+       var id_apa = sessionStorage.deletar_apa;
+       fetch(`/perfil/deletar_apa/${id_apa}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        },).then(resposta => {
+            sessionStorage.removeItem('deletar_apa');
+            listar_todas_apas()
+        }).catch(erro => {
+            console.log(erro)
+        })
+         deletar_apa_div.style.display = "none";
+        cadastros.style.display = "none"
+
+    }
+
+
 
     async function listar_solicitacoes_apa() {
 
@@ -214,8 +341,8 @@
                             <p id="nome_responsavel">${solicitacoes[i].Nome_Atribuido}</p>
                             <p id="nome_orgao">${solicitacoes[i].orgao}</p>
                             <div id="confirmacao_apa">
-                                <img src="Assets/Icons/confirmar.png" onclick = "aceitar_apa(${solicitacoes[i].idMonitoramento})">
-                                <img src="Assets/Icons/recusar.png">
+                                <img src="Assets/Icons/confirmar.png" onclick = "atualizar_monitoramento(${solicitacoes[i].idMonitoramento},'Aprovado')">
+                                <img src="Assets/Icons/recusar.png" onclick= "atualizar_monitoramento(${solicitacoes[i].idMonitoramento},'Reprovado')">
                             </div>
                         </div>
             `
@@ -230,15 +357,15 @@
 
 
 
-     function aceitar_apa(idMonitoramento){
-
+     function atualizar_monitoramento(idMonitoramento,situacao){    
          fetch(`/perfil/atualizar_monitoramento`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                monitoramentoServer: idMonitoramento
+                monitoramentoServer: idMonitoramento,
+                situacaoServer:situacao
             }),
         })
             .then(resposta => {
@@ -249,9 +376,7 @@
             })
 
      }
-
-
-    listar_solicitacoes_apa();
+    
 
     function mostrarPerfil() {
         var solicitacoes = document.querySelector("#solicitacoes")
@@ -267,7 +392,8 @@
         orgao.style.backgroundColor = "transparent";
         solicitacoes.style.backgroundColor = "transparent";
         cadastros.style.display = "none"
-
+        deletar_orgao_div.style.display = "none"
+        cadastro_orgao.style.display = "none"
     }
 
     function mostrarOrgao() {
@@ -302,7 +428,7 @@
         orgao.style.backgroundColor = "transparent";
         solicitacoes.style.backgroundColor = "transparent";
         cadastros.style.display = "none"
-
+        listar_todas_apas()
     }
 
     function mostrarSolicitacoes() {
@@ -319,13 +445,32 @@
         orgao.style.backgroundColor = "transparent";
         solicitacoes.style.backgroundColor = "#024002";
         cadastros.style.display = "none"
+        listar_solicitacoes_apa();
     }
 
     function abrirCadastroOrgao() {
         cadastro_orgao.style.display = "flex"
         cadastros.style.display = "flex"
     }
+    function abrirdeletar(id) {
+        sessionStorage.deletar_orgao = `${id}`
+        deletar_orgao_div.style.display = "flex"
+        cadastros.style.display = "flex"
+        
+    }
 
+    function abrir_deletar_apa(id_apa){
+        sessionStorage.deletar_apa = id_apa;
+        deletar_apa_div.style.display = "flex"
+        cadastros.style.display = "flex"
+    }
+
+    function ocultarCadastros(){
+        cadastro_orgao.style.display = "none"
+        cadastros.style.display = "none"
+        deletar_orgao_div.style.display = "none"
+        deletar_apa_div.style.display = "none";
+    }
     mostrarPerfil();
     dadosperfil_adm()
 

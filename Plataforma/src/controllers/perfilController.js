@@ -238,11 +238,14 @@ function listar_solicitacao(req,res){
 
 function atualizar_monitoramento(req,res){
     var idMonitoramento = req.body.monitoramentoServer
+    var situacao = req.body.situacaoServer
 
     if (idMonitoramento == undefined) {
         res.status(400).send("Seu idMonitoramento está undefined!");
+    }else if(situacao == undefined){
+        res.status(400).send("Sua situação está undefined!");
     } else{
-        perfilModel.atualizar_monitoramento(idMonitoramento)
+        perfilModel.atualizar_monitoramento(idMonitoramento,situacao)
         .then(resultado=>{
             res.json(resultado)
             console.log('Área de Monitoramento realizado com sucesso')
@@ -259,6 +262,50 @@ function atualizar_monitoramento(req,res){
 }
 
 
+function cadastrar_orgao(req,res){
+    var nome = req.body.nomeServer
+    var telefone = req.body.telefoneServer
+    var cnpj = req.body.cnpjServer
+    var email = req.body.emailServer
+    var senha = req.body.senhaServer
+    perfilModel.cadastrar_orgao(nome,telefone,cnpj,email,senha)
+    .then(resultado=>{
+        console.log("Orgão cadastrado")
+        res.status(201).send("Orgão criado com sucesso")
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res.status(500).send(erro.sqlMessage)
+    })
+    
+}
+
+function deletar_orgao(req, res){
+    var id_orgao = req.params.id_orgao
+    perfilModel.deletar_orgao(id_orgao)
+    .then(resposta=>{
+        console.log(`O orgão ${id_orgao} foi excluido`)
+        res.json(resposta)
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res(500).json(erro.sqlMessage)
+    })
+    
+}
+
+function listar_todas_apas(req,res){
+    perfilModel.listar_todas_apas()
+    .then(resposta=>{
+        console.log("APAS do sistema listadas")
+        res.json(resposta)
+    })
+    .catch(erro=>{
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
 module.exports = {
     cadastrar,
     listarfunc,
@@ -272,5 +319,8 @@ module.exports = {
     atualizar_funcionario,
     listarorgao,
     listar_solicitacao,
-    atualizar_monitoramento
+    atualizar_monitoramento,
+    cadastrar_orgao,
+    deletar_orgao,
+    listar_todas_apas
 }

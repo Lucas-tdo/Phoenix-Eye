@@ -93,16 +93,39 @@ WHERE Status_Monitoramento = "Em análise";
 
 }
 
-function atualizar_monitoramento(idMonitoramento) {
+function atualizar_monitoramento(idMonitoramento,situacao) {
     var instrucaoSql = `
-       UPDATE Monitoramento SET Status_Monitoramento = "Aprovado" WHERE idMonitoramento = ${idMonitoramento};
+       UPDATE Monitoramento SET Status_Monitoramento = "${situacao}" WHERE idMonitoramento = ${idMonitoramento};
 
     `;
     return database.executar(instrucaoSql);
 
 }
 
+function cadastrar_orgao(nome,telefone,cnpj,email,senha){
+    var instrucaoSql = `
+       insert into Orgao values
+        (default,'${nome}','${cnpj}','${telefone}','${email}','${senha}');
+    `;
+    return database.executar(instrucaoSql);
+}
 
+function deletar_orgao(id_orgao){
+    var instrucaoSql = `
+       delete from Orgao where idOrgao=${id_orgao};
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function listar_todas_apas(){
+    var instrucaoSql = `
+       select m.idMonitoramento,m.Nome_Atribuido,m.Imagem,m.Status_Monitoramento,o.orgao from Monitoramento m 
+        join Orgao o on
+        idOrgao=fkOrgao;
+
+    `;
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     cadastrar,
@@ -117,6 +140,9 @@ module.exports = {
     atualizar_funcionario,
     listarorgao,
     listar_solicitacao,
-    atualizar_monitoramento
+    atualizar_monitoramento,
+    cadastrar_orgao,
+    deletar_orgao,
+    listar_todas_apas
 }
 

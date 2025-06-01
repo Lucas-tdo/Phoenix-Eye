@@ -58,6 +58,18 @@ router.get("/listar_solicitacao", function(req,res){
 router.put("/atualizar_monitoramento", function(req,res){
     perfilController.atualizar_monitoramento(req,res)
 })
+    
+router.post("/cadastrar_orgao",function(req,res){
+    perfilController.cadastrar_orgao(req,res)
+})
+
+router.delete("/deletar_orgao/:id_orgao",function(req,res){
+    perfilController.deletar_orgao(req,res)
+})
+
+router.get("/listar_todas_apas",function(req,res){
+    perfilController.listar_todas_apas(req,res)
+})
 
 
 module.exports=router;

@@ -35,12 +35,7 @@
                 </div>
             </a>
 
-            <a onclick="mostrarAcessos()">
-                <div id="APA">
-                    <img src="Assets/">
-                    <h1>APAs</h1>
-                </div>
-            </a>
+    
 
         </div>
 
@@ -116,19 +111,7 @@
 
 
 
-                <div class="deletar_class" id="deletar_apa_div">
-                    <div>
-                        <h1>Tem certeza que deseja deletar?</h1>
-
-                        <div>
-                            <a onclick="ocultarCadastros()" style="cursor: pointer;">
-                                <img src="Assets/Icons/seta.webp">
-                            </a>
-                            <button onclick="deletar_apa()">Deletar</button>
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="deletar_class" id="deletar_funcionario_div">
                     <div>
@@ -215,7 +198,6 @@
                         <h1>Nome</h1>
                         <h1>Sensores</h1>
                         <h1>Status</h1>
-                        <div></div>
                     </div>
 
                     <div class="listagem_APAs" id="listagem_APAs">
@@ -419,10 +401,7 @@
                             <img src="${resp.Imagem}" class="imagem_APA">
                             <p>${resp.Nome_Atribuido}</p>
                             <p>32</p>
-                            <img src="./Assets/Icons/${resp.Status_Monitoramento}.png" class="imagem_Situacao">
-                            <img src="Assets/Icons/Lixeira.png" onclick ="abrir_deletar_apa(${resp.idMonitoramento})" >
-                                
-                            
+                            <img src="./Assets/Icons/${resp.Status_Monitoramento}.png" class="imagem_Situacao">                    
                     </div>
                    
                    `
@@ -434,25 +413,6 @@
 
     }
 
-
-
-
-    function deletar_apa() {
-       var id_apa = sessionStorage.deletar_apa;
-       fetch(`/perfil/deletar_apa/${id_apa}`, {
-            method: "delete",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        },).then(resposta => {
-            listarapas();
-        }).catch(erro => {
-            console.log(erro)
-        })
-         deletar_apa_div.style.display = "none";
-        cadastros.style.display = "none"
-
-    }
 
 
     function mostrarPerfil() {
@@ -485,12 +445,6 @@
     }
 
 
-    function abrir_deletar_apa(id_apa){
-        sessionStorage.deletar_apa = id_apa;
-        deletar_apa_div.style.display = "flex"
-        cadastros.style.display = "flex"
-    }
-
     function abrir_deletar_func(id_func){
         sessionStorage.deletar_funcionario = id_func
         deletar_funcionario_div.style.display="flex"
@@ -504,7 +458,6 @@
         cadastros.style.display = "none"
         deletar.style.display = "none"
         input_nome.value = "";
-        deletar_apa_div.style.display = "none";
         deletar_funcionario_div.style.display="none"
         input_email.value = "";
         input_senha.value = "";
@@ -517,7 +470,6 @@
         sessionStorage.deletar = `${id}`
         deletar.style.display = "flex"
         cadastros.style.display = "flex"
-
     }
     function abrirCadastroFunc() {
         cadastro_func.style.display = "flex"
