@@ -151,15 +151,15 @@
         const ctx2 = document.getElementById('myChart2');
    
    
-           new Chart(ctx2, {
+           const umidade = new Chart(ctx2, {
                type: 'line',
                data: {
-                   labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h'],
+                   labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', ],
                    datasets: [
    
                        {
                            label: 'Aviso',
-                           data: [5,5,5,5,5,5,5],
+                           data: [],
                            borderWidth: 2,
                            borderColor: 'rgb(255, 251, 8)',
                            backgroundColor: 'rgb(255, 251, 8)',
@@ -167,7 +167,7 @@
                        }
                        , {
                            label: 'Alerta',
-                           data: [5,5,5,5,5,5,],
+                           data: [],
                            borderWidth: 2,
                            borderColor: 'rgb(255, 0, 0)',
                            backgroundColor: 'rgb(255, 0, 0)',
@@ -175,7 +175,7 @@
                        }
                        , {
                            label: 'Umidade',
-                           data: [75, 76, 78, 80, 82, 81, 79, 78, 76, 5],
+                           data: [],
                            borderWidth: 5,
                            borderColor: 'rgb(54, 162, 235)',
                            backgroundColor: 'rgb(54, 162, 235)',
@@ -218,34 +218,34 @@
            });
 
 
-        new Chart(ctx, {
+        const Temperatura =new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h'],
                 datasets: [
                     {
                         label: 'Aviso',
-                        data: [34, 34, 34, 34, 34, 34, 34, 34, 34, 34],
+                        data: [],
                         borderWidth: 2,
                         borderColor: 'rgb(255, 251, 8)',
                         backgroundColor: 'rgb(255, 251, 8)',
                     }, {
                         label: 'Alerta',
-                        data: [38, 38, 38, 38, 38, 38, 38, 38, 38, 38],
+                        data: [],
                         borderWidth: 2,
                         borderColor: 'rgb(255, 123, 0)',
                         backgroundColor: 'rgb(255, 123, 0)',
                     },
                     {
                         label: 'Incêndio',
-                        data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
+                        data: [],
                         borderWidth: 2,
                         borderColor: 'rgb(255, 0, 0)',
                         backgroundColor: 'rgb(255, 0, 0)',
                     },
                     {
                         label: 'Temperatura',
-                        data: [38, 23, 25, 27, 27, 29, 28, 26, 24, 38],
+                        data: [],
                         borderWidth: 5,
                         borderColor: 'rgb(0, 128, 0)',
                         backgroundColor: 'rgb(0, 128, 0)',
@@ -291,17 +291,39 @@
 
     async function puxar_dados_sensor() {
 
+    
+
         div_aviso.style.display = "none"
 
         const resp = await fetch(`/medidas/dados_sensor_especifico/${id_sensor}`)
         const resp_dados = await resp.json();
-
+        await console.log(resp_dados)
         id_Title.innerHTML = "Dash:" + (Nome_Sensor.innerHTML = resp_dados[0].nome);
 
         tempSensorDash.innerHTML = resp_dados[0].temperatura
         umidSensorDash.innerHTML = resp_dados[0].umidade
         Nome_Sensor.innerHTML = resp_dados[0].nome
+        Temperatura.data.datasets[0].data=[]
+        Temperatura.data.datasets[1].data=[]
+        Temperatura.data.datasets[2].data=[]
+        Temperatura.data.datasets[3].data=[]
+        umidade.data.datasets[0].data=[]
+        umidade.data.datasets[1].data=[]
+        umidade.data.datasets[2].data=[]
+    
+        for(dados of resp_dados){
+            Temperatura.data.datasets[0].data.unshift(20)
+            Temperatura.data.datasets[1].data.unshift(38)
+            Temperatura.data.datasets[2].data.unshift(47)
+            Temperatura.data.datasets[3].data.unshift(dados.temperatura)
+            umidade.data.datasets[0].data.unshift(40)
+            umidade.data.datasets[1].data.unshift(20)
+            umidade.data.datasets[2].data.unshift(dados.umidade)
 
+        }
+        Temperatura.update()
+        umidade.update()
+        
         if (resp_dados[0].status_sensor == "Manutencao") {
             div_grafico.style.display = "none";
             div_kpi.style.display = "none";

@@ -33,12 +33,10 @@ WHERE Monitoramento.idMonitoramento = ${idMonitoramento};
 }
 
 function dados_sensor_especifico(id_Sensor) {
-    var instrucaoSql = `
-    
+    var instrucaoSql = ` 
     SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao , Dados.Situacao_dado, Sensor.status_sensor
-    FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = ${id_Sensor} ORDER BY Dados.dtMedicao DESC LIMIT 1;
+    FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = ${id_Sensor} ORDER BY Dados.dtMedicao DESC LIMIT 7;
     `;
-
     console.log("Selecionando dados do sensor no banco de dados");
     return database.executar(instrucaoSql)
 }

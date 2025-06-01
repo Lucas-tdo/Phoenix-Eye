@@ -54,7 +54,7 @@ const serial = async (
                 var situacao = "";
                 // Sorteia a situação
                 const sorteio = Math.random();
-                let temperaturaFake, umidadeFake, situacao;
+                let temperaturaFake, umidadeFake;
 
                 if (sorteio < 0.84) { // 84% Normal
                     temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1));
