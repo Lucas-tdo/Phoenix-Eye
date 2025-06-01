@@ -158,6 +158,7 @@
                     .then(resposta => {
                         resposta.json().then(resposta => {
                             if(resposta.length==1){
+                                sessionStorage.Nome_Usuario = resposta[0].nome
                                 sessionStorage.nivelusuario = resposta[0].nivelUsuario
                                 sessionStorage.idUsuario = resposta[0].idUsuario
                                 sessionStorage.idOrgao = resposta[0].fkOrgao

@@ -44,8 +44,8 @@ function dados_sensor_especifico(id_Sensor) {
 
 function listar_apas(idOrgao) {
     var instrucaoSql = `
-    
-  SELECT * FROM Monitoramento WHERE FkOrgao = ${idOrgao} AND Status_Monitoramento = "Aprovado"
+
+      SELECT Orgao.orgao,Monitoramento.* FROM Monitoramento JOIN Orgao ON Orgao.idOrgao = Monitoramento.FKOrgao WHERE FkOrgao = ${idOrgao} AND Status_Monitoramento = "Aprovado";
     `;
 
     console.log("Selecionando dados do sensor no banco de dados");

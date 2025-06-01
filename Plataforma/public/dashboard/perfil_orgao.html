@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix Eye | Perfil</title>
     <link rel="stylesheet" href="Styles/Perfil.css">
+     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -246,9 +247,9 @@
                 resposta.json().then(resposta => {
                     titulo_orgao.innerHTML += resposta[0].orgao
                     nome_orgao.innerHTML += resposta[0].orgao
-                    email_orgao.innerHTML += resposta[0].cnpj
+                    email_orgao.innerHTML += resposta[0].email
                     telefone_orgao.innerHTML += resposta[0].telefone
-                    cnpj_orgao.innerHTML += resposta[0].email
+                    cnpj_orgao.innerHTML += resposta[0].cnpj
                 })
             })
             .catch(erro => {
