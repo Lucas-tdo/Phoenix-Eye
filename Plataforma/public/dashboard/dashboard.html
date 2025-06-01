@@ -257,7 +257,7 @@
             } else if (resp_dados[i].Situacao == "Perigo") {
                 mensagem_Atencao += `
                         <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
-                            <img src="./Assets/Icons/alerta.png" style="height: 50px;>
+                            <img src="./Assets/Icons/perigo.png" style="height: 50px;">
                             <div>
                                 <h1>Sensor: ${resp_dados[i].Nome_Sensor}</h1>
                                 <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
@@ -342,7 +342,16 @@
                         <img src="Assets/Icons/sem-sinal.png" alt="">
                     </div>
                     `
-                    } else {
+                    }else if(resp_dados[k].Situacao == "Incêndio") {
+                        mensagem_grid += `
+                     <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
+                        <img src="Assets/grid_img/fogo.png" alt="">
+                    </div>
+                    `
+
+                    }
+                    
+                    else {
                         mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/sensor.png" alt="">
@@ -393,14 +402,14 @@
 
 
         console.log(resp_cinco_dias)
-        new Chart(ctx, {
+         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: [`${diaHoje - 4}/${mesHoje}`, `${diaHoje - 3}/${mesHoje}`, `${diaHoje - 2}/${mesHoje}`, `${diaHoje - 1}/${mesHoje}`, 'Hoje'], // datas
                 datasets: [
                     {
                         label: 'Alerta',
-                        data: [resp_cinco_dias[4].alertas, resp_cinco_dias[3].alertas, resp_cinco_dias[2].alertas, resp_cinco_dias[1].alertas, resp_cinco_dias[0].alertas], // exemplo, ajuste conforme seus dados
+                        data: [resp_cinco_dias[4].alertas, resp_cinco_dias[3].alertas, resp_cinco_dias[2].alertas, resp_cinco_dias[1].alertas, resp_cinco_dias[0].alertas],
                         backgroundColor: '#FFEB3B' // amarelo
                     },
                     {

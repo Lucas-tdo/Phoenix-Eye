@@ -64,6 +64,7 @@
     }
 
     function redirecionar(id){
+        var idMonitoramento = id;
 
         fetch(`/login/cadastro_acesso`, {
             method: "POST",
@@ -71,7 +72,7 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idMonitoramentoServer: id,
+                idMonitoramentoServer: idMonitoramento,
                 idUsuarioServer: sessionStorage.idUsuario,
                 idOrgaoServer:sessionStorage.idOrgao
             }),

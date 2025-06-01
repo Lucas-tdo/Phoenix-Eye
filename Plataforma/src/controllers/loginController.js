@@ -43,9 +43,9 @@ function checar_orgao(req, res) {
 }
 
 function cadastro_acesso(req, res) {
-    var idUsuario = req.params.idUsuarioServer;
-    var idMonitoramento = req.params.idMonitoramentoServer;
-    var idOrgao = req.params.idOrgaoServer;
+    var idUsuario = req.body.idUsuarioServer;
+    var idMonitoramento = req.body.idMonitoramentoServer;
+    var idOrgao = req.body.idOrgaoServer;
 
     loginModel.cadastro_acesso(idUsuario, idMonitoramento, idOrgao)
         .then(resultado => {
