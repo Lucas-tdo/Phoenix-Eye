@@ -35,6 +35,13 @@
                 </div>
             </a>
 
+            <a onclick="mostrarAcessos()">
+                <div id="APA">
+                    <img src="Assets/">
+                    <h1>APAs</h1>
+                </div>
+            </a>
+
         </div>
 
         <div class="Central" id="central">
@@ -411,7 +418,7 @@
                    <div>
                             <img src="${resp.Imagem}" class="imagem_APA">
                             <p>${resp.Nome_Atribuido}</p>
-                            <p>20</p>
+                            <p>32</p>
                             <img src="./Assets/Icons/${resp.Status_Monitoramento}.png" class="imagem_Situacao">
                             <img src="Assets/Icons/Lixeira.png" onclick ="abrir_deletar_apa(${resp.idMonitoramento})" >
                                 

@@ -34,7 +34,15 @@
 
         <div class="KPI">
             <div class="Status">
-                <h1>Status dos Sensores</h1>
+
+                <div>
+                    <h4>Total Sensores</h4>
+                    <div>
+                       
+                        <h3 id="qtdTotal"></h3>
+                    </div>
+                </div>
+
                 <div>
                     <h4>Alertas</h4>
                     <div>
@@ -139,7 +147,7 @@
                 <div class="AtencaoSensores">
                     <h1>Atenção Necessária:</h1>
                     <div class="lista_Atencao" id="lista_atencao">
-
+                        <h1 style="color: #1A3421; font-size: 20px;">Todos sensores em normalidade</h1>
                     </div>
                 </div>
             </div>
@@ -155,7 +163,6 @@
 </body>
 
 </html>
-
 
 
 <script>
@@ -205,7 +212,7 @@
             const resp_dados = await resp.json();
 
             console.log(resp_dados);
-            
+
             listar_sensores(resp_dados)
         } else {
             console.error("Erro ao buscar dados:", resp.status);
@@ -218,7 +225,7 @@
         var mensagem = ""
         var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
         var mensagem_grid = ''
-
+        var mensagem_Atencao = "";
 
 
         /*  Listando os sensores na lista */
@@ -233,10 +240,50 @@
                     <h1>${resp_dados[i].Situacao}</h1>
                 </div>
             </div> 
-            
            `;
+
+
+            if (resp_dados[i].Situacao == "Alerta") {
+                mensagem_Atencao += `
+                        <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
+                            <img src="./Assets/grid_img/aviso.png" style="height: 50px;">
+                            <div>
+                                <h1>Sensor: ${resp_dados[i].Nome_Sensor}</h1>
+                                <p>Temperatura e umidade fora dos padrões normais. <br> Necessária tomada de ação!</p>
+                            </div>
+                        </div>
+                `;
+
+            } else if (resp_dados[i].Situacao == "Perigo") {
+                mensagem_Atencao += `
+                        <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
+                            <img src="./Assets/Icons/alerta.png" style="height: 50px;>
+                            <div>
+                                <h1>Sensor: ${resp_dados[i].Nome_Sensor}</h1>
+                                <p>Temperatura e umidade em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
+                            </div>
+                        </div>
+                `;
+
+
+            } else if (resp_dados[i].Situacao == "Incêndio") {
+                mensagem_Atencao += `
+                         <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
+                            <img src="./Assets/grid_img/fogo.png" style="height: 50px;">
+                            <div>
+                                <h1>Sensor: ${resp_dados[i].Nome_Sensor}</h1>
+                                <p>Possível caso de incêndio! <br>Necessária tomada de ação imediata!</p>
+                            </div>
+                        </div>
+                `;
+            }
+
         }
+
+        lista_atencao.innerHTML = mensagem_Atencao;
+
         console.log(resp_dados);
+
         /* Fazendo o gráfico de grid */
 
 
@@ -245,6 +292,9 @@
         var contador_manutencao = 0;
 
         var posicaoAtual = 0;
+
+
+
         for (var i = 0; i < lista_grid.length; i++) {
 
             posicaoAtual = lista_grid[i];
@@ -278,6 +328,8 @@
                         <img src="Assets/Icons/alerta.png" alt="">
                     </div>
                     `
+
+
                     } else if (resp_dados[k].Situacao == "Perigo") {
                         mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
@@ -308,7 +360,7 @@
         }
 
 
-
+        qtdTotal.innerHTML = resp_dados.length;
         grid.innerHTML = mensagem_grid
         qtdAviso.innerHTML = contador_alerta;
         qtdAlerta.innerHTML = contador_perigo;
@@ -329,6 +381,12 @@
 
         const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${sessionStorage.idMonitoramento}`)
         const resp_cinco_dias = await dados_cinco_dias.json();
+
+
+
+        /* Parte da atencao necessária */
+
+        var mensagem_atencao = ""
 
 
 
@@ -406,128 +464,3 @@
     buscar_dados_monitoramento();
 
 </script>
-
-
-
-<!-- Caso precise lucas -->
-
-
-<!--  <div class="A">
-                    <div id="A1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A2"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A3"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A4"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A5"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A6"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A7" onclick="dashSensor()" style="cursor: pointer;">
-                        <img src="Assets/grid_img/sensor.png" alt="">
-                    </div>
-                    <div id="A8"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="A9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="B">
-                    <div id="B1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="B2"></div>
-                    <div id="B3"></div>
-                    <div id="B4"></div>
-                    <div id="B5"></div>
-                    <div id="B6"></div>
-                    <div id="B7"></div>
-                    <div id="B8"></div>
-                    <div id="B9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="C">
-                    <div id="C1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="C2"></div>
-                    <div id="C3"></div>
-                    <div id="C4"></div>
-                    <div id="C5"></div>
-                    <div id="C6"></div>
-                    <div id="C7"></div>
-                    <div id="C8"></div>
-                    <div id="C9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="D">
-                    <div id="D1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="D2"></div>
-                    <div id="D3"></div>
-                    <div id="D4"></div>
-                    <div id="D5"></div>
-                    <div id="D6"></div>
-                    <div id="D7"></div>
-                    <div id="D8"></div>
-                    <div id="D9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="E">
-                    <div id="E1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="E2"></div>
-                    <div id="E3"></div>
-                    <div id="E4"></div>
-                    <div id="E5"></div>
-                    <div id="E6"></div>
-                    <div id="E7"></div>
-                    <div id="E8"></div>
-                    <div id="E9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="F">
-                    <div id="F1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="F2"></div>
-                    <div id="F3"></div>
-                    <div id="F4"></div>
-                    <div id="F5"></div>
-                    <div id="F6"></div>
-                    <div id="F7"></div>
-                    <div id="F8"></div>
-                    <div id="F9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-
-                <div class="G">
-                    <div id="G1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="G2"></div>
-                    <div id="G3"></div>
-                    <div id="G4"></div>
-                    <div id="G5"></div>
-                    <div id="G6"></div>
-                    <div id="G7"></div>
-                    <div id="G8"></div>
-                    <div id="G9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="H">
-                    <div id="H1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="H2"></div>
-                    <div id="H3"></div>
-                    <div id="H4"></div>
-                    <div id="H5"></div>
-                    <div id="H6"></div>
-                    <div id="H7"></div>
-                    <div id="H8"></div>
-                    <div id="H9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
-
-
-                <div class="I">
-                    <div id="I1"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I2"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I3"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I4"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I5"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I6"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I7"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I8"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                    <div id="I9"><img src="Assets/grid_img/sensor.png" alt=""></div>
-                </div>
- -->

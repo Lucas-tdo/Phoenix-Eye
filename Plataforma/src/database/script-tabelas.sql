@@ -61,6 +61,23 @@ CREATE TABLE Dados (
 );
 
 
+CREATE TABLE Acesso(
+	idAcesso INT AUTO_INCREMENT,
+	fkUsuario INT,
+    fkMonitoramento INT,
+    fkOrgao INT,
+    dataAcesso DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    CONSTRAINT Chave_composta_Acesso PRIMARY KEY (idAcesso,fkUsuario, fkMonitoramento, fkOrgao, dataAcesso),
+    CONSTRAINT fk_usuario_acesso FOREIGN KEY (fkUsuario) REFERENCES Usuario(idUsuario),
+	CONSTRAINT fk_Monitoramento_acesso FOREIGN KEY (fkMonitoramento) REFERENCES Monitoramento(idMonitoramento),
+	CONSTRAINT fk_Orgao_acesso FOREIGN KEY(fkOrgao) REFERENCES Orgao(idOrgao)
+);
+
+
+
+INSERT INTO Acesso VALUES 
+(DEFAULT, 1, 2, 1 , DEFAULT);
+
 
 -- Inserindo um orgão
 INSERT INTO Orgao VALUES 
@@ -68,13 +85,27 @@ INSERT INTO Orgao VALUES
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
-(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'senha_133', 1, null),
+(DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'Senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
+DELETE FROM Usuario WHERE idUsuario = 4;
+SELECT * FROM Usuario;
+
+SELECT * FROM Acesso;
+
+SELECT * FROM Monitoramento;
 
 INSERT INTO Monitoramento VALUES
 (DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
 
+SHOW TABLES;
+
+
+UPDATE Monitoramento SET Status_Monitoramento = "Aprovado" WHERE idMonitoramento = 2;
+
+SELECT * FROM Monitoramento;
+
+SELECT * FROM Area;
 
 -- Inserindo áreas
 INSERT INTO Area VALUES
@@ -281,10 +312,44 @@ WHERE s.status_sensor = 'Ativo'
 
 update Sensor SET status_sensor = "Manutencao" WHERE idSensor = 15;
   
-Select * from Dados;
+TRUNCATE TABLE Dados;
 
-SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.nivelRisco
-FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Sensor.idSensor = 3;
+
+TRUNCATE TABLE Monitoramento;
+
+
+SELECT * FROM Monitoramento WHERE idMonitoramento = 1;
+
+SELECT * FROM Monitoramento;
+
+SELECT Nome_Atribuido, Imagem, Status_Monitoramento,FkOrgao,idMonitoramento, Orgao.orgao
+FROM Monitoramento JOIN Orgao ON Orgao.idOrgao = Monitoramento.FkOrgao 
+WHERE Status_Monitoramento = "Em análise" AND FkOrgao = 1;
+
+
+SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.Situacao_dado
+FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Dados.Situacao_dado = "Incêndio";
+
+
+SELECT COUNT(*) AS total_alertas
+FROM Dados
+WHERE Situacao_dado = 'Alerta'
+AND DATE(dtMedicao) = '2025-05-29';
+
+
+-- Dados de alerta, perigo e incêndio nos ultimos 5 dias 
+SELECT 
+    DATE(dtMedicao) AS dia,
+    SUM(CASE WHEN Situacao_dado = 'Alerta' THEN 1 ELSE 0 END) AS alertas,
+    SUM(CASE WHEN Situacao_dado = 'Perigo' THEN 1 ELSE 0 END) AS perigos,
+    SUM(CASE WHEN Situacao_dado = 'Incêndio' THEN 1 ELSE 0 END) AS incendios
+FROM Dados JOIN Sensor ON Sensor.idSensor = Dados.fkSensor 
+JOIN Area ON Sensor.fkArea = Area.idArea JOIN Monitoramento ON Monitoramento.idMonitoramento= 
+Area.fkMonitoramento
+WHERE dtMedicao >= CURDATE() - INTERVAL 4 DAY AND Monitoramento.idMonitoramento = 1
+GROUP BY DATE(dtMedicao)
+ORDER BY dia DESC;
+
 
 
 

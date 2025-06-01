@@ -64,6 +64,21 @@
     }
 
     function redirecionar(id){
+
+        fetch(`/login/cadastro_acesso`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idMonitoramentoServer: id,
+                idUsuarioServer: sessionStorage.idUsuario,
+                idOrgaoServer:sessionStorage.idOrgao
+            }),
+        })
+
+
+
         sessionStorage.idMonitoramento = id;
         window.location = "./dashboard.html"
     }

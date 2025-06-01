@@ -10,4 +10,10 @@ router.get("/checar_orgao/:email/:senha", function(req,res){
     loginController.checar_orgao(req,res)
 })
 
+
+router.post("/cadastro_acesso", function(req,res){
+    loginController.cadastro_acesso(req,res)
+})
+
+
 module.exports=router;
