@@ -73,7 +73,7 @@ CREATE TABLE Acesso(
 	CONSTRAINT fk_Orgao_acesso FOREIGN KEY(fkOrgao) REFERENCES Orgao(idOrgao)
 );
 
-
+SELECT * FROM Acesso;
 
 INSERT INTO Acesso VALUES 
 (DEFAULT, 1, 2, 1 , DEFAULT);
@@ -155,6 +155,7 @@ INSERT INTO Area VALUES
 (DEFAULT, 'I', 7, 1), (DEFAULT, 'I', 8, 1), (DEFAULT, 'I', 9, 1);
 
 
+SELECT * FROM Area;
 
 -- Inserindo sensores
 
@@ -331,10 +332,14 @@ SELECT Sensor.nome ,Dados.temperatura, Dados.umidade ,Dados.dtMedicao ,Dados.Sit
 FROM Sensor JOIN Dados ON Dados.fkSensor = Sensor.idSensor WHERE Dados.Situacao_dado = "Incêndio";
 
 
-SELECT COUNT(*) AS total_alertas
-FROM Dados
-WHERE Situacao_dado = 'Alerta'
-AND DATE(dtMedicao) = '2025-05-29';
+SELECT Monitoramento.Nome_Atribuido,
+  (SELECT COUNT(*) FROM Dados WHERE Situacao_dado = 'Alerta' AND DATE(dtMedicao) = CURDATE()) AS total_alertas,
+  (SELECT COUNT(*) FROM Dados WHERE Situacao_dado = 'Perigo' AND DATE(dtMedicao) = CURDATE()) AS total_perigos,
+  (SELECT COUNT(*) FROM Dados WHERE Situacao_dado = 'Incêndio' AND DATE(dtMedicao) = CURDATE()) AS total_incendios;
+;
+
+
+  SELECT Orgao.orgao,Monitoramento.* FROM Monitoramento JOIN Orgao ON Orgao.idOrgao = Monitoramento.FKOrgao WHERE FkOrgao = 1 AND Status_Monitoramento = "Aprovado";
 
 
 -- Dados de alerta, perigo e incêndio nos ultimos 5 dias 
@@ -351,5 +356,13 @@ GROUP BY DATE(dtMedicao)
 ORDER BY dia DESC;
 
 
+SELECT * FROM Usuario;
 
+DELETE FROM Acesso WHERE fkUsuario = 3;
+
+SELECT Usuario.nome, Monitoramento.Nome_Atribuido ,Acesso.dataAcesso 
+FROM Acesso JOIN Monitoramento ON fkMonitoramento = Monitoramento.idMonitoramento
+JOIN Usuario ON fkUsuario = Usuario.idUsuario 
+JOIN Orgao  ON Usuario.fkOrgao = Orgao.idOrgao 
+WHERE Usuario.fkOrgao = 1; 
 
