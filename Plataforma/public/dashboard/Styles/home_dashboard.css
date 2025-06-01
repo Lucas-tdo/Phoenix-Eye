@@ -43,8 +43,9 @@
     font-size: 19px;
 }
 
-.nav div img {
+.nav #perfil {
     height: 50px;
+    margin-right: 10px;
 }
 
 
