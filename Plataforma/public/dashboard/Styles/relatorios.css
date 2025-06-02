@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: "Barlow", sans-serif;
+    font-style: normal;
+}
+
+/* Navegação */
+
+.nav {
+    background-color: #091D0E;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.nav img {
+    height: 80px;
+    margin-left: 10px;
+}
+
+.nav div {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+
+    height: 100%;
+}
+
+.nav div a {
+
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.nav div img {
+    height: 50px;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: auto;
+    flex-direction: column;
+    background-image: url('/site institucional/novo/assets/imgs/Fundo site institucional.jpg');
+    background-size: cover;
+}
+
+/* parte superior */
+.dados{
+    display: flex;
+    width: 100%;
+    height: 25%;
+    flex-direction: row;
+}
+
+.titulos{
+    display: flex;
+    height: 100%;
+    width: 40%;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nome_apa{
+    display: flex;
+    background-color: #1A3421;
+    color: white;
+    height: 40%;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.nome_apa h1{
+    font-size: 55px;
+}
+
+.titulos h3{
+    font-size: 90px;
+    color: #024002;
+}
+
+.imagem{
+    display: flex;
+    height: 100%;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagem img{
+    width: 200px;
+    height: 200px;
+
+}
+
+.kpi{
+    display: flex;
+    height: 100%;
+    width: 30%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card{
+    width: 40%;
+    height: 300px;
+    background-color: #1A3421;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* Filtro */
+.conteudo{
+    display: flex;
+    height: 70%;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+.filtro{
+    display: flex;
+    width: 87%;
+    height: 10%;
+    flex-direction: row; 
+    align-items: center;
+}
+
+.filtro h1{
+    color: #024002;
+}
+
+.filtro .div_input{
+    display: flex;
+    flex-direction: row;
+    border: #024002 solid 4px;
+    border-radius: 15px;
+    width: 180px;
+    height: 65%;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 20px;
+}
+
+.filtro .div_input h1{
+    font-size: 20px;
+}
+
+.filtro input{
+    outline: none;
+}
+
+.filtro select{
+    width: 180px;
+    height: 70%;
+    margin-left: 20px;
+    border: #024002 solid 4px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.lista{
+    display: flex;
+    width: 87%;
+    height: 80%;
+    border: solid #024002 6px;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dados_sensor{
+    height: 30%;
+    width: 90%;
+    background-color:#024002 ;
+    margin: 20px;
+    border-radius: 20px;
+
+}
