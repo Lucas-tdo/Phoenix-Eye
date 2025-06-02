@@ -31,10 +31,23 @@ function dados_sensor_especifico(req, res) {
     }).catch(function (erro) {
         console.log(erro);
         console.log("Houve um erro ao buscar as postagens.", erro.sqlMessage);
+        console.log("Selecionando dados de ocorrências no banco de dados");
         res.status(500).json(erro.sqlMessage);
     });
 }
 
+function atualizar_ocorrencias(req,res){
+    var id_Sensor = req.params.id_Sensor;
+    var limite = req.params.limite
+
+    medidaslModel.atualizar_ocorrencias(id_Sensor,limite)
+    .then(resposta=>{
+        res.status(200).json(resposta)
+    })
+    .catch(erro=>{
+        res.status(500).json(erro.sqlMessage)
+    })
+    }
 
 
 function listar_apas(req, res) {
@@ -115,5 +128,6 @@ module.exports = {
     listar_apas,
     dados_monitoramento,
     kpis_cinco_dias,
-    buscar_acessos
+    buscar_acessos,
+    atualizar_ocorrencias
 }

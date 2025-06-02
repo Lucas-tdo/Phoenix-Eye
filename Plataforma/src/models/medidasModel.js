@@ -41,6 +41,15 @@ function dados_sensor_especifico(id_Sensor) {
     return database.executar(instrucaoSql)
 }
 
+function atualizar_ocorrencias(id_Sensor,limite){
+    var instrucaoSql = ` 
+    SELECT Sensor.idSensor,Sensor.nome, Dados.Situacao_dado, Dados.dtMedicao FROM Dados
+    JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor=${id_Sensor} order by dtMedicao desc limit ${limite};
+    `;
+    
+    return database.executar(instrucaoSql)
+}
+
 
 function listar_apas(idOrgao) {
     var instrucaoSql = `
@@ -103,5 +112,6 @@ module.exports = {
     listar_apas,
     dados_monitoramento,
     kpis_cinco_dias,
-    buscar_acessos
+    buscar_acessos,
+    atualizar_ocorrencias
 }
