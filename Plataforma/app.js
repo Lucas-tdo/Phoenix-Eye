@@ -16,7 +16,7 @@ var indexRouter = require("./src/routes/index");
 var perfilRouter = require("./src/routes/perfil")
 var loginRouter = require("./src/routes/login")
 var medidasRouter = require("./src/routes/medidas")
-
+var relatoriosRouter = require("./src/routes/relatorios")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
+app.use("/relatorios",relatoriosRouter)
 app.use("/medidas", medidasRouter)
 app.use("/perfil",perfilRouter)
 app.use("/login",loginRouter)
