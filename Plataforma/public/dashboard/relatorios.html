@@ -56,7 +56,6 @@
                     </div>
             </div>
             <div class="lista" id="lista"></div>
-            
         </div>
     </div>
     
@@ -82,18 +81,18 @@
         for(resp of resp_dados){
             let imagem = ""
             if(resp.Situacao_dado=="Normal"){
-                imagem=`Assets/grid_img/sensor.png`
+                imagem=`./Assets/grid_img/sensor.png`
             }
             else if(resp.Situacao_dado=="Alerta"){
-                imagem=`Assets/grid_img/aviso_temp.png`
+                imagem=`./Assets/grid_img/aviso_temp.png`
 
             }
             else if(resp.Situacao_dado=="Perigo"){
-                imagem=`Assets/grid_img/alerta_temp.png`
+                imagem=`./Assets/grid_img/alerta_temp.png`
 
             }
             else if(resp.Situacao_dado=="Incêndio"){
-                imagem=`Assets/grid_img/fogo.png`
+                imagem=`./Assets/grid_img/fogo.png`
                 
             }
             var data = new Date(resp.dtMedicao)
