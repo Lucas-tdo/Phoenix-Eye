@@ -161,6 +161,19 @@
     outline: none;
 }
 
+.pesquisa{
+    display: flex;
+    height: 100%;
+    width: 45%;
+    align-items: center;
+    justify-content: end;
+}
+
+.pesquisa img{
+    height: 45px;
+    width: 45px;
+}
+
 .lista{
     display: flex;
     width: 87%;

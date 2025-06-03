@@ -17,7 +17,7 @@ function listar_dados(id,situacao,de,ate){
         d.FkSensor=s.idSensor 
         join Area a on
         s.fkArea= a.idArea
-        where a.FkMonitoramento=${id} and d.dtMedicao between date("${de}")-interval 1 day and date("${ate}")+interval 1 day
+        where a.FkMonitoramento=${id} and d.dtMedicao between date("${de}") and date("${ate}")+interval 1 day
         order by dtMedicao desc limit 100 ;
         `;
     }
@@ -28,7 +28,7 @@ function listar_dados(id,situacao,de,ate){
             d.FkSensor=s.idSensor 
             join Area a on
             s.fkArea= a.idArea
-            where a.FkMonitoramento=${id} and d.Situacao_dado="${situacao}" and d.dtMedicao between date("${de}")-interval 1 day and date("${ate}")+interval 1 day
+            where a.FkMonitoramento=${id} and d.Situacao_dado="${situacao}" and d.dtMedicao between date("${de}") and date("${ate}")+interval 1 day
             order by dtMedicao desc limit 100 ;
             `;
         }
