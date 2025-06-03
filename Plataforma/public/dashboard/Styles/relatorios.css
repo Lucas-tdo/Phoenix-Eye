@@ -93,19 +93,7 @@
     color: #024002;
 }
 
-.imagem{
-    display: flex;
-    height: 100%;
-    width: 30%;
-    align-items: center;
-    justify-content: center;
-}
 
-.imagem img{
-    width: 200px;
-    height: 200px;
-
-}
 
 .kpi{
     display: flex;
@@ -181,13 +169,61 @@
     border-radius: 20px;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+
 }
 
 .dados_sensor{
+    display: flex;
     height: 30%;
     width: 90%;
     background-color:#024002 ;
-    margin: 20px;
+    margin: 5px;
     border-radius: 20px;
+    flex-direction: row;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
 
+.img_situacao{
+    display: flex;
+    height: 100%;
+    width:20%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 10px;
+}
+.img_situacao img{
+    width: 90px;
+    height: 90px
+}
+
+.temperatura{
+    display: flex;
+    height: 100%;
+    width: 25%;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperatura img{
+    width: 40px;
+    height: 40px;
+}
+
+.umidade{
+    display: flex;
+    height: 100%;
+    width: 25%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.umidade img{
+    width: 30px;
+    height: 30px;
 }

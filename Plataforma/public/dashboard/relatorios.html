@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="Styles/relatorios.css">
 </head>
-<body>
+<body onload="listar_dados()">
     
     <div class="container">
         <div class="nav">
@@ -28,9 +28,6 @@
                 </div>
                 <h3>Relatórios</h3>
             </div>
-            <div class="imagem">
-                <img src="Assets/APAs/2025-5-31_1_46_7.jpg" alt="">
-            </div>
             <div class="kpi">
                 <div class="card"></div>
                 <div class="card"></div>
@@ -42,21 +39,79 @@
                 <h1>Filtrar por:</h1>
                     <div class="div_input">
                         <h1>De:</h1>
-                        <input type="date" name="" id="">
+                        <input id="de_input" type="date" name="">
                     </div>
                     <div class="div_input">
                         <h1>Até:</h1>
-                        <input type="date" name="" id="">
+                        <input id="ate_input" type="date" name="" i>
                     </div>
-                    <select>
+                    <select id="select_situacao" onchange="listar_dados()">
                         <option selected>Todos</option>
                         <option>Alerta</option>
                         <option>Perigo</option>
                         <option>Incêndio</option>
                     </select>
             </div>
-            <div class="lista">
-                <div class="dados_sensor"></div>
+            <div class="lista" id="lista">
+                <div class="dados_sensor">
+                    <div class="img_situacao">
+                        <img src="Assets/grid_img/sensor.png" alt="">
+                        <h1>A1-1</h1>
+                    </div>
+                    <div class="data">
+                        <h3>Data:02/06/2025</h3>
+                    </div>
+                    <div class="temperatura">
+                        <img src="Assets/Icons/termometro.png" alt="">
+                        <h2>Temperatura:</h2>
+                        <h3>25º</h3>
+                    </div>
+                    <div class="umidade">
+                        <img src="Assets/Icons/umidade.png" alt="">
+                        <h2>Umidade:</h2>
+                        <h3>60%</h3>
+                    </div>
+                </div>
+                <div class="dados_sensor">
+                    <div class="img_situacao">
+                        <img src="Assets/grid_img/aviso_temp.png" alt="">
+                        <h1>A1-1</h1>
+                    </div>
+                    <div class="data">
+                        <h3>Data:02/06/2025</h3>
+                    </div>
+                    <div class="temperatura">
+                        <img src="Assets/Icons/termometro.png" alt="">
+                        <h2>Temperatura:</h2>
+                        <h3>25º</h3>
+                    </div>
+                    <div class="umidade">
+                        <img src="Assets/Icons/umidade.png" alt="">
+                        <h2>Umidade:</h2>
+                        <h3>60%</h3>
+                    </div>
+                </div>
+                <div class="dados_sensor">
+                    <div class="img_situacao">
+                        <img src="Assets/grid_img/alerta_temp.png" alt="">
+                        <h1>A1-1</h1>
+                    </div>
+                    <div class="data">
+                        <h3>Data:02/06/2025</h3>
+                    </div>
+                    <div class="temperatura">
+                        <img src="Assets/Icons/termometro.png" alt="">
+                        <h2>Temperatura:</h2>
+                        <h3>25º</h3>
+                    </div>
+                    <div class="umidade">
+                        <img src="Assets/Icons/umidade.png" alt="">
+                        <h2>Umidade:</h2>
+                        <h3>60%</h3>
+                    </div>
+                    
+                </div>
+                
             </div>
 
         </div>
@@ -64,3 +119,67 @@
     
 </body>
 </html>
+
+<script>
+    
+    async function listar_dados(){
+        var select = select_situacao.value
+        var idOrgao = sessionStorage.idOrgao
+        var de = de_input.value
+        var ate = ate_input.value
+        if(de==""||ate==""){
+            de="vazio"
+            ate="vazio"
+        }
+        var dados = await fetch(`/relatorios/listar_dados/${idOrgao}/${select}/${de}/${ate}`)
+        var resp_dados= await dados.json()
+        console.log(resp_dados)
+        lista.innerHTML=``
+
+        for(resp of resp_dados){
+            let imagem = ""
+            if(resp.Situacao_dado=="Normal"){
+                imagem=`Assets/grid_img/sensor.png`
+            }
+            else if(resp.Situacao_dado=="Alerta"){
+                imagem=`Assets/grid_img/aviso_temp.png`
+
+            }
+            else if(resp.Situacao_dado=="Perigo"){
+                imagem=`Assets/grid_img/alerta_temp.png`
+
+            }
+            else if(resp.Situacao_dado=="Incendio"){
+                imagem=`Assets/grid_img/fogo.png`
+                
+            }
+            var data = new Date(resp.dtMedicao)
+            var dia = String(data.getDate()).padStart(2, '0');
+            var mes= String(data.getMonth()+1).padStart(2,'0')
+            var ano = data.getFullYear()
+            var hora = String(data.getHours()).padStart(2,'0')
+            var minuto = String(data.getMinutes()).padStart(2,'0')
+            lista.innerHTML+=`
+                <div class="dados_sensor">
+                    <div class="img_situacao">
+                        <img src="${imagem}" alt="">
+                        <h1>${resp.nome}</h1>
+                    </div>
+                    <div class="data">
+                        <h3>Data:${dia}/${mes}/${ano}</h3>
+                        <h5>${hora}:${minuto}</h5>
+                    </div>
+                    <div class="temperatura">
+                        <img src="Assets/Icons/termometro.png" alt="">
+                        <h2>Temperatura:</h2>
+                        <h3>${resp.temperatura}º</h3>
+                    </div>
+                    <div class="umidade">
+                        <img src="Assets/Icons/umidade.png" alt="">
+                        <h2>Umidade:</h2>
+                        <h3>${resp.umidade}%</h3>
+                    </div>
+                </div>`
+        }
+    }
+</script>
