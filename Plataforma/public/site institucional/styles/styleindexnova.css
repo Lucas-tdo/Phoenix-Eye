@@ -25,7 +25,7 @@ html {
 
 .container_pai {
   width: 100%;
-  height: 3000px;
+  height: 2900px;
   background-image: url(../assets/imgs/fundoNovaIndex.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -214,21 +214,35 @@ nav {
 /* FALE CONOSCO */
 
 .faleConosco {
-    margin-top: 10%;
     width: 100%;
-    height: 300px;
+    height: 375px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.faleConosco h2 {
+  font-size: 80px;
+}
+
+.faleConosco p {
+  margin-left: 400px;
+  margin-right: 400px;
+  text-align: center;
+  font-size: 25px;
+  margin-top: 65px;
 }
 
 .faleConosco button {
-    height: 60%;
     color: #001c07;
-    font-size: 70px;
+    font-size: 40px;
     font-weight: 600;
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0px black;
-    padding: 20px;
+    padding: 10px;
+    margin-top: 65px;
 }
 
 .faleConosco button:hover {
@@ -243,7 +257,7 @@ nav {
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
   height: 150px;
-  background-color: #001c07a3;
+  background-color: #075119a3;
   position: absolute;
   margin-top: 9%;
 } 
@@ -260,14 +274,13 @@ nav {
   width: 100%;
   padding: 30px;
   align-items: center;
-  padding-top: 25px;
 }
 
 .contatos {
   display: flex;
   flex-direction: column;
   height: 70%;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 
 .contatos div {
@@ -302,17 +315,17 @@ nav {
   align-items: center;
   font-size: 20px;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 .logo_footer {
   height: 120px;
   padding-top: 60px;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 .copy {
-  background-color: #001c07a3;
+  background-color: #075119a3;
   color: white;
   display: flex;
   justify-content: center;
