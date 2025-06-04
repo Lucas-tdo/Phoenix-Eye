@@ -43,6 +43,14 @@
                 </div>
             </a>
 
+             <a onclick="sair()">
+                <div>
+                    <img src="Assets/Icons/logout.png">
+                    <h1>Logout</h1>
+                </div>
+            </a>
+            
+
            
             
         </div>
@@ -462,6 +470,11 @@
         deletar_orgao_div.style.display = "flex"
         cadastros.style.display = "flex"
         
+    }
+
+     function sair() {
+        sessionStorage.clear();
+        window.location.href = "../site institucional/login.html";
     }
 
     function abrir_deletar_apa(id_apa){

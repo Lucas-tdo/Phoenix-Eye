@@ -120,7 +120,22 @@ function  buscar_acessos(req, res) {
     });
 }
 
+function verificarAviso(req, res) {
 
+    var idOrgao = req.params.idOrgao;
+
+    medidaslModel.verificarAviso(idOrgao).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+           res.status(200).json([]);
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as postagens.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 module.exports = {
     dados_sensor_especifico,
@@ -129,5 +144,6 @@ module.exports = {
     dados_monitoramento,
     kpis_cinco_dias,
     buscar_acessos,
-    atualizar_ocorrencias
+    atualizar_ocorrencias,
+    verificarAviso
 }

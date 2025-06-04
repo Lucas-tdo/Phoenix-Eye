@@ -35,5 +35,10 @@ router.get("/atualizar_ocorrencias/:id_Sensor/:limite",function(req,res){
     medidasController.atualizar_ocorrencias(req,res)
 })
 
+router.get("/verificarAviso/:idOrgao",function(req,res){
+    medidasController.verificarAviso(req,res)
+})
+
+
 
 module.exports = router;

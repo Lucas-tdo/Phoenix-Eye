@@ -49,6 +49,19 @@ CREATE TABLE Sensor (
     FOREIGN KEY (fkArea) REFERENCES Area(idArea)
 );
 
+UPDATE Sensor SET status_sensor = "Manutencao" WHERE idSensor = 3;
+
+
+
+
+SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade, Dados.dtMedicao 
+FROM  Monitoramento JOIN Area ON Monitoramento.idMonitoramento = Area.FkMonitoramento JOIN Sensor ON Sensor.fkArea = Area.idArea
+JOIN Dados ON Sensor.idSensor = Dados.fkSensor WHERE Situacao_dado in("Alerta" , "Perigo", "Incêndio") 
+AND dtMedicao between CURRENT_TIMESTAMP() -INTERVAL '10' SECOND AND CURRENT_TIMESTAMP() + INTERVAL '1' SECOND
+ ORDER BY dtMedicao desc;
+
+
+
 CREATE TABLE Dados (
     idDados INT AUTO_INCREMENT PRIMARY KEY,
     temperatura DECIMAL(4,2) ,
@@ -366,3 +379,5 @@ JOIN Usuario ON fkUsuario = Usuario.idUsuario
 JOIN Orgao  ON Usuario.fkOrgao = Orgao.idOrgao 
 WHERE Usuario.fkOrgao = 1; 
 
+SELECT Sensor.nome, Dados.Situacao_dado, Dados.dtMedicao FROM Dados
+JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor = 4 ;

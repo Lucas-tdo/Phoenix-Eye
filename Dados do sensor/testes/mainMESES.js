@@ -88,22 +88,22 @@ const serial = async (
                 var umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 90) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 96) {
                     temperaturaFake = 35;
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 90) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 96) {
                     umidadeFake = 39;
                 }
 
 
-                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
+                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 98) {
                     temperaturaFake = 38;
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 95) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98) {
                     umidadeFake = 20;
                 }
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix Eye | Perfil</title>
     <link rel="stylesheet" href="Styles/Perfil.css">
-     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -43,7 +43,16 @@
                 </div>
             </a>
 
+            <a onclick="sair()">
+                <div>
+                    <img src="Assets/Icons/logout.png">
+                    <h1>Logout</h1>
+                </div>
+            </a>
+            
         </div>
+
+
 
         <div class="Central" id="central">
 
@@ -552,6 +561,12 @@
         input_email_atualizar.value = funcionariosorg[posicao].email
         input_senha_atualizar.value = funcionariosorg[posicao].senha
         sessionStorage.Func_atualizar = id_func
+    }
+
+
+    function sair() {
+        sessionStorage.clear();
+        window.location.href = "../site institucional/login.html";
     }
 
     function abrirCadastroAPAs() {

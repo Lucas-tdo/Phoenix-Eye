@@ -10,7 +10,7 @@ SELECT
     Sensor.status_sensor,
     Dados.temperatura,
     Dados.umidade,
-    Dados.dtMedicao,
+    DATE_FORMAT(Dados.dtMedicao,'%H:%i:%s'),
     Dados.Situacao_dado AS Situacao
 FROM Sensor 
 JOIN (
@@ -41,12 +41,12 @@ function dados_sensor_especifico(id_Sensor) {
     return database.executar(instrucaoSql)
 }
 
-function atualizar_ocorrencias(id_Sensor,limite){
+function atualizar_ocorrencias(id_Sensor, limite) {
     var instrucaoSql = ` 
     SELECT Sensor.idSensor,Sensor.nome, Dados.Situacao_dado, Dados.dtMedicao FROM Dados
     JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor=${id_Sensor} order by dtMedicao desc limit ${limite};
     `;
-    
+
     return database.executar(instrucaoSql)
 }
 
@@ -93,6 +93,23 @@ function kpis_cinco_dias(idMonitoramento) {
 }
 
 
+function verificarAviso(idOrgao) {
+    var instrucaoSql = `
+
+    SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade,DATE_FORMAT(Dados.dtMedicao,'%d/%m/%Y %H:%i') AS 'Data'
+    FROM  Monitoramento JOIN Area ON Monitoramento.idMonitoramento = Area.FkMonitoramento JOIN Sensor ON Sensor.fkArea = Area.idArea
+    JOIN Dados ON Sensor.idSensor = Dados.fkSensor WHERE Situacao_dado in("Alerta" , "Perigo", "Incêndio") 
+    AND dtMedicao between CURRENT_TIMESTAMP() -INTERVAL '10' SECOND AND CURRENT_TIMESTAMP() + INTERVAL '1' SECOND AND fkOrgao = ${idOrgao}
+    ORDER BY dtMedicao desc;
+    `;
+
+    console.log("Selecionando dados do sensor no banco de dados");
+    return database.executar(instrucaoSql)
+
+}
+
+
+
 function buscar_acessos(idOrgao) {
     var instrucaoSql = `
         SELECT Usuario.nome, Monitoramento.Nome_Atribuido ,DATE_FORMAT(Acesso.dataAcesso, '%d/%m/%Y %H:%i') AS "Data"
@@ -113,5 +130,6 @@ module.exports = {
     dados_monitoramento,
     kpis_cinco_dias,
     buscar_acessos,
-    atualizar_ocorrencias
+    atualizar_ocorrencias,
+    verificarAviso
 }
