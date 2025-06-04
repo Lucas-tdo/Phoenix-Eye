@@ -96,7 +96,7 @@ function kpis_cinco_dias(idMonitoramento) {
 function verificarAviso(idOrgao) {
     var instrucaoSql = `
 
-    SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade,DATE_FORMAT(Dados.dtMedicao,'%d/%m/%Y %H:%i') AS 'Data'
+    SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade,DATE_FORMAT(Dados.dtMedicao,'%H:%i:%s') AS 'Data'
     FROM  Monitoramento JOIN Area ON Monitoramento.idMonitoramento = Area.FkMonitoramento JOIN Sensor ON Sensor.fkArea = Area.idArea
     JOIN Dados ON Sensor.idSensor = Dados.fkSensor WHERE Situacao_dado in("Alerta" , "Perigo", "Incêndio") 
     AND dtMedicao between CURRENT_TIMESTAMP() -INTERVAL '10' SECOND AND CURRENT_TIMESTAMP() + INTERVAL '1' SECOND AND fkOrgao = ${idOrgao}

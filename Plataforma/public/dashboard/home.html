@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="Styles/dashboard.css">
-     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
-
+    <div class="alerta" id="alerta"> </div>
     <!-- Navbar -->
     <div class="nav">
 
@@ -108,7 +108,7 @@
 </body>
 
 </html>
-
+<script src="alerta.js"></script>
 <script>
     async function buscar_dados() {
         var idOrgao = sessionStorage.idOrgao;

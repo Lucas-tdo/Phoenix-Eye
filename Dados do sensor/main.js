@@ -113,5 +113,5 @@ const servidor = (
             valoresSensorTemp,
             valoresSensorUmid
         );
-    }, 3000);
+    }, 5000);
 })();
