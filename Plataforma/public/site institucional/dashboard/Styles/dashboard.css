@@ -1,0 +1,582 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: "Barlow", sans-serif;
+    font-style: normal;
+}
+
+/* Navegação */
+
+.nav {
+    background-color: #091D0E;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.nav img {
+    height: 80px;
+    margin-left: 10px;
+}
+
+.nav div {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+
+    height: 100%;
+}
+
+.nav div a {
+
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.nav div img {
+    height: 50px;
+}
+
+/* Container */
+
+.container {
+    display: flex;
+    height: auto;
+    width: auto;
+    flex-direction: column;
+    background-image: url('/site institucional/novo/assets/imgs/Fundo site institucional.jpg');
+}
+
+
+/* kPI */
+
+.KPI {
+    display: flex;
+
+
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Status {
+    background-color: #1A3421;
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    align-items: center;
+    padding: 20px 0;
+    border: solid 3px #091D0E;
+    border-radius: 0px 10px 10px 0px;
+    color: white;
+    border-left: none;
+}
+
+.Status h1 {
+    width: 200px;
+
+}
+
+.Status div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #425647;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+
+
+.Status div div {
+    display: flex;
+    width: 70px;
+    justify-content: space-around;
+
+    flex-direction: row;
+    align-items: center;
+}
+
+.Status div div h3 {
+    font-size: 39px;
+
+}
+
+.Status img {
+    height: 30px;
+    width: 30px;
+}
+
+.visao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    margin-top: 40px;
+    border: solid 4px #091D0E;
+    border-right: none;
+    border-radius: 10px 0 0px 10px;
+    width: 240px;
+    align-self: flex-start;
+    background-color: #1A3421;
+    color: white;
+
+}
+
+
+/* Graficos */
+
+
+.Graficos{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.areaGrid{
+    display: flex;
+    background-size: cover;
+    width: 400px;
+    height: 350px;
+    flex-direction: column;
+}
+
+.areaGrid div{
+    display: flex;
+    flex-direction: row;
+}
+.areaGrid div div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37px;
+    width: 50px;
+    border: solid 1px white;
+
+}
+
+.areaGrid div div img{
+    height: 30px;
+}
+
+#myChart{
+    height: 360px;
+}
+
+.div_grafico{
+    display: flex;
+
+    gap: 10px;
+    flex-direction: column;
+}
+
+.indicadores_grafico{
+    display: flex;
+    width: 800px;
+    margin-right: 90px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.indicadores_grafico div{
+    display: flex;
+    background-color: blanchedalmond;
+    width: 200px;
+    height: 120px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #1A3421;
+    color: white;
+    flex-direction: column;
+}
+
+.indicadores_grafico div div{
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    width: 100px;
+}
+
+.indicadores_grafico #termometro {
+    height: 35px;
+    width: 40px;
+    margin: 0px 0px 50px -180px ;
+}
+
+.indicadores_grafico #umidade {
+    height: 35px;
+    width: 40px;
+    margin: 35px 0px 0px -38px ;
+}
+
+.indicadores_grafico #metrica {
+    height: 70px;
+    width: 70px;
+    margin: 0px 0px 0px 100px ;
+}
+
+.indicadores_grafico h1{
+    font-size: 20px;
+}
+
+.indicadores_grafico img{
+    height: 60px;
+    width: 60px;
+}
+
+.indicadores_grafico h4{
+    font-size: 30px;
+}
+
+
+    /* Sensores */
+
+/*     Listagem dos Sensores: */
+.Sensores{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.listSensores{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    align-items: center;
+
+}
+
+.listSensores h2{
+    color: #1A3421;
+    font-size: 50px;
+}
+
+.Tabela_sensores{
+    display: flex;
+    margin-top: 10px;
+    background-color: #091D0E;
+    flex-direction: column;
+    overflow-x: auto;
+    margin-left: 60px;
+    height: 500px;
+    width: 120%;
+    
+}
+
+.Tabela_sensores h1{
+    color: white;
+    font-size: 20px;
+}
+
+.Tabela_sensores div{
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: solid white 2px;
+    transition: 0.5s;
+}
+
+.Tabela_sensores div:hover{
+    background-color: #425647;
+    transform: scale(1.05);
+}
+
+.Perigo{
+    color: rgb(255, 39, 39);
+}
+
+.Alerta{
+    color: rgb(202, 202, 23);
+}
+
+.Inativo{
+    color: rgb(180, 180, 180);
+}
+
+.Tabela_sensores div div {
+    border: none;
+    width: 60%;
+    align-items: center;
+
+}
+
+    /* Atenção aos sensores */
+
+.KPI-Sensores{
+    display: flex;
+    width: 50%;
+    align-items: start;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+.AtencaoSensores{
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    padding: 10px 0;
+    color: white;
+    flex-direction: column;
+  
+    justify-content: space-around;
+    border: #091D0E solid 4px;
+    width: 80%;
+}
+
+.AtencaoSensores h1{
+    font-size: 40px;
+    color: #091D0E;
+}
+
+.lista_Atencao{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    overflow-x: auto;
+    height: 500px;
+    align-items: center;
+    width: 100%;
+}
+
+.lista_Atencao div{
+    margin-top: 30px;
+    display: flex;
+    background-color: #1A3421;
+    align-items: center;
+    padding: 10px 15px;
+    height: auto;
+    border-radius: 10px;
+    width: 70%;
+    border: #091D0E solid 3px;
+    transition: 1s;
+}
+
+
+.lista_Atencao div:hover{
+    background-color: #425647;
+    transform: scale(1.05);
+}
+
+.lista_Atencao div img{
+    height: 40%;
+}
+
+.lista_Atencao div div{
+    display: flex;
+    background-color: transparent;
+    display: flex;
+    border-radius: 0;
+    align-items: start;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    flex-direction: column;
+}
+
+.lista_Atencao div div h1{
+    font-size: 30px;
+    color: white;
+}
+
+.lista_Atencao div div p{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.lista_Atencao h4{
+    font-size: 20px;
+    color:#1A3421 ;
+    text-decoration: un;
+    
+}
+
+/* HOME DASHBOARD */
+
+#container {
+    width: 100%;
+    height: 615px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#container #cabecalho {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 130px;
+    color: #194825;
+}
+
+#container #saudacoes {
+    font-size: 60px;
+    font-family: "Barlow";
+    font-weight: 700;
+}
+
+#container #apa_selecionada {
+    font-family: "Barlow";
+    font-size: 35px;
+}
+
+#container #apa_selecionada span {
+    font-weight: 700;
+}
+
+#container #cards_status {
+    width: 100%;
+    height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+#cards_status .card {
+    background-color: #194825;
+    width: 400px;
+    height: 400px;
+    border-radius: 20px;
+    box-shadow: 7px 7px 20px black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #FFFFFF;
+    font-family: "Barlow";
+}
+
+.card #avisos_dia {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.card #num_avisos {
+    font-size: 150px;
+    font-weight: 700;
+}
+
+.card #status_avisos {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card #status_avisos .status {
+    width: 110px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: solid 1px white;
+}
+
+.card #status_avisos .status .titulo_status {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.card #status_avisos .status .icon{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
+    gap: 10px;
+    
+}
+
+.card #status_avisos .status img{
+    width: 30px;
+    height: 30px;
+}
+
+.card #conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.card #conteudo #titulo_situacao {
+    font-size: 35px;
+    font-weight: 600;
+    margin-top: 25px;
+}
+
+.card #conteudo #status_situacao { 
+    font-size: 32px;
+    font-weight: 700;
+    width: 300px;
+    margin-top: 60px;
+    margin-bottom: 15px;
+}
+
+.card #conteudo #status_situacao span { 
+    color: #e90707;
+}
+
+.card #conteudo #msg_situacao { 
+    font-size: 27px;
+    font-weight: 300;
+    width: 300px;
+    margin-bottom: 60px;
+    margin-top: 15px;
+}
+
+.card #conteudo #linha {
+    background-color: #FFFFFF;
+    width: 75%;
+    height: 2px;
+
+}
+
+.interrogacao{
+    position: fixed;
+    height: 10px;
+    width: 10px;
+    margin-left: 1400px;
+    margin-top: 530px;
+}
+
+.interrogacao img{
+    height: 100px;
+    width: 100px;
+    transition: 1s;
+}
+
+.interrogacao img:hover{
+    transform: scale(1.1);
+}
