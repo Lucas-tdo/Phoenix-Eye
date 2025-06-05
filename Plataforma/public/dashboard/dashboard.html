@@ -8,9 +8,8 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="Styles/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="shortcut icon" href="../site institucional/novo/assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="Assets/Icons/logo_branca.png" type="image/x-icon">
 </head>
-
 <body>
     <div class="nav">
 
@@ -38,7 +37,7 @@
                 <div>
                     <h4>Total Sensores</h4>
                     <div>
-                       
+
                         <h3 id="qtdTotal"></h3>
                     </div>
                 </div>
@@ -343,7 +342,7 @@
                         <img src="Assets/Icons/sem-sinal.png" alt="">
                     </div>
                     `
-                    }else if(resp_dados[k].Situacao == "Incêndio") {
+                    } else if (resp_dados[k].Situacao == "Incêndio") {
                         mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/fogo.png" alt="">
@@ -351,7 +350,7 @@
                     `
 
                     }
-                    
+
                     else {
                         mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
@@ -403,7 +402,7 @@
 
 
         console.log(resp_cinco_dias)
-         new Chart(ctx, {
+        new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: [`${diaHoje - 4}/${mesHoje}`, `${diaHoje - 3}/${mesHoje}`, `${diaHoje - 2}/${mesHoje}`, `${diaHoje - 1}/${mesHoje}`, 'Hoje'], // datas

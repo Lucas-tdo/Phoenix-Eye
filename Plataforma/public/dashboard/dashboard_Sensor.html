@@ -80,7 +80,7 @@
 
         <div class="kpi_E_Manutencao" id="div_kpi">
 
-            <div>   </div>
+            <div> </div>
 
             <div class="historicoAtencao">
                 <h2>Ocorrências</h2>
@@ -110,153 +110,153 @@
 <script>
 
     var id_sensor = sessionStorage.id_sensor;
-    var limite=3
+    var limite = 3
     const ctx = document.getElementById('myChart');
 
-        const ctx2 = document.getElementById('myChart2');
-   
-   
-           const umidade = new Chart(ctx2, {
-               type: 'line',
-               data: {
-                   labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h', ],
-                   datasets: [
-   
-                       {
-                           label: 'Aviso',
-                           data: [],
-                           borderWidth: 2,
-                           borderColor: 'rgb(255, 251, 8)',
-                           backgroundColor: 'rgb(255, 251, 8)',
-   
-                       }
-                       , {
-                           label: 'Alerta',
-                           data: [],
-                           borderWidth: 2,
-                           borderColor: 'rgb(255, 0, 0)',
-                           backgroundColor: 'rgb(255, 0, 0)',
-   
-                       }
-                       , {
-                           label: 'Umidade',
-                           data: [],
-                           borderWidth: 5,
-                           borderColor: 'rgb(54, 162, 235)',
-                           backgroundColor: 'rgb(54, 162, 235)',
-                       }
-                       ,
-   
-                   ]
-               },
-               options: {
-                   plugins: {
-                       legend: {
-                           position: 'bottom',
-                           labels: {
-                               padding: 30,
-                               font: {
-                                   size: 14, 
-                                   weight : 600, 
-                                 
-                               },
-                               color: 'rgb(26, 51, 32);' 
-                           }
-                       }
-                   },
-                   scales: {
-                       x: {
-                           ticks: {
-                               color: 'rgb(26, 51, 32);',
-                           }
-                           
-                       },
-                       y: {
-                           ticks: {
-                               color: 'rgb(26, 51, 32);' 
-                           },
-                           beginAtZero: true
-                       },
-   
-                   }
-               }
-           });
+    const ctx2 = document.getElementById('myChart2');
 
 
-        const Temperatura =new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h'],
-                datasets: [
-                    {
-                        label: 'Aviso',
-                        data: [],
-                        borderWidth: 2,
-                        borderColor: 'rgb(255, 251, 8)',
-                        backgroundColor: 'rgb(255, 251, 8)',
-                    }, {
-                        label: 'Alerta',
-                        data: [],
-                        borderWidth: 2,
-                        borderColor: 'rgb(255, 123, 0)',
-                        backgroundColor: 'rgb(255, 123, 0)',
-                    },
-                    {
-                        label: 'Incêndio',
-                        data: [],
-                        borderWidth: 2,
-                        borderColor: 'rgb(255, 0, 0)',
-                        backgroundColor: 'rgb(255, 0, 0)',
-                    },
-                    {
-                        label: 'Temperatura',
-                        data: [],
-                        borderWidth: 5,
-                        borderColor: 'rgb(0, 128, 0)',
-                        backgroundColor: 'rgb(0, 128, 0)',
-                    },
+    const umidade = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h',],
+            datasets: [
 
-                ]
-            },
-            options: {
-
-                plugins: {
-                    legend: {
-
-                        position: 'bottom',
-                        labels: {
-                            padding: 30,
-                            font: {
-                                size: 14,
-                                weight: 600,
-
-                            },
-                            color: 'rgb(26, 51, 32);'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'rgb(26, 51, 32);'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: 'rgb(26, 51, 32);'
-                        },
-                        beginAtZero: true
-                    },
+                {
+                    label: 'Aviso',
+                    data: [],
+                    borderWidth: 2,
+                    borderColor: 'rgb(255, 251, 8)',
+                    backgroundColor: 'rgb(255, 251, 8)',
 
                 }
+                , {
+                    label: 'Alerta',
+                    data: [],
+                    borderWidth: 2,
+                    borderColor: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb(255, 0, 0)',
+
+                }
+                , {
+                    label: 'Umidade',
+                    data: [],
+                    borderWidth: 5,
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgb(54, 162, 235)',
+                }
+                ,
+
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 30,
+                        font: {
+                            size: 14,
+                            weight: 600,
+
+                        },
+                        color: 'rgb(26, 51, 32);'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'rgb(26, 51, 32);',
+                    }
+
+                },
+                y: {
+                    ticks: {
+                        color: 'rgb(26, 51, 32);'
+                    },
+                    beginAtZero: true
+                },
+
             }
-        });
-        
+        }
+    });
+
+
+    const Temperatura = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h'],
+            datasets: [
+                {
+                    label: 'Aviso',
+                    data: [],
+                    borderWidth: 2,
+                    borderColor: 'rgb(255, 251, 8)',
+                    backgroundColor: 'rgb(255, 251, 8)',
+                }, {
+                    label: 'Alerta',
+                    data: [],
+                    borderWidth: 2,
+                    borderColor: 'rgb(255, 123, 0)',
+                    backgroundColor: 'rgb(255, 123, 0)',
+                },
+                {
+                    label: 'Incêndio',
+                    data: [],
+                    borderWidth: 2,
+                    borderColor: 'rgb(255, 0, 0)',
+                    backgroundColor: 'rgb(255, 0, 0)',
+                },
+                {
+                    label: 'Temperatura',
+                    data: [],
+                    borderWidth: 5,
+                    borderColor: 'rgb(0, 128, 0)',
+                    backgroundColor: 'rgb(0, 128, 0)',
+                },
+
+            ]
+        },
+        options: {
+
+            plugins: {
+                legend: {
+
+                    position: 'bottom',
+                    labels: {
+                        padding: 30,
+                        font: {
+                            size: 14,
+                            weight: 600,
+
+                        },
+                        color: 'rgb(26, 51, 32);'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'rgb(26, 51, 32);'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'rgb(26, 51, 32);'
+                    },
+                    beginAtZero: true
+                },
+
+            }
+        }
+    });
+
 
 
     async function puxar_dados_sensor() {
 
-    
+
 
         div_aviso.style.display = "none"
 
@@ -268,15 +268,15 @@
         tempSensorDash.innerHTML = resp_dados[0].temperatura
         umidSensorDash.innerHTML = resp_dados[0].umidade
         Nome_Sensor.innerHTML = resp_dados[0].nome
-        Temperatura.data.datasets[0].data=[]
-        Temperatura.data.datasets[1].data=[]
-        Temperatura.data.datasets[2].data=[]
-        Temperatura.data.datasets[3].data=[]
-        umidade.data.datasets[0].data=[]
-        umidade.data.datasets[1].data=[]
-        umidade.data.datasets[2].data=[]
-    
-        for(dados of resp_dados){
+        Temperatura.data.datasets[0].data = []
+        Temperatura.data.datasets[1].data = []
+        Temperatura.data.datasets[2].data = []
+        Temperatura.data.datasets[3].data = []
+        umidade.data.datasets[0].data = []
+        umidade.data.datasets[1].data = []
+        umidade.data.datasets[2].data = []
+
+        for (dados of resp_dados) {
             Temperatura.data.datasets[0].data.unshift(34)
             Temperatura.data.datasets[1].data.unshift(38)
             Temperatura.data.datasets[2].data.unshift(47)
@@ -288,7 +288,7 @@
         }
         Temperatura.update()
         umidade.update()
-        
+
         if (resp_dados[0].status_sensor == "Manutencao") {
             div_grafico.style.display = "none";
             div_kpi.style.display = "none";
@@ -316,26 +316,26 @@
 
     }
 
-    function Vermais(){
-        limite+=3
+    function Vermais() {
+        limite += 3
         atualizar_ocorrencias()
     }
 
 
-    async function atualizar_ocorrencias(){
-        
+    async function atualizar_ocorrencias() {
+
         var resp = await fetch(`/medidas/atualizar_ocorrencias/${id_sensor}/${limite}`)
         const resp_dados = await resp.json();
         console.log(resp_dados)
-        
-        Ocorrencias.innerHTML=``
-        for(ocorre of resp_dados){
+
+        Ocorrencias.innerHTML = ``
+        for (ocorre of resp_dados) {
             var data = new Date(ocorre.dtMedicao)
             var dia = String(data.getDate()).padStart(2, '0');
-            var mes= String(data.getMonth()+1).padStart(2,'0')
+            var mes = String(data.getMonth() + 1).padStart(2, '0')
             var ano = data.getFullYear()
-            if(ocorre.Situacao_dado=="Alerta"){
-                Ocorrencias.innerHTML+=`
+            if (ocorre.Situacao_dado == "Alerta") {
+                Ocorrencias.innerHTML += `
                 <div>
                         <img src="Assets/Icons/alerta.png" style="height: 60px; margin-left: 20px;">
                         <div>
@@ -349,8 +349,8 @@
                 
                 `
             }
-            else if(ocorre.Situacao_dado=="Perigo"){
-                Ocorrencias.innerHTML+=`
+            else if (ocorre.Situacao_dado == "Perigo") {
+                Ocorrencias.innerHTML += `
                 <div>
                         <img src="Assets/Icons/perigo.png" style="height: 60px; margin-left: 20px;">
                         <div>
@@ -364,8 +364,8 @@
                 
                 `
             }
-            else{
-                Ocorrencias.innerHTML+=`
+            else {
+                Ocorrencias.innerHTML += `
                 <div>
                         <img src="Assets/grid_img/fogo.png" style="height: 60px; margin-left: 20px;">
                         <div>
@@ -379,24 +379,24 @@
                 `
             }
         }
-        Ocorrencias.innerHTML+=`<h5 onclick="Vermais()" style="cursor: pointer;">Ver mais...</h5>`
+        Ocorrencias.innerHTML += `<h5 onclick="Vermais()" style="cursor: pointer;">Ver mais...</h5>`
     }
 
-// {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:22:15.000Z'}
+    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:22:15.000Z'}
 
-// {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:20:39.000Z'}
+    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:20:39.000Z'}
 
-// {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:14:41.000Z'}
+    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:14:41.000Z'}
 
 
-    function chamar(){
+    function chamar() {
         setTimeout(() => {
-        puxar_dados_sensor();
-        chamar()
-        atualizar_ocorrencias()
-    }, 3000)
+            puxar_dados_sensor();
+            chamar()
+            atualizar_ocorrencias()
+        }, 3000)
     }
-    
+
 
 
     chamar()

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home || Dashboard</title>
     <link rel="stylesheet" href="Styles/home_dashboard.css">
-     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
         <a href=""><img src="Assets/Icons/logo_branca.png" alt=""></a>
         <img id="perfil" src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
-        
+
 
     </div>
 
@@ -59,7 +59,7 @@
         const resposta_apa = await resp.json();
         console.log(resposta_apa)
         for (var i = 0; i < resposta_apa.length; i++) {
-            
+
             mensagem += `
             <div class="cartao">
                 <h1>${resposta_apa[i].Nome_Atribuido}</h1>
@@ -72,7 +72,7 @@
         listar_apas_id.innerHTML = mensagem
     }
 
-    function redirecionar(id){
+    function redirecionar(id) {
         var idMonitoramento = id;
 
         fetch(`/login/cadastro_acesso`, {
@@ -83,7 +83,7 @@
             body: JSON.stringify({
                 idMonitoramentoServer: idMonitoramento,
                 idUsuarioServer: sessionStorage.idUsuario,
-                idOrgaoServer:sessionStorage.idOrgao
+                idOrgaoServer: sessionStorage.idOrgao
             }),
         })
 
