@@ -129,9 +129,6 @@
         const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
         const resp_dados = await resp.json();
 
-        console.log(resp_dados);
-        console.log(resp_cinco_dias)
-        console.log(resposta_apa)
 
         var soma_avisos = (parseInt(resp_cinco_dias[0].alertas) + parseInt(resp_cinco_dias[0].incendios) + parseInt(resp_cinco_dias[0].perigos));
 
@@ -194,7 +191,6 @@
     function direcionar_perfil() {
 
         var nivel = sessionStorage.nivelusuario
-        console.log(nivel)
         if (nivel == 1) {
             window.location.href = `./perfil_adm.html`
         }
