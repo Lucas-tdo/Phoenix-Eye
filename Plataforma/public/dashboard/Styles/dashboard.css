@@ -87,8 +87,8 @@
     display: flex;
     align-items: center;
     width: 50%;
-    justify-content: space-around;
-
+    justify-content: space-between;
+    margin-right: 30px;
     height: 100%;
 }
 
@@ -97,7 +97,7 @@
     color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 25px;
 }
 
 .nav div img {
@@ -489,10 +489,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     width: 100%;
     height: 130px;
     color: #194825;
+}
+
+#container #cabecalho a {
+    position: absolute;
+    left: 30px;
+}
+
+#container #cabecalho a img{
+    width: 80px;
+    height: 80px;
 }
 
 #container #saudacoes {
@@ -523,8 +534,8 @@
 
 #cards_status .card {
     background-color: #194825;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     border-radius: 20px;
     box-shadow: 7px 7px 20px black;
     display: flex;
@@ -536,12 +547,13 @@
 }
 
 .card #avisos_dia {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
+    margin-top: 15px;
 }
 
 .card #num_avisos {
-    font-size: 150px;
+    font-size: 100px;
     font-weight: 700;
 }
 
@@ -554,8 +566,8 @@
 }
 
 .card #status_avisos .status {
-    width: 110px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -565,7 +577,7 @@
 }
 
 .card #status_avisos .status .titulo_status {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -596,13 +608,13 @@
 }
 
 .card #conteudo #titulo_situacao {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 .card #conteudo #status_situacao { 
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 700;
     width: 300px;
     margin-top: 60px;
@@ -614,7 +626,7 @@
 }
 
 .card #conteudo #msg_situacao { 
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 300;
     width: 300px;
     margin-bottom: 60px;
