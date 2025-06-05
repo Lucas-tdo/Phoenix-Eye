@@ -189,8 +189,17 @@
 }
 
 .alertas img {
-    width: 25%;
+    width: 30%;
     margin-left: 5%;
+}
+
+.alertas h3 {
+    font-size: 40px;
+}
+
+.aviso {
+    display: flex;
+    justify-content: space-around;
 }
 
 .perigo {
@@ -206,8 +215,12 @@
 }
 
 .perigo img {
-    width: 30%;
+    width: 35%;
     margin-left: 5%;
+}
+
+.perigo h3 {
+    font-size: 40px;
 }
 
 .manutencao {
@@ -223,8 +236,12 @@
 }
 
 .manutencao img {
-    width: 25%;
+    width: 30%;
     margin-left: 5%;
+}
+
+.manutencao h3 {
+    font-size: 40px;
 }
 
 .kpi_pai h1 {
@@ -290,13 +307,13 @@
 
 
 .Graficos{
-    margin-left: 20%;
+    margin-left: 25%;
     display: flex;
-    width: 80%;
+    width: 70%;
     justify-content: space-around;
     align-items: center;
     padding-bottom: 30px;
-    margin-top: 2%;
+    margin-top: 5%;
 }
 
 .areaGrid{

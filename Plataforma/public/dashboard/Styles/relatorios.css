@@ -54,28 +54,30 @@
 .nav img {
     height: 80px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .nav div {
     display: flex;
     align-items: center;
     width: 50%;
-    justify-content: space-around;
-
+    justify-content: space-between;
+    margin-right: 30px;
     height: 100%;
 }
 
 .nav div a {
-
-    color: rgb(255, 255, 255);
+    color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 25px;
 }
 
 .nav div img {
     height: 50px;
 }
+
+
 
 .container {
     display: flex;

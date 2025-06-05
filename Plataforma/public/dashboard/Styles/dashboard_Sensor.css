@@ -24,28 +24,29 @@
 .nav img {
     height: 80px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .nav div {
     display: flex;
     align-items: center;
     width: 50%;
-    justify-content: space-around;
-
+    justify-content: space-between;
+    margin-right: 30px;
     height: 100%;
 }
 
 .nav div a {
-
-    color: rgb(255, 255, 255);
+    color: white;
     text-decoration: none;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 25px;
 }
 
 .nav div img {
     height: 50px;
 }
+
 
     /* Container */
 
@@ -56,6 +57,7 @@
         flex-direction: column;
         background-image: url('/site institucional/novo/assets/imgs/Fundo site institucional.jpg');
         background-size: cover;
+        align-items: center;
 }
 
 
@@ -65,13 +67,17 @@
 
 .KPI {
     display: flex;
-
-
     width: 100%;
     height: 200px;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    width: 97%;
+    height: 20%;
+    background-color: #1A3421;
+    border-radius: 10px;
+    margin: 30px;
+    padding: 0 10px;
 }
 
 .Status {
@@ -81,7 +87,6 @@
     width: 700px;
     align-items: center;
     padding: 20px 0;
-    border: solid 3px #091D0E;
     border-radius: 0px 10px 10px 0px;
     color: white;
     border-left: none;
@@ -98,7 +103,8 @@
     flex-direction: column;
     background-color: #425647;
     justify-content: space-around;
-   
+    height: 90%;
+    width: 20%;
     border-radius: 10px;
 }
 
@@ -114,7 +120,8 @@
 }
 
 .Status div div h3 {
-    font-size: 39px;
+    font-size: 25px;
+    font-weight: 500;
 
 }
 
@@ -129,8 +136,6 @@
     justify-content: center;
     height: 60px;
     margin-top: 40px;
-    border: solid 4px #091D0E;
-    border-right: none;
     border-radius: 10px 0 0px 10px;
     width: 240px;
     align-self: flex-start;
@@ -145,7 +150,6 @@
     justify-content: center;
     height: 60px;
     margin-top: 40px;
-    border: solid 4px #091D0E;
     border-right: none;
     border-radius: 10px 0 0px 10px;
     width: 240px;
@@ -165,23 +169,35 @@
 }
 
 
-
+.conteudo{
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    width: 100%;
+    justify-content: center;
+}
     /* Gráficos */
 
 .graficos{
-    width: 100%;
-    padding: 40px 0 ;
     display: flex;
-    justify-content: space-around;
+    width: 50%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .Graf_Temp_Atuais{
    display: flex;
    width: 100%;
-   flex-direction: row;
+   height: 100%;
+   margin-top: 30px;
+   padding: 0;
+   flex-direction: column;
     justify-content: space-around;
-  
+    gap: 50px;
+    margin-top: 20px;
 }
 
 .Graf_Temp_Atuais div{
@@ -189,7 +205,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
- 
+
     justify-content: space-around;
 }
 
@@ -200,26 +216,18 @@
     font-weight: 800;
 }
 
+
 canvas{
-    height: 250px;
-   
-
+    height: 100%;
+    width: 100%;
 }
 
-#myChart{
-    height: 400px;
-    width: 600px;
-}
-
-#myChart2{
-    height: 400px;
-    width: 600px;
-}
 
 .kpi_E_Manutencao{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    width: 50%;
 }
 
 
@@ -227,9 +235,12 @@ canvas{
     display: flex;
     padding: 20px 40px;
     align-items: center;
-    border: solid 1px;
-    border-radius: 10px;
+    border: solid #1A3421 3px;
+    border-radius:  10px;
     flex-direction: column;
+    width: 55%;
+    height: 100%;
+    margin-top: 100px;
 }
 
 .historicoAtencao h2{
@@ -240,12 +251,16 @@ canvas{
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-    height: 300px;
+    height: 600px;
     width: 450px;
     align-items: center;
 }
 
 
+
+.Ocorrencias *{
+    scale: 0.90;
+}
 
 .Ocorrencias div{
     display: flex;
@@ -315,7 +330,7 @@ canvas{
 
     display: flex;
     width: 100%;
-    background-color: #26833d38 ;
+    background-color: #26833d38;
     padding: 20px 0;
     align-items: center;
 }
