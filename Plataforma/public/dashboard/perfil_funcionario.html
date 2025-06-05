@@ -6,115 +6,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix Eye | Perfil</title>
     <link rel="stylesheet" href="Styles/Perfil.css">
-     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
-<body id="body">
+<body>
     <div class="container">
 
         <div class="lateral">
 
+            <img id="logo" src="Assets/Icons/logo_branca.png">
 
             <a onclick="mostrarPerfil()">
                 <div id="Perfil">
                     <img src="Assets/Icons/Perfil-Orgao.png">
-                    <h1>Perfil</h1>
+                    <h1 class="txt_botao">Perfil</h1>
                 </div>
             </a>
 
             <a onclick="mostrarAPAs()">
                 <div id="APA">
                     <img src="Assets/Icons/Floresta.png">
-                    <h1>APAs</h1>
+                    <h1 class="txt_botao">APAs</h1>
                 </div>
             </a>
 
-             <a onclick="sair()">
+            <a onclick="sair()">
                 <div>
                     <img src="Assets/Icons/logout.png">
-                    <h1>Logout</h1>
+                    <h1 class="txt_botao">Logout</h1>
                 </div>
             </a>
-            
+
+            <img id="voltar_func" onclick="voltar()" src="Assets/Icons/voltar.png">
 
         </div>
 
-            <!-- Parte do perfil em si -->
-            <div class="dados" id="dados">
-                <div class="top_dados">
-                    <img src="Assets/Icons/Perfil_dado.png">
-                    <h1 id="titulo_func">Olá, </h1>
-                </div>
+        <!-- Parte do perfil em si -->
+        <div class="dados" id="dados">
+            <div class="top_dados">
+                <img src="Assets/Icons/Perfil_dado.png">
+                <h1 id="titulo_func">Olá,</h1>
+            </div>
 
-                <div class="Centro_dados">
-                    <div class="Dados_Cadastrados">
-                        <h1>Dados:</h1>
-                            <h1 id="nome_func">Nome:</h1>         
-                        <h1 id="email_func">Email:</h1>
-                        <h1 id="orgao">Órgão:</h1>
-                        
-                    </div>
-    
+            <div class="Centro_dados">
+                <div class="Dados_Cadastrados">
+                    <h1>Dados:</h1>
+                    <h1 id="nome_func">Nome:</h1>
+                    <h1 id="email_func">Email:</h1>
+                    <h1 id="orgao">Órgão:</h1>
+
                 </div>
 
             </div>
 
-            <!-- Parte das APAs -->
-            <div class="APAs" id="APAs">
-                <div id="titulo_pagina_apa">
-                    <h1>APAs</h1>
-                </div>
+        </div>
 
-                <div class="Lista_APAs">
-
-                    <div class="Indicadores_APAs_func">
-                        <div class="nula"></div>
-                        <h1>Nome</h1>
-                        <h1>Sensores</h1>
-                        
-                        <div></div>
-                    </div>
-
-                    <div class="listagem_APAs_func" id="listagem_APAs"></div>
-                </div>
+        <!-- Parte das APAs -->
+        <div class="APAs" id="APAs">
+            <div id="titulo_pagina_apa">
+                <h1>APAs</h1>
             </div>
 
+            <div class="Lista_APAs">
+
+                <div class="Indicadores_APAs_func">
+                    <div class="nula"></div>
+                    <h1>Nome</h1>
+                    <h1>Sensores</h1>
+
+                    <div></div>
+                </div>
+
+                <div class="listagem_APAs_func" id="listagem_APAs"></div>
+            </div>
         </div>
+
+    </div>
     </div>
 </body>
 
 </html>
 
-<script src="alerta.js">
-
-    body.innerHTML += mensagem;
-
-</script>
-
 <script>
-
-
-
     var funcionario = sessionStorage.idUsuario
 
-    function dadosperfil_func(){
-        fetch(`/perfil/dadosperfil_func/${funcionario}`,{
-            method : "GET",
-            headers :{ "Content-Type": "application/json"}
+    function dadosperfil_func() {
+        fetch(`/perfil/dadosperfil_func/${funcionario}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
         })
-        .then(resposta=>{resposta.json().then(resposta=>{
-            
-            titulo_func.innerHTML +=resposta[0].nome
-            nome_func.innerHTML+=resposta[0].nome
-            email_func.innerHTML+=resposta[0].email
-            orgao.innerHTML+=resposta[0].orgao
-            })            
-        })
-        .catch(erro=>{
-            console.log(erro)
-        })
+            .then(resposta => {
+                resposta.json().then(resposta => {
+
+                    titulo_func.innerHTML += resposta[0].nome
+                    nome_func.innerHTML += resposta[0].nome
+                    email_func.innerHTML += resposta[0].email
+                    orgao.innerHTML += resposta[0].orgao
+                })
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
-    
+
     function mostrarPerfil() {
         dados.style.display = "flex";
         APAs.style.display = "none";
@@ -131,12 +125,7 @@
 
     }
 
-     function sair() {
-        sessionStorage.clear();
-        window.location.href = "../site institucional/login.html";
-    }
-
-    function listarapas(){
+    function listarapas() {
         var empresa = sessionStorage.idOrgao
         listagem_APAs.innerHTML = ``
         fetch(`/perfil/listarapas/${empresa}`, {
@@ -144,7 +133,7 @@
         }).then(resposta => {
             resposta.json().then(resposta => {
                 for (resp of resposta) {
-                    if(resp.Status_Monitoramento=="Aprovado"){
+                    if (resp.Status_Monitoramento == "Aprovado") {
                         listagem_APAs.innerHTML += `
                         <div>
                             <img src="${resp.Imagem}" class="imagem_APA">
@@ -153,7 +142,7 @@
                         </div>
                    `
                     }
-                    
+
                 }
             })
         }).catch(erro => {
@@ -162,5 +151,16 @@
     }
     dadosperfil_func()
     mostrarPerfil();
+
+    function voltar() {
+
+        window.location.href = "teste.html"
+
+    }
+
+    function sair() {
+        sessionStorage.clear();
+        window.location.href = "../site institucional/login.html";
+    }
 
 </script>

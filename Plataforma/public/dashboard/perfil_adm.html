@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoenix Eye | Perfil</title>
     <link rel="stylesheet" href="Styles/Perfil.css">
-     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -14,49 +14,48 @@
 
         <div class="lateral">
 
+            <img id="logo" src="Assets/Icons/logo_branca.png">
 
             <a onclick="mostrarPerfil()">
                 <div id="Perfil">
                     <img src="Assets/Icons/Perfil-Orgao.png">
-                    <h1>Perfil</h1>
+                    <h1 class="txt_botao">Perfil</h1>
                 </div>
             </a>
 
             <a onclick="mostrarOrgao()">
                 <div id="orgao">
                     <img src="Assets/Icons/Prédio_órgão.png">
-                    <h1>Órgãos</h1>
+                    <h1 class="txt_botao">Órgãos</h1>
                 </div>
             </a>
 
             <a onclick="mostrarAPAs()">
                 <div id="APA">
                     <img src="Assets/Icons/Floresta.png">
-                    <h1>APAs</h1>
+                    <h1 class="txt_botao">APAs</h1>
                 </div>
             </a>
 
             <a onclick="mostrarSolicitacoes()">
                 <div id="solicitacoes">
                     <img src="Assets/Icons/solicitação.png">
-                    <h1>Solicitações</h1>
+                    <h1 class="txt_botao">Solicitações</h1>
                 </div>
             </a>
 
-             <a onclick="sair()">
+            <a onclick="sair()">
                 <div>
                     <img src="Assets/Icons/logout.png">
-                    <h1>Logout</h1>
+                    <h1 class="txt_botao">Logout</h1>
                 </div>
             </a>
-            
 
-           
-            
+            <img id="voltar_adm" onclick="voltar()" src="Assets/Icons/voltar.png">
+
         </div>
         <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
         <div class="Central" id="central">
-
 
             <div class="cadastros" id="cadastros">
                 <div class="cadastros_funcionarios" id="cadastro_orgao">
@@ -77,7 +76,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="deletar_class" id="deletar_apa_div">
                     <div>
                         <h1>Tem certeza que deseja deletar?</h1>
@@ -108,8 +107,6 @@
             </div>
 
             <!-- divs de deletar -->
-            
-
 
             <!-- Parte do perfil em si -->
             <div class="dados" id="dados">
@@ -174,7 +171,7 @@
                     </div>
 
                     <div class="listagem_APAs_adm" id="listagem_APAs_adm">
-                        
+
                     </div>
                 </div>
             </div>
@@ -248,41 +245,41 @@
 
 
 
-    function cadastrar_orgao(){
+    function cadastrar_orgao() {
         var nome = input_nome.value
-        var telefone =input_telefone.value
-        var cnpj=input_cnpj.value
-        var email=input_email.value
+        var telefone = input_telefone.value
+        var cnpj = input_cnpj.value
+        var email = input_email.value
         var senha = input_senha.value
-        if(nome==""||telefone==""||cnpj==""||email==""||senha==""){
+        if (nome == "" || telefone == "" || cnpj == "" || email == "" || senha == "") {
             alert("Erro todos os campos devem estar preenchidos")
         }
-        else{
-            fetch("/perfil/cadastrar_orgao",{
-                method:"POST",
-                 headers: {
-                "Content-Type": "application/json",
+        else {
+            fetch("/perfil/cadastrar_orgao", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                body:JSON.stringify({
-                    nomeServer:nome,
-                    telefoneServer:telefone,
-                    cnpjServer:cnpj,
-                    emailServer:email,
-                    senhaServer:senha
+                body: JSON.stringify({
+                    nomeServer: nome,
+                    telefoneServer: telefone,
+                    cnpjServer: cnpj,
+                    emailServer: email,
+                    senhaServer: senha
                 })
             })
-            .then(resposta=>{
-                listarorgao()
-            })
-            .catch(erro=>{
-                console.log(erro)
-            })
+                .then(resposta => {
+                    listarorgao()
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
             ocultarCadastros()
         }
-        
+
     }
 
-    function deletar_orgao(){
+    function deletar_orgao() {
         var orgao = sessionStorage.deletar_orgao
         fetch(`/perfil/deletar_orgao/${orgao}`, {
             method: "delete",
@@ -302,12 +299,12 @@
             })
     }
 
-    async function listar_todas_apas(){
-        listagem_APAs_adm.innerHTML=""
+    async function listar_todas_apas() {
+        listagem_APAs_adm.innerHTML = ""
         const resposta = await fetch(`/perfil/listar_todas_apas`)
         const apas = await resposta.json()
-        for(apa of apas){
-            listagem_APAs_adm.innerHTML+=`
+        for (apa of apas) {
+            listagem_APAs_adm.innerHTML += `
             <div>
                     <img src="${apa.Imagem}" class="imagem_APA">
                     <p>${apa.Nome_Atribuido}</p>
@@ -317,12 +314,12 @@
             </div>
             `
         }
-    }   
+    }
 
 
     function deletar_apa() {
-       var id_apa = sessionStorage.deletar_apa;
-       fetch(`/perfil/deletar_apa/${id_apa}`, {
+        var id_apa = sessionStorage.deletar_apa;
+        fetch(`/perfil/deletar_apa/${id_apa}`, {
             method: "delete",
             headers: {
                 "Content-Type": "application/json",
@@ -333,7 +330,7 @@
         }).catch(erro => {
             console.log(erro)
         })
-         deletar_apa_div.style.display = "none";
+        deletar_apa_div.style.display = "none";
         cadastros.style.display = "none"
 
     }
@@ -370,15 +367,15 @@
 
 
 
-     function atualizar_monitoramento(idMonitoramento,situacao){    
-         fetch(`/perfil/atualizar_monitoramento`, {
+    function atualizar_monitoramento(idMonitoramento, situacao) {
+        fetch(`/perfil/atualizar_monitoramento`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 monitoramentoServer: idMonitoramento,
-                situacaoServer:situacao
+                situacaoServer: situacao
             }),
         })
             .then(resposta => {
@@ -388,8 +385,8 @@
                 console.log(erro)
             })
 
-     }
-    
+    }
+
 
     function mostrarPerfil() {
         var solicitacoes = document.querySelector("#solicitacoes")
@@ -423,7 +420,7 @@
         orgao.style.backgroundColor = "#024002";
         solicitacoes.style.backgroundColor = "transparent";
         cadastros.style.display = "none"
-
+        deletar_apa_div.style.display="none"
         listarorgao()
     }
 
@@ -469,26 +466,27 @@
         sessionStorage.deletar_orgao = `${id}`
         deletar_orgao_div.style.display = "flex"
         cadastros.style.display = "flex"
-        
+
     }
 
-     function sair() {
-        sessionStorage.clear();
-        window.location.href = "../site institucional/login.html";
-    }
-
-    function abrir_deletar_apa(id_apa){
+    function abrir_deletar_apa(id_apa) {
         sessionStorage.deletar_apa = id_apa;
         deletar_apa_div.style.display = "flex"
         cadastros.style.display = "flex"
     }
 
-    function ocultarCadastros(){
+    function ocultarCadastros() {
         cadastro_orgao.style.display = "none"
         cadastros.style.display = "none"
         deletar_orgao_div.style.display = "none"
         deletar_apa_div.style.display = "none";
     }
+
+    function sair() {
+        sessionStorage.clear();
+        window.location.href = "../site institucional/login.html";
+    }
+
     mostrarPerfil();
     dadosperfil_adm()
 

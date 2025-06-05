@@ -14,52 +14,51 @@
 
         <div class="lateral">
 
+            <img id="logo" src="Assets/Icons/logo_branca.png">
 
             <a onclick="mostrarPerfil()">
                 <div id="Perfil">
                     <img src="Assets/Icons/Perfil-Orgao.png">
-                    <h1>Perfil</h1>
+                    <h1 class="txt_botao">Perfil</h1>
                 </div>
             </a>
 
             <a onclick="mostrarFunc()">
                 <div id="FuncionarioLat">
                     <img src="Assets/Icons/Cracha.png">
-                    <h1>Funcionario</h1>
+                    <h1 class="txt_botao">Funcionario</h1>
                 </div>
             </a>
 
             <a onclick="mostrarAPAs()">
                 <div id="APA">
                     <img src="Assets/Icons/Floresta.png">
-                    <h1>APAs</h1>
+                    <h1 class="txt_botao">APAs</h1>
                 </div>
             </a>
 
             <a onclick="mostrarAcessos()">
                 <div id="Acessos">
                     <img src="Assets/Icons/relogio.png">
-                    <h1>Acessos</h1>
+                    <h1 class="txt_botao">Acessos</h1>
                 </div>
             </a>
 
             <a onclick="sair()">
                 <div>
                     <img src="Assets/Icons/logout.png">
-                    <h1>Logout</h1>
+                    <h1 class="txt_botao">Logout</h1>
                 </div>
             </a>
-            
+
+            <img id="voltar_org" onclick="voltar()" src="Assets/Icons/voltar.png">
+
         </div>
-
-
 
         <div class="Central" id="central">
 
             <!-- Aqui fica as divs De cadastro tanto de apa quanto de func -->
             <div class="cadastros" id="cadastros">
-
-
 
                 <div class="cadastros_funcionarios" id="cadastro_func">
                     <div>
@@ -127,10 +126,6 @@
                     </div>
                 </div>
 
-
-
-
-
                 <div class="deletar_class" id="deletar_funcionario_div">
                     <div>
                         <h1>Tem certeza que deseja deletar?</h1>
@@ -146,9 +141,6 @@
                 </div>
 
             </div>
-
-
-
 
             <!-- Divs para deletar -->
 
@@ -563,12 +555,6 @@
         sessionStorage.Func_atualizar = id_func
     }
 
-
-    function sair() {
-        sessionStorage.clear();
-        window.location.href = "../site institucional/login.html";
-    }
-
     function abrirCadastroAPAs() {
         cadastro_func.style.display = "none"
         cadastro_APAs.style.display = "flex"
@@ -577,5 +563,10 @@
     dadosperfil()
     mostrarPerfil();
     ocultarCadastros()
+
+    function sair() {
+        sessionStorage.clear();
+        window.location.href = "../site institucional/login.html";
+    }
 
 </script>
