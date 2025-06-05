@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="Assets/Icons/logo_branca.png" type="image/x-icon">
 </head>
 
+
+
 <body>
     <div class="nav">
 
@@ -25,78 +27,78 @@
 
     </div>
 
-    <div class="container">
+    <div id="container" class="container">
 
         <div class="kpi_pai">
 
-                <div class="Status">
+            <div class="Status">
 
-                    <div class="statusText">
-                        <h4>Status dos Sensores</h4>
-                        <div>
+                <div class="statusText">
+                    <h4>Status dos Sensores</h4>
+                    <div>
 
-                            <h3 id="qtdTotal"></h3>
-                        </div>
+                        <h3 id="qtdTotal"></h3>
                     </div>
-
-                    <div class="alertas">
-                        <h4>Alertas</h4>
-                        <div>
-                            <img src="Assets/grid_img/aviso_temp_umid.png">
-                            <h3 id="qtdAviso"></h3>
-                        </div>
-                    </div>
-
-                    <div class="perigo">
-                        <h4>Perigo</h4>
-                        <div>
-                            <img src="Assets/grid_img/alerta_temp.png">
-                            <h3 id="qtdAlerta"></h3>
-                        </div>
-                    </div>
-
-                    <div class="manutencao">
-                        <h4>Manutenção</h4>
-                        <div>
-                            <img src="Assets/Icons/sem-sinal.png">
-                            <h3 id="qtdManutencao"></h3>
-                        </div>
-                    </div>
-
-                    <h1>APA XPTO</h1>
                 </div>
+
+                <div class="alertas">
+                    <h4>Alertas</h4>
+                    <div>
+                        <img src="Assets/grid_img/aviso_temp_umid.png">
+                        <h3 id="qtdAviso"></h3>
+                    </div>
+                </div>
+
+                <div class="perigo">
+                    <h4>Perigo</h4>
+                    <div>
+                        <img src="Assets/grid_img/alerta_temp.png">
+                        <h3 id="qtdAlerta"></h3>
+                    </div>
+                </div>
+
+                <div class="manutencao">
+                    <h4>Manutenção</h4>
+                    <div>
+                        <img src="Assets/Icons/sem-sinal.png">
+                        <h3 id="qtdManutencao"></h3>
+                    </div>
+                </div>
+
+                <h1>APA XPTO</h1>
+            </div>
 
         </div>
 
         <div class="kpi_lateral">
 
-            
-                <div class="fundoKPI">
-                    <h1>Alerta</h1>
-                    <img id="termometro" src="Assets/Icons/termometro.png">
-                    <img id="umidade" src="Assets/Icons/umidade.png">
-                    <h4 id="temperaturaMedia" style="display: none;"></h4>
-                    <h3><b>34°C - 37.9°C</b><br>ou<br><b>40% - 21%</b></h3>
-                    <img id="metrica" src="Assets/Icons/alerta.png">
-                </div>
 
-                <div class="fundoKPI">
-                    <h1>Perigo</h1>
-                    <img id="termometro" src="Assets/Icons/termometro.png">
-                    <img id="umidade" src="Assets/Icons/umidade.png">
-                    <h4 id="umidadeMedia" style="display: none;"></h4>
-                    <h3><b>38°C - 46.9°C</b><br>ou<br>abaixo de <b>20%</b></h3>
-                    <img id="metrica" src="Assets/Icons/perigo.png">
-                </div>
+            <div class="fundoKPI">
+                <h1>Alerta</h1>
+                <img id="termometro" src="Assets/Icons/termometro.png">
+                <img id="umidade" src="Assets/Icons/umidade.png">
+                <h4 id="temperaturaMedia" style="display: none;"></h4>
+                <h3><b>34°C - 37.9°C</b><br>ou<br><b>40% - 21%</b></h3>
+                <img id="metrica" src="Assets/Icons/alerta.png">
+            </div>
 
-                <div class="fundoKPI">
-                    <h1>Incêndio</h1>
-                    <img id="termometro" src="Assets/Icons/termometro.png">
-                    <img id="umidade" src="Assets/Icons/umidade.png">
-                    <h4 id="metrica_incendio"></h4>
-                    <h3>acima de <b>47°C</b><br>ou<br>abaixo de <b>20%</b></h3>
-                    <img id="metrica" src="Assets/grid_img/fogo.png">
-                </div>
+            <div class="fundoKPI">
+                <h1>Perigo</h1>
+                <img id="termometro" src="Assets/Icons/termometro.png">
+                <img id="umidade" src="Assets/Icons/umidade.png">
+                <h4 id="umidadeMedia" style="display: none;"></h4>
+                <h3><b>38°C - 46.9°C</b><br>ou<br>abaixo de <b>20%</b></h3>
+                <img id="metrica" src="Assets/Icons/perigo.png">
+            </div>
+
+            <div class="fundoKPI">
+                <h1>Incêndio</h1>
+                <img id="termometro" src="Assets/Icons/termometro.png">
+                <img id="umidade" src="Assets/Icons/umidade.png">
+                <h4 id="metrica_incendio"></h4>
+                <h3>acima de <b>47°C</b><br>ou<br>abaixo de <b>20%</b></h3>
+                <img id="metrica" src="Assets/grid_img/fogo.png">
+            </div>
 
         </div>
 
@@ -157,71 +159,77 @@
 </html>
 
 <script>
+    
+            function direcionar_perfil() {
+    
+    
+                var nivel = sessionStorage.nivelusuario
+                console.log(nivel)
+                if (nivel == 1) {
+                    window.location.href = `./perfil_adm.html`
+                }
+                else if (nivel == 2) {
+                    window.location.href = `./perfil_funcionario.html`
+                }
+                else {
+                    window.location.href = `./perfil_orgao.html`
+                }
+            }
 
+    if (sessionStorage.Atividade == "Inativo") {
 
+        container.innerHTML = '<div class = "error"><h6>A sua área de monitoramento ainda está inativa, os sensores não foram posicionados </h6><br><br><img src = "../site_institucional/assets/icon/logo_preta.png">  <a href = "./home_dash.html">Voltar para a seleção</a> </div>';
 
-    function dashSensor() {
-        window.location.href = "dashboard_Sensor.html";
-    }
+    } else {
 
-    function direcionar_perfil() {
+        console.log(sessionStorage.Atividade)
 
-
-        var nivel = sessionStorage.nivelusuario
-        console.log(nivel)
-        if (nivel == 1) {
-            window.location.href = `./perfil_adm.html`
+        function dashSensor() {
+            window.location.href = "dashboard_Sensor.html";
         }
-        else if (nivel == 2) {
-            window.location.href = `./perfil_funcionario.html`
+
+
+        async function buscar_dados_monitoramento() {
+            var idMonitoramento = sessionStorage.idMonitoramento
+            const resp = await fetch(`/medidas//dados_monitoramento/${idMonitoramento}`);
+            if (resp.ok) {
+                const resp_dados_monitoramento = await resp.json();
+
+                grid.style.backgroundImage = `url("${resp_dados_monitoramento[0].Imagem}")`;
+                Nome_monitoramento.innerHTML = resp_dados_monitoramento[0].Nome_Atribuido;
+                listar_sensores(resp_dados_monitoramento)
+            } else {
+                console.error("Erro ao buscar dados:", resp.status);
+            }
         }
-        else {
-            window.location.href = `./perfil_orgao.html`
+
+
+        async function buscarDados() {
+            var idMonitoramento = sessionStorage.idMonitoramento
+            const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
+            if (resp.ok) {
+                const resp_dados = await resp.json();
+
+                console.log(resp_dados);
+
+                listar_sensores(resp_dados)
+            } else {
+                console.error("Erro ao buscar dados:", resp.status);
+            }
         }
-    }
-
-
-    async function buscar_dados_monitoramento() {
-        var idMonitoramento = sessionStorage.idMonitoramento
-        const resp = await fetch(`/medidas//dados_monitoramento/${idMonitoramento}`);
-        if (resp.ok) {
-            const resp_dados_monitoramento = await resp.json();
-
-            grid.style.backgroundImage = `url("${resp_dados_monitoramento[0].Imagem}")`;
-            Nome_monitoramento.innerHTML = resp_dados_monitoramento[0].Nome_Atribuido;
-            listar_sensores(resp_dados_monitoramento)
-        } else {
-            console.error("Erro ao buscar dados:", resp.status);
-        }
-    }
-
-
-    async function buscarDados() {
-        var idMonitoramento = sessionStorage.idMonitoramento
-        const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
-        if (resp.ok) {
-            const resp_dados = await resp.json();
-
-            console.log(resp_dados);
-
-            listar_sensores(resp_dados)
-        } else {
-            console.error("Erro ao buscar dados:", resp.status);
-        }
-    }
 
 
 
-    async function listar_sensores(resp_dados) {
-        var mensagem = ""
-        var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-        var mensagem_grid = ''
-        var mensagem_Atencao = "";
+        async function listar_sensores(resp_dados) {
+            var mensagem = ""
+            var lista_grid = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+            var mensagem_grid = ''
+            var mensagem_Atencao = "";
 
 
-        /*  Listando os sensores na lista */
-        for (var i = 0; i < resp_dados.length; i++) {
-            mensagem += `
+            /*  Listando os sensores na lista */
+            for (var i = 0; i < resp_dados.length; i++) {
+                mensagem += `
             <div style = "cursor : pointer"onclick = "direcionar_pagina_individual(${resp_dados[i].ID})">
                 <h1>${resp_dados[i].Nome_Sensor}</h1>
                 <div>
@@ -234,8 +242,8 @@
            `;
 
 
-            if (resp_dados[i].Situacao == "Alerta") {
-                mensagem_Atencao += `
+                if (resp_dados[i].Situacao == "Alerta") {
+                    mensagem_Atencao += `
                         <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
                             <img src="./Assets/grid_img/aviso.png" style="height: 50px;">
                             <div>
@@ -245,8 +253,8 @@
                         </div>
                 `;
 
-            } else if (resp_dados[i].Situacao == "Perigo") {
-                mensagem_Atencao += `
+                } else if (resp_dados[i].Situacao == "Perigo") {
+                    mensagem_Atencao += `
                         <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
                             <img src="./Assets/Icons/perigo.png" style="height: 50px;">
                             <div>
@@ -257,8 +265,8 @@
                 `;
 
 
-            } else if (resp_dados[i].Situacao == "Incêndio") {
-                mensagem_Atencao += `
+                } else if (resp_dados[i].Situacao == "Incêndio") {
+                    mensagem_Atencao += `
                          <div onclick="direcionar_pagina_individual(${resp_dados[i].ID})" style="cursor: pointer;">
                             <img src="./Assets/grid_img/fogo.png" style="height: 50px;">
                             <div>
@@ -267,214 +275,214 @@
                             </div>
                         </div>
                 `;
+                }
+
             }
 
-        }
+            lista_atencao.innerHTML = mensagem_Atencao;
 
-        lista_atencao.innerHTML = mensagem_Atencao;
+            console.log(resp_dados);
 
-        console.log(resp_dados);
-
-        /* Fazendo o gráfico de grid */
+            /* Fazendo o gráfico de grid */
 
 
-        var contador_alerta = 0;
-        var contador_perigo = 0;
-        var contador_manutencao = 0;
+            var contador_alerta = 0;
+            var contador_perigo = 0;
+            var contador_manutencao = 0;
 
-        var posicaoAtual = 0;
+            var posicaoAtual = 0;
 
 
 
-        for (var i = 0; i < lista_grid.length; i++) {
+            for (var i = 0; i < lista_grid.length; i++) {
 
-            posicaoAtual = lista_grid[i];
-            mensagem_grid += `  
+                posicaoAtual = lista_grid[i];
+                mensagem_grid += `  
                     <div class = "${posicaoAtual}">
             `;
-            for (var j = 1; j < 10; j++) {
-                for (var k = 0; k < resp_dados.length; k++) {
-                    if (resp_dados[k].Nome_Sensor.includes(`${posicaoAtual}${j}-${sessionStorage.idMonitoramento}`)) {
-                        var inclui = true
-                        var id = resp_dados[k].ID;
+                for (var j = 1; j < 10; j++) {
+                    for (var k = 0; k < resp_dados.length; k++) {
+                        if (resp_dados[k].Nome_Sensor.includes(`${posicaoAtual}${j}-${sessionStorage.idMonitoramento}`)) {
+                            var inclui = true
+                            var id = resp_dados[k].ID;
+
+                            if (resp_dados[k].Situacao == "Alerta") {
+                                contador_alerta++;
+                            } else if (resp_dados[k].Situacao == "Perigo") {
+                                contador_perigo++
+                            } else if (resp_dados[k].status_sensor == "Manutencao") {
+                                contador_manutencao++
+                            }
+
+                            break;
+                        } else {
+                            inclui = false
+                        }
+                    }
+                    if (inclui) {
 
                         if (resp_dados[k].Situacao == "Alerta") {
-                            contador_alerta++;
-                        } else if (resp_dados[k].Situacao == "Perigo") {
-                            contador_perigo++
-                        } else if (resp_dados[k].status_sensor == "Manutencao") {
-                            contador_manutencao++
-                        }
-
-                        break;
-                    } else {
-                        inclui = false
-                    }
-                }
-                if (inclui) {
-
-                    if (resp_dados[k].Situacao == "Alerta") {
-                        mensagem_grid += `
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/alerta.png" alt="">
                     </div>
                     `
 
 
-                    } else if (resp_dados[k].Situacao == "Perigo") {
-                        mensagem_grid += `
+                        } else if (resp_dados[k].Situacao == "Perigo") {
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/perigo.png" alt="">
                     </div>
                     `
-                    } else if (resp_dados[k].status_sensor == "Manutencao") {
-                        mensagem_grid += `
+                        } else if (resp_dados[k].status_sensor == "Manutencao") {
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/Icons/sem-sinal.png" alt="">
                     </div>
                     `
-                    } else if (resp_dados[k].Situacao == "Incêndio") {
-                        mensagem_grid += `
+                        } else if (resp_dados[k].Situacao == "Incêndio") {
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/fogo.png" alt="">
                     </div>
                     `
 
-                    }
+                        }
 
-                    else {
-                        mensagem_grid += `
+                        else {
+                            mensagem_grid += `
                      <div id="${posicaoAtual}${j}-${sessionStorage.idMonitoramento}" onclick="direcionar_pagina_individual(${id})" style="cursor: pointer;">
                         <img src="Assets/grid_img/sensor.png" alt="">
                     </div>
                     `
+                        }
+
+
+                    } else {
+                        mensagem_grid += `<div></div>`
                     }
+                }
+
+                mensagem_grid += "</div>"
+            }
 
 
-                } else {
-                    mensagem_grid += `<div></div>`
+            qtdTotal.innerHTML = resp_dados.length;
+            grid.innerHTML = mensagem_grid
+            qtdAviso.innerHTML = contador_alerta;
+            qtdAlerta.innerHTML = contador_perigo;
+            qtdManutencao.innerHTML = contador_manutencao;
+            Listar_sensores.innerHTML = mensagem
+
+
+
+            const ctx = document.getElementById('myChart');
+
+            const dataAtual = new Date();
+            const diaHoje = parseInt(dataAtual.getDate().toFixed(0));
+            const mesHoje = parseInt(dataAtual.getMonth().toFixed(0)) + 1;
+
+
+            console.log(mesHoje)
+
+
+            const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${sessionStorage.idMonitoramento}`)
+            const resp_cinco_dias = await dados_cinco_dias.json();
+
+
+
+            /* Parte da atencao necessária */
+
+            var mensagem_atencao = ""
+
+
+            var alertas = [0, 0, 0, 0, 0];
+            var perigo = [0, 0, 0, 0, 0];
+            var incendios = [0, 0, 0, 0, 0];
+
+            for (var i = 0; i < resp_cinco_dias.length; i++) {
+                if (resp_cinco_dias[i].alertas != 0) {
+                    alertas[i] = resp_cinco_dias[i].alertas
+                }
+                if (resp_cinco_dias[i].perigos != 0) {
+                    alertas[i] = resp_cinco_dias[i].perigos
+                }
+                if (resp_cinco_dias[i].incendios != 0) {
+                    alertas[i] = resp_cinco_dias[i].incendios
                 }
             }
 
-            mensagem_grid += "</div>"
-        }
-
-
-        qtdTotal.innerHTML = resp_dados.length;
-        grid.innerHTML = mensagem_grid
-        qtdAviso.innerHTML = contador_alerta;
-        qtdAlerta.innerHTML = contador_perigo;
-        qtdManutencao.innerHTML = contador_manutencao;
-        Listar_sensores.innerHTML = mensagem
-
-
-
-        const ctx = document.getElementById('myChart');
-
-        const dataAtual = new Date();
-        const diaHoje = parseInt(dataAtual.getDate().toFixed(0));
-        const mesHoje = parseInt(dataAtual.getMonth().toFixed(0)) + 1;
-
-
-        console.log(mesHoje)
-
-
-        const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${sessionStorage.idMonitoramento}`)
-        const resp_cinco_dias = await dados_cinco_dias.json();
-
-
-
-        /* Parte da atencao necessária */
-
-        var mensagem_atencao = ""
-
-
-        var alertas = [0, 0, 0, 0, 0];
-        var perigo = [0, 0, 0, 0, 0];
-        var incendios = [0, 0, 0, 0, 0];
-
-        for (var i = 0; i < resp_cinco_dias.length; i++) {
-            if (resp_cinco_dias[i].alertas != 0) {
-                alertas[i] = resp_cinco_dias[i].alertas
-            }
-            if (resp_cinco_dias[i].perigos != 0) {
-                alertas[i] = resp_cinco_dias[i].perigos
-            }
-            if (resp_cinco_dias[i].incendios != 0) {
-                alertas[i] = resp_cinco_dias[i].incendios
-            }
-        }
-
-        console.log(resp_cinco_dias)
-        console.log(alertas, perigo, incendios)
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [`${diaHoje - 4}/${mesHoje}`, `${diaHoje - 3}/${mesHoje}`, `${diaHoje - 2}/${mesHoje}`, `${diaHoje - 1}/${mesHoje}`, 'Hoje'], // datas
-                datasets: [
-                    {
-                        label: 'Alerta',
-                        data: [alertas[4], alertas[3], alertas[2], alertas[1], alertas[0]],
-                        backgroundColor: '#FFEB3B' // amarelo
-                    },
-                    {
-                        label: 'Perigo',
-                        data: [perigo[4], perigo[3], perigo[2], perigo[1], perigo[0]],
-                        backgroundColor: '#A76E2A' // marrom
-                    },
-                    {
-                        label: 'Incêndio',
-                        data: [incendios[4], incendios[3], incendios[2], incendios[1], incendios[0]],
-                        backgroundColor: '#B22222' // vermelho
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                    },
-                    y: {
-
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Número de Avisos'
+            console.log(resp_cinco_dias)
+            console.log(alertas, perigo, incendios)
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [`${diaHoje - 4}/${mesHoje}`, `${diaHoje - 3}/${mesHoje}`, `${diaHoje - 2}/${mesHoje}`, `${diaHoje - 1}/${mesHoje}`, 'Hoje'], // datas
+                    datasets: [
+                        {
+                            label: 'Alerta',
+                            data: [alertas[4], alertas[3], alertas[2], alertas[1], alertas[0]],
+                            backgroundColor: '#FFEB3B' // amarelo
+                        },
+                        {
+                            label: 'Perigo',
+                            data: [perigo[4], perigo[3], perigo[2], perigo[1], perigo[0]],
+                            backgroundColor: '#A76E2A' // marrom
+                        },
+                        {
+                            label: 'Incêndio',
+                            data: [incendios[4], incendios[3], incendios[2], incendios[1], incendios[0]],
+                            backgroundColor: '#B22222' // vermelho
                         }
-                    }
+                    ]
                 },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            boxWidth: 20
+                options: {
+                    scales: {
+                        x: {
+                        },
+                        y: {
+
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Avisos'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
 
-    }
-
+        }
 
 
 
 
 
 
-    setInterval(() => {
+
+        setInterval(() => {
+            buscarDados();
+        }, 3000);
+
+
+
+
+        function direcionar_pagina_individual(id_sensor) {
+            sessionStorage.id_sensor = id_sensor;
+            console.log(id_sensor)
+            window.location = '../dashboard/dashboard_Sensor.html'
+        }
+
         buscarDados();
-    }, 3000);
-
-
-
-
-    function direcionar_pagina_individual(id_sensor) {
-        sessionStorage.id_sensor = id_sensor;
-        console.log(id_sensor)
-        window.location = '../dashboard/dashboard_Sensor.html'
+        buscar_dados_monitoramento();
     }
-
-    buscarDados();
-    buscar_dados_monitoramento();
-
 </script>

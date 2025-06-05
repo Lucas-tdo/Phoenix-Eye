@@ -74,7 +74,7 @@ function checar_email(email) {
 
 function cadastrar_apa(nome, imagem, id) {
     var instrucaoSql = `
-        insert into Monitoramento values (default,'${nome}','../dashboard/Assets/APAs/${imagem}','Em análise',${id});
+        insert into Monitoramento values (default,'${nome}','../dashboard/Assets/APAs/${imagem}','Em análise',${id}, DEFAULT);
     `;
 
     return database.executar(instrucaoSql)

@@ -220,7 +220,6 @@ function listarorgao(req,res){
     })
 }
 
-
 function listar_solicitacao(req,res){
     perfilModel.listar_solicitacao()
     .then(resposta=>{

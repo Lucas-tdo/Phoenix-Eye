@@ -57,13 +57,14 @@
         const resp = await fetch(`/medidas/listar_apas/${idOrgao}`);
 
         const resposta_apa = await resp.json();
+        
         console.log(resposta_apa)
         for (var i = 0; i < resposta_apa.length; i++) {
 
             mensagem += `
             <div class="cartao">
                 <h1>${resposta_apa[i].Nome_Atribuido}</h1>
-                <img src="${resposta_apa[i].Imagem}" onclick = "redirecionar(${resposta_apa[i].idMonitoramento})">
+                <img src="${resposta_apa[i].Imagem}" onclick = "redirecionar(${resposta_apa[i].idMonitoramento},'${resposta_apa[i].atividade}')">
             </div>
             `;
         }
@@ -72,8 +73,11 @@
         listar_apas_id.innerHTML = mensagem
     }
 
-    function redirecionar(id) {
+    async function redirecionar(id,atividade) {
         var idMonitoramento = id;
+
+        sessionStorage.Atividade = atividade;
+    
 
         fetch(`/login/cadastro_acesso`, {
             method: "POST",
