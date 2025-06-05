@@ -31,7 +31,7 @@ router.get("/buscar_acessos/:idOrgao", function (req, res) {
     medidasController.buscar_acessos(req, res)
 })
 
-router.get("/atualizar_ocorrencias/:id_Sensor/:limite",function(req,res){
+router.get("/atualizar_ocorrencias/:id_Sensor",function(req,res){
     medidasController.atualizar_ocorrencias(req,res)
 })
 

@@ -38,9 +38,8 @@ function dados_sensor_especifico(req, res) {
 
 function atualizar_ocorrencias(req,res){
     var id_Sensor = req.params.id_Sensor;
-    var limite = req.params.limite
 
-    medidaslModel.atualizar_ocorrencias(id_Sensor,limite)
+    medidaslModel.atualizar_ocorrencias(id_Sensor)
     .then(resposta=>{
         res.status(200).json(resposta)
     })

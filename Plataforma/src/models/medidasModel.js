@@ -41,10 +41,10 @@ function dados_sensor_especifico(id_Sensor) {
     return database.executar(instrucaoSql)
 }
 
-function atualizar_ocorrencias(id_Sensor, limite) {
+function atualizar_ocorrencias(id_Sensor) {
     var instrucaoSql = ` 
     SELECT Sensor.idSensor,Sensor.nome, Dados.Situacao_dado, Dados.dtMedicao FROM Dados
-    JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor=${id_Sensor} order by dtMedicao desc limit ${limite};
+    JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor=${id_Sensor} order by dtMedicao desc;
     `;
 
     return database.executar(instrucaoSql)

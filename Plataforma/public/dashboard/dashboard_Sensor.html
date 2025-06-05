@@ -108,7 +108,7 @@
 <script>
 
     var id_sensor = sessionStorage.id_sensor;
-    var limite = 3
+    var limite = 2
     const ctx = document.getElementById('myChart');
 
     const ctx2 = document.getElementById('myChart2');
@@ -117,7 +117,7 @@
     const umidade = new Chart(ctx2, {
         type: 'line',
         data: {
-            labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h', '7h',],
+            labels: [],
             datasets: [
 
                 {
@@ -184,7 +184,7 @@
     const Temperatura = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['0h', '1h', '2h', '3h', '4h', '5h', '6h'],
+            labels: [],
             datasets: [
                 {
                     label: 'Aviso',
@@ -254,13 +254,12 @@
 
     async function puxar_dados_sensor() {
 
-
-
         div_aviso.style.display = "none"
 
         const resp = await fetch(`/medidas/dados_sensor_especifico/${id_sensor}`)
         const resp_dados = await resp.json();
-        await console.log(resp_dados)
+        console.log(resp_dados)
+
         id_Title.innerHTML = "Dash:" + (Nome_Sensor.innerHTML = resp_dados[0].nome);
 
         tempSensorDash.innerHTML = resp_dados[0].temperatura
@@ -270,19 +269,26 @@
         Temperatura.data.datasets[1].data = []
         Temperatura.data.datasets[2].data = []
         Temperatura.data.datasets[3].data = []
+        Temperatura.data.labels=[]
         umidade.data.datasets[0].data = []
         umidade.data.datasets[1].data = []
         umidade.data.datasets[2].data = []
+        umidade.data.labels=[]
 
         for (dados of resp_dados) {
+            let data = new Date(dados.dtMedicao)
+            let hora = data.getHours()
+            let minuto = data.getMinutes()
+            let segundos = data.getSeconds()
             Temperatura.data.datasets[0].data.unshift(34)
             Temperatura.data.datasets[1].data.unshift(38)
             Temperatura.data.datasets[2].data.unshift(47)
             Temperatura.data.datasets[3].data.unshift(dados.temperatura)
+            Temperatura.data.labels.unshift(`${hora}:${minuto}:${segundos}`)
             umidade.data.datasets[0].data.unshift(40)
             umidade.data.datasets[1].data.unshift(20)
             umidade.data.datasets[2].data.unshift(dados.umidade)
-
+            umidade.data.labels.unshift(`${hora}:${minuto}:${segundos}`)
         }
         Temperatura.update()
         umidade.update()
@@ -322,17 +328,17 @@
 
     async function atualizar_ocorrencias() {
 
-        var resp = await fetch(`/medidas/atualizar_ocorrencias/${id_sensor}/${limite}`)
+        const resp = await fetch(`/medidas/atualizar_ocorrencias/${id_sensor}`)
         const resp_dados = await resp.json();
-        console.log(resp_dados)
 
         Ocorrencias.innerHTML = ``
-        for (ocorre of resp_dados) {
-            var data = new Date(ocorre.dtMedicao)
+
+        for (i=0;i<=limite;i++) {
+            var data = new Date(resp_dados[i].dtMedicao)
             var dia = String(data.getDate()).padStart(2, '0');
             var mes = String(data.getMonth() + 1).padStart(2, '0')
             var ano = data.getFullYear()
-            if (ocorre.Situacao_dado == "Alerta") {
+            if (resp_dados[i].Situacao_dado == "Alerta") {
                 Ocorrencias.innerHTML += `
                 <div>
                         <img src="Assets/Icons/alerta.png" style="height: 60px; margin-left: 20px;">
@@ -347,7 +353,7 @@
                 
                 `
             }
-            else if (ocorre.Situacao_dado == "Perigo") {
+            else if (resp_dados[i].Situacao_dado == "Perigo") {
                 Ocorrencias.innerHTML += `
                 <div>
                         <img src="Assets/Icons/perigo.png" style="height: 60px; margin-left: 20px;">
@@ -377,14 +383,12 @@
                 `
             }
         }
-        Ocorrencias.innerHTML += `<h5 onclick="Vermais()" style="cursor: pointer;">Ver mais...</h5>`
+        if(limite<resp_dados.length){
+            Ocorrencias.innerHTML += `<h5 onclick="Vermais()" style="cursor: pointer;">Ver mais...</h5>`
+        }
     }
 
-    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:22:15.000Z'}
-
-    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:20:39.000Z'}
-
-    // {idSensor: 3, nome: 'A3-1', Situacao_dado: 'Alerta', dtMedicao: '2025-06-01T15:14:41.000Z'}
+    
 
 
     function chamar() {
