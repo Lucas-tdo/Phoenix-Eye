@@ -54,21 +54,22 @@ const serial = async (
                 var situacao = "";
                 // Sorteia a situação
                 const sorteio = Math.random();
-                let temperaturaFake, umidadeFake;
+                var temperaturaFake = 0; 
+                var umidadeFake = 0;
 
                 if (sorteio < 0.84) { // 84% Normal
                     temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1));
                     umidadeFake = parseFloat(((Math.random() * 40) + 41).toFixed(1));
                     situacao = "Normal";
-                } else if (sorteio < 0.94) { // 10% Alerta
+                } else if (sorteio < 0.96) { 
                     temperaturaFake = parseFloat(((Math.random() * 4) + 34).toFixed(1));
                     umidadeFake = parseFloat(((Math.random() * 20) + 21).toFixed(1));
                     situacao = "Alerta";
-                } else if (sorteio < 0.99) { // 5% Perigo
+                } else if (sorteio < 0.99) { 
                     temperaturaFake = parseFloat(((Math.random() * 3) + 39).toFixed(1));
                     umidadeFake = parseFloat(((Math.random() * 19) + 1).toFixed(1));
                     situacao = "Perigo";
-                } else { // 1% Incêndio
+                } else {
                     temperaturaFake = parseFloat(((Math.random() * 5) + 48).toFixed(1));
                     umidadeFake = parseFloat(((Math.random() * 10) + 10).toFixed(1));
                     situacao = "Incêndio";
@@ -91,7 +92,7 @@ const serial = async (
 
 
                 
-                if (parseInt(mes) > (diaHoje.getMonth() + 1) && parseInt(dia) > diaHoje.getDate()) {
+                if ((parseInt(mes) > (diaHoje.getMonth() + 1)) && (parseInt(dia) > diaHoje.getDate())) {
                     dia = diaHoje.getDate().toFixed(0);
                     mes = (diaHoje.getMonth() + 1).toFixed(0);
                 }

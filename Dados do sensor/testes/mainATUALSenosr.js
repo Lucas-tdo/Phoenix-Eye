@@ -82,35 +82,35 @@ const serial = async (
             console.log("valores inseridos no banco: ", sensorUmid + ", " + sensorTemp + ',' + situacao);
 
             // Sensores fictícios (idSensor de 2 até 35)
-            for (var idSensor = 2; idSensor < 33; idSensor++) {
+            for (let idSensor = 2; idSensor < 33; idSensor++) {
                 // Geração de valores aleatórios
                 var temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1)); // entre 27.0 e 33.0
                 var umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.9) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.5) {
                     temperaturaFake = 35;
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.9) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.5) {
                     umidadeFake = 39;
                 }
 
 
-                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 99.5) {
+                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.9) {
                     temperaturaFake = 38;
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 99.5) {
+                if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
                     umidadeFake = 20;
                 }
 
 
-                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 99.7) {
-                    temperaturaFake = 49;
-                    umidadeFake = 15;
+                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
+                    temperaturaFake = 15;
+                    umidadeFake = 49;
                 }
 
 
