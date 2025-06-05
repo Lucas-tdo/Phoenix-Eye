@@ -31,8 +31,8 @@
         <!-- Cabeçalho -->
         <div id="cabecalho">
 
-            <p id="saudacoes">Olá, <span id="nome_usuario">(ÓRGÃO/FUNCIONÁRIO)</span>!</p>
-            <p id="apa_selecionada">APA selecionada: <span id="nome_apa">NOME APA</span></p>
+            <p id="saudacoes">Olá, <span id="nome_usuario"></span>!</p>
+            <p id="apa_selecionada">APA selecionada: <span id="nome_apa"></span></p>
 
         </div>
 
@@ -46,7 +46,7 @@
 
                     <p id="titulo_situacao">Situação Atual:</p>
 
-                    <p id="status_situacao">1 possível ponto de <span>incêndio</span> detectado!</p>
+                    <p id="status_situacao"></p>
 
                     <div id="linha"></div>
 
@@ -140,13 +140,50 @@
 
         var nivel_user = sessionStorage.nivelusuario;
 
-        if(nivel_user == 3){
+        if (resp_cinco_dias[0].incendios > 0) {
+
+
+            if (resp_cinco_dias[0].incendios > 1) {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> pontos de <span id="tipo_situaca">incêndio</span> detectados!`;
+            } else {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> ponto de <span id="tipo_situaca">incêndio</span> detectado!`;
+            }
+
+        } else if (resp_cinco_dias[0].perigos > 1) {
+
+
+            if (resp_cinco_dias[0].perigos > 1) {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> avisos de <span id="tipo_situaca">perigo</span> detectados!`;
+
+            } else {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> aviso de <span id="tipo_situaca">perigo</span> detectado!`;
+            }
+
+        } else if (resp_cinco_dias[0].alertas > 1) {
+
+            if (resp_cinco_dias[0].alertas > 1) {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> avisos de <span id="tipo_situaca">alertas</span> detectados!`;
+
+            } else {
+                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> aviso de <span id="tipo_situaca">alerta</span> detectado!`;
+            }
+
+        } else {
+            status_situacao.innerHTML = `<span>Nenhum</span> aviso detectado detectado!`;
+        }
+
+        if (nivel_user == 3) {
             nome_usuario.innerHTML = resposta_apa[0].orgao
-        }else{
+        } else {
             nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
         }
 
-        nome_apa.innerHTML = resposta_apa[idMonitoramento-1].Nome_Atribuido
+        nome_apa.innerHTML = resposta_apa[idMonitoramento - 1].Nome_Atribuido
+
+        setTimeout(() => {
+            buscar_dados()
+
+        }, 4000);
 
     }
 
