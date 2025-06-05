@@ -27,86 +27,78 @@
 
     <div class="container">
 
-        <div style="width: 100%; padding: 30px 0; display: flex;align-items: center; justify-content: center;">
-            <h1 id="Nome_monitoramento" style="font-size: 60px; color: #1A3421;"></h1>
+        <div class="kpi_pai">
+
+                <div class="Status">
+
+                    <div class="statusText">
+                        <h4>Status dos Sensores</h4>
+                        <div>
+
+                            <h3 id="qtdTotal"></h3>
+                        </div>
+                    </div>
+
+                    <div class="alertas">
+                        <h4>Alertas</h4>
+                        <div>
+                            <img src="Assets/grid_img/aviso_temp_umid.png">
+                            <h3 id="qtdAviso"></h3>
+                        </div>
+                    </div>
+
+                    <div class="perigo">
+                        <h4>Perigo</h4>
+                        <div>
+                            <img src="Assets/grid_img/alerta_temp.png">
+                            <h3 id="qtdAlerta"></h3>
+                        </div>
+                    </div>
+
+                    <div class="manutencao">
+                        <h4>Manutenção</h4>
+                        <div>
+                            <img src="Assets/Icons/sem-sinal.png">
+                            <h3 id="qtdManutencao"></h3>
+                        </div>
+                    </div>
+
+                    <h1>APA XPTO</h1>
+                </div>
+
         </div>
 
-        <div class="KPI">
-            <div class="Status">
+        <div class="kpi_lateral">
 
-                <div>
-                    <h4>Total Sensores</h4>
-                    <div>
-
-                        <h3 id="qtdTotal"></h3>
-                    </div>
-                </div>
-
-                <div>
-                    <h4>Alertas</h4>
-                    <div>
-                        <img src="Assets/grid_img/aviso_temp_umid.png">
-                        <h3 id="qtdAviso"></h3>
-                    </div>
-                </div>
-
-                <div>
-                    <h4>Perigo</h4>
-                    <div>
-                        <img src="Assets/grid_img/alerta_temp_umid.png" class="perigo">
-                        <h3 id="qtdAlerta"></h3>
-                    </div>
-                </div>
-
-                <div>
-                    <h4>Manutenção</h4>
-                    <div>
-                        <img src="Assets/Icons/sem-sinal.png">
-                        <h3 id="qtdManutencao"></h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="indicadores_grafico">
-                <a href="../dashboard/dashboard_Sensor.html"></a>
-
-                <div>
+            
+                <div class="fundoKPI">
                     <h1>Alerta</h1>
-                    <div>
-                        <img id="metrica" src="Assets/Icons/alerta.png">
-                        <img id="termometro" src="Assets/Icons/termometro.png">
-                        <img id="umidade" src="Assets/Icons/umidade.png">
-                        <h4 id="temperaturaMedia" style="display: none;"></h4>
-                        <h3>34°C <br><br> 40%</h3>
-                    </div>
+                    <img id="termometro" src="Assets/Icons/termometro.png">
+                    <img id="umidade" src="Assets/Icons/umidade.png">
+                    <h4 id="temperaturaMedia" style="display: none;"></h4>
+                    <h3><b>34°C - 37.9°C</b><br>ou<br><b>40% - 21%</b></h3>
+                    <img id="metrica" src="Assets/Icons/alerta.png">
                 </div>
 
-
-                <div>
+                <div class="fundoKPI">
                     <h1>Perigo</h1>
-                    <div>
-                        <img id="metrica" src="Assets/Icons/perigo.png">
-                        <img id="termometro" src="Assets/Icons/termometro.png">
-                        <img id="umidade" src="Assets/Icons/umidade.png">
-                        <h4 id="umidadeMedia" style="display: none;"></h4>
-                        <h3>38°C <br><br> 20%</h3>
-                    </div>
+                    <img id="termometro" src="Assets/Icons/termometro.png">
+                    <img id="umidade" src="Assets/Icons/umidade.png">
+                    <h4 id="umidadeMedia" style="display: none;"></h4>
+                    <h3><b>38°C - 46.9°C</b><br>ou<br>abaixo de <b>20%</b></h3>
+                    <img id="metrica" src="Assets/Icons/perigo.png">
                 </div>
 
-                <div>
+                <div class="fundoKPI">
                     <h1>Incêndio</h1>
-                    <div>
-                        <img id="metrica" src="Assets/grid_img/fogo.png">
-                        <img id="termometro" src="Assets/Icons/termometro.png">
-                        <img id="umidade" src="Assets/Icons/umidade.png">
-                        <h4 id="metrica_incendio"></h4>
-                        <h3>47°C <br><br> 20%</h3>
-                    </div>
+                    <img id="termometro" src="Assets/Icons/termometro.png">
+                    <img id="umidade" src="Assets/Icons/umidade.png">
+                    <h4 id="metrica_incendio"></h4>
+                    <h3>acima de <b>47°C</b><br>ou<br>abaixo de <b>20%</b></h3>
+                    <img id="metrica" src="Assets/grid_img/fogo.png">
                 </div>
 
-            </div>
         </div>
-
 
         <div class="Graficos">
             <div class="areaGrid" id="grid">
@@ -157,15 +149,12 @@
 
         </div>
 
-
-
     </div>
 
 
 </body>
 
 </html>
-
 
 <script>
 
