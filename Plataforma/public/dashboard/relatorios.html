@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <link rel="stylesheet" href="Styles/relatorios.css">
     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
+
 <body onload="listar_dados()">
-    
+
     <div class="container">
         <div class="nav">
 
@@ -30,79 +32,130 @@
                 <h3>Relatórios</h3>
             </div>
             <div class="kpi">
-                <div class="card"></div>
-                <div class="card"></div>
-                <div class="card"></div>
+                <div class="card">
+                    <p class="txt_status">Alerta</p>
+
+                    <div class="conteudo_card">
+
+                        <div class="txt_temp_umid">
+                            
+                            <p><img src="Assets/Icons/termometro.png">34ºC - 37.9ºC</p>
+                            <p>ou</p>
+                            <p><img src="Assets/Icons/umidade.png">40% - 21%</p>
+                        </div>
+
+                        <img class="img_status" src="Assets/Icons/alerta.png">
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <p class="txt_status">Perigo</p>
+
+                    <div class="conteudo_card">
+
+                        <div class="txt_temp_umid">
+                            
+                            <p><img src="Assets/Icons/termometro.png">34ºC - 37.9ºC</p>
+                            <p>ou</p>
+                            <p><img src="Assets/Icons/umidade.png">40% - 21%</p>
+                        </div>
+
+                        <img class="img_status" src="Assets/Icons/perigo.png">
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <p class="txt_status">Incêndio</p>
+
+                    <div class="conteudo_card">
+
+                        <div class="txt_temp_umid">
+                            
+                            <p><img src="Assets/Icons/termometro.png">34ºC - 37.9ºC</p>
+                            <p>ou</p>
+                            <p><img src="Assets/Icons/umidade.png">40% - 21%</p>
+                        </div>
+
+                        <img class="img_status" src="Assets/grid_img/fogo.png">
+
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="conteudo">
             <div class="filtro">
                 <h1>Filtrar por:</h1>
-                    <div class="div_input">
-                        <h1>De:</h1>
-                        <input id="de_input" type="date" name="">
-                    </div>
-                    <div class="div_input">
-                        <h1>Até:</h1>
-                        <input id="ate_input" type="date" name="">
-                    </div>
-                    <select id="select_situacao" >
-                        <option selected>Todos</option>
-                        <option>Alerta</option>
-                        <option>Perigo</option>
-                        <option>Incêndio</option>
-                    </select>
-                    <div class="pesquisa">
-                        <img src="Assets/Icons/pesquisa.png" onclick="listar_dados()" alt="">
-                    </div>
+                <div class="div_input">
+                    <h1>De:</h1>
+                    <input id="de_input" type="date" name="">
+                </div>
+                <div class="div_input">
+                    <h1>Até:</h1>
+                    <input id="ate_input" type="date" name="">
+                </div>
+                <select id="select_situacao">
+                    <option selected>Todos</option>
+                    <option>Alerta</option>
+                    <option>Perigo</option>
+                    <option>Incêndio</option>
+                </select>
+                <div class="pesquisa">
+                    <img src="Assets/Icons/pesquisa.png" onclick="listar_dados()" alt="">
+                </div>
             </div>
             <div class="lista" id="lista"></div>
         </div>
     </div>
-    
+
 </body>
+
 </html>
 
 <script>
-    
-    async function listar_dados(){
+
+    async function listar_dados() {
         var select = select_situacao.value
         var idOrgao = sessionStorage.idOrgao
         var de = de_input.value
         var ate = ate_input.value
-        if(de==""||ate==""){
-            de="vazio"
-            ate="vazio"
+        if (de == "" || ate == "") {
+            de = "vazio"
+            ate = "vazio"
         }
         var dados = await fetch(`/relatorios/listar_dados/${idOrgao}/${select}/${de}/${ate}`)
-        var resp_dados= await dados.json()
+        var resp_dados = await dados.json()
         console.log(resp_dados)
-        lista.innerHTML=``
+        lista.innerHTML = ``
 
-        for(resp of resp_dados){
+        for (resp of resp_dados) {
             let imagem = ""
-            if(resp.Situacao_dado=="Normal"){
-                imagem=`./Assets/grid_img/sensor.png`
+            if (resp.Situacao_dado == "Normal") {
+                imagem = `./Assets/grid_img/sensor.png`
             }
-            else if(resp.Situacao_dado=="Alerta"){
-                imagem=`./Assets/grid_img/aviso_temp.png`
+            else if (resp.Situacao_dado == "Alerta") {
+                imagem = `./Assets/grid_img/aviso_temp.png`
 
             }
-            else if(resp.Situacao_dado=="Perigo"){
-                imagem=`./Assets/grid_img/alerta_temp.png`
+            else if (resp.Situacao_dado == "Perigo") {
+                imagem = `./Assets/grid_img/alerta_temp.png`
 
             }
-            else if(resp.Situacao_dado=="Incêndio"){
-                imagem=`./Assets/grid_img/fogo.png`
-                
+            else if (resp.Situacao_dado == "Incêndio") {
+                imagem = `./Assets/grid_img/fogo.png`
+
             }
             var data = new Date(resp.dtMedicao)
             var dia = String(data.getDate()).padStart(2, '0');
-            var mes= String(data.getMonth()+1).padStart(2,'0')
+            var mes = String(data.getMonth() + 1).padStart(2, '0')
             var ano = data.getFullYear()
-            var hora = String(data.getHours()).padStart(2,'0')
-            var minuto = String(data.getMinutes()).padStart(2,'0')
-            lista.innerHTML+=`
+            var hora = String(data.getHours()).padStart(2, '0')
+            var minuto = String(data.getMinutes()).padStart(2, '0')
+            lista.innerHTML += `
                 <div class="dados_sensor">
                     <div class="img_situacao">
                         <img src="${imagem}" alt="">
