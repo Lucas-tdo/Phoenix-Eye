@@ -53,7 +53,7 @@ const serial = async (
             const temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1)); // entre 27.0 e 33.0
             const umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
             var situacao = "Normal";
-            if((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
+            if(temperaturaFake > 34 || umidadeFake < 40) {
                 situacao = "Alerta";
             }
 
