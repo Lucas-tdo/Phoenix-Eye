@@ -91,15 +91,15 @@ const serial = async (
                 }
 
 
+                if ((mes == '02' && dia == '29') || (mes == '02' && dia == '30')) {
+                    dia = '28';
+                }
                 
                 if ((parseInt(mes) > (diaHoje.getMonth() + 1)) && (parseInt(dia) > diaHoje.getDate())) {
                     dia = diaHoje.getDate().toFixed(0);
                     mes = (diaHoje.getMonth() + 1).toFixed(0);
                 }
 
-                if ((mes == '02' && dia == '29') || (mes == '02' && dia == '30')) {
-                    dia = '28';
-                }
 
                 var hora = (Math.random() * 23).toFixed(0);
                 if (hora < 10) {

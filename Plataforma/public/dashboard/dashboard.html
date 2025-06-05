@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="Assets/Icons/logo_branca.png" type="image/x-icon">
 </head>
+
 <body>
     <div class="nav">
 
@@ -121,7 +122,7 @@
             <div class="div_grafico">
                 <h1>Alerta dos últimos 5 dias</h1>
                 <canvas id="myChart">
-                   
+
                 </canvas>
             </div>
 
@@ -399,10 +400,24 @@
         var mensagem_atencao = ""
 
 
+        var alertas = [0, 0, 0, 0, 0];
+        var perigo = [0, 0, 0, 0, 0];
+        var incendios = [0, 0, 0, 0, 0];
 
-
+        for (var i = 0; i < resp_cinco_dias.length; i++) {
+            if (resp_cinco_dias[i].alertas != 0) {
+                alertas[i] = resp_cinco_dias[i].alertas
+            }
+            if (resp_cinco_dias[i].perigos != 0) {
+                alertas[i] = resp_cinco_dias[i].perigos
+            }
+            if (resp_cinco_dias[i].incendios != 0) {
+                alertas[i] = resp_cinco_dias[i].incendios
+            }
+        }
 
         console.log(resp_cinco_dias)
+        console.log(alertas, perigo, incendios)
         new Chart(ctx, {
             type: 'bar',
             data: {
@@ -410,17 +425,17 @@
                 datasets: [
                     {
                         label: 'Alerta',
-                        data: [resp_cinco_dias[4].alertas, resp_cinco_dias[3].alertas, resp_cinco_dias[2].alertas, resp_cinco_dias[1].alertas, resp_cinco_dias[0].alertas],
+                        data: [alertas[4], alertas[3], alertas[2], alertas[1], alertas[0]],
                         backgroundColor: '#FFEB3B' // amarelo
                     },
                     {
                         label: 'Perigo',
-                        data: [resp_cinco_dias[4].perigos, resp_cinco_dias[3].perigos, resp_cinco_dias[2].perigos, resp_cinco_dias[1].perigos, resp_cinco_dias[0].perigos],
+                        data: [perigo[4], perigo[3], perigo[2], perigo[1], perigo[0]],
                         backgroundColor: '#A76E2A' // marrom
                     },
                     {
                         label: 'Incêndio',
-                        data: [resp_cinco_dias[4].incendios, resp_cinco_dias[3].incendios, resp_cinco_dias[2].incendios, resp_cinco_dias[1].incendios, resp_cinco_dias[0].incendios],
+                        data: [incendios[4], incendios[3], incendios[2], incendios[1], incendios[0]],
                         backgroundColor: '#B22222' // vermelho
                     }
                 ]
