@@ -19,7 +19,7 @@
                 <a href="home.html">Home</a>
                 <a href="dashboard.html">Dashboard</a>
                 <a href="#">Relatórios</a>
-                <a href=""><img src="Assets/Icons/perfil.png" alt=""></a>
+                <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
             </div>
         </div>
         <div class="dados">
@@ -123,6 +123,21 @@
                         <h3>${resp.umidade}%</h3>
                     </div>
                 </div>`
+        }
+    }
+
+    function direcionar_perfil() {
+
+        var nivel = sessionStorage.nivelusuario
+        console.log(nivel)
+        if (nivel == 1) {
+            window.location.href = `./perfil_adm.html`
+        }
+        else if (nivel == 2) {
+            window.location.href = `./perfil_funcionario.html`
+        }
+        else {
+            window.location.href = `./perfil_orgao.html`
         }
     }
 </script>

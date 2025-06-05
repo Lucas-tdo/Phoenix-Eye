@@ -17,10 +17,10 @@
 
 
         <div>
-            <a href="#">Home</a>
-            <a href="#">Dashboard</a>
-            <a href="#">Relatórios</a>
-            <a href=""><img src="Assets/Icons/perfil.png" alt=""></a>
+            <a href="home.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="relatorios.html">Relatórios</a>
+            <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
         </div>
 
     </div>
@@ -398,5 +398,20 @@
 
 
     chamar()
+
+    function direcionar_perfil() {
+
+        var nivel = sessionStorage.nivelusuario
+        console.log(nivel)
+        if (nivel == 1) {
+            window.location.href = `./perfil_adm.html`
+        }
+        else if (nivel == 2) {
+            window.location.href = `./perfil_funcionario.html`
+        }
+        else {
+            window.location.href = `./perfil_orgao.html`
+        }
+    }
 
 </script>
