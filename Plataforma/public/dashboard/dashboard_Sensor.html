@@ -30,7 +30,12 @@
 
         <div class="KPI">
             <div class="Status">
-                <h1>Dados em tempo real!</h1>
+                <div class="Situacao">
+                    <h4>Situação</h4>
+                    <div>
+                        <img src="Assets/Icons/loading.gif" id="situacao_Dash" style="height: 70px; width: 70px;">
+                    </div>
+                </div>
                 <div>
                     <h4>Temperatura</h4>
                     <div>
@@ -47,12 +52,7 @@
                     </div>
                 </div>
 
-                <div class="Situacao">
-                    <h4>Situação</h4>
-                    <div>
-                        <img src="Assets/Icons/loading.gif" id="situacao_Dash" style="height: 70px; width: 70px;">
-                    </div>
-                </div>
+                
             </div>
 
             <div class="Nome_Sensor">
@@ -60,45 +60,41 @@
             </div>
         </div>
 
+        <div class="conteudo">
+            <div class="graficos" id="div_grafico">
 
-        <div class="graficos" id="div_grafico">
-
-            <div class="Graf_Temp_Atuais">
-                <div>
-                    <h4>Temperatura em tempo real</h4>
-                    <canvas id="myChart"></canvas>
-                </div>
-
-                <div>
-                    <h4>Umidade em tempo real</h4>
-                    <canvas id="myChart2"></canvas>
+                <div class="Graf_Temp_Atuais">
+                    <div>
+                        <h4>Temperatura em tempo real</h4>
+                            <canvas id="myChart"></canvas>
+                        
+                    </div>
+                    <div>   </div>
+                    <div>
+                        <h4>Umidade em tempo real</h4>  
+                            <canvas id="myChart2"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="kpi_E_Manutencao" id="div_kpi">
+            <div class="kpi_E_Manutencao" id="div_kpi">
 
-            <div> </div>
-
-            <div class="historicoAtencao">
-                <h2>Ocorrências</h2>
-                <div class="Ocorrencias" id="Ocorrencias"></div>
+                <div class="historicoAtencao">
+                    <h2>Ocorrências</h2>
+                        <div class="Ocorrencias" id="Ocorrencias"></div>
+                </div>
             </div>
+
+
+            <div class="aviso" id="div_aviso">
+
+                <h1>Sensor em manutenção! Por favor retorne em outro momento.</h1>
+
+            </div>
+
         </div>
-
-
-        <div class="aviso" id="div_aviso">
-
-            <h1>Sensor em manutenção! Por favor retorne em outro momento.</h1>
-
-        </div>
-
     </div>
-    <div class="footer">
-
-        <a href="dashboard.html"><img src="Assets/Icons/flecha.png"></a>
-
-    </div>
+        
 </body>
 
 </html>
@@ -126,6 +122,7 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 251, 8)',
                     backgroundColor: 'rgb(255, 251, 8)',
+                    pointRadius : 0
 
                 }
                 , {
@@ -134,12 +131,13 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 0, 0)',
                     backgroundColor: 'rgb(255, 0, 0)',
+                    pointRadius : 0
 
                 }
                 , {
                     label: 'Umidade',
                     data: [],
-                    borderWidth: 5,
+                    borderWidth: 3,
                     borderColor: 'rgb(54, 162, 235)',
                     backgroundColor: 'rgb(54, 162, 235)',
                 }
@@ -150,11 +148,11 @@
         options: {
             plugins: {
                 legend: {
-                    position: 'bottom',
+                    position: 'bottom',  
                     labels: {
                         padding: 30,
                         font: {
-                            size: 14,
+                            size: 11,
                             weight: 600,
 
                         },
@@ -192,12 +190,16 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 251, 8)',
                     backgroundColor: 'rgb(255, 251, 8)',
+                    borderWidth: 1,
+                    pointRadius : 0
                 }, {
                     label: 'Alerta',
                     data: [],
                     borderWidth: 2,
                     borderColor: 'rgb(255, 123, 0)',
                     backgroundColor: 'rgb(255, 123, 0)',
+                    borderWidth: 1,
+                    pointRadius : 0
                 },
                 {
                     label: 'Incêndio',
@@ -205,11 +207,13 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 0, 0)',
                     backgroundColor: 'rgb(255, 0, 0)',
+                    borderWidth: 1,
+                    pointRadius : 0
                 },
                 {
                     label: 'Temperatura',
                     data: [],
-                    borderWidth: 5,
+                    borderWidth: 3,
                     borderColor: 'rgb(0, 128, 0)',
                     backgroundColor: 'rgb(0, 128, 0)',
                 },
@@ -223,11 +227,10 @@
 
                     position: 'bottom',
                     labels: {
-                        padding: 30,
+                        padding: 10,
                         font: {
                             size: 14,
                             weight: 600,
-
                         },
                         color: 'rgb(26, 51, 32);'
                     }
@@ -237,6 +240,7 @@
                 x: {
                     ticks: {
                         color: 'rgb(26, 51, 32);'
+                        
                     }
                 },
                 y: {
@@ -250,7 +254,12 @@
         }
     });
 
-
+    Temperatura.canvas.parentNode.style.height = '300px';
+    Temperatura.canvas.parentNode.style.width = '800px';
+    Temperatura.canvas.parentNode.style.padding = '0'
+    umidade.canvas.parentNode.style.height = '300px';
+    umidade.canvas.parentNode.style.width = '800px';
+    umidade.canvas.parentNode.style.padding = '0'
 
     async function puxar_dados_sensor() {
 
