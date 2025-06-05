@@ -10,7 +10,7 @@ SELECT
     Sensor.status_sensor,
     Dados.temperatura,
     Dados.umidade,
-    DATE_FORMAT(Dados.dtMedicao,'%H:%i:%s'),
+    DATE_FORMAT(Dados.dtMedicao,'%H:%i:%s') as "Data",
     Dados.Situacao_dado AS Situacao
 FROM Sensor 
 JOIN (

@@ -27,6 +27,7 @@
 
     </div>
 
+
     <div class="container" id="div_container">
 
         <div class="KPI">
@@ -276,7 +277,7 @@
         umidade.data.datasets[2].data=[]
     
         for(dados of resp_dados){
-            Temperatura.data.datasets[0].data.unshift(20)
+            Temperatura.data.datasets[0].data.unshift(34)
             Temperatura.data.datasets[1].data.unshift(38)
             Temperatura.data.datasets[2].data.unshift(47)
             Temperatura.data.datasets[3].data.unshift(dados.temperatura)
@@ -320,6 +321,7 @@
         atualizar_ocorrencias()
     }
 
+
     async function atualizar_ocorrencias(){
         
         var resp = await fetch(`/medidas/atualizar_ocorrencias/${id_sensor}/${limite}`)
@@ -335,7 +337,7 @@
             if(ocorre.Situacao_dado=="Alerta"){
                 Ocorrencias.innerHTML+=`
                 <div>
-                        <img src="Assets/grid_img/alerta_temp.png" style="height: 60px; margin-left: 20px;">
+                        <img src="Assets/Icons/alerta.png" style="height: 60px; margin-left: 20px;">
                         <div>
                             <h3>Alerta de temperatura</h3>
                             <p>Temperatura em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
@@ -350,7 +352,7 @@
             else if(ocorre.Situacao_dado=="Perigo"){
                 Ocorrencias.innerHTML+=`
                 <div>
-                        <img src="Assets/grid_img/aviso_temp_umid.png" style="height: 60px; margin-left: 20px;">
+                        <img src="Assets/Icons/perigo.png" style="height: 60px; margin-left: 20px;">
                         <div>
                             <h3>Alerta de temperatura</h3>
                             <p>Temperatura e umidade <br>fora dos padrões normais. <br> Necessária tomada de ação!</p>
