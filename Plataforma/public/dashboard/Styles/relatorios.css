@@ -77,7 +77,7 @@
     display: flex;
     background-color: #1A3421;
     color: white;
-    height: 100px;
+    height: 70px;
     width: 60%;
     align-items: center;
     justify-content: center;
@@ -86,38 +86,79 @@
 }
 
 .nome_apa h1{
-    font-size: 55px;
+    font-size: 40px;
 }
 
 .titulos h3{
-    font-size: 90px;
+    font-size: 60px;
     color: #024002;
+    margin-right: 70px;
+    margin-bottom: 20px;
 }
 
-
+/* KPI */
 
 .kpi{
     display: flex;
-    height: 100%;
-    width: 30%;
-    flex-direction: column;
+    height: 60%;
+    width: 50%;
     align-items: center;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
 .card{
-    width: 40%;
-    height: 100px;
+    width: 30%;
+    height: 100%;
     background-color: #1A3421;
     border-radius: 20px;
     margin-top: 10px;
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
 }
+
+.card .txt_status {
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+.card .conteudo_card {
+    /* background-color: aqua; */
+    width: 90%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card .conteudo_card .img_status {
+    width: 60px;
+    height: 60px;
+}
+
+.card .conteudo_card .txt_temp_umid {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card .conteudo_card .txt_temp_umid img{
+    width: 30px;
+    height: 30px;
+}
+
 
 /* Filtro */
 .conteudo{
     display: flex;
-    height: 70%;
+    height: 60%;
     width: 100%;
     align-items: center;
     flex-direction: column;
@@ -128,6 +169,7 @@
     height: 10%;
     flex-direction: row; 
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .filtro h1{
