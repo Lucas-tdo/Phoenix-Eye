@@ -8,6 +8,36 @@
     font-style: normal;
 }
 
+    /* Mensagem de erro */
+
+
+    .error{
+    display:  flex;
+    width: 100%;
+    height: 90vh;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error h6{
+    font-size: 40px;
+    width: 70%;
+    text-align: center;
+    color: #1A3421;
+}
+
+.error a{
+    color: #1A3421;
+    font-size: 40px;
+}
+
+.error img{
+    height: 200px;
+    width: 200px;
+}
+
+
 /* Navegação */
 
 .nav {

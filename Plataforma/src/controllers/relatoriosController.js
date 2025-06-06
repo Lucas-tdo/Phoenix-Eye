@@ -1,5 +1,20 @@
 var relatoriosModel= require('../models/relatoriosModels')
 
+function devolver_mock(req, res) {
+    const qtd = req.params.qtd;
+    console.log('qtd: ', qtd);
+
+    if (qtd == undefined || qtd == "") {
+        res.status(400).send("Informe a quantidade!");
+    }
+
+    const dados = []
+    for (let i = 0; i < qtd; i++) {
+        dados.push(parseInt((Math.random() * 7 + 26))) ;
+    }
+    res.send(dados);
+}
+
 function listar_dados(req,res){
     var idOrgao = req.params.idOrgao
     var situacao = req.params.situacao
@@ -22,5 +37,6 @@ function listar_dados(req,res){
 }
 
 module.exports={
-    listar_dados
+    listar_dados,
+    devolver_mock
 }

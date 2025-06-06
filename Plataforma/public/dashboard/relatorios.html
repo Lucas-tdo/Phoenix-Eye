@@ -9,21 +9,21 @@
     <link rel="shortcut icon" href="assets/imgs/Logo_com fundo.png" type="image/x-icon">
 </head>
 
-<body onload="listar_dados()">
+<body>
 
-    <div class="container">
-        <div class="nav">
+    <div class="nav">
 
-            <a href=""><img src="Assets/Icons/logo_branca.png" alt=""></a>
+        <a href=""><img src="Assets/Icons/logo_branca.png" alt=""></a>
 
 
-            <div>
-                <a href="home.html">Home</a>
-                <a href="dashboard.html">Dashboard</a>
-                <a href="#">Relatórios</a>
-                <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
-            </div>
+        <div>
+            <a href="home.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="#">Relatórios</a>
+            <img src="Assets/Icons/perfil.png" alt="" onclick="direcionar_perfil()">
         </div>
+    </div>
+    <div id="container" class="container">
         <div class="dados">
             <div class="titulos">
                 <div class="nome_apa">
@@ -116,8 +116,13 @@
 
 </html>
 
-<script>
 
+<script>
+if(sessionStorage.Atividade == "Inativo"){
+
+container.innerHTML =  '<div class = "error"><h6>A sua área de monitoramento ainda está inativa, os sensores não foram posicionados </h6><br><br><img src = "../site_institucional/assets/icon/logo_preta.png">  <a href = "./home_dash.html">Voltar para a seleção</a> </div> ';
+
+    }else{
     async function listar_dados() {
         var select = select_situacao.value
         var idOrgao = sessionStorage.idOrgao
@@ -179,8 +184,10 @@
         }
     }
 
+    listar_dados()
+    }
     function direcionar_perfil() {
-
+    
         var nivel = sessionStorage.nivelusuario
         console.log(nivel)
         if (nivel == 1) {
