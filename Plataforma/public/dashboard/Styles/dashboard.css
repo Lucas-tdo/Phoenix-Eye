@@ -152,7 +152,7 @@ body {
 
 #container #cabecalho a {
     position: absolute;
-    left: 30px;
+    right: 30px;
 }
 
 #container #cabecalho a img {

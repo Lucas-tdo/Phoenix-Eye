@@ -116,13 +116,14 @@
 
 </html>
 
+<script src="alerta.js"></script>
 
 <script>
 if(sessionStorage.Atividade == "Inativo"){
 
 container.innerHTML =  '<div class = "error"><h6>A sua área de monitoramento ainda está inativa, os sensores não foram posicionados </h6><br><br><img src = "../site_institucional/assets/icon/logo_preta.png">  <a href = "./home_dash.html">Voltar para a seleção</a> </div> ';
 
-    }else{
+    }
     async function listar_dados() {
         var select = select_situacao.value
         var idOrgao = sessionStorage.idOrgao
@@ -185,7 +186,7 @@ container.innerHTML =  '<div class = "error"><h6>A sua área de monitoramento ai
     }
 
     listar_dados()
-    }
+    
     function direcionar_perfil() {
     
         var nivel = sessionStorage.nivelusuario

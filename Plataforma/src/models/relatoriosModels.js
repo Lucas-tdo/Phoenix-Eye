@@ -8,7 +8,7 @@ function listar_dados(id,situacao,de,ate){
         join Area a on
         s.fkArea= a.idArea
         where a.FkMonitoramento=${id}
-        order by dtMedicao desc limit 100 ;
+        order by dtMedicao desc limit 300 ;
         `;
     }
     else if(situacao=="Todos" && de!="vazio" && ate!="vazio"){
