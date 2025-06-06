@@ -356,8 +356,19 @@
         var nome = input_nome.value
         var email = input_email.value
         var senha = input_senha.value
+
         if (nome == '' || email == '' || senha == '') {
-            alert('Erro')
+            alert('Erro! Preencha todos os campos')
+        } else if (nome.length > 40) {
+            alert("Erro! o nome tem que ter no máximo 40 caracteres")
+        } else if (email != email.toLowerCase()) {
+            alert("Erro! o email não pode possuir letras maiúsculas")
+        } else if (!(email.includes('@'))) {
+            alert("Erro! o email deve possuir '@'")
+        } else if (!(email.includes('.'))) {
+            alert("Erro! O email deve possuir '.'")
+        } else if (senha.length < 7) {
+            alert("Erro! a senha deve ter pelo menos 8 dígitos")
         }
         else {
             fetch(`/perfil/checar_email/${email}`, {
@@ -380,14 +391,16 @@
                 .catch(erro => {
                     console.log(erro)
                 })
+
+
+            input_nome.value = ""
+            input_email.value = ""
+            input_senha.value = ""
+            ocultarCadastros()
         }
     }
 
-
-
-
     //listarapas
-
 
     function cadastrar_apa() {
         const form = new FormData()
