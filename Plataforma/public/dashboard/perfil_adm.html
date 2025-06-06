@@ -242,17 +242,29 @@
         }
     }
 
-
-
-
     function cadastrar_orgao() {
         var nome = input_nome.value
         var telefone = input_telefone.value
         var cnpj = input_cnpj.value
         var email = input_email.value
         var senha = input_senha.value
+
         if (nome == "" || telefone == "" || cnpj == "" || email == "" || senha == "") {
             alert("Erro todos os campos devem estar preenchidos")
+        } else if (nome.length > 20) {
+            alert("Erro! o nome tem que ter no máximo 20 caracteres")
+        } else if (telefone.length != 11) {
+            alert("Erro! o telefone deve ter 11 dígitos")
+        } else if (cnpj.length != 14) {
+            alert("Erro! o CNPJ deve ter 14 dígitos")
+        } else if (email != email.toLowerCase()) {
+            alert("Erro! o email não pode possuir letras maiúsculas")
+        } else if (!(email.includes('@'))) {
+            alert("Erro! o email deve possuir '@'")
+        } else if (!(email.includes('.'))) {
+            alert("Erro! O email deve possuir '.'")
+        } else if (senha.length < 7) {
+            alert("Erro! a senha deve ter pelo menos 8 dígitos")
         }
         else {
             fetch("/perfil/cadastrar_orgao", {
@@ -270,11 +282,20 @@
             })
                 .then(resposta => {
                     listarorgao()
+
                 })
                 .catch(erro => {
                     console.log(erro)
                 })
+
+                
+            input_nome.value = ""
+            input_telefone.value = ""
+            input_cnpj.value = ""
+            input_email.value = ""
+            input_senha.value = ""
             ocultarCadastros()
+
         }
 
     }
