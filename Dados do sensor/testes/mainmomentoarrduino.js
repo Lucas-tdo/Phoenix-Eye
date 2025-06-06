@@ -65,21 +65,20 @@ const serial = async (
             // 
             var situacao = "";
 
-            if (sensorUmid > 40 && sensorTemp < 34) {
+            var tempAtual =sensorTemp +  11;
+            var umidAtual = sensorUmid - 10;
+
+            if (umidAtual > 40 && tempAtual < 34) {
                 situacao = "Normal"
-            } else if (sensorTemp > 47) {
-                situacao = "Incêndio"
-            } else if (sensorUmid < 20 || sensorTemp > 38) {
-                situacao = "Perigo"
             } else {
                 situacao = "Alerta"
             }
             //  dados na tabela "medida"
             await poolBancoDados.execute(
                 `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1,  ?)`,
-                [sensorUmid, sensorTemp, situacao]
+                [umidAtual, tempAtual, situacao]
             );
-            console.log("valores inseridos no banco: ", sensorUmid + ", " + sensorTemp + ',' + situacao);
+            console.log("valores inseridos no banco: ", umidAtual + ", " + tempAtual + ',' + situacao);
 
             // Sensores fictícios (idSensor de 2 até 35)
             for (let idSensor = 2; idSensor < 33; idSensor++) {
@@ -88,29 +87,13 @@ const serial = async (
                 var umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.5) {
+                if ((parseInt(Math.random() * 1000).toFixed(1)) >= 998.5) {
                     temperaturaFake = 35;
                 }
 
 
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.5) {
+                if ((parseInt(Math.random() * 1000).toFixed(1)) >= 998.5) {
                     umidadeFake = 39;
-                }
-
-
-                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 98.9) {
-                    temperaturaFake = 38;
-                }
-
-
-                if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
-                    umidadeFake = 20;
-                }
-
-
-                 if ((parseInt(Math.random() * 100).toFixed(1)) >= 99) {
-                    temperaturaFake = 15;
-                    umidadeFake = 49;
                 }
 
 

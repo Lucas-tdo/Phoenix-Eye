@@ -1,8 +1,11 @@
 // importa os bibliotecas necessários
-
+const serialport = require('serialport');
 const express = require('express');
 const mysql = require('mysql2');
 
+// constantes para configurações
+const SERIAL_BAUD_RATE = 9600;
+const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
@@ -12,6 +15,7 @@ const serial = async (
     valoresSensorTemp,
     valoresSensorUmid,
 ) => {
+
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
@@ -24,50 +28,113 @@ const serial = async (
     ).promise();
 
     // lista as portas seriais disponíveis e procura pelo Arduino
+    const portas = await serialport.SerialPort.list();
+    const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
+    if (!portaArduino) {
+        throw new Error('O arduino não foi encontrado em nenhuma porta serial');
+    }
 
+    // configura a porta serial com o baud rate especificado
+    const arduino = new serialport.SerialPort(
+        {
+            path: portaArduino.path,
+            baudRate: SERIAL_BAUD_RATE
+        }
+    );
 
+    // evento quando a porta serial é aberta
+    arduino.on('open', () => {
+        console.log(`A leitura do arduino foi iniciada na porta ${portaArduino.path} utilizando Baud Rate de ${SERIAL_BAUD_RATE}`);
+    });
 
     // processa os dados recebidos do Arduino
+    arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
+        console.log(data);
+        const valores = data.split(';');
+        const sensorUmid = parseFloat(valores[0]);
+        const sensorTemp = parseFloat(valores[1]);
 
+        // armazena os valores dos sensores nos arrays correspondentes
+        valoresSensorTemp.push(sensorUmid);
+        valoresSensorUmid.push(sensorTemp);
 
-    // armazena os valores dos sensores nos arrays correspondentes
+        // insere os dados no banco de dados (se habilitado)
+        if (HABILITAR_OPERACAO_INSERIR) {
 
-    valoresSensorTemp.push(2222);
-    valoresSensorUmid.push(3333);
+            // este insert irá inserir os
+            // 
+            var situacao = "";
 
-    // insere os dados no banco de dados (se habilitado)
-    if (HABILITAR_OPERACAO_INSERIR) {
+            var tempAtual =sensorTemp +  11;
+            var umidAtual = sensorUmid - 10;
 
-
-
-        // este insert irá inserir os dados na tabela "medida"
-        await poolBancoDados.execute(
-            `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1, "Normal")`,
-            [20.0, 50]
-        );
-        console.log("valores inseridos no banco: ", 20.0 + ", " + 50);
-
-        // Sensores fictícios (idSensor de 2 até 35)
-        for (var idSensor = 2; idSensor <= 32; idSensor++) {
-            // Geração de valores aleatórios
-            const temperaturaFake = parseFloat(((Math.random() * 7) + 27).toFixed(1)); // entre 27.0 e 33.0
-            const umidadeFake = parseFloat(((Math.random() * 39) + 40).toFixed(1));     // entre 40.0 e 80.0
-            var situacao = "Normal";
-            if(temperaturaFake > 34 || umidadeFake < 40) {
-                situacao = "Alerta";
+            if (umidAtual > 40 && tempAtual < 34) {
+                situacao = "Normal"
+            } else {
+                situacao = "Alerta"
             }
-
-            // Inserção no banco
+            //  dados na tabela "medida"
             await poolBancoDados.execute(
-                `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ? , ?)`,
-                [temperaturaFake, umidadeFake, idSensor , situacao ]
+                `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, 1,  ?)`,
+                [umidAtual, tempAtual, situacao]
             );
-            console.log("Valores reais e simulados inseridos no banco com sucesso: ", temperaturaFake + ", " + umidadeFake + ", " + situacao);
+            console.log("valores inseridos no banco: ", umidAtual + ", " + tempAtual + ',' + situacao);
+
+            // Sensores fictícios (idSensor de 2 até 35)
+            for (let idSensor = 2; idSensor < 33; idSensor++) {
+                // Geração de valores aleatórios
+                var temperaturaFake = parseFloat(((Math.random() * 6) + 27).toFixed(1)); // entre 27.0 e 33.0
+                var umidadeFake = parseFloat(((Math.random() * 40) + 40).toFixed(1));     // entre 40.0 e 80.0
+
+
+                if ((parseInt(Math.random() * 1000).toFixed(1)) >= 998.5) {
+                    temperaturaFake = 35;
+                }
+
+
+                if ((parseInt(Math.random() * 1000).toFixed(1)) >= 998.5) {
+                    umidadeFake = 39;
+                }
+
+
+
+                var situacao = "";
+
+                if (umidadeFake > 40 && temperaturaFake < 34) {
+                    situacao = "Normal"
+                } else if (temperaturaFake > 47) {
+                    situacao = "Incêndio"
+                } else if (umidadeFake < 20 || temperaturaFake > 38) {
+                    situacao = "Perigo"
+                } else {
+                    situacao = "Alerta"
+                }
+
+
+           
+
+
+
+
+                // Inserção no banco
+                await poolBancoDados.execute(
+                    `INSERT INTO Dados VALUES (DEFAULT, ?, ?, DEFAULT, ?, ?)`,
+                    [temperaturaFake, umidadeFake, idSensor, situacao]
+                );
+
+            }
+            console.log("Valores reais e simulados inseridos no banco com sucesso.");
+
+
         }
 
-    }
-}
+    });
 
+    // evento para lidar com erros na comunicação serial
+    arduino.on('error', (mensagem) => {
+        console.error(`Erro no arduino (Mensagem: ${mensagem}`)
+    });
+}
 
 // função para criar e configurar o servidor web
 const servidor = (
@@ -84,7 +151,9 @@ const servidor = (
     });
 
     // inicia o servidor na porta especificada
-
+    app.listen(SERVIDOR_PORTA, () => {
+        console.log(`API executada com sucesso na porta ${SERVIDOR_PORTA}`);
+    });
 
     // define os endpoints da API para cada tipo de sensor
     app.get('/sensores/temperatura', (_, response) => {
@@ -102,16 +171,14 @@ const servidor = (
     const valoresSensorUmid = [];
 
     // inicia a comunicação serial
+    await serial(
+        valoresSensorTemp,
+        valoresSensorUmid
+    );
 
     // inicia o servidor web
     servidor(
         valoresSensorTemp,
         valoresSensorUmid
     );
-    setInterval(async () => {
-        await serial(
-            valoresSensorTemp,
-            valoresSensorUmid
-        );
-    }, 3000);
 })();
