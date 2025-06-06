@@ -5,7 +5,7 @@ DROP DATABASE PhoenixEye;
 CREATE TABLE Orgao (
     idOrgao INT PRIMARY KEY AUTO_INCREMENT,
     orgao VARCHAR(45) NOT NULL,
-    cnpj CHAR(15) NOT NULL,
+    cnpj CHAR(18) NOT NULL,
     telefone CHAR(11) NOT NULL,
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(20) NOT NULL
@@ -81,23 +81,18 @@ CREATE TABLE Acesso(
 
 -- Inserindo um orgão
 INSERT INTO Orgao VALUES 
-(DEFAULT, 'Corpo de Bombeiros', '12345678000199', '11999998888', 'Corpodebombeiro@gov.br', 'Urubu100@');
+(DEFAULT, 'Corpo de Bombeiros', '04.378.330/0001-76', '1130370113', 'Corpodebombeiro@gov.br', 'Urubu100@');
 
 -- Inserindo usuários
 INSERT INTO Usuario VALUES 
 (DEFAULT, 'Guilherme', 'guilhermeM@sptech.school', 'Senha_133', 1, null),
 (DEFAULT, 'Juan', 'juanviera@sptech.school', 'Urubu100@', 2, 1);
 
-DELETE FROM Usuario WHERE idUsuario = 4;
-SELECT * FROM Usuario;
-
-SELECT * FROM Acesso;
-
-SELECT * FROM Monitoramento;
 
 INSERT INTO Monitoramento VALUES
-(DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
+(DEFAULT , 'Area Verde 3' ,"../dashboard/Assets/APAs/2025-5-31_1_46_7.jpg",'Aprovado',1,'Ativo');
 
+select * FROM Monitoramento;
 SHOW TABLES;
 
 SELECT * FROM Monitoramento;
@@ -155,6 +150,7 @@ INSERT INTO Area VALUES
 (DEFAULT, 'I', 1, 1), (DEFAULT, 'I', 2, 1), (DEFAULT, 'I', 3, 1),
 (DEFAULT, 'I', 4, 1), (DEFAULT, 'I', 5, 1), (DEFAULT, 'I', 6, 1),
 (DEFAULT, 'I', 7, 1), (DEFAULT, 'I', 8, 1), (DEFAULT, 'I', 9, 1);
+
 
 -- Inserindo sensores
 
