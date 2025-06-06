@@ -598,7 +598,11 @@
 
     function voltar() {
 
-        window.location.href = "./dashboard.html"
+        if(sessionStorage.idMonitoramento == undefined){
+            window.location.href = "./home_dash.html"
+        }else{
+            window.location.href = "./dashboard.html"
+        }
 
     }
 

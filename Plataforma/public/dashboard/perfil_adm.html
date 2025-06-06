@@ -251,12 +251,12 @@
 
         if (nome == "" || telefone == "" || cnpj == "" || email == "" || senha == "") {
             alert("Erro todos os campos devem estar preenchidos")
-        } else if (nome.length > 20) {
-            alert("Erro! o nome tem que ter no máximo 20 caracteres")
+        } else if (nome.length > 45) {
+            alert("Erro! o nome tem que ter no máximo 45 caracteres")
         } else if (telefone.length != 11) {
             alert("Erro! o telefone deve ter 11 dígitos")
-        } else if (cnpj.length != 14) {
-            alert("Erro! o CNPJ deve ter 14 dígitos")
+        } else if (cnpj.length != 18) {
+            alert("Erro! o CNPJ deve ter 18  dígitos")
         } else if (email != email.toLowerCase()) {
             alert("Erro! o email não pode possuir letras maiúsculas")
         } else if (!(email.includes('@'))) {
@@ -491,6 +491,7 @@
     }
 
     function voltar() {
+
         window.location.href = "./dashboard.html"
 
     }

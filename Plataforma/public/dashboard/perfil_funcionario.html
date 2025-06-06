@@ -138,7 +138,7 @@
                         <div>
                             <img src="${resp.Imagem}" class="imagem_APA">
                             <p>${resp.Nome_Atribuido}</p>
-                            <p>20</p>
+                            <p>32</p>
                         </div>
                    `
                     }
@@ -154,7 +154,11 @@
 
     function voltar() {
 
-        window.location.href = "./dashboard.html"
+        if (sessionStorage.idMonitoramento == undefined) {
+            window.location.href = "./home_dash.html"
+        } else {
+            window.location.href = "./dashboard.html"
+        }
 
     }
 
@@ -164,4 +168,3 @@
     }
 
 </script>
-

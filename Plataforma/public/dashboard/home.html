@@ -31,10 +31,10 @@
         <!-- Cabeçalho -->
         <div id="cabecalho">
 
-                <a id="teste" href="home_dash.html"><img src="Assets/Icons/alterar_apa.png"></a>
+            <a id="teste" href="home_dash.html"><img src="Assets/Icons/alterar_apa.png"></a>
 
-                <p id="saudacoes">Olá, <span id="nome_usuario"></span>!</p>
-                <p id="apa_selecionada">APA selecionada: <span id="nome_apa"></span></p>
+            <p id="saudacoes">Olá, <span id="nome_usuario"></span>!</p>
+            <p id="apa_selecionada">APA selecionada: <span id="nome_apa"></span></p>
 
         </div>
 
@@ -116,101 +116,111 @@
     console.log(sessionStorage.Atividade)
 
 
-    if(sessionStorage.Atividade == "Inativo"){
+    if (sessionStorage.Atividade == "Inativo") {
 
-        container.innerHTML =  '<div class = "error"><h6>A sua área de monitoramento ainda está inativa, os sensores não foram posicionados </h6><br><br><img src = "../site_institucional/assets/icon/logo_preta.png">  <a href = "./home_dash.html">Voltar para a seleção</a> </div>';
+        container.innerHTML = '<div class = "error"><h6>A sua área de monitoramento ainda está inativa, os sensores não foram posicionados </h6><br><br><img src = "../site_institucional/assets/icon/logo_preta.png">  <a href = "./home_dash.html">Voltar para a seleção</a> </div>';
 
-    }else{
+    } else {
 
-    async function buscar_dados() {
-        var idOrgao = sessionStorage.idOrgao;
-        var idMonitoramento = sessionStorage.idMonitoramento;
+        async function buscar_dados() {
+            var idOrgao = sessionStorage.idOrgao;
+            var idMonitoramento = sessionStorage.idMonitoramento;
 
-        console.log(idOrgao);
-        console.log(idMonitoramento)
+            console.log(idOrgao);
+            console.log(idMonitoramento)
 
-        const resp_apas = await fetch(`/medidas/listar_apas/${idOrgao}`);
-        const resposta_apa = await resp_apas.json();
-
-
-        const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${idMonitoramento}`)
-        const resp_cinco_dias = await dados_cinco_dias.json();
-
-        const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
-        const resp_dados = await resp.json();
+            const resp_apas = await fetch(`/medidas/listar_apas/${idOrgao}`);
+            const resposta_apa = await resp_apas.json();
 
 
-        var soma_avisos = (parseInt(resp_cinco_dias[0].alertas) + parseInt(resp_cinco_dias[0].incendios) + parseInt(resp_cinco_dias[0].perigos));
+            const dados_cinco_dias = await fetch(`/medidas/kpis_cinco_dias/${idMonitoramento}`)
+            const resp_cinco_dias = await dados_cinco_dias.json();
 
-        num_avisos.innerHTML = soma_avisos;
-        status_alerta.innerHTML = resp_cinco_dias[0].alertas
-        status_perigo.innerHTML = resp_cinco_dias[0].perigos
-        status_incendio.innerHTML = resp_cinco_dias[0].incendios
-
-        var nivel_user = sessionStorage.nivelusuario;
-
-        if (resp_cinco_dias[0].incendios > 0) {
+            const resp = await fetch(`/medidas/receber_dados/${idMonitoramento}`);
+            const resp_dados = await resp.json();
 
 
-            if (resp_cinco_dias[0].incendios > 1) {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> pontos de <span id="tipo_situaca">incêndio</span> detectados!`;
+            var soma_avisos = (parseInt(resp_cinco_dias[0].alertas) + parseInt(resp_cinco_dias[0].incendios) + parseInt(resp_cinco_dias[0].perigos));
+
+            num_avisos.innerHTML = soma_avisos;
+            status_alerta.innerHTML = resp_cinco_dias[0].alertas
+            status_perigo.innerHTML = resp_cinco_dias[0].perigos
+            status_incendio.innerHTML = resp_cinco_dias[0].incendios
+
+            var nivel_user = sessionStorage.nivelusuario;
+
+            if (resp_cinco_dias[0].incendios > 0) {
+
+
+                if (resp_cinco_dias[0].incendios > 1) {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> pontos de <span id="tipo_situaca">incêndio</span> detectados!`;
+                    msg_situacao.innerHTML = `É necessária a tomada de ação URGENTE!`
+
+                } else {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> ponto de <span id="tipo_situaca">incêndio</span> detectado!`;
+                    msg_situacao.innerHTML = `É necessária a tomada de ação URGENTE!`
+                }
+
+            } else if (resp_cinco_dias[0].perigos > 1) {
+
+
+                if (resp_cinco_dias[0].perigos > 1) {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> avisos de <span id="tipo_situaca">perigo</span> detectados!`;
+                    msg_situacao.innerHTML = `É necessária a tomada de ação!`
+
+                } else {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> aviso de <span id="tipo_situaca">perigo</span> detectado!`;
+                    msg_situacao.innerHTML = `É necessária a tomada de ação!`
+
+                }
+
+            } else if (resp_cinco_dias[0].alertas > 1) {
+
+                if (resp_cinco_dias[0].alertas > 1) {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> avisos de <span id="tipo_situaca">alertas</span> detectados!`;
+                    msg_situacao.innerHTML = `Temperatuta ou umidade fora dos normais<br> Verifique sua área de monitoramento!`
+                } else {
+                    status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> aviso de <span id="tipo_situaca">alerta</span> detectado!`;
+                    msg_situacao.innerHTML = `Temperatuta ou umidade fora dos normais<br> Verifique sua área de monitoramento!`
+
+                }
+
             } else {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].incendios}</span> ponto de <span id="tipo_situaca">incêndio</span> detectado!`;
+                status_situacao.innerHTML = `<span>Nenhum</span> aviso detectado detectado!`;
+                msg_situacao.innerHTML = `Temperatuta ou umidade fora dos normais<br> Verifique sua área de monitoramento!`
+
             }
 
-        } else if (resp_cinco_dias[0].perigos > 1) {
-
-
-            if (resp_cinco_dias[0].perigos > 1) {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> avisos de <span id="tipo_situaca">perigo</span> detectados!`;
-
+            if (nivel_user == 3) {
+                nome_usuario.innerHTML = resposta_apa[0].orgao
             } else {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].perigos}</span> aviso de <span id="tipo_situaca">perigo</span> detectado!`;
+                nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
             }
 
-        } else if (resp_cinco_dias[0].alertas > 1) {
+            nome_apa.innerHTML = resposta_apa[idMonitoramento - 1].Nome_Atribuido
 
-            if (resp_cinco_dias[0].alertas > 1) {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> avisos de <span id="tipo_situaca">alertas</span> detectados!`;
+            setTimeout(() => {
+                buscar_dados()
 
-            } else {
-                status_situacao.innerHTML = `<span>${resp_cinco_dias[0].alertas}</span> aviso de <span id="tipo_situaca">alerta</span> detectado!`;
-            }
+            }, 4000);
 
-        } else {
-            status_situacao.innerHTML = `<span>Nenhum</span> aviso detectado detectado!`;
         }
 
-        if (nivel_user == 3) {
-            nome_usuario.innerHTML = resposta_apa[0].orgao
-        } else {
-            nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
+        buscar_dados();
+
+    }
+    function direcionar_perfil() {
+
+        var nivel = sessionStorage.nivelusuario
+        if (nivel == 1) {
+            window.location.href = `./perfil_adm.html`
         }
-
-        nome_apa.innerHTML = resposta_apa[idMonitoramento - 1].Nome_Atribuido
-
-        setTimeout(() => {
-            buscar_dados()
-
-        }, 4000);
-
+        else if (nivel == 2) {
+            window.location.href = `./perfil_funcionario.html`
+        }
+        else {
+            window.location.href = `./perfil_orgao.html`
+        }
     }
-
-    buscar_dados();
-
-}
-function direcionar_perfil() {
-
-    var nivel = sessionStorage.nivelusuario
-    if (nivel == 1) {
-        window.location.href = `./perfil_adm.html`
-    }
-    else if (nivel == 2) {
-        window.location.href = `./perfil_funcionario.html`
-    }
-    else {
-        window.location.href = `./perfil_orgao.html`
-    }
-}
 
 </script>

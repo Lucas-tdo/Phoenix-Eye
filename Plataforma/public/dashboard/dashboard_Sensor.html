@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="Styles/dashboard_Sensor.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="../site institucional/novo/assets/imgs/Logo_com fundo.png" type="image/x-icon">
+
 </head>
 
 <body>
+    <div class="alerta" id="alerta"></div>
     <div class="nav">
 
         <a href=""><img src="Assets/Icons/logo_branca.png" alt=""></a>
@@ -52,7 +54,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
 
             <div class="Nome_Sensor">
@@ -66,13 +68,13 @@
                 <div class="Graf_Temp_Atuais">
                     <div>
                         <h4>Temperatura em tempo real</h4>
-                            <canvas id="myChart"></canvas>
-                        
+                        <canvas id="myChart"></canvas>
+
                     </div>
-                    <div>   </div>
+                    <div> </div>
                     <div>
-                        <h4>Umidade em tempo real</h4>  
-                            <canvas id="myChart2"></canvas>
+                        <h4>Umidade em tempo real</h4>
+                        <canvas id="myChart2"></canvas>
                     </div>
                 </div>
             </div>
@@ -81,7 +83,7 @@
 
                 <div class="historicoAtencao">
                     <h2>Ocorrências</h2>
-                        <div class="Ocorrencias" id="Ocorrencias"></div>
+                    <div class="Ocorrencias" id="Ocorrencias"></div>
                 </div>
             </div>
 
@@ -94,7 +96,7 @@
 
         </div>
     </div>
-        
+
 </body>
 
 </html>
@@ -123,7 +125,7 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 251, 8)',
                     backgroundColor: 'rgb(255, 251, 8)',
-                    pointRadius : 0
+                    pointRadius: 0
 
                 }
                 , {
@@ -132,7 +134,7 @@
                     borderWidth: 2,
                     borderColor: 'rgb(255, 0, 0)',
                     backgroundColor: 'rgb(255, 0, 0)',
-                    pointRadius : 0
+                    pointRadius: 0
 
                 }
                 , {
@@ -149,7 +151,7 @@
         options: {
             plugins: {
                 legend: {
-                    position: 'bottom',  
+                    position: 'bottom',
                     labels: {
                         padding: 30,
                         font: {
@@ -192,7 +194,7 @@
                     borderColor: 'rgb(255, 251, 8)',
                     backgroundColor: 'rgb(255, 251, 8)',
                     borderWidth: 1,
-                    pointRadius : 0
+                    pointRadius: 0
                 }, {
                     label: 'Alerta',
                     data: [],
@@ -200,7 +202,7 @@
                     borderColor: 'rgb(255, 123, 0)',
                     backgroundColor: 'rgb(255, 123, 0)',
                     borderWidth: 1,
-                    pointRadius : 0
+                    pointRadius: 0
                 },
                 {
                     label: 'Incêndio',
@@ -209,7 +211,7 @@
                     borderColor: 'rgb(255, 0, 0)',
                     backgroundColor: 'rgb(255, 0, 0)',
                     borderWidth: 1,
-                    pointRadius : 0
+                    pointRadius: 0
                 },
                 {
                     label: 'Temperatura',
@@ -241,7 +243,7 @@
                 x: {
                     ticks: {
                         color: 'rgb(26, 51, 32);'
-                        
+
                     }
                 },
                 y: {
@@ -279,18 +281,18 @@
         Temperatura.data.datasets[1].data = []
         Temperatura.data.datasets[2].data = []
         Temperatura.data.datasets[3].data = []
-        Temperatura.data.labels=[]
+        Temperatura.data.labels = []
         umidade.data.datasets[0].data = []
         umidade.data.datasets[1].data = []
         umidade.data.datasets[2].data = []
-        umidade.data.labels=[]
+        umidade.data.labels = []
         // var mes = String(data.getMonth() + 1).padStart(2, '0')
 
         for (dados of resp_dados) {
             let data = new Date(dados.dtMedicao)
             let hora = data.getHours()
-            let minuto = String(data.getMinutes()).padStart(2,'0')
-            let segundos = String(data.getSeconds()).padStart(2,'0')
+            let minuto = String(data.getMinutes()).padStart(2, '0')
+            let segundos = String(data.getSeconds()).padStart(2, '0')
             Temperatura.data.datasets[0].data.unshift(34)
             Temperatura.data.datasets[1].data.unshift(38)
             Temperatura.data.datasets[2].data.unshift(47)
@@ -344,10 +346,13 @@
 
         Ocorrencias.innerHTML = ``
 
-        for (i=0;i<=limite;i++) {
+        for (i = 0; i <= limite; i++) {
             var data = new Date(resp_dados[i].dtMedicao)
             var dia = String(data.getDate()).padStart(2, '0');
             var mes = String(data.getMonth() + 1).padStart(2, '0')
+            let hora = data.getHours()
+            let minuto = String(data.getMinutes()).padStart(2, '0')
+            let segundos = String(data.getSeconds()).padStart(2, '0')
             var ano = data.getFullYear()
             if (resp_dados[i].Situacao_dado == "Alerta") {
                 Ocorrencias.innerHTML += `
@@ -357,7 +362,7 @@
                             <h3>Alerta de temperatura</h3>
                             <p>Temperatura em medidas críticas!. <br> Necessária tomada urgente de ação!</p>
                             <div>
-                                <p>Data: <b>${dia}/${mes}/${ano}</b></p>
+                                <p>Data: <b>${dia}/${mes}/${ano} ${hora}:${minuto}:${segundos}</b></p>
                             </div>
                         </div>
                 </div>
@@ -394,12 +399,12 @@
                 `
             }
         }
-        if(limite<resp_dados.length){
+        if (limite < resp_dados.length) {
             Ocorrencias.innerHTML += `<h5 onclick="Vermais()" style="cursor: pointer;">Ver mais...</h5>`
         }
     }
 
-    
+
 
 
     function chamar() {
