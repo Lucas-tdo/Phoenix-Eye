@@ -8,34 +8,8 @@
     font-style: normal;
 }
 
-
-    /* Mensagem de erro */
-
-
-    .error{
-    display:  flex;
-    width: 100%;
-    height: 90vh;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-}
-
-.error h6{
-    font-size: 40px;
-    width: 70%;
-    text-align: center;
-    color: #1A3421;
-}
-
-.error a{
-    color: #1A3421;
-    font-size: 40px;
-}
-
-.error img{
-    height: 200px;
-    width: 200px;
+body {
+    background-image: url();
 }
 
 /* alerta css */
@@ -111,6 +85,7 @@
 .nav img {
     height: 80px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .nav div {
@@ -123,7 +98,6 @@
 }
 
 .nav div a {
-
     color: white;
     text-decoration: none;
     font-weight: 600;
@@ -133,6 +107,7 @@
 .nav div img {
     height: 50px;
 }
+
 
 /* Container */
 
@@ -144,6 +119,16 @@
     background-image: url('../../site_institucional/assets/imgs/Fundo\ site\ institucional.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#container #cabecalho a {
+    position: absolute;
+    left: 30px;
+}
+
+#container #cabecalho a img{
+    width: 80px;
+    height: 80px;
 }
 
 
@@ -171,8 +156,7 @@
 
 .statusText {
     width: 15%;
-    font-size: 25
-    px;
+    font-size: 25px;
     text-align: left;
     margin-left: 5%;
 }
@@ -314,7 +298,7 @@
     justify-content: space-around;
     align-items: center;
     padding-bottom: 30px;
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .areaGrid{
@@ -501,7 +485,7 @@
 .KPI-Sensores{
     display: flex;
     width: 50%;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
     align-items: center;
 }
@@ -631,12 +615,10 @@
 
 }
 
-
-
 #cards_status .card {
     background-color: #194825;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     border-radius: 20px;
     box-shadow: 7px 7px 20px black;
     display: flex;
@@ -648,12 +630,13 @@
 }
 
 .card #avisos_dia {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
+    margin-top: 15px;
 }
 
 .card #num_avisos {
-    font-size: 150px;
+    font-size: 100px;
     font-weight: 700;
 }
 
@@ -666,8 +649,8 @@
 }
 
 .card #status_avisos .status {
-    width: 110px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -677,7 +660,7 @@
 }
 
 .card #status_avisos .status .titulo_status {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -708,13 +691,13 @@
 }
 
 .card #conteudo #titulo_situacao {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 .card #conteudo #status_situacao { 
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 700;
     width: 300px;
     margin-top: 60px;
@@ -726,7 +709,7 @@
 }
 
 .card #conteudo #msg_situacao { 
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 300;
     width: 300px;
     margin-bottom: 60px;
