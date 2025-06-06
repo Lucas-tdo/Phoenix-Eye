@@ -12,37 +12,66 @@ body {
     background-image: url();
 }
 
+    /* Exibir tela de erro */
+
+.error {
+    display: flex;
+    width: 100%;
+    height: 90vh;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error h6 {
+    font-size: 40px;
+    width: 70%;
+    text-align: center;
+    color: #1A3421;
+}
+
+.error a {
+    color: #1A3421;
+    font-size: 40px;
+}
+
+.error img {
+    height: 200px;
+    width: 200px;
+}
+
+
 /* alerta css */
 
-#sair{
+#sair {
     width: 40px;
     height: 40px;
     cursor: pointer;
 }
 
-.alerta{
-    box-sizing:border-box;
+.alerta {
+    box-sizing: border-box;
     display: block;
     position: absolute;
     min-height: 200px;
-    min-width: 300px;   
+    min-width: 300px;
     top: 5%;
     left: 2%;
     gap: 1rem;
     padding: 1rem;
     flex-direction: column;
-    height:290px ;
+    height: 290px;
     width: 300px;
 }
 
-.alerta img{
+.alerta img {
     position: relative;
     width: 50px;
     height: 50px;
-    margin:10px;
+    margin: 10px;
 }
 
-.alerta div{
+.alerta div {
     display: flex;
     position: absolute;
     border: #091D0E solid 4px;
@@ -54,13 +83,13 @@ body {
     width: 100%;
 }
 
-.alerta h1{
+.alerta h1 {
     font-size: 15px;
     text-align: center;
     margin-bottom: 10px;
 }
 
-.alerta div div{
+.alerta div div {
     position: relative;
     border: none;
     display: flex;
@@ -126,7 +155,7 @@ body {
     left: 30px;
 }
 
-#container #cabecalho a img{
+#container #cabecalho a img {
     width: 80px;
     height: 80px;
 }
@@ -291,7 +320,7 @@ body {
 /* Graficos */
 
 
-.Graficos{
+.Graficos {
     margin-left: 25%;
     display: flex;
     width: 70%;
@@ -301,7 +330,7 @@ body {
     margin-top: 2%;
 }
 
-.areaGrid{
+.areaGrid {
     display: flex;
     background-size: cover;
     width: 400px;
@@ -309,11 +338,12 @@ body {
     flex-direction: column;
 }
 
-.areaGrid div{
+.areaGrid div {
     display: flex;
     flex-direction: row;
 }
-.areaGrid div div{
+
+.areaGrid div div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,15 +353,15 @@ body {
 
 }
 
-.areaGrid div div img{
+.areaGrid div div img {
     height: 30px;
 }
 
-#myChart{
+#myChart {
     height: 360px;
 }
 
-.div_grafico{
+.div_grafico {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,12 +369,12 @@ body {
     flex-direction: column;
 }
 
-.div_grafico h1{
+.div_grafico h1 {
     color: #194825;
     font-size: 40px;
 }
 
-.indicadores_grafico{
+.indicadores_grafico {
     display: flex;
     width: 800px;
     margin-right: 90px;
@@ -352,7 +382,7 @@ body {
     align-items: center;
 }
 
-.indicadores_grafico div{
+.indicadores_grafico div {
     display: flex;
     background-color: blanchedalmond;
     width: 200px;
@@ -364,7 +394,7 @@ body {
     flex-direction: column;
 }
 
-.indicadores_grafico div div{
+.indicadores_grafico div div {
     display: flex;
     flex-direction: column;
     flex-direction: row;
@@ -375,39 +405,39 @@ body {
 .indicadores_grafico #termometro {
     height: 35px;
     width: 40px;
-    margin: 0px 0px 50px -180px ;
+    margin: 0px 0px 50px -180px;
 }
 
 .indicadores_grafico #umidade {
     height: 35px;
     width: 40px;
-    margin: 35px 0px 0px -38px ;
+    margin: 35px 0px 0px -38px;
 }
 
 .indicadores_grafico #metrica {
     height: 70px;
     width: 70px;
-    margin: 0px 0px 0px 100px ;
+    margin: 0px 0px 0px 100px;
 }
 
-.indicadores_grafico h1{
+.indicadores_grafico h1 {
     font-size: 20px;
 }
 
-.indicadores_grafico img{
+.indicadores_grafico img {
     height: 60px;
     width: 60px;
 }
 
-.indicadores_grafico h4{
+.indicadores_grafico h4 {
     font-size: 30px;
 }
 
 
-    /* Sensores */
+/* Sensores */
 
 /*     Listagem dos Sensores: */
-.Sensores{
+.Sensores {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -417,7 +447,7 @@ body {
     margin-top: 8%;
 }
 
-.listSensores{
+.listSensores {
     display: flex;
     flex-direction: column;
     width: 35%;
@@ -425,12 +455,12 @@ body {
 
 }
 
-.listSensores h2{
+.listSensores h2 {
     color: #1A3421;
     font-size: 50px;
 }
 
-.Tabela_sensores{
+.Tabela_sensores {
     display: flex;
     margin-top: 10px;
     background-color: #091D0E;
@@ -439,15 +469,15 @@ body {
     margin-left: 60px;
     height: 500px;
     width: 120%;
-    
+
 }
 
-.Tabela_sensores h1{
+.Tabela_sensores h1 {
     color: white;
     font-size: 20px;
 }
 
-.Tabela_sensores div{
+.Tabela_sensores div {
     display: flex;
     padding: 10px 0;
     align-items: center;
@@ -456,20 +486,20 @@ body {
     transition: 0.5s;
 }
 
-.Tabela_sensores div:hover{
+.Tabela_sensores div:hover {
     background-color: #425647;
     transform: scale(1.05);
 }
 
-.Perigo{
+.Perigo {
     color: rgb(255, 39, 39);
 }
 
-.Alerta{
+.Alerta {
     color: rgb(202, 202, 23);
 }
 
-.Inativo{
+.Inativo {
     color: rgb(180, 180, 180);
 }
 
@@ -480,9 +510,9 @@ body {
 
 }
 
-    /* Atenção aos sensores */
+/* Atenção aos sensores */
 
-.KPI-Sensores{
+.KPI-Sensores {
     display: flex;
     width: 50%;
     align-items: center;
@@ -490,7 +520,7 @@ body {
     align-items: center;
 }
 
-.AtencaoSensores{
+.AtencaoSensores {
     display: flex;
     border-radius: 20px;
     align-items: center;
@@ -502,12 +532,12 @@ body {
     width: 80%;
 }
 
-.AtencaoSensores h1{
+.AtencaoSensores h1 {
     font-size: 40px;
     color: #091D0E;
 }
 
-.lista_Atencao{
+.lista_Atencao {
     display: flex;
     flex-direction: column;
     padding: 10px 0;
@@ -517,7 +547,7 @@ body {
     width: 100%;
 }
 
-.lista_Atencao div{
+.lista_Atencao div {
     margin-top: 30px;
     display: flex;
     background-color: #1A3421;
@@ -531,16 +561,16 @@ body {
 }
 
 
-.lista_Atencao div:hover{
+.lista_Atencao div:hover {
     background-color: #425647;
     transform: scale(1.05);
 }
 
-.lista_Atencao div img{
+.lista_Atencao div img {
     height: 40%;
 }
 
-.lista_Atencao div div{
+.lista_Atencao div div {
     display: flex;
     background-color: transparent;
     display: flex;
@@ -553,21 +583,21 @@ body {
     flex-direction: column;
 }
 
-.lista_Atencao div div h1{
+.lista_Atencao div div h1 {
     font-size: 30px;
     color: white;
 }
 
-.lista_Atencao div div p{
+.lista_Atencao div div p {
     font-size: 20px;
     font-weight: 600;
 }
 
-.lista_Atencao h4{
+.lista_Atencao h4 {
     font-size: 20px;
-    color:#1A3421 ;
+    color: #1A3421;
     text-decoration: un;
-    
+
 }
 
 /* HOME DASHBOARD */
@@ -664,7 +694,7 @@ body {
     font-weight: 600;
 }
 
-.card #status_avisos .status .icon{
+.card #status_avisos .status .icon {
     width: 100%;
     height: 40px;
     display: flex;
@@ -673,10 +703,10 @@ body {
     font-size: 30px;
     font-weight: 600;
     gap: 10px;
-    
+
 }
 
-.card #status_avisos .status img{
+.card #status_avisos .status img {
     width: 30px;
     height: 30px;
 }
@@ -696,7 +726,7 @@ body {
     margin-top: 30px;
 }
 
-.card #conteudo #status_situacao { 
+.card #conteudo #status_situacao {
     font-size: 22px;
     font-weight: 700;
     width: 300px;
@@ -704,11 +734,11 @@ body {
     margin-bottom: 15px;
 }
 
-.card #conteudo #status_situacao span { 
+.card #conteudo #status_situacao span {
     color: #e90707;
 }
 
-.card #conteudo #msg_situacao { 
+.card #conteudo #msg_situacao {
     font-size: 20px;
     font-weight: 300;
     width: 300px;
@@ -723,7 +753,7 @@ body {
 
 }
 
-.interrogacao{
+.interrogacao {
     position: fixed;
     height: 10px;
     width: 10px;
@@ -731,12 +761,12 @@ body {
     margin-top: 530px;
 }
 
-.interrogacao img{
+.interrogacao img {
     height: 100px;
     width: 100px;
     transition: 1s;
 }
 
-.interrogacao img:hover{
+.interrogacao img:hover {
     transform: scale(1.1);
 }
