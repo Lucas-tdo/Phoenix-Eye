@@ -405,21 +405,22 @@
     function cadastrar_apa() {
 
         var nome = nome_apa.value
-        var foto = document.getElementById("foto").files[0]
         var descricao = descricao_apa.value
 
-        const form = new FormData()
-        form.append('foto', foto.files[0])
-        form.append('nome', nome_apa.value)
-        form.append('idempresa', empresa)
+        
 
 
-        if (nome == "" || !foto || descricao == "") {
+        if (nome == "" || descricao == "") {
             alert("Erro! Preencha todos os campos")
         } else if (nome.length > 25) {
             alert("Erro! nome da APA deve ter máximo de 25 caracteres.")
         }
         else {
+
+            const form = new FormData()
+            form.append('foto', foto.files[0])
+            form.append('nome', nome_apa.value)
+            form.append('idempresa', empresa)
             fetch("/perfil/cadastrar_apa", {
                 method: "POST",
                 body: form,

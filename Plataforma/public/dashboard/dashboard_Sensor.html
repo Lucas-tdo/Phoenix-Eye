@@ -283,12 +283,13 @@
         umidade.data.datasets[1].data = []
         umidade.data.datasets[2].data = []
         umidade.data.labels=[]
+        // var mes = String(data.getMonth() + 1).padStart(2, '0')
 
         for (dados of resp_dados) {
             let data = new Date(dados.dtMedicao)
             let hora = data.getHours()
-            let minuto = data.getMinutes()
-            let segundos = data.getSeconds()
+            let minuto = String(data.getMinutes()).padStart(2,'0')
+            let segundos = String(data.getSeconds()).padStart(2,'0')
             Temperatura.data.datasets[0].data.unshift(34)
             Temperatura.data.datasets[1].data.unshift(38)
             Temperatura.data.datasets[2].data.unshift(47)
