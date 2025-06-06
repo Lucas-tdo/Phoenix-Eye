@@ -106,7 +106,7 @@
                             <a onclick="ocultarCadastros()" style="cursor: pointer;">
                                 <img src="Assets/Icons/seta.webp">
                             </a>
-                            <button onclick="cadastrar_apa()">Cadastrar</button>
+                            <button onclick="cadastrar_apa()">Solicitar</button>
                             <div></div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                 <div class="APAs_Acoes">
                     <div onclick=" abrirCadastroAPAs()" style="cursor: pointer;">
                         <img src="Assets/Icons/adicionar.png">
-                        <h1>Adicionar</h1>
+                        <h1>Solicitar</h1>
                     </div>
 
                 </div>
@@ -403,23 +403,41 @@
     //listarapas
 
     function cadastrar_apa() {
+
+        var nome = nome_apa.value
+        var foto = document.getElementById("foto").files[0]
+        var descricao = descricao_apa.value
+
         const form = new FormData()
         form.append('foto', foto.files[0])
         form.append('nome', nome_apa.value)
         form.append('idempresa', empresa)
 
-        fetch("/perfil/cadastrar_apa", {
-            method: "POST",
-            body: form,
-        })
-            .then(resposta => {
 
-                listarapas()
+        if (nome == "" || !foto || descricao == "") {
+            alert("Erro! Preencha todos os campos")
+        } else if (nome.length > 25) {
+            alert("Erro! nome da APA deve ter máximo de 25 caracteres.")
+        }
+        else {
+            fetch("/perfil/cadastrar_apa", {
+                method: "POST",
+                body: form,
             })
-            .catch(erro => {
-                console.log(erro)
-            })
-        ocultarCadastros()
+                .then(resposta => {
+
+                    listarapas()
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
+
+            nome_apa.value = ""
+            descricao_apa.value = ""
+            document.getElementById("foto").value = ""
+
+            ocultarCadastros()
+        }
 
     }
 
