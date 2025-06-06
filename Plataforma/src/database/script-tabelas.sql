@@ -27,7 +27,9 @@ CREATE TABLE Monitoramento (
     Imagem VARCHAR(255) NOT NULL,
     Status_Monitoramento VARCHAR(45) NOT NULL,
     FkOrgao INT NOT NULL,
+    atividade VARCHAR(45) DEFAULT 'Inativo',
     CONSTRAINT Validacao_Status CHECK (Status_Monitoramento in ('Aprovado' , 'Reprovado' , 'Em análise')),
+    CONSTRAINT CHK_Atividade CHECK (atividade IN ('Ativo','Inativo')),
     CONSTRAINT Chave_composta_monitoramento PRIMARY KEY (idMonitoramento, FkOrgao),
     CONSTRAINT Fk_Orgao_Monitoramento FOREIGN KEY (FkOrgao) REFERENCES Orgao(idOrgao)
 );
@@ -48,18 +50,6 @@ CREATE TABLE Sensor (
     fkArea INT,
     FOREIGN KEY (fkArea) REFERENCES Area(idArea)
 );
-
-UPDATE Sensor SET status_sensor = "Manutencao" WHERE idSensor = 3;
-
-
-
-
-SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade, Dados.dtMedicao 
-FROM  Monitoramento JOIN Area ON Monitoramento.idMonitoramento = Area.FkMonitoramento JOIN Sensor ON Sensor.fkArea = Area.idArea
-JOIN Dados ON Sensor.idSensor = Dados.fkSensor WHERE Situacao_dado in("Alerta" , "Perigo", "Incêndio") 
-AND dtMedicao between CURRENT_TIMESTAMP() -INTERVAL '10' SECOND AND CURRENT_TIMESTAMP() + INTERVAL '1' SECOND
- ORDER BY dtMedicao desc;
-
 
 
 CREATE TABLE Dados (
@@ -86,10 +76,7 @@ CREATE TABLE Acesso(
 	CONSTRAINT fk_Orgao_acesso FOREIGN KEY(fkOrgao) REFERENCES Orgao(idOrgao)
 );
 
-SELECT * FROM Acesso;
 
-INSERT INTO Acesso VALUES 
-(DEFAULT, 1, 2, 1 , DEFAULT);
 
 
 -- Inserindo um orgão
@@ -112,6 +99,8 @@ INSERT INTO Monitoramento VALUES
 (DEFAULT , 'Area Verde 3' , '','Aprovado' , 1);
 
 SHOW TABLES;
+
+SELECT * FROM Monitoramento;
 
 
 UPDATE Monitoramento SET Status_Monitoramento = "Aprovado" WHERE idMonitoramento = 2;
@@ -166,9 +155,6 @@ INSERT INTO Area VALUES
 (DEFAULT, 'I', 1, 1), (DEFAULT, 'I', 2, 1), (DEFAULT, 'I', 3, 1),
 (DEFAULT, 'I', 4, 1), (DEFAULT, 'I', 5, 1), (DEFAULT, 'I', 6, 1),
 (DEFAULT, 'I', 7, 1), (DEFAULT, 'I', 8, 1), (DEFAULT, 'I', 9, 1);
-
-
-SELECT * FROM Area;
 
 -- Inserindo sensores
 
@@ -377,7 +363,29 @@ SELECT Usuario.nome, Monitoramento.Nome_Atribuido ,Acesso.dataAcesso
 FROM Acesso JOIN Monitoramento ON fkMonitoramento = Monitoramento.idMonitoramento
 JOIN Usuario ON fkUsuario = Usuario.idUsuario 
 JOIN Orgao  ON Usuario.fkOrgao = Orgao.idOrgao 
-WHERE Usuario.fkOrgao = 1; 
+WHERE Usuario.fkOrgao = 1; SELECT 
+  sensor_id,
+  TIMESTAMPDIFF(SECOND, MIN(data_hora), MAX(data_hora)) / 3600 AS tempo_atividade_horas
+FROM sensores
+GROUP BY sensor_id;
+
+
+SELECT 
+  Sensor.idSensor,
+  Sensor.nome,
+  MIN(Dados.dtMedicao) AS inicio,
+  MAX(Dados.dtMedicao) AS fim,
+  TRUNCATE(TIMESTAMPDIFF(SECOND, MIN(Dados.dtMedicao), MAX(Dados.dtMedicao)) / 3600 , 1) AS tempo_atividade_horas
+FROM Sensor 
+JOIN Dados ON Dados.fkSensor = Sensor.idSensor
+GROUP BY Sensor.idSensor, Sensor.nome;
+
+
+SELECT Monitoramento.Nome_Atribuido, Sensor.nome, Dados.Situacao_dado, Dados.temperatura, Dados.umidade, DATE_FORMAT(Dados.dtMedicao,'%H:%i:%s')
+    FROM  Monitoramento JOIN Area ON Monitoramento.idMonitoramento = Area.FkMonitoramento JOIN Sensor ON Sensor.fkArea = Area.idArea
+    JOIN Dados ON Sensor.idSensor = Dados.fkSensor WHERE Situacao_dado in("Alerta" , "Perigo", "Incêndio") 
+    AND dtMedicao between CURRENT_TIMESTAMP() -INTERVAL '10' SECOND AND CURRENT_TIMESTAMP() + INTERVAL '1' SECOND AND fkOrgao = 1 
+    ORDER BY dtMedicao desc;
 
 SELECT Sensor.nome, Dados.Situacao_dado, Dados.dtMedicao FROM Dados
 JOIN Sensor ON Dados.fkSensor = Sensor.idSensor WHERE Situacao_dado IN ("Alerta", "Perigo", "Incêndio") AND Sensor.idSensor = 4 ;
