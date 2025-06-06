@@ -44,9 +44,9 @@ nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 70px;
+  gap: 100px;
   margin-right: 40px;
-  width: auto;
+  width: 700px;
 }
 
 .button a {
